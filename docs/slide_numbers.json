@@ -1,0 +1,153 @@
+{
+ "generated": "2026-11-14T21:15",
+ "numbers": {
+  "attention_atacama_yungay": {
+   "value": 223,
+   "source": "data/derived/attention.parquet (OpenAlex)"
+  },
+  "attention_harrat_khaybar": {
+   "value": 0,
+   "source": "data/derived/attention.parquet (OpenAlex)"
+  },
+  "attention_haughton_devon": {
+   "value": 130,
+   "source": "data/derived/attention.parquet (OpenAlex)"
+  },
+  "attention_lake_salda": {
+   "value": 14,
+   "source": "data/derived/attention.parquet (OpenAlex)"
+  },
+  "salda_footprint_percentile_vs_jezero": {
+   "value": 17.3913,
+   "source": "data/derived/validation_controls.parquet"
+  },
+  "haughton_L1_percentile": {
+   "value": 81.5,
+   "source": "data/derived/validation_controls.parquet"
+  },
+  "controls_expectations_met": {
+   "value": 6,
+   "source": "data/derived/validation_controls.parquet"
+  },
+  "controls_expectations_total": {
+   "value": 20,
+   "source": "data/derived/validation_controls.parquet"
+  },
+  "m1_stop_rule_verdict": {
+   "value": "FAIL",
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "salda_relocated_largest_patch_km2": {
+   "value": 0.052,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "salda_relocated_matched_area_km2": {
+   "value": 0.1907,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "semail_largest_patch_km2_max": {
+   "value": 19.2507,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "wadi_rum_largest_patch_km2": {
+   "value": 0.0,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "simpson_largest_patch_km2": {
+   "value": 0.0,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "harrat_khaybar_largest_patch_km2": {
+   "value": 0.0,
+   "source": "data/derived/m1_stop_rule.json"
+  },
+  "semail_matched_area_km2_max": {
+   "value": 19.4786,
+   "source": "data/derived/earth_M1_pixels.parquet"
+  },
+  "m1_null_pixels": {
+   "value": 490734,
+   "source": "data/derived/m1_null_quantiles.json"
+  },
+  "m1_null_footprints": {
+   "value": 69,
+   "source": "data/derived/m1_null_quantiles.json"
+  },
+  "l1_robust_cells_connecting_ridge": {
+   "value": 5,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "l1_robust_cells_shackleton_rim": {
+   "value": 99,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "l1_n_native_footprints": {
+   "value": 49,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "l2_earth_best_lowsun_frac_daylight": {
+   "value": 0.277,
+   "source": "data/derived/earth_L2.parquet"
+  },
+  "l2_moon_lowsun_frac_daylight": {
+   "value": 1.0,
+   "source": "data/derived/targets_L2.parquet"
+  },
+  "verdict_transfers_cells_L1": {
+   "value": 102,
+   "source": "data/derived/verdicts.parquet"
+  },
+  "verdict_transfers_cells_L2": {
+   "value": 8,
+   "source": "data/derived/verdicts.parquet"
+  },
+  "verdict_transfers_cells_M1": {
+   "value": 0,
+   "source": "data/derived/verdicts.parquet"
+  },
+  "verdict_transfers_cells_X1": {
+   "value": 8,
+   "source": "data/derived/verdicts.parquet"
+  },
+  "verdict_rows_total": {
+   "value": 310,
+   "source": "data/derived/verdicts.parquet"
+  },
+  "x1_cells_scored": {
+   "value": 400,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_cells_pass_all_not_glacier": {
+   "value": 7,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_pamir_changtang_pass": {
+   "value": 0,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_pamir_changtang_total": {
+   "value": 6,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_tibet_ft_days_min": {
+   "value": 130.0575,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_tibet_ft_days_max": {
+   "value": 234.4526,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "x1_beacon_valley_conditions_met": {
+   "value": 3,
+   "source": "data/derived/x1_checklist.parquet"
+  },
+  "emit_footprints_m1": {
+   "value": 123,
+   "source": "data/derived/earth_M1.parquet"
+  },
+  "l1_chips": {
+   "value": 515,
+   "source": "data/derived/earth_L1.parquet"
+  }
+ }
+}
