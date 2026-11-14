@@ -1,0 +1,98 @@
+# Mission lenses — contract file (B0). Owner: Linh (B). Locked 13:45 14/11/2026.
+# Each lens = one test question + operational footprint + descriptor set + ledger.
+# Descriptor names MUST equal the dict keys returned by src/similitude/descriptors/*.
+# min_scale = physical tolerance per descriptor (floor for the population std in fit_population).
+#   number      -> absolute tolerance in descriptor units
+#   {rel: x}    -> x * |target value| (resolved per target by the fidelity engine)
+
+- id: L1
+  name: Touchdown & Traverse
+  body: moon
+  question: "Where on Earth do slope/roughness distributions match the Artemis south-pole landing zones and LTV corridors?"
+  footprint_km: 4            # EVA radius 2 km -> 4 km diameter; chip = footprint + 3 km buffer each side (10 km)
+  chip_km: 10
+  baseline: {type: dem_m, value: 30}
+  pipeline: terrain
+  descriptors: [slope_p50, slope_p90, frac_gt8, frac_gt15, frac_gt20,
+                rms_s1, rms_s2, rms_s4, rms_s8, rms_s16, hurst]
+  min_scale:
+    slope_p50: 1.0
+    slope_p90: 1.0
+    frac_gt8: 0.05
+    frac_gt15: 0.05
+    frac_gt20: 0.05
+    rms_s1: {rel: 0.1}
+    rms_s2: {rel: 0.1}
+    rms_s4: {rel: 0.1}
+    rms_s8: {rel: 0.1}
+    rms_s16: {rel: 0.1}
+    hurst: 0.05
+  gates: {ndvi_max: 0.15, bare_land: true}
+  targets: [connecting_ridge, shackleton_rim]
+  primary_target: connecting_ridge
+  ledger: ledger/moon.yaml
+
+- id: L2
+  name: Low-Sun Navigation
+  body: moon
+  question: "Where does the Sun skim the horizon over bare ground, casting long shadows like at the lunar south pole?"
+  footprint_km: 4
+  chip_km: 10
+  baseline: {type: dem_m, value: 30}
+  pipeline: terrain+astro
+  descriptors: [lowsun_frac_daylight, lowsun_az_coverage, shadow_e2, shadow_e5, shadow_e7]
+  descriptor_groups:
+    astro: [lowsun_frac_daylight, lowsun_az_coverage]
+    shadow: [shadow_e2, shadow_e5, shadow_e7]   # reported separately as d_shadow / sigma_shadow
+  min_scale:
+    lowsun_frac_daylight: 0.05
+    lowsun_az_coverage: 0.05
+    shadow_e2: 0.05
+    shadow_e5: 0.05
+    shadow_e7: 0.05
+  gates: {ndvi_max: 0.15, bare_land: true, snow_free_lowsun_months: true}
+  targets: [connecting_ridge, shackleton_rim]
+  primary_target: connecting_ridge
+  expectation_note: "Astro part very likely no-analog on Earth (needs lat >= ~83-86 deg). Valid result, reported as a number."
+  ledger: ledger/moon.yaml
+
+- id: M1
+  name: Aqueous Minerals & Biosignature
+  body: mars
+  question: "Where on Earth is the same water-altered mineral assemblage exposed today (carbonate, Fe/Mg-smectite, olivine, jarosite)?"
+  footprint_km: 5
+  baseline: {type: spectral_grid_nm, value: 10}
+  pipeline: spectral
+  spectral_subset: swir     # 1000-2490 nm; VNIR params excluded (MICA targets compared on SWIR only)
+  # BD1750 excluded (14/11 B3): EMIT fill starts ~1765 nm in recent scenes -> no right shoulder
+  descriptors: [OLINDEX, LCPINDEX, HCPINDEX, BD1300, BD2100, BD2165, BD2190,
+                BD2210, BD2230, BD2250, BD2265, BD2290, D2300, BD2355, SINDEX,
+                MIN2250, MIN2295_2480, MIN2345_2537]
+  min_scale: {default: 0.01}   # band depth tolerance, applies to every descriptor above
+  gates: {ndvi_max: 0.15, emit_coverage: true, lat_abs_max: 52, min_valid_pixels: 50}
+  targets: [jezero_margin, oxia_planum, meridiani, nili_fossae_olivine]
+  primary_target: jezero_margin
+  population_note: "Sigma population = all usable MICA type spectra: variation BETWEEN mineral classes on Mars."
+  ledger: ledger/mars.yaml
+
+- id: X1
+  name: Ice under Dry Overburden
+  body: mars
+  question: "Where is shallow ground ice preserved under a dry, cold overburden, for 1 m drill / GPR / neutron tests?"
+  footprint_km: 10
+  baseline: {type: grid_km, value: 10}
+  pipeline: ice
+  semiquantitative: true     # evidence_status capped at engine-semiquant
+  descriptors: [permafrost_flag, ice_depth_ratio, aridity_p_pet, ft_cycles_yr]
+  min_scale:
+    permafrost_flag: 0.25
+    ice_depth_ratio: 0.25
+    aridity_p_pet: 0.05
+    ft_cycles_yr: 10.0
+  # permafrost_min added 14/11 13:45 AFTER the first provisional run: hot deserts (no ice) ranked
+  # 5-12 because the Mars population includes ice-free sites. A lens about ice needs ice -> gate.
+  gates: {ndvi_max: 0.15, bare_land: true, permafrost_min: 0.5}
+  targets: [arcadia_planitia]
+  primary_target: arcadia_planitia
+  ledger_only_targets: [shackleton_psr]   # Moon side of X1 appears in ledger only
+  ledger: ledger/mars.yaml
