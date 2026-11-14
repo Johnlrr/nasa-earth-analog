@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMILITUDE - the proving-ground finder</title>
+<meta name="description" content="Earth analog test sites for Moon and Mars missions, scored per mission lens.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>SIMILITUDE <span class="sub">the proving-ground finder</span></h1>
+  <p class="hook">Same formula, both worlds &mdash; per mission task &mdash; and we report exactly what cannot transfer. <a class="hdr-link" href="#limits">Data &amp; limits</a></p>
+</header>
+
+<div id="mock-banner" class="banner" role="status" hidden>MOCK DATA &mdash; fake numbers for UI development only. Do not cite.</div>
+<div id="prov-banner" class="banner prov" role="status" hidden>Provisional scores (diagonal metric) &mdash; final engine pending</div>
+<div id="error-banner" class="banner error" role="alert" hidden></div>
+
+<nav class="lens-bar" aria-label="Mission lens">
+  <div id="lens-tabs" class="lens-tabs" role="group" aria-label="Select mission lens"></div>
+  <p id="lens-question" class="lens-question"></p>
+</nav>
+
+<main class="layout">
+  <section class="map-wrap" aria-label="Map of candidate sites">
+    <div id="map" role="application" aria-label="Interactive map"></div>
+    <div id="legend" class="legend" aria-label="Legend"></div>
+  </section>
+
+  <aside id="card" class="card" aria-label="Analog Test Card" aria-live="polite" tabindex="-1">
+    <p class="muted">Select a site on the map or in the list to open its Analog Test Card.</p>
+  </aside>
+
+  <section class="list-wrap" aria-label="Candidate list">
+    <h2 id="list-title">Candidates</h2>
+    <ol id="list" class="cand-list"></ol>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <details id="limits" class="fold">
+    <summary>Data &amp; limits</summary>
+    <ul class="limits">
+      <li>EMIT covers only about &plusmn;52&deg; latitude (ISS orbit), so the spectral lens cannot see polar sites.</li>
+      <li>Earth's atmosphere hides the 1.4 and 1.9 &micro;m water bands where CRISM is most sensitive, so hydration parameters are excluded on both worlds.</li>
+      <li>MICA spectra are Mars I/F (numerator) and EMIT is surface reflectance; they are compared only through band-depth parameters and continuum-removed shapes.</li>
+      <li>X1 is semi-quantitative: it is a configuration match, and Earth ice is near its melting point.</li>
+      <li>Sigma is relative to the variation among Mars/Moon target sites (population) and is display-only; ranking uses the raw distance d.</li>
+      <li>Percentile is computed against a random null sample (n is shown on the card).</li>
+      <li>Attention index = OpenAlex count of analog papers mentioning the place.</li>
+      <li>Scores are provisional until the final engine is in place.</li>
+    </ul>
+    <p><a href="validation_report.md">Validation report</a></p>
+  </details>
+  <p>Data: NASA EMIT, MRO CRISM (MICA), LOLA/PGDA, Copernicus DEM, MODIS&hellip; &middot; Apache-2.0</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
