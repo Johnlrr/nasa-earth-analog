@@ -38,6 +38,14 @@
     if (!ls || typeof ls.sigma !== 'number') return '—';
     return (ls.sigma_capped ? '> ' : '') + ls.sigma.toFixed(2) + ' σ';
   }
+  // Sigma used for ranking / colour: L2 is a candidate for its terrain-shadow part only; its
+  // sun-geometry part is a pre-registered no-analog shown separately in the card.
+  function hasShadow(ls) { return !!ls && typeof ls.sigma_shadow === 'number'; }
+  function rankSigma(ls) { return hasShadow(ls) ? ls.sigma_shadow : (ls ? ls.sigma : null); }
+  function rankSigmaText(ls) {
+    if (!ls) return '—';
+    return hasShadow(ls) ? 'σ_shadow ' + ls.sigma_shadow.toFixed(2) : sigmaText(ls);
+  }
   function outline(status) {
     if (status === 'engine-confirmed') return { dashArray: null, color: '#111', weight: 3 };
     if (status === 'engine-semiquant') return { dashArray: '4 3', color: '#111', weight: 3 };
@@ -148,7 +156,7 @@
     return state.features.filter(function (f) {
       return f.properties && f.properties.lens_scores && f.properties.lens_scores[state.lens];
     }).sort(function (a, b) {
-      var x = a.properties.lens_scores[state.lens].sigma, y = b.properties.lens_scores[state.lens].sigma;
+      var x = rankSigma(a.properties.lens_scores[state.lens]), y = rankSigma(b.properties.lens_scores[state.lens]);
       return (typeof x === 'number' ? x : 1e9) - (typeof y === 'number' ? y : 1e9);
     });
   }
@@ -173,7 +181,7 @@
     });
   }
   function makeMarker(p, ls, lat, lon, big) {
-    var role = roleOf(p), r = big ? 13 : 9, col = sigmaColor(ls.sigma);
+    var role = roleOf(p), r = big ? 13 : 9, col = sigmaColor(rankSigma(ls));
     if (role === 'decoy') return L.marker([lat, lon], { icon: decoyIcon(col, big), keyboard: false });
     if (role === 'control') {
       return L.circleMarker([lat, lon], { radius: r, fillColor: col, fillOpacity: 0.12, color: '#111', weight: 3 });
@@ -189,7 +197,7 @@
       var p = f.properties, ls = p.lens_scores[state.lens];
       var lat = f.geometry.coordinates[1], lon = f.geometry.coordinates[0];
       var m = makeMarker(p, ls, lat, lon, p.id === state.selectedId);
-      m.bindTooltip(esc(p.name) + ' (' + esc(roleOf(p)) + ') — ' + esc(sigmaText(ls)));
+      m.bindTooltip(esc(p.name) + ' (' + esc(roleOf(p)) + ') — ' + esc(rankSigmaText(ls)));
       m.on('click', function () { select(p.id, false); });
       m.addTo(markerLayer);
       markers[p.id] = m;
@@ -205,9 +213,9 @@
     var dot = role === 'decoy' ? 'dot diamond' : (role === 'control' ? 'dot ring' : 'dot');
     var tag = role === 'hidden' ? '' : ' <span class="tag ' + role + '">' + role + '</span>';
     return '<li><button type="button" data-id="' + esc(p.id) + '"' + (p.id === state.selectedId ? ' aria-current="true"' : '') + '>' +
-      '<span class="' + dot + '" style="background:' + sigmaColor(ls.sigma) + '"></span>' +
+      '<span class="' + dot + '" style="background:' + sigmaColor(rankSigma(ls)) + '"></span>' +
       '<span>' + esc(p.name) + tag + '<br><span class="note">' + esc(p.country || '') + '</span></span>' +
-      '<span class="sig">' + esc(sigmaText(ls)) + '</span></button></li>';
+      '<span class="sig">' + esc(rankSigmaText(ls)) + '</span></button></li>';
   }
 
   function renderList() {
@@ -284,6 +292,14 @@
       'Control: a site that should match; it validates the method.' : 'Decoy: a site that looks similar but should fail; it validates the method.') + '</p>';
     if (p.process_summary) h += '<p>' + esc(p.process_summary) + '</p>';
     if (p.mock) h += '<p class="flag">MOCK feature - fake numbers.</p>';
+    var l2 = p.lens_scores.L2;
+    if (hasShadow(l2)) {
+      h += '<div class="split-box"><p><strong>Terrain shadows: ' + esc(rankSigmaText(l2)) + '</strong>' +
+        ' — this is what the site is a candidate for (long shadows over matching relief).</p>' +
+        '<p class="note"><strong>Sun geometry: no Earth analog</strong> (σ ' + esc(num(l2.sigma, 1)) +
+        '). The Sun circling the horizon at 0–7° all day needs latitude ≳ 83–86°; this was expected before scoring' +
+        ' and is reported as a number, not hidden.</p></div>';
+    }
 
     h += '<h3>Fidelity per lens</h3><div class="tbl-wrap"><table><thead><tr><th>Lens</th><th>Target</th><th>σ</th><th>Percentile</th><th>d</th><th>Mode</th><th>Limiting factor</th><th>No analog</th></tr></thead><tbody>';
     var nullNote = false;

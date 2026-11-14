@@ -1,36 +1,44 @@
 {
  "type": "FeatureCollection",
  "metadata": {
-  "generated": "2026-11-14T16:16",
+  "generated": "2026-11-14T16:53",
   "provisional": false,
   "mock": false,
   "lenses": {
    "M1": {
     "n_scored": 120,
-    "n_null": null,
+    "n_null": 69,
     "n_hidden": 3,
+    "ranking": "d",
     "best_sigma": 0.237,
+    "best_sigma_ranked": 0.237,
     "no_hidden_found": false
    },
    "X1": {
     "n_scored": 125,
-    "n_null": null,
+    "n_null": 54,
     "n_hidden": 0,
+    "ranking": "d",
     "best_sigma": 2.071,
+    "best_sigma_ranked": 2.071,
     "no_hidden_found": true
    },
    "L1": {
     "n_scored": 513,
-    "n_null": null,
+    "n_null": 200,
     "n_hidden": 5,
+    "ranking": "d",
     "best_sigma": 0.0,
+    "best_sigma_ranked": 0.0,
     "no_hidden_found": false
    },
    "L2": {
     "n_scored": 513,
-    "n_null": null,
+    "n_null": 200,
     "n_hidden": 5,
+    "ranking": "d_shadow",
     "best_sigma": 13.896,
+    "best_sigma_ranked": 0.013,
     "no_hidden_found": false
    }
   },
@@ -68,7 +76,99 @@
       "percentile": 97.1,
       "limiting_factor": "HCPINDEX",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.0634,
+        "target": 0.0635,
+        "z": -0.0
+       },
+       "LCPINDEX": {
+        "earth": -0.0435,
+        "target": -0.0277,
+        "z": -0.34
+       },
+       "HCPINDEX": {
+        "earth": -0.0969,
+        "target": -0.0372,
+        "z": -2.32
+       },
+       "BD1300": {
+        "earth": -0.0645,
+        "target": -0.0043,
+        "z": -0.98
+       },
+       "BD2100": {
+        "earth": -0.0342,
+        "target": -0.0175,
+        "z": -0.49
+       },
+       "BD2165": {
+        "earth": -0.0027,
+        "target": -0.0049,
+        "z": 0.17
+       },
+       "BD2190": {
+        "earth": 0.0041,
+        "target": -0.0073,
+        "z": 0.61
+       },
+       "BD2210": {
+        "earth": 0.01,
+        "target": -0.0094,
+        "z": 1.39
+       },
+       "BD2230": {
+        "earth": -0.0037,
+        "target": -0.0016,
+        "z": -0.21
+       },
+       "BD2250": {
+        "earth": -0.0064,
+        "target": -0.009,
+        "z": 0.17
+       },
+       "BD2265": {
+        "earth": -0.0121,
+        "target": 0.0059,
+        "z": -1.2
+       },
+       "BD2290": {
+        "earth": -0.0037,
+        "target": 0.015,
+        "z": -1.25
+       },
+       "D2300": {
+        "earth": 0.0242,
+        "target": 0.0304,
+        "z": -0.14
+       },
+       "BD2355": {
+        "earth": 0.0027,
+        "target": -0.0033,
+        "z": 0.26
+       },
+       "SINDEX": {
+        "earth": -0.0054,
+        "target": -0.0044,
+        "z": -0.03
+       },
+       "MIN2250": {
+        "earth": -0.0121,
+        "target": -0.0094,
+        "z": -0.2
+       },
+       "MIN2295_2480": {
+        "earth": -0.0009,
+        "target": 0.0106,
+        "z": -0.54
+       },
+       "MIN2345_2537": {
+        "earth": 0.0145,
+        "target": 0.0033,
+        "z": 0.35
+       }
+      }
      }
     },
     "process_rates": {
@@ -143,7 +243,99 @@
       "percentile": 97.1,
       "limiting_factor": "HCPINDEX",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.0289,
+        "target": 0.0635,
+        "z": -0.35
+       },
+       "LCPINDEX": {
+        "earth": -0.0343,
+        "target": -0.0277,
+        "z": -0.14
+       },
+       "HCPINDEX": {
+        "earth": -0.1196,
+        "target": -0.0372,
+        "z": -3.2
+       },
+       "BD1300": {
+        "earth": -0.0554,
+        "target": -0.0043,
+        "z": -0.83
+       },
+       "BD2100": {
+        "earth": -0.0275,
+        "target": -0.0175,
+        "z": -0.29
+       },
+       "BD2165": {
+        "earth": -0.0003,
+        "target": -0.0049,
+        "z": 0.33
+       },
+       "BD2190": {
+        "earth": 0.0058,
+        "target": -0.0073,
+        "z": 0.7
+       },
+       "BD2210": {
+        "earth": 0.0088,
+        "target": -0.0094,
+        "z": 1.31
+       },
+       "BD2230": {
+        "earth": -0.0057,
+        "target": -0.0016,
+        "z": -0.41
+       },
+       "BD2250": {
+        "earth": -0.0016,
+        "target": -0.009,
+        "z": 0.48
+       },
+       "BD2265": {
+        "earth": -0.0079,
+        "target": 0.0059,
+        "z": -0.93
+       },
+       "BD2290": {
+        "earth": -0.0038,
+        "target": 0.015,
+        "z": -1.25
+       },
+       "D2300": {
+        "earth": 0.0033,
+        "target": 0.0304,
+        "z": -0.62
+       },
+       "BD2355": {
+        "earth": -0.0084,
+        "target": -0.0033,
+        "z": -0.22
+       },
+       "SINDEX": {
+        "earth": -0.0093,
+        "target": -0.0044,
+        "z": -0.17
+       },
+       "MIN2250": {
+        "earth": -0.0079,
+        "target": -0.0094,
+        "z": 0.12
+       },
+       "MIN2295_2480": {
+        "earth": 0.0027,
+        "target": 0.0106,
+        "z": -0.37
+       },
+       "MIN2345_2537": {
+        "earth": 0.0055,
+        "target": 0.0033,
+        "z": 0.07
+       }
+      }
      }
     },
     "process_rates": {
@@ -218,7 +410,99 @@
       "percentile": 95.7,
       "limiting_factor": "MIN2295_2480",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1108,
+        "target": 0.0635,
+        "z": 0.47
+       },
+       "LCPINDEX": {
+        "earth": -0.0542,
+        "target": -0.0277,
+        "z": -0.58
+       },
+       "HCPINDEX": {
+        "earth": 0.0083,
+        "target": -0.0372,
+        "z": 1.77
+       },
+       "BD1300": {
+        "earth": -0.0793,
+        "target": -0.0043,
+        "z": -1.22
+       },
+       "BD2100": {
+        "earth": -0.0125,
+        "target": -0.0175,
+        "z": 0.14
+       },
+       "BD2165": {
+        "earth": -0.0047,
+        "target": -0.0049,
+        "z": 0.02
+       },
+       "BD2190": {
+        "earth": -0.0152,
+        "target": -0.0073,
+        "z": -0.42
+       },
+       "BD2210": {
+        "earth": -0.0289,
+        "target": -0.0094,
+        "z": -1.4
+       },
+       "BD2230": {
+        "earth": -0.012,
+        "target": -0.0016,
+        "z": -1.04
+       },
+       "BD2250": {
+        "earth": -0.0446,
+        "target": -0.009,
+        "z": -2.31
+       },
+       "BD2265": {
+        "earth": 0.0065,
+        "target": 0.0059,
+        "z": 0.04
+       },
+       "BD2290": {
+        "earth": 0.0229,
+        "target": 0.015,
+        "z": 0.52
+       },
+       "D2300": {
+        "earth": 0.0854,
+        "target": 0.0304,
+        "z": 1.25
+       },
+       "BD2355": {
+        "earth": 0.0425,
+        "target": -0.0033,
+        "z": 1.97
+       },
+       "SINDEX": {
+        "earth": -0.0354,
+        "target": -0.0044,
+        "z": -1.06
+       },
+       "MIN2250": {
+        "earth": -0.0289,
+        "target": -0.0094,
+        "z": -1.49
+       },
+       "MIN2295_2480": {
+        "earth": -0.043,
+        "target": 0.0106,
+        "z": -2.53
+       },
+       "MIN2345_2537": {
+        "earth": 0.0001,
+        "target": 0.0033,
+        "z": -0.1
+       }
+      }
      }
     },
     "process_rates": {
@@ -293,7 +577,99 @@
       "percentile": 11.6,
       "limiting_factor": "BD2250",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": -0.2258,
+        "target": 0.3843,
+        "z": -6.09
+       },
+       "LCPINDEX": {
+        "earth": -0.1935,
+        "target": -0.1597,
+        "z": -0.73
+       },
+       "HCPINDEX": {
+        "earth": -0.114,
+        "target": -0.0621,
+        "z": -2.02
+       },
+       "BD1300": {
+        "earth": -0.0693,
+        "target": 0.1463,
+        "z": -3.51
+       },
+       "BD2100": {
+        "earth": -0.1954,
+        "target": -0.0441,
+        "z": -4.39
+       },
+       "BD2165": {
+        "earth": -0.0532,
+        "target": -0.0125,
+        "z": -2.94
+       },
+       "BD2190": {
+        "earth": -0.0954,
+        "target": -0.0148,
+        "z": -4.28
+       },
+       "BD2210": {
+        "earth": -0.0854,
+        "target": -0.0127,
+        "z": -5.22
+       },
+       "BD2230": {
+        "earth": -0.0242,
+        "target": -0.0024,
+        "z": -2.18
+       },
+       "BD2250": {
+        "earth": -0.1999,
+        "target": -0.001,
+        "z": -12.94
+       },
+       "BD2265": {
+        "earth": 0.0063,
+        "target": 0.0181,
+        "z": -0.79
+       },
+       "BD2290": {
+        "earth": 0.0178,
+        "target": 0.0419,
+        "z": -1.6
+       },
+       "D2300": {
+        "earth": -0.014,
+        "target": 0.0796,
+        "z": -2.12
+       },
+       "BD2355": {
+        "earth": 0.0304,
+        "target": -0.0303,
+        "z": 2.61
+       },
+       "SINDEX": {
+        "earth": 0.0921,
+        "target": -0.0539,
+        "z": 4.99
+       },
+       "MIN2250": {
+        "earth": -0.0854,
+        "target": -0.0127,
+        "z": -5.58
+       },
+       "MIN2295_2480": {
+        "earth": -0.0291,
+        "target": 0.0558,
+        "z": -4.0
+       },
+       "MIN2345_2537": {
+        "earth": 0.0693,
+        "target": 0.0112,
+        "z": 1.79
+       }
+      }
      }
     },
     "process_rates": {
@@ -368,7 +744,99 @@
       "percentile": 50.7,
       "limiting_factor": "BD2100",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1484,
+        "target": 0.0977,
+        "z": 0.51
+       },
+       "LCPINDEX": {
+        "earth": -0.2115,
+        "target": -0.0215,
+        "z": -4.12
+       },
+       "HCPINDEX": {
+        "earth": -0.104,
+        "target": -0.0078,
+        "z": -3.74
+       },
+       "BD1300": {
+        "earth": -0.0133,
+        "target": -0.0203,
+        "z": 0.11
+       },
+       "BD2100": {
+        "earth": -0.2919,
+        "target": -0.0129,
+        "z": -8.11
+       },
+       "BD2165": {
+        "earth": -0.0292,
+        "target": -0.0049,
+        "z": -1.76
+       },
+       "BD2190": {
+        "earth": -0.0278,
+        "target": -0.0036,
+        "z": -1.28
+       },
+       "BD2210": {
+        "earth": -0.004,
+        "target": 0.0114,
+        "z": -1.1
+       },
+       "BD2230": {
+        "earth": -0.0042,
+        "target": -0.0014,
+        "z": -0.29
+       },
+       "BD2250": {
+        "earth": -0.0573,
+        "target": 0.0304,
+        "z": -5.7
+       },
+       "BD2265": {
+        "earth": -0.0165,
+        "target": 0.0226,
+        "z": -2.62
+       },
+       "BD2290": {
+        "earth": -0.0106,
+        "target": -0.0001,
+        "z": -0.69
+       },
+       "D2300": {
+        "earth": -0.1358,
+        "target": -0.0204,
+        "z": -2.61
+       },
+       "BD2355": {
+        "earth": -0.05,
+        "target": -0.0216,
+        "z": -1.22
+       },
+       "SINDEX": {
+        "earth": 0.1156,
+        "target": 0.0014,
+        "z": 3.9
+       },
+       "MIN2250": {
+        "earth": -0.0165,
+        "target": 0.0114,
+        "z": -2.14
+       },
+       "MIN2295_2480": {
+        "earth": -0.048,
+        "target": 0.0075,
+        "z": -2.61
+       },
+       "MIN2345_2537": {
+        "earth": -0.0902,
+        "target": -0.0382,
+        "z": -1.61
+       }
+      }
      }
     },
     "process_rates": {
@@ -443,7 +911,99 @@
       "percentile": 30.4,
       "limiting_factor": "HCPINDEX",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1031,
+        "target": 0.0977,
+        "z": 0.05
+       },
+       "LCPINDEX": {
+        "earth": -0.0747,
+        "target": -0.0215,
+        "z": -1.16
+       },
+       "HCPINDEX": {
+        "earth": -0.3855,
+        "target": -0.0078,
+        "z": -14.67
+       },
+       "BD1300": {
+        "earth": 0.0142,
+        "target": -0.0203,
+        "z": 0.56
+       },
+       "BD2100": {
+        "earth": -0.049,
+        "target": -0.0129,
+        "z": -1.05
+       },
+       "BD2165": {
+        "earth": 0.0074,
+        "target": -0.0049,
+        "z": 0.89
+       },
+       "BD2190": {
+        "earth": 0.0398,
+        "target": -0.0036,
+        "z": 2.3
+       },
+       "BD2210": {
+        "earth": 0.0427,
+        "target": 0.0114,
+        "z": 2.25
+       },
+       "BD2230": {
+        "earth": -0.0094,
+        "target": -0.0014,
+        "z": -0.8
+       },
+       "BD2250": {
+        "earth": -0.0053,
+        "target": 0.0304,
+        "z": -2.33
+       },
+       "BD2265": {
+        "earth": -0.0436,
+        "target": 0.0226,
+        "z": -4.44
+       },
+       "BD2290": {
+        "earth": -0.0078,
+        "target": -0.0001,
+        "z": -0.51
+       },
+       "D2300": {
+        "earth": -0.0368,
+        "target": -0.0204,
+        "z": -0.37
+       },
+       "BD2355": {
+        "earth": -0.013,
+        "target": -0.0216,
+        "z": 0.37
+       },
+       "SINDEX": {
+        "earth": -0.0097,
+        "target": 0.0014,
+        "z": -0.38
+       },
+       "MIN2250": {
+        "earth": -0.0436,
+        "target": 0.0114,
+        "z": -4.22
+       },
+       "MIN2295_2480": {
+        "earth": -0.0031,
+        "target": 0.0075,
+        "z": -0.5
+       },
+       "MIN2345_2537": {
+        "earth": 0.0115,
+        "target": -0.0382,
+        "z": 1.54
+       }
+      }
      }
     },
     "process_rates": {
@@ -518,7 +1078,99 @@
       "percentile": 95.7,
       "limiting_factor": "HCPINDEX",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1451,
+        "target": 0.0977,
+        "z": 0.47
+       },
+       "LCPINDEX": {
+        "earth": -0.0753,
+        "target": -0.0215,
+        "z": -1.17
+       },
+       "HCPINDEX": {
+        "earth": -0.1177,
+        "target": -0.0078,
+        "z": -4.27
+       },
+       "BD1300": {
+        "earth": -0.082,
+        "target": -0.0203,
+        "z": -1.0
+       },
+       "BD2100": {
+        "earth": -0.0657,
+        "target": -0.0129,
+        "z": -1.53
+       },
+       "BD2165": {
+        "earth": -0.0132,
+        "target": -0.0049,
+        "z": -0.6
+       },
+       "BD2190": {
+        "earth": 0.0139,
+        "target": -0.0036,
+        "z": 0.93
+       },
+       "BD2210": {
+        "earth": 0.0398,
+        "target": 0.0114,
+        "z": 2.04
+       },
+       "BD2230": {
+        "earth": -0.0168,
+        "target": -0.0014,
+        "z": -1.54
+       },
+       "BD2250": {
+        "earth": -0.0122,
+        "target": 0.0304,
+        "z": -2.77
+       },
+       "BD2265": {
+        "earth": -0.0224,
+        "target": 0.0226,
+        "z": -3.01
+       },
+       "BD2290": {
+        "earth": -0.0181,
+        "target": -0.0001,
+        "z": -1.2
+       },
+       "D2300": {
+        "earth": 0.0078,
+        "target": -0.0204,
+        "z": 0.64
+       },
+       "BD2355": {
+        "earth": 0.0219,
+        "target": -0.0216,
+        "z": 1.87
+       },
+       "SINDEX": {
+        "earth": 0.0102,
+        "target": 0.0014,
+        "z": 0.3
+       },
+       "MIN2250": {
+        "earth": -0.0224,
+        "target": 0.0114,
+        "z": -2.59
+       },
+       "MIN2295_2480": {
+        "earth": -0.0165,
+        "target": 0.0075,
+        "z": -1.13
+       },
+       "MIN2345_2537": {
+        "earth": 0.0163,
+        "target": -0.0382,
+        "z": 1.68
+       }
+      }
      }
     },
     "process_rates": {
@@ -593,7 +1245,99 @@
       "percentile": 21.7,
       "limiting_factor": "BD2265",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1426,
+        "target": 0.3843,
+        "z": -2.41
+       },
+       "LCPINDEX": {
+        "earth": -0.074,
+        "target": -0.1597,
+        "z": 1.86
+       },
+       "HCPINDEX": {
+        "earth": -0.2027,
+        "target": -0.0621,
+        "z": -5.46
+       },
+       "BD1300": {
+        "earth": -0.0667,
+        "target": 0.1463,
+        "z": -3.47
+       },
+       "BD2100": {
+        "earth": -0.0253,
+        "target": -0.0441,
+        "z": 0.55
+       },
+       "BD2165": {
+        "earth": 0.0787,
+        "target": -0.0125,
+        "z": 6.59
+       },
+       "BD2190": {
+        "earth": 0.105,
+        "target": -0.0148,
+        "z": 6.36
+       },
+       "BD2210": {
+        "earth": 0.0485,
+        "target": -0.0127,
+        "z": 4.39
+       },
+       "BD2230": {
+        "earth": -0.0344,
+        "target": -0.0024,
+        "z": -3.21
+       },
+       "BD2250": {
+        "earth": -0.0232,
+        "target": -0.001,
+        "z": -1.44
+       },
+       "BD2265": {
+        "earth": -0.0923,
+        "target": 0.0181,
+        "z": -7.4
+       },
+       "BD2290": {
+        "earth": 0.0036,
+        "target": 0.0419,
+        "z": -2.55
+       },
+       "D2300": {
+        "earth": -0.0544,
+        "target": 0.0796,
+        "z": -3.03
+       },
+       "BD2355": {
+        "earth": -0.0075,
+        "target": -0.0303,
+        "z": 0.98
+       },
+       "SINDEX": {
+        "earth": 0.005,
+        "target": -0.0539,
+        "z": 2.02
+       },
+       "MIN2250": {
+        "earth": -0.0923,
+        "target": -0.0127,
+        "z": -6.11
+       },
+       "MIN2295_2480": {
+        "earth": -0.043,
+        "target": 0.0558,
+        "z": -4.65
+       },
+       "MIN2345_2537": {
+        "earth": 0.0159,
+        "target": 0.0112,
+        "z": 0.15
+       }
+      }
      }
     },
     "process_rates": {
@@ -668,7 +1412,99 @@
       "percentile": 73.9,
       "limiting_factor": "BD2265",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "OLINDEX": {
+        "earth": 0.1662,
+        "target": 0.3843,
+        "z": -2.18
+       },
+       "LCPINDEX": {
+        "earth": -0.0852,
+        "target": -0.1597,
+        "z": 1.62
+       },
+       "HCPINDEX": {
+        "earth": -0.0875,
+        "target": -0.0621,
+        "z": -0.99
+       },
+       "BD1300": {
+        "earth": -0.0616,
+        "target": 0.1463,
+        "z": -3.38
+       },
+       "BD2100": {
+        "earth": -0.0303,
+        "target": -0.0441,
+        "z": 0.4
+       },
+       "BD2165": {
+        "earth": 0.0222,
+        "target": -0.0125,
+        "z": 2.51
+       },
+       "BD2190": {
+        "earth": 0.0454,
+        "target": -0.0148,
+        "z": 3.2
+       },
+       "BD2210": {
+        "earth": 0.0289,
+        "target": -0.0127,
+        "z": 2.99
+       },
+       "BD2230": {
+        "earth": -0.0195,
+        "target": -0.0024,
+        "z": -1.71
+       },
+       "BD2250": {
+        "earth": -0.0229,
+        "target": -0.001,
+        "z": -1.43
+       },
+       "BD2265": {
+        "earth": -0.0433,
+        "target": 0.0181,
+        "z": -4.11
+       },
+       "BD2290": {
+        "earth": -0.0042,
+        "target": 0.0419,
+        "z": -3.06
+       },
+       "D2300": {
+        "earth": 0.0166,
+        "target": 0.0796,
+        "z": -1.43
+       },
+       "BD2355": {
+        "earth": 0.0238,
+        "target": -0.0303,
+        "z": 2.33
+       },
+       "SINDEX": {
+        "earth": 0.0068,
+        "target": -0.0539,
+        "z": 2.08
+       },
+       "MIN2250": {
+        "earth": -0.0433,
+        "target": -0.0127,
+        "z": -2.35
+       },
+       "MIN2295_2480": {
+        "earth": -0.0245,
+        "target": 0.0558,
+        "z": -3.78
+       },
+       "MIN2345_2537": {
+        "earth": 0.0276,
+        "target": 0.0112,
+        "z": 0.51
+       }
+      }
      }
     },
     "process_rates": {
@@ -743,7 +1579,29 @@
       "percentile": 46.3,
       "limiting_factor": "aridity_p_pet",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "permafrost_flag": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "ice_depth_ratio": {
+        "earth": 0.8458,
+        "target": 0.5,
+        "z": 0.23
+       },
+       "aridity_p_pet": {
+        "earth": 0.2724,
+        "target": 0.0,
+        "z": 5.45
+       },
+       "ft_cycles_yr": {
+        "earth": 11.4062,
+        "target": 0.0,
+        "z": 1.14
+       }
+      }
      }
     },
     "process_rates": {
@@ -816,7 +1674,29 @@
       "percentile": 98.1,
       "limiting_factor": "aridity_p_pet",
       "no_analog": true,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "permafrost_flag": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "ice_depth_ratio": {
+        "earth": 0.0,
+        "target": 0.5,
+        "z": -0.33
+       },
+       "aridity_p_pet": {
+        "earth": 0.2082,
+        "target": 0.0,
+        "z": 4.16
+       },
+       "ft_cycles_yr": {
+        "earth": 0.0,
+        "target": 0.0,
+        "z": 0.0
+       }
+      }
      }
     },
     "process_rates": {
@@ -873,7 +1753,7 @@
    },
    "properties": {
     "id": "L1-E10K_726_-686",
-    "name": "Cell E10K_726_-686",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
     "country": "",
     "lat": 80.9971,
     "lon": -71.183,
@@ -889,7 +1769,64 @@
       "percentile": 100.0,
       "limiting_factor": "frac_gt8",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 13.0677,
+        "target": 12.3842,
+        "z": 0.1
+       },
+       "slope_p90": {
+        "earth": 21.1146,
+        "target": 19.2581,
+        "z": 0.32
+       },
+       "frac_gt8": {
+        "earth": 0.8518,
+        "target": 0.7584,
+        "z": 0.55
+       },
+       "frac_gt15": {
+        "earth": 0.3635,
+        "target": 0.3681,
+        "z": -0.01
+       },
+       "frac_gt20": {
+        "earth": 0.1239,
+        "target": 0.0578,
+        "z": 0.19
+       },
+       "rms_s1": {
+        "earth": 4.9384,
+        "target": 4.9278,
+        "z": 0.01
+       },
+       "rms_s2": {
+        "earth": 9.7795,
+        "target": 9.7531,
+        "z": 0.01
+       },
+       "rms_s4": {
+        "earth": 19.1262,
+        "target": 19.1424,
+        "z": -0.0
+       },
+       "rms_s8": {
+        "earth": 36.5367,
+        "target": 37.1394,
+        "z": -0.05
+       },
+       "rms_s16": {
+        "earth": 65.5505,
+        "target": 70.3731,
+        "z": -0.23
+       },
+       "hurst": {
+        "earth": 0.9363,
+        "target": 0.9601,
+        "z": -0.48
+       }
+      }
      }
     },
     "process_rates": {
@@ -927,8 +1864,8 @@
      "note": "Accessibility not assessed (optional item, not done)."
     },
     "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "",
+    "evidence_status": "hypothesis",
+    "evidence_note": "S2 check: an ice cap / glacier covers about half of the 4 km footprint; slope statistics partly describe ice, not regolith. Downgraded per PLAN B10.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
@@ -946,7 +1883,7 @@
    },
    "properties": {
     "id": "L1-E10K_724_-200",
-    "name": "Cell E10K_724_-200",
+    "name": "Greenland (Greenland)",
     "country": "",
     "lat": 80.0624,
     "lon": -20.7163,
@@ -962,7 +1899,64 @@
       "percentile": 100.0,
       "limiting_factor": "slope_p90",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 11.1007,
+        "target": 12.3842,
+        "z": -0.18
+       },
+       "slope_p90": {
+        "earth": 24.1976,
+        "target": 19.2581,
+        "z": 0.85
+       },
+       "frac_gt8": {
+        "earth": 0.7144,
+        "target": 0.7584,
+        "z": -0.26
+       },
+       "frac_gt15": {
+        "earth": 0.2934,
+        "target": 0.3681,
+        "z": -0.23
+       },
+       "frac_gt20": {
+        "earth": 0.1457,
+        "target": 0.0578,
+        "z": 0.25
+       },
+       "rms_s1": {
+        "earth": 4.9371,
+        "target": 4.9278,
+        "z": 0.01
+       },
+       "rms_s2": {
+        "earth": 9.7445,
+        "target": 9.7531,
+        "z": -0.0
+       },
+       "rms_s4": {
+        "earth": 19.0913,
+        "target": 19.1424,
+        "z": -0.01
+       },
+       "rms_s8": {
+        "earth": 36.8202,
+        "target": 37.1394,
+        "z": -0.03
+       },
+       "rms_s16": {
+        "earth": 68.8322,
+        "target": 70.3731,
+        "z": -0.07
+       },
+       "hurst": {
+        "earth": 0.9521,
+        "target": 0.9601,
+        "z": -0.16
+       }
+      }
      }
     },
     "process_rates": {
@@ -1001,7 +1995,7 @@
     },
     "in_exclusion_buffer": false,
     "evidence_status": "engine-confirmed",
-    "evidence_note": "",
+    "evidence_note": "S2 check: bare rock with snow patches and a lake in one corner.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
@@ -1019,7 +2013,7 @@
    },
    "properties": {
     "id": "L1-E10K_406_810",
-    "name": "Cell E10K_406_810",
+    "name": "Gêrzê County, Xizang (China)",
     "country": "",
     "lat": 33.5316,
     "lon": 84.1631,
@@ -1035,7 +2029,64 @@
       "percentile": 99.5,
       "limiting_factor": "hurst",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 12.8784,
+        "target": 12.3842,
+        "z": 0.07
+       },
+       "slope_p90": {
+        "earth": 21.7201,
+        "target": 19.2581,
+        "z": 0.42
+       },
+       "frac_gt8": {
+        "earth": 0.725,
+        "target": 0.7584,
+        "z": -0.2
+       },
+       "frac_gt15": {
+        "earth": 0.3974,
+        "target": 0.3681,
+        "z": 0.09
+       },
+       "frac_gt20": {
+        "earth": 0.1574,
+        "target": 0.0578,
+        "z": 0.29
+       },
+       "rms_s1": {
+        "earth": 4.9794,
+        "target": 4.9278,
+        "z": 0.04
+       },
+       "rms_s2": {
+        "earth": 9.8581,
+        "target": 9.7531,
+        "z": 0.04
+       },
+       "rms_s4": {
+        "earth": 19.1643,
+        "target": 19.1424,
+        "z": 0.0
+       },
+       "rms_s8": {
+        "earth": 35.9254,
+        "target": 37.1394,
+        "z": -0.11
+       },
+       "rms_s16": {
+        "earth": 62.9386,
+        "target": 70.3731,
+        "z": -0.35
+       },
+       "hurst": {
+        "earth": 0.9185,
+        "target": 0.9601,
+        "z": -0.83
+       }
+      }
      }
     },
     "process_rates": {
@@ -1074,7 +2125,7 @@
     },
     "in_exclusion_buffer": false,
     "evidence_status": "engine-confirmed",
-    "evidence_note": "",
+    "evidence_note": "S2 check: bare high-mountain terrain, snow on ridge crests.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
@@ -1092,7 +2143,7 @@
    },
    "properties": {
     "id": "L1-E10K_-249_-664",
-    "name": "Cell E10K_-249_-664",
+    "name": "Provincia del Tamarugal, Tarapacá Region (Chile)",
     "country": "",
     "lat": -19.7807,
     "lon": -68.8985,
@@ -1108,7 +2159,64 @@
       "percentile": 99.5,
       "limiting_factor": "hurst",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 12.0702,
+        "target": 12.3842,
+        "z": -0.04
+       },
+       "slope_p90": {
+        "earth": 22.8067,
+        "target": 19.2581,
+        "z": 0.61
+       },
+       "frac_gt8": {
+        "earth": 0.7163,
+        "target": 0.7584,
+        "z": -0.25
+       },
+       "frac_gt15": {
+        "earth": 0.3352,
+        "target": 0.3681,
+        "z": -0.1
+       },
+       "frac_gt20": {
+        "earth": 0.1587,
+        "target": 0.0578,
+        "z": 0.29
+       },
+       "rms_s1": {
+        "earth": 5.01,
+        "target": 4.9278,
+        "z": 0.06
+       },
+       "rms_s2": {
+        "earth": 9.9249,
+        "target": 9.7531,
+        "z": 0.06
+       },
+       "rms_s4": {
+        "earth": 19.2913,
+        "target": 19.1424,
+        "z": 0.03
+       },
+       "rms_s8": {
+        "earth": 36.0831,
+        "target": 37.1394,
+        "z": -0.1
+       },
+       "rms_s16": {
+        "earth": 63.9788,
+        "target": 70.3731,
+        "z": -0.3
+       },
+       "hurst": {
+        "earth": 0.9212,
+        "target": 0.9601,
+        "z": -0.78
+       }
+      }
      }
     },
     "process_rates": {
@@ -1147,7 +2255,7 @@
     },
     "in_exclusion_buffer": false,
     "evidence_status": "engine-confirmed",
-    "evidence_note": "",
+    "evidence_note": "S2 check: bare desert terrain. Outside the 350 km Atacama exclusion circle, but geographically still the northern Atacama Desert (a classic analog region): weak 'hidden' claim.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
@@ -1165,7 +2273,7 @@
    },
    "properties": {
     "id": "L1-E10K_-150_-743",
-    "name": "Cell E10K_-150_-743",
+    "name": "Lima Metropolitan Area, Lima (Peru)",
     "country": "",
     "lat": -11.7213,
     "lon": -77.1019,
@@ -1181,7 +2289,64 @@
       "percentile": 99.5,
       "limiting_factor": "hurst",
       "no_analog": false,
-      "metric_mode": "diag"
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 11.2374,
+        "target": 12.3842,
+        "z": -0.16
+       },
+       "slope_p90": {
+        "earth": 20.273,
+        "target": 19.2581,
+        "z": 0.17
+       },
+       "frac_gt8": {
+        "earth": 0.7274,
+        "target": 0.7584,
+        "z": -0.18
+       },
+       "frac_gt15": {
+        "earth": 0.2763,
+        "target": 0.3681,
+        "z": -0.28
+       },
+       "frac_gt20": {
+        "earth": 0.1083,
+        "target": 0.0578,
+        "z": 0.15
+       },
+       "rms_s1": {
+        "earth": 4.6492,
+        "target": 4.9278,
+        "z": -0.2
+       },
+       "rms_s2": {
+        "earth": 9.1014,
+        "target": 9.7531,
+        "z": -0.23
+       },
+       "rms_s4": {
+        "earth": 17.3693,
+        "target": 19.1424,
+        "z": -0.32
+       },
+       "rms_s8": {
+        "earth": 32.4145,
+        "target": 37.1394,
+        "z": -0.43
+       },
+       "rms_s16": {
+        "earth": 58.5861,
+        "target": 70.3731,
+        "z": -0.56
+       },
+       "hurst": {
+        "earth": 0.9143,
+        "target": 0.9601,
+        "z": -0.92
+       }
+      }
      }
     },
     "process_rates": {
@@ -1220,10 +2385,759 @@
     },
     "in_exclusion_buffer": false,
     "evidence_status": "engine-confirmed",
+    "evidence_note": "S2 check: coastal desert hills and dunes, no urban area visible; the name comes from the administrative region (Lima).",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -89.68,
+     75.38
+    ]
+   },
+   "properties": {
+    "id": "L1-CTRL_haughton_devon",
+    "name": "Haughton impact structure, Devon Island",
+    "country": "",
+    "lat": 75.38,
+    "lon": -89.68,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 7.888,
+      "sigma": 5.902,
+      "sigma_capped": false,
+      "percentile": 81.5,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 3.2329,
+        "target": 12.3842,
+        "z": -1.29
+       },
+       "slope_p90": {
+        "earth": 7.6642,
+        "target": 19.2581,
+        "z": -1.99
+       },
+       "frac_gt8": {
+        "earth": 0.0886,
+        "target": 0.7584,
+        "z": -3.96
+       },
+       "frac_gt15": {
+        "earth": 0.0134,
+        "target": 0.3681,
+        "z": -1.1
+       },
+       "frac_gt20": {
+        "earth": 0.0027,
+        "target": 0.0578,
+        "z": -0.16
+       },
+       "rms_s1": {
+        "earth": 1.9663,
+        "target": 4.9278,
+        "z": -2.14
+       },
+       "rms_s2": {
+        "earth": 3.7914,
+        "target": 9.7531,
+        "z": -2.14
+       },
+       "rms_s4": {
+        "earth": 6.8925,
+        "target": 19.1424,
+        "z": -2.2
+       },
+       "rms_s8": {
+        "earth": 11.4217,
+        "target": 37.1394,
+        "z": -2.35
+       },
+       "rms_s16": {
+        "earth": 16.6454,
+        "target": 70.3731,
+        "z": -2.55
+       },
+       "hurst": {
+        "earth": 0.7754,
+        "target": 0.9601,
+        "z": -3.69
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 130,
+     "query": "(\"Haughton\" OR \"Devon Island\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
     "evidence_note": "",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -111.63,
+     35.58
+    ]
+   },
+   "properties": {
+    "id": "L1-CTRL_sp_crater_black_point",
+    "name": "SP Crater / Black Point lava flow, Arizona",
+    "country": "",
+    "lat": 35.58,
+    "lon": -111.63,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 3.414,
+      "sigma": 0.86,
+      "sigma_capped": false,
+      "percentile": 96.5,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 5.1366,
+        "target": 12.3842,
+        "z": -1.02
+       },
+       "slope_p90": {
+        "earth": 21.1834,
+        "target": 19.2581,
+        "z": 0.33
+       },
+       "frac_gt8": {
+        "earth": 0.3695,
+        "target": 0.7584,
+        "z": -2.3
+       },
+       "frac_gt15": {
+        "earth": 0.2022,
+        "target": 0.3681,
+        "z": -0.51
+       },
+       "frac_gt20": {
+        "earth": 0.1183,
+        "target": 0.0578,
+        "z": 0.17
+       },
+       "rms_s1": {
+        "earth": 4.7857,
+        "target": 4.9278,
+        "z": -0.1
+       },
+       "rms_s2": {
+        "earth": 9.397,
+        "target": 9.7531,
+        "z": -0.13
+       },
+       "rms_s4": {
+        "earth": 17.8522,
+        "target": 19.1424,
+        "z": -0.23
+       },
+       "rms_s8": {
+        "earth": 31.7407,
+        "target": 37.1394,
+        "z": -0.49
+       },
+       "rms_s16": {
+        "earth": 51.71,
+        "target": 70.3731,
+        "z": -0.89
+       },
+       "hurst": {
+        "earth": 0.8623,
+        "target": 0.9601,
+        "z": -1.96
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 8,
+     "query": "(\"SP Crater\" OR \"Black Point lava\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -155.29,
+     19.41
+    ]
+   },
+   "properties": {
+    "id": "L1-CTRL_kilauea_lava",
+    "name": "Kilauea lava fields, Hawaii",
+    "country": "",
+    "lat": 19.41,
+    "lon": -155.29,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 6.627,
+      "sigma": 4.479,
+      "sigma_capped": false,
+      "percentile": 86.5,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 2.1998,
+        "target": 12.3842,
+        "z": -1.43
+       },
+       "slope_p90": {
+        "earth": 6.6502,
+        "target": 19.2581,
+        "z": -2.17
+       },
+       "frac_gt8": {
+        "earth": 0.0887,
+        "target": 0.7584,
+        "z": -3.96
+       },
+       "frac_gt15": {
+        "earth": 0.0582,
+        "target": 0.3681,
+        "z": -0.96
+       },
+       "frac_gt20": {
+        "earth": 0.0461,
+        "target": 0.0578,
+        "z": -0.03
+       },
+       "rms_s1": {
+        "earth": 3.7211,
+        "target": 4.9278,
+        "z": -0.87
+       },
+       "rms_s2": {
+        "earth": 7.179,
+        "target": 9.7531,
+        "z": -0.93
+       },
+       "rms_s4": {
+        "earth": 13.0393,
+        "target": 19.1424,
+        "z": -1.1
+       },
+       "rms_s8": {
+        "earth": 21.4591,
+        "target": 37.1394,
+        "z": -1.43
+       },
+       "rms_s16": {
+        "earth": 32.5108,
+        "target": 70.3731,
+        "z": -1.8
+       },
+       "hurst": {
+        "earth": 0.7834,
+        "target": 0.9601,
+        "z": -3.53
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 40,
+     "query": "(\"Kilauea\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.51,
+     41.71
+    ]
+   },
+   "properties": {
+    "id": "L1-CTRL_lava_beds_california",
+    "name": "Lava Beds National Monument, California",
+    "country": "",
+    "lat": 41.71,
+    "lon": -121.51,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 7.172,
+      "sigma": 5.098,
+      "sigma_capped": false,
+      "percentile": 84.5,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 3.6615,
+        "target": 12.3842,
+        "z": -1.23
+       },
+       "slope_p90": {
+        "earth": 8.7652,
+        "target": 19.2581,
+        "z": -1.8
+       },
+       "frac_gt8": {
+        "earth": 0.1164,
+        "target": 0.7584,
+        "z": -3.79
+       },
+       "frac_gt15": {
+        "earth": 0.0565,
+        "target": 0.3681,
+        "z": -0.96
+       },
+       "frac_gt20": {
+        "earth": 0.0344,
+        "target": 0.0578,
+        "z": -0.07
+       },
+       "rms_s1": {
+        "earth": 2.454,
+        "target": 4.9278,
+        "z": -1.79
+       },
+       "rms_s2": {
+        "earth": 4.7006,
+        "target": 9.7531,
+        "z": -1.82
+       },
+       "rms_s4": {
+        "earth": 8.6041,
+        "target": 19.1424,
+        "z": -1.9
+       },
+       "rms_s8": {
+        "earth": 14.5081,
+        "target": 37.1394,
+        "z": -2.06
+       },
+       "rms_s16": {
+        "earth": 21.5547,
+        "target": 70.3731,
+        "z": -2.32
+       },
+       "hurst": {
+        "earth": 0.7896,
+        "target": 0.9601,
+        "z": -3.41
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 8,
+     "query": "(\"Lava Beds\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -111.022,
+     35.027
+    ]
+   },
+   "properties": {
+    "id": "L1-CTRL_meteor_crater_arizona",
+    "name": "Barringer (Meteor) Crater, Arizona",
+    "country": "",
+    "lat": 35.027,
+    "lon": -111.022,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 6.499,
+      "sigma": 4.333,
+      "sigma_capped": false,
+      "percentile": 87.0,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 1.1891,
+        "target": 12.3842,
+        "z": -1.58
+       },
+       "slope_p90": {
+        "earth": 6.1396,
+        "target": 19.2581,
+        "z": -2.25
+       },
+       "frac_gt8": {
+        "earth": 0.0781,
+        "target": 0.7584,
+        "z": -4.02
+       },
+       "frac_gt15": {
+        "earth": 0.0478,
+        "target": 0.3681,
+        "z": -0.99
+       },
+       "frac_gt20": {
+        "earth": 0.0393,
+        "target": 0.0578,
+        "z": -0.05
+       },
+       "rms_s1": {
+        "earth": 3.0649,
+        "target": 4.9278,
+        "z": -1.35
+       },
+       "rms_s2": {
+        "earth": 5.9996,
+        "target": 9.7531,
+        "z": -1.35
+       },
+       "rms_s4": {
+        "earth": 11.2815,
+        "target": 19.1424,
+        "z": -1.41
+       },
+       "rms_s8": {
+        "earth": 19.7397,
+        "target": 37.1394,
+        "z": -1.59
+       },
+       "rms_s16": {
+        "earth": 30.9422,
+        "target": 70.3731,
+        "z": -1.87
+       },
+       "hurst": {
+        "earth": 0.839,
+        "target": 0.9601,
+        "z": -2.42
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 24,
+     "query": "(\"Meteor Crater\" OR \"Barringer\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     83.5401,
+     34.1884
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_413_804",
+    "name": "Gêrzê County, Xizang (China)",
+    "country": "",
+    "lat": 34.1884,
+    "lon": 83.5401,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.4,
+      "sigma": 17.819,
+      "sigma_capped": false,
+      "percentile": 99.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.197,
+      "sigma_shadow": 0.388,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.1006,
+        "target": 1.0,
+        "z": -17.99
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3889,
+        "target": 1.0,
+        "z": -3.64
+       },
+       "shadow_e2": {
+        "earth": 0.5711,
+        "target": 0.5628,
+        "z": 0.17
+       },
+       "shadow_e5": {
+        "earth": 0.4488,
+        "target": 0.4986,
+        "z": -0.99
+       },
+       "shadow_e7": {
+        "earth": 0.3807,
+        "target": 0.4636,
+        "z": -1.16
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 17.8, expected before scoring). Terrain shadows alone: sigma_shadow 0.39 - this is what the cell is a candidate for. S2 check: persistent snow cover in the 2023 median composite; 'bare ground' condition of the lens doubtful. Downgraded per PLAN B10.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
     ]
    }
   },
@@ -1238,7 +3152,7 @@
    },
    "properties": {
     "id": "L2-E10K_695_-696",
-    "name": "Cell E10K_695_-696",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
     "country": "",
     "lat": 71.0935,
     "lon": -72.2214,
@@ -1256,7 +3170,34 @@
       "no_analog": true,
       "metric_mode": "full",
       "d_shadow": 1.327,
-      "sigma_shadow": 0.491
+      "sigma_shadow": 0.491,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.2745,
+        "target": 1.0,
+        "z": -14.51
+       },
+       "lowsun_az_coverage": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "shadow_e2": {
+        "earth": 0.5796,
+        "target": 0.5136,
+        "z": 1.32
+       },
+       "shadow_e5": {
+        "earth": 0.4464,
+        "target": 0.4118,
+        "z": 0.69
+       },
+       "shadow_e7": {
+        "earth": 0.365,
+        "target": 0.3449,
+        "z": 0.28
+       }
+      }
      }
     },
     "process_rates": {
@@ -1290,224 +3231,8 @@
      "note": "Accessibility not assessed (optional item, not done)."
     },
     "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
-    "data_sources": [
-     "Copernicus GLO-30 DEM",
-     "NASA PGDA Product 78",
-     "MODIS snow cover"
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "Point",
-    "coordinates": [
-     -75.2328,
-     71.3326
-    ]
-   },
-   "properties": {
-    "id": "L2-E10K_696_-725",
-    "name": "Cell E10K_696_-725",
-    "country": "",
-    "lat": 71.3326,
-    "lon": -75.2328,
-    "footprint_km": 4.0,
-    "role": "hidden",
-    "process_title": "Where the Sun skims the horizon over bare ground",
-    "lens_scores": {
-     "L2": {
-      "target": "shackleton_rim",
-      "d": 14.72,
-      "sigma": 14.05,
-      "sigma_capped": false,
-      "percentile": 100.0,
-      "limiting_factor": "lowsun_frac_daylight",
-      "no_analog": true,
-      "metric_mode": "full",
-      "d_shadow": 2.366,
-      "sigma_shadow": 1.503
-     }
-    },
-    "process_rates": {
-     "freeze_thaw_cycles_per_yr": null,
-     "wind_exceedance_frac": null
-    },
-    "test_here": [
-     {
-      "tech": "Low-sun navigation and hazard cameras under long shadows",
-      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
-      "lens": "L2"
-     }
-    ],
-    "cannot_test": [
-     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
-     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
-     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
-     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
-     "Surface temperature: 100 K vs Earth 288 K",
-     "Atmospheric diffuse skylight"
-    ],
-    "attention": {
-     "n_pubs": null,
-     "query": "",
-     "source": "OpenAlex",
-     "date": "2026-11-14"
-    },
-    "access": {
-     "travel_time_h": null,
-     "protected_area": null,
-     "note": "Accessibility not assessed (optional item, not done)."
-    },
-    "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
-    "data_sources": [
-     "Copernicus GLO-30 DEM",
-     "NASA PGDA Product 78",
-     "MODIS snow cover"
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "Point",
-    "coordinates": [
-     -89.1475,
-     78.8043
-    ]
-   },
-   "properties": {
-    "id": "L2-E10K_721_-859",
-    "name": "Cell E10K_721_-859",
-    "country": "",
-    "lat": 78.8043,
-    "lon": -89.1475,
-    "footprint_km": 4.0,
-    "role": "hidden",
-    "process_title": "Where the Sun skims the horizon over bare ground",
-    "lens_scores": {
-     "L2": {
-      "target": "shackleton_rim",
-      "d": 15.987,
-      "sigma": 15.351,
-      "sigma_capped": false,
-      "percentile": 99.5,
-      "limiting_factor": "lowsun_frac_daylight",
-      "no_analog": true,
-      "metric_mode": "full",
-      "d_shadow": 2.499,
-      "sigma_shadow": 1.643
-     }
-    },
-    "process_rates": {
-     "freeze_thaw_cycles_per_yr": null,
-     "wind_exceedance_frac": null
-    },
-    "test_here": [
-     {
-      "tech": "Low-sun navigation and hazard cameras under long shadows",
-      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
-      "lens": "L2"
-     }
-    ],
-    "cannot_test": [
-     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
-     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
-     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
-     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
-     "Surface temperature: 100 K vs Earth 288 K",
-     "Atmospheric diffuse skylight"
-    ],
-    "attention": {
-     "n_pubs": null,
-     "query": "",
-     "source": "OpenAlex",
-     "date": "2026-11-14"
-    },
-    "access": {
-     "travel_time_h": null,
-     "protected_area": null,
-     "note": "Accessibility not assessed (optional item, not done)."
-    },
-    "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
-    "data_sources": [
-     "Copernicus GLO-30 DEM",
-     "NASA PGDA Product 78",
-     "MODIS snow cover"
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "Point",
-    "coordinates": [
-     -71.183,
-     80.9971
-    ]
-   },
-   "properties": {
-    "id": "L2-E10K_726_-686",
-    "name": "Cell E10K_726_-686",
-    "country": "",
-    "lat": 80.9971,
-    "lon": -71.183,
-    "footprint_km": 4.0,
-    "role": "hidden",
-    "process_title": "Where the Sun skims the horizon over bare ground",
-    "lens_scores": {
-     "L2": {
-      "target": "shackleton_rim",
-      "d": 16.094,
-      "sigma": 15.461,
-      "sigma_capped": false,
-      "percentile": 99.5,
-      "limiting_factor": "lowsun_frac_daylight",
-      "no_analog": true,
-      "metric_mode": "full",
-      "d_shadow": 2.271,
-      "sigma_shadow": 1.403
-     }
-    },
-    "process_rates": {
-     "freeze_thaw_cycles_per_yr": null,
-     "wind_exceedance_frac": null
-    },
-    "test_here": [
-     {
-      "tech": "Low-sun navigation and hazard cameras under long shadows",
-      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
-      "lens": "L2"
-     }
-    ],
-    "cannot_test": [
-     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
-     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
-     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
-     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
-     "Surface temperature: 100 K vs Earth 288 K",
-     "Atmospheric diffuse skylight"
-    ],
-    "attention": {
-     "n_pubs": null,
-     "query": "",
-     "source": "OpenAlex",
-     "date": "2026-11-14"
-    },
-    "access": {
-     "travel_time_h": null,
-     "protected_area": null,
-     "note": "Accessibility not assessed (optional item, not done)."
-    },
-    "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 13.9, expected before scoring). Terrain shadows alone: sigma_shadow 0.49 - this is what the cell is a candidate for. S2 check: mostly ice and snow with rock outcrops. Downgraded per PLAN B10.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78",
@@ -1526,7 +3251,7 @@
    },
    "properties": {
     "id": "L2-E10K_-555_-695",
-    "name": "Cell E10K_-555_-695",
+    "name": "Lago Argentino, Santa Cruz (Argentina)",
     "country": "",
     "lat": -48.8676,
     "lon": -72.1176,
@@ -1544,7 +3269,133 @@
       "no_analog": true,
       "metric_mode": "full",
       "d_shadow": 1.437,
-      "sigma_shadow": 0.585
+      "sigma_shadow": 0.585,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.1336,
+        "target": 1.0,
+        "z": -17.33
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.5,
+        "target": 1.0,
+        "z": -2.97
+       },
+       "shadow_e2": {
+        "earth": 0.6062,
+        "target": 0.5628,
+        "z": 0.87
+       },
+       "shadow_e5": {
+        "earth": 0.4973,
+        "target": 0.4986,
+        "z": -0.03
+       },
+       "shadow_e7": {
+        "earth": 0.4276,
+        "target": 0.4636,
+        "z": -0.5
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 17.1, expected before scoring). Terrain shadows alone: sigma_shadow 0.58 - this is what the cell is a candidate for. S2 check: footprint is entirely glacier ice (Southern Patagonian Ice Field). Data error in the bare-land mask. Downgraded per PLAN B10.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     57.2683,
+     23.142
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_289_551",
+    "name": "Al Hamra Province, Ad Dakhiliyah Governorate (Oman)",
+    "country": "",
+    "lat": 23.142,
+    "lon": 57.2683,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.74,
+      "sigma": 18.165,
+      "sigma_capped": false,
+      "percentile": 96.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.515,
+      "sigma_shadow": 0.653,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.0895,
+        "target": 1.0,
+        "z": -18.21
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3333,
+        "target": 1.0,
+        "z": -3.97
+       },
+       "shadow_e2": {
+        "earth": 0.6302,
+        "target": 0.5628,
+        "z": 1.35
+       },
+       "shadow_e5": {
+        "earth": 0.5113,
+        "target": 0.4986,
+        "z": 0.26
+       },
+       "shadow_e7": {
+        "earth": 0.4421,
+        "target": 0.4636,
+        "z": -0.3
+       }
+      }
      }
     },
     "process_rates": {
@@ -1579,7 +3430,304 @@
     },
     "in_exclusion_buffer": false,
     "evidence_status": "engine-confirmed",
-    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 18.2, expected before scoring). Terrain shadows alone: sigma_shadow 0.65 - this is what the cell is a candidate for. S2 check: bare, deeply incised rock terrain (Hajar Mountains, Oman).",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     56.0222,
+     27.6396
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_341_539",
+    "name": "Bandar-e-Abbas County, Hormozgan Province (Iran)",
+    "country": "",
+    "lat": 27.6396,
+    "lon": 56.0222,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.596,
+      "sigma": 18.019,
+      "sigma_capped": false,
+      "percentile": 97.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.532,
+      "sigma_shadow": 0.669,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.0928,
+        "target": 1.0,
+        "z": -18.14
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3889,
+        "target": 1.0,
+        "z": -3.64
+       },
+       "shadow_e2": {
+        "earth": 0.6361,
+        "target": 0.5628,
+        "z": 1.47
+       },
+       "shadow_e5": {
+        "earth": 0.5478,
+        "target": 0.4986,
+        "z": 0.99
+       },
+       "shadow_e7": {
+        "earth": 0.5001,
+        "target": 0.4636,
+        "z": 0.51
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 18.0, expected before scoring). Terrain shadows alone: sigma_shadow 0.67 - this is what the cell is a candidate for. S2 check: bare eroded terrain, no visible disturbance.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -89.68,
+     75.38
+    ]
+   },
+   "properties": {
+    "id": "L2-CTRL_haughton_devon_l2",
+    "name": "Haughton impact structure, Devon Island",
+    "country": "",
+    "lat": 75.38,
+    "lon": -89.68,
+    "footprint_km": 4.0,
+    "role": "control",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "connecting_ridge",
+      "d": 19.859,
+      "sigma": 19.306,
+      "sigma_capped": false,
+      "percentile": 83.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 12.336,
+      "sigma_shadow": 11.924,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.2289,
+        "target": 1.0,
+        "z": -15.42
+       },
+       "lowsun_az_coverage": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "shadow_e2": {
+        "earth": 0.4493,
+        "target": 0.5136,
+        "z": -1.29
+       },
+       "shadow_e5": {
+        "earth": 0.1337,
+        "target": 0.4118,
+        "z": -5.56
+       },
+       "shadow_e7": {
+        "earth": 0.0628,
+        "target": 0.3449,
+        "z": -3.94
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 130,
+     "query": "(\"Haughton\" OR \"Devon Island\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 19.3, expected before scoring). Terrain shadows alone: sigma_shadow 11.92 - this is what the cell is a candidate for.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     17.0,
+     21.0
+    ]
+   },
+   "properties": {
+    "id": "L2-CTRL_sahara_lowlat_l2",
+    "name": "Low-latitude Sahara reference (Tibesti foreland)",
+    "country": "",
+    "lat": 21.0,
+    "lon": 17.0,
+    "footprint_km": 4.0,
+    "role": "decoy",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 19.774,
+      "sigma": 19.219,
+      "sigma_capped": false,
+      "percentile": 81.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 6.095,
+      "sigma_shadow": 5.479,
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.0878,
+        "target": 1.0,
+        "z": -18.24
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3333,
+        "target": 1.0,
+        "z": -3.97
+       },
+       "shadow_e2": {
+        "earth": 0.8156,
+        "target": 0.5628,
+        "z": 5.06
+       },
+       "shadow_e5": {
+        "earth": 0.7327,
+        "target": 0.4986,
+        "z": 4.68
+       },
+       "shadow_e7": {
+        "earth": 0.6764,
+        "target": 0.4636,
+        "z": 2.97
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 1,
+     "query": "(\"Tibesti\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 19.2, expected before scoring). Terrain shadows alone: sigma_shadow 5.48 - this is what the cell is a candidate for.",
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78",

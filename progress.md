@@ -1,17 +1,19 @@
 # PROGRESS — Linh (B)
 
 Nhật ký tiến độ phần việc của Linh (B). Theo yêu cầu của Linh: **không sửa `PLAN.md` / `DESIGN.md`**. Mọi tiến độ, sai khác so với PLAN và việc cần quyết đều ghi ở đây.
-Nhánh: `linh/spectral-story`, tách từ `origin/bao/terrain-engine` @ `0c06eb1` (đã có A0/A1, chưa có trên `main`). Môi trường: conda `similitude` (Python 3.12).
+Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` sau khi Bảo hợp nhất A5–A9 + B0–B11). Môi trường: conda `similitude` (Python 3.12).
 
 ## Cần Linh / đội quyết (chưa chặn việc)
-- [ ] **Commit / push / PR:** chưa commit gì (AGENTS.md: agent chỉ commit khi được yêu cầu rõ). Hợp đồng B0 cần merge vào `main` theo mốc 13:45 → Linh cho phép thì commit + push nhánh + mở PR.
+- [x] ~~Commit / push~~: đã commit + push 8 commit B0–B12 lúc 14:00; Bảo đã hợp nhất vào `main`.
 - [ ] **0.1 / G0 (quy định SI):** cần người đọc Submission Guide và quyết. Bản nháp `docs/compliance.md` sẽ có sẵn checklist.
 - [ ] File `.dodsrc` ở gốc repo do `earthaccess` tạo (chỉ chứa đường dẫn netrc/cookie). Chưa xoá, không commit. Nên thêm vào `.gitignore` (file của Bảo).
+- [ ] **G1 — mục tiêu `shackleton_rim`:** Bảo đề xuất không dùng chip này làm mục tiêu (dốc trung vị 31°, có lẽ là thành trong hố). Hiện **4/5 ứng viên L2** khớp tốt nhất với `shackleton_rim`. Nếu G1 chấp nhận đề xuất, cần lọc mục tiêu này trong `fidelity.parquet` (A8) hoặc trong discovery rồi chạy lại.
+- [ ] **OpenAlex hết ngân sách miễn phí trong ngày** cho IP này (không có API key; reset 00:00 UTC = 07:00 giờ VN). Ô L1/L2 mới chưa có Attention (hiển thị "unknown", vẫn được giữ theo thiết kế). Sáng mai chạy lại `python scripts/discovery/run_discovery.py`; hoặc đặt biến môi trường `OPENALEX_API_KEY` (khoá cá nhân, không commit) để chạy ngay.
+- [ ] **Báo Bảo:** mặt nạ đất trơ tầng 1 để lọt băng/tuyết (sông băng Nunavut, South Patagonian Ice Field) → nên loại WorldCover lớp 70 (snow/ice) trong A2/A6.
 
 ## Việc còn lại của B (phụ thuộc người / Bảo)
-- **G1 (16:00):** quyết M1 đường chính hay lùi (xem B3), giữ hay cắt X1.
-- **Khi Bảo merge A5/A8:** xoá `fidelity_provisional*`, chạy `python scripts/discovery/run_discovery.py` (tự dùng `fidelity.parquet`), rồi `scripts/discovery/export_web_data.py`. L1/L2 sẽ tự lên web khi `earth_L1/L2` + `fidelity.parquet` có dữ liệu.
-- **B10:** Bảo duyệt chéo `config/review_b10.yaml` + `data/raw/review/contact_sheet.png`.
+- **G1 (16:00):** quyết M1 đường chính hay lùi (xem B3), giữ hay cắt X1, và mục tiêu `shackleton_rim` (trên).
+- **B10:** Bảo duyệt chéo `config/review_b10.yaml` + `data/raw/review/contact_sheet.png`, `contact_sheet_L1L2.png`.
 - **B12:** chốt số theo `docs/validation_report.md` (A9); dựng slide thật từ `docs/slides_draft.md`.
 - **0.1 / 5.x:** đọc nguyên văn, quyết G0, ký `docs/compliance.md`, điền trang Project, nộp.
 - Workflow Pages (`.github/workflows/pages.yml`) cần bật Settings → Pages → "GitHub Actions" và merge vào `main` để deploy.
@@ -22,6 +24,18 @@ Nhánh: `linh/spectral-story`, tách từ `origin/bao/terrain-engine` @ `0c06eb1
 - Tên tham số phổ giữ tên ngắn của PLAN (`OLINDEX`, `D2300`, `MIN2295_2480`…); tên gốc Viviano-Beck (`OLINDEX3`…) và mốc thay ghi trong `PARAM_TABLE`.
 
 ## Nhật ký
+- 2026-11-14 16:55 · **Sau khi hợp nhất với engine của Bảo (A5–A8):**
+  - Duyệt thay đổi của Bảo trong `discovery.passes_fidelity` (thêm σ ≤ 2; L2 xét `sigma_shadow`): **đồng ý**, đúng DESIGN 2.2(3). Thêm test cho nhánh này.
+  - Sửa lỗi: đối chứng L1/L2 **không được xuất** vì bảng của Bảo dùng ID `CTRL_<id>`/`SEED_<Tên>` còn discovery chỉ nhận `ctl_`. Giờ nhận cả hai quy ước (`ID_PREFIXES`, `control_cell_ids`); hạt giống của Bảo lấy tên từ cột `name`.
+  - Ô L1/L2 (`E10K_…`) giờ có tên (reverse-geocode) và được tra Attention.
+  - L2 xếp hạng/NMS/chọn mục tiêu theo `d_shadow` (`score_column`); ghi chú L2 tách "Sun geometry: no Earth analog" và σ_shadow.
+  - `metadata.lenses[*].n_null` lấy từ bảng `earth` (trước là `null`); thêm `ranking`, `best_sigma_ranked`.
+  - Test Card mất radar khi dùng `fidelity.parquet` (không có z) → z tính lại bằng chính `fidelity.fit_population` + `_min_scale` của Bảo (`engine_z`), không viết công thức mới.
+  - `openalex.py`: dừng sớm khi hết ngân sách, hỗ trợ `OPENALEX_API_KEY`; discovery không còn treo/hỏng khi OpenAlex lỗi.
+  - Web: L2 dùng σ_shadow cho màu, thứ tự danh sách, tooltip; card có khung hai phần (bóng đổ = ứng viên; hình học Mặt Trời = no-analog có số). Kiểm bằng ảnh chụp headless (`data/raw/review/web_l2_card.png`).
+  - **B10 cho 10 ô L1/L2:** hạ 4 ô xuống `hypothesis` (băng/tuyết: L1 Nunavut, L2 Gêrzê, L2 Nunavut, L2 Lago Argentino); giữ 6, ghi chú L1 Tamarugal về địa lý vẫn là bắc Atacama (ngoài vòng 350 km).
+  - Kết quả: 28 feature. Hidden đang `engine-confirmed`: M1 Harrat Rahat (σ 0,24), Harrat Khaybar (0,63), Pinacate (2,00); L1 Greenland, Gêrzê, Tamarugal, ven biển Lima (σ ≈ 0); L2 Hajar/Oman (σ_shadow 0,65), Bandar Abbas (0,67). X1: không có ứng viên (σ tốt nhất 2,07 > 2).
+  - test: 126 passed, ruff sạch, `node --check` OK, `validate_candidates` = 28.
 - 2026-11-14 12:56 · 0.2 phần Linh: Earthdata `earthaccess.login()` OK; GEE `ee.Initialize(project=$EE_PROJECT)` OK, scope đầy đủ (export được). `EE_PROJECT=nasa-hackthon-kl`.
 - 2026-11-14 13:05 · **B0 xong (chờ commit/PR):** `config/lenses.yaml`, `config/targets.yaml`, `config/controls.yaml` (18 mục, kỳ vọng ghi trước, có `expected_rgb`), `schemas/candidate.schema.json`, `web/data/candidates.mock.geojson` (3 feature, phủ L1/L2/M1/X1), `src/similitude/io.py` (`validate_candidates`, `check_candidates`, `write_candidates`, `load_*`, `min_scale_for`), `tests/test_schema.py` · test: 15 passed, ruff sạch. DOI trong targets/controls đã kiểm qua Crossref.
 - 2026-11-14 13:10 · **B1 xong:** `src/similitude/descriptors/spectral.py` (`COMMON_WL_NM` 400–2490 nm bỏ 1340–1460, 1790–1960; `PARAM_TABLE` 24 tham số, mốc gốc VB14 + mốc thay; `resample`, `crism_params(subset)`, `sam`), `tests/test_spectral.py` · test 13 passed.

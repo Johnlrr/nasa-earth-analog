@@ -133,9 +133,18 @@ def gate_mask(earth: pd.DataFrame, lens: dict) -> pd.Series:
     return m
 
 
-def best_target(fid: pd.DataFrame) -> pd.DataFrame:
-    """One row per (cell_id, lens_id): the target with the smallest raw d."""
-    return (fid.sort_values("d").drop_duplicates(["cell_id", "lens_id"], keep="first")
+def score_column(fid: pd.DataFrame) -> str:
+    """Raw distance used for ranking: ``d_shadow`` when the lens reports a separate terrain-shadow
+    part (L2, whose sun-geometry part is a pre-registered no-analog), else ``d``."""
+    if "d_shadow" in fid and len(fid) and fid["d_shadow"].notna().all():
+        return "d_shadow"
+    return "d"
+
+
+def best_target(fid: pd.DataFrame, score: str | None = None) -> pd.DataFrame:
+    """One row per (cell_id, lens_id): the target with the smallest raw distance."""
+    score = score or score_column(fid)
+    return (fid.sort_values(score).drop_duplicates(["cell_id", "lens_id"], keep="first")
             .reset_index(drop=True))
 
 
@@ -165,13 +174,23 @@ def passes_fidelity(row) -> bool:
     return sig <= SIGMA_MAX_NO_PCT
 
 
+#: Cell-id prefixes of config-defined points: Linh's tables (``seed_``, ``ctl_``) and Bao's
+#: (``SEED_``, ``CTRL_``, ``DECOY_``).
+ID_PREFIXES = ("seed_", "ctl_", "SEED_", "CTRL_", "DECOY_")
+
+
 def attention_key(row) -> str:
-    """Seeds/controls use their config id; other cells use the cell id."""
+    """Seeds/controls use their config id (lower-case, prefix stripped); other cells their id."""
     cid = str(row["cell_id"])
-    for prefix in ("seed_", "ctl_"):
+    for prefix in ID_PREFIXES:
         if cid.startswith(prefix):
-            return cid[len(prefix):]
+            return cid[len(prefix):].lower()
     return cid
+
+
+def control_cell_ids(control_id: str) -> tuple[str, str]:
+    """Both id conventions of a controls.yaml entry (Linh ``ctl_<id>``, Bao ``CTRL_<id>``)."""
+    return f"ctl_{control_id}", f"CTRL_{control_id}"
 
 
 def select_hidden(fid_best: pd.DataFrame, earth: pd.DataFrame, attention: dict, lens: dict,
@@ -192,7 +211,7 @@ def select_hidden(fid_best: pd.DataFrame, earth: pd.DataFrame, attention: dict, 
         return m
     m = m.assign(attention_n=[attention.get(attention_key(r)) for _, r in m.iterrows()])
     m = m[m["attention_n"].isna() | (m["attention_n"] <= ATTENTION_MAX)]
-    m = nms(m, float(lens["footprint_km"]))
+    m = nms(m, float(lens["footprint_km"]), score=score_column(fid_best))
     return m.head(per_lens)
 
 

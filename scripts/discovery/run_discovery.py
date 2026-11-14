@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 
+import numpy as np
 import pandas as pd
 import requests
 
@@ -67,11 +68,33 @@ def seed_meta() -> dict:
     return out
 
 
+def engine_z(lens: dict, earth: pd.DataFrame, targets: pd.DataFrame) -> pd.DataFrame:
+    """Per-descriptor z = (earth - target) / scale, with scale from the SAME engine call that
+    produced fidelity.parquet (similitude.fidelity.fit_population + lens min_scale)."""
+    from similitude import fidelity
+
+    desc = lens["descriptors"]
+    pop = targets.loc[~targets["is_reference"].astype(bool), desc].to_numpy(float)
+    E = earth[desc].to_numpy(float)
+    rows = []
+    for _, t in targets[targets["is_reference"].astype(bool)].iterrows():
+        tv = t[desc].to_numpy(float)
+        ms = np.array([fidelity._min_scale(lens, d, t.get(d, 0.0)) for d in desc])
+        z = (E - tv) / fidelity.fit_population(pop, ms).scale
+        for i, cid in enumerate(earth["cell_id"]):
+            rows.append({"cell_id": cid, "lens_id": lens["id"], "target_id": t["target_id"],
+                         **{f"z_{d}": float(z[i, j]) for j, d in enumerate(desc)}})
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
-    fid, ztab, provisional = load_fidelity()
+    fid, ztab_prov, provisional = load_fidelity()
     lenses = io.load_lenses()
     seeds = seed_meta()
-    controls = {f"ctl_{c['id']}": c for c in io.load_controls()}
+    controls = {}
+    for c in io.load_controls():
+        for cid in disc.control_cell_ids(c["id"]):
+            controls[cid] = c
     cache = json.loads(GEOCODE_CACHE.read_text(encoding="utf-8")) if GEOCODE_CACHE.exists() else {}
     att_path = DERIVED / "attention.parquet"
 
@@ -89,18 +112,25 @@ def main() -> None:
         lens = lenses[lens_id]
         earth = pd.read_parquet(earth_path)
         targets = pd.read_parquet(DERIVED / f"targets_{lens_id}.parquet")
-        tref = targets[targets["is_reference"]].set_index("target_id")
+        tref = targets[targets["is_reference"].astype(bool)].set_index("target_id")
         best = disc.best_target(f)
+        ztab = ztab_prov if ztab_prov is not None else engine_z(lens, earth, targets)
 
-        # 1st pass: names + attention for non-seed candidates passing fidelity
+        # 1st pass: names + attention for every candidate passing fidelity that has none yet
         att, _ = attention_table()
         pre = disc.select_hidden(best, earth, att, lens, per_lens=15)
         names = []
         for _, r in pre.iterrows():
-            if str(r["cell_id"]).startswith(("rank", "null")) and r["cell_id"] not in att:
+            key = disc.attention_key(r)
+            if key in att:
+                continue
+            nm = r.get("name")
+            if str(r["cell_id"]).startswith(disc.ID_PREFIXES) and isinstance(nm, str) and nm:
+                place = nm.replace("_", " ")
+                names.append({"key": key, "name": place, "place": place})
+            else:
                 display, place, country = reverse_geocode(r["lat"], r["lon"], cache)
-                names.append({"key": r["cell_id"], "name": f"{display} ({country})",
-                              "place": place})
+                names.append({"key": key, "name": f"{display} ({country})", "place": place})
         GEOCODE_CACHE.write_text(json.dumps(cache), encoding="utf-8")
         if names:
             cn = DERIVED / "candidate_names.csv"
@@ -108,7 +138,7 @@ def main() -> None:
             pd.concat([old, pd.DataFrame(names)]).drop_duplicates("key", keep="last").to_csv(
                 cn, index=False)
             subprocess.run([sys.executable, str(io.REPO_ROOT / "scripts/attention/openalex.py"),
-                            "--only-missing"], check=True)
+                            "--only-missing"], check=False, timeout=900)
         att, att_df = attention_table()
         att_q = att_df.set_index("key")
         hidden = disc.select_hidden(best, earth, att, lens, per_lens=5)
@@ -119,7 +149,7 @@ def main() -> None:
         earth_i = earth.set_index("cell_id")
 
         def build(row, role, lens_id=lens_id, lens=lens, earth_i=earth_i, tref=tref,
-                  cname=cname, att_q=att_q):
+                  cname=cname, att_q=att_q, ztab=ztab):
             cid = row["cell_id"]
             er = earth_i.loc[cid]
             zr = None
@@ -135,8 +165,10 @@ def main() -> None:
             elif cid in controls:
                 c = controls[cid]
                 name, country, klass = c["name"], "", None
-            elif cid in cname.index:
-                name, country, klass = cname.loc[cid, "name"], "", None
+            elif disc.attention_key(row) in cname.index:
+                name, country, klass = cname.loc[disc.attention_key(row), "name"], "", None
+            elif isinstance(er.get("name"), str) and er.get("name"):
+                name, country, klass = er["name"].replace("_", " "), "", None
             else:
                 name, country, klass = f"Cell {cid}", "", None
             key = disc.attention_key(row)
@@ -144,7 +176,11 @@ def main() -> None:
             status = disc.evidence_status(lens_id, role)
             note = ("Provisional diagonal scorer (scripts/provisional/score_b.py) until the A5/A8"
                     " fidelity engine is merged." if provisional else "")
-            if ls["no_analog"]:
+            if lens_id == "L2" and ls.get("sigma_shadow") is not None:
+                note += (f" Sun geometry: no Earth analog (sigma {ls['sigma']:.1f}, expected"
+                         " before scoring). Terrain shadows alone: sigma_shadow"
+                         f" {ls['sigma_shadow']:.2f} - this is what the cell is a candidate for.")
+            elif ls["no_analog"]:
                 note += (" Best Earth cell for this target is still > 2 sigma: reported as"
                          " 'no natural analog' for the target, with this cell as Earth's best.")
             rates = {"freeze_thaw_cycles_per_yr": None, "wind_exceedance_frac": None}
@@ -176,6 +212,7 @@ def main() -> None:
 
         for _, r in hidden.iterrows():
             features.append(build(r, "hidden"))
+        score = disc.score_column(f)
         for cid, c in controls.items():
             if c["lens_id"] != lens_id:
                 continue
@@ -183,13 +220,18 @@ def main() -> None:
             rows = f[(f["cell_id"] == cid) & ((f["target_id"] == tgt) if tgt else True)]
             if rows.empty:
                 continue
-            row = rows.sort_values("d").iloc[0]
+            row = rows.sort_values(score).iloc[0]
             features.append(build(row, "decoy" if c["role"] == "decoy" else "control"))
+        scored = set(f["cell_id"])
+        n_null = int(earth[earth["cell_id"].isin(scored)]["sample_role"].eq("null").sum())
+        best_sig = best["sigma_shadow"] if score == "d_shadow" else best["sigma"]
         summary[lens_id] = {
             "n_scored": int(best["cell_id"].nunique()),
-            "n_null": int(f["n_null"].max()) if "n_null" in f else None,
+            "n_null": n_null,
             "n_hidden": int(len(hidden)),
+            "ranking": score,
             "best_sigma": round(float(best["sigma"].min()), 3),
+            "best_sigma_ranked": round(float(best_sig.min()), 3),
             "no_hidden_found": bool(hidden.empty),
         }
 

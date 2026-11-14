@@ -55,6 +55,33 @@ def test_select_hidden_uses_sigma_when_percentile_missing():
     assert list(out["cell_id"]) == ["a"]
 
 
+def test_high_percentile_but_beyond_2_sigma_is_rejected():
+    # Bao's rule (DESIGN 2.2(3)): when every cell is far, the closest still gets pct 100
+    assert not disc.passes_fidelity({"sigma": 3.1, "percentile": 100.0})
+    assert disc.passes_fidelity({"sigma": 1.9, "percentile": 95.0})
+
+
+def test_l2_judged_on_sigma_shadow_not_total_sigma():
+    row = {"sigma": 14.0, "sigma_shadow": 0.4, "percentile": 99.0}
+    assert disc.passes_fidelity(row)
+    assert not disc.passes_fidelity({**row, "sigma_shadow": 2.5})
+
+
+def test_score_column_and_ranking_use_d_shadow_when_present():
+    fid = pd.DataFrame([{**fid_row("a", 20.0, 14.0, 99.0, lens="L2"), "d_shadow": 3.0},
+                        {**fid_row("b", 15.0, 10.0, 99.0, lens="L2"), "d_shadow": 9.0}])
+    assert disc.score_column(fid) == "d_shadow"
+    assert disc.score_column(fid.drop(columns="d_shadow")) == "d"
+    df = fid.assign(lat=[10.0, 30.0], lon=[0.0, 0.0])
+    assert list(disc.nms(df, 4, score=disc.score_column(fid))["cell_id"]) == ["a", "b"]
+
+
+def test_both_id_conventions():
+    assert disc.attention_key({"cell_id": "SEED_Harrat_Khaybar"}) == "harrat_khaybar"
+    assert disc.attention_key({"cell_id": "CTRL_haughton_devon"}) == "haughton_devon"
+    assert disc.control_cell_ids("wadi_rum") == ("ctl_wadi_rum", "CTRL_wadi_rum")
+
+
 def test_permafrost_gate_for_x1():
     lens = {"id": "X1", "footprint_km": 10, "gates": {"permafrost_min": 0.5},
             "descriptors": ["permafrost_flag"]}

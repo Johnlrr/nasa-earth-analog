@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import os
 import re
 import time
 
@@ -136,12 +137,21 @@ def build_query(e: dict) -> str:
     return f"({place}) AND {CONTEXT}"
 
 
+class BudgetExhausted(RuntimeError):
+    """OpenAlex free daily budget for this IP is used up (resets at midnight UTC)."""
+
+
 def count(query: str, retries: int = 6) -> int | None:
+    params = {"filter": f"title_and_abstract.search:{query}", "per-page": 1}
+    key = os.environ.get("OPENALEX_API_KEY")  # optional personal key, never committed
+    if key:
+        params["api_key"] = key
     for k in range(retries):
-        r = requests.get(API, params={"filter": f"title_and_abstract.search:{query}",
-                                      "per-page": 1}, headers=HEADERS, timeout=30)
+        r = requests.get(API, params=params, headers=HEADERS, timeout=30)
         if r.status_code == 200:
             return int(r.json()["meta"]["count"])
+        if r.status_code == 429 and "budget" in r.text.lower():
+            raise BudgetExhausted(r.json().get("message", "")[:200])
         time.sleep(2.0 * (k + 1))
     return None
 
@@ -158,7 +168,12 @@ def main() -> None:
         if e["key"] in have:
             continue
         q = build_query(e)
-        n = count(q)
+        try:
+            n = count(q)
+        except BudgetExhausted as exc:
+            # leave the remaining keys missing so the next --only-missing run fills them
+            print(f"OpenAlex daily budget exhausted, stopping early: {exc}")
+            break
         rows.append({"key": e["key"], "name": e["name"], "query": q, "n_pubs": n,
                      "source": "OpenAlex", "date": today})
         print(f"{e['key']:28s} {n!s:>5}  {q[:90]}")

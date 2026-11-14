@@ -25,3 +25,40 @@ features:
   X1-rank_0038:
     action: keep
     note: "S2 check inconclusive: high-latitude summer composite is noisy (low sun, patchy snow). Semi-quantitative evidence only."
+  # ---- L1 / L2 hidden cells (Bao's engine), reviewed 14/11 ~17:10, sheet:
+  # data/raw/review/contact_sheet_L1L2.png. Ice/snow cells passed the tier-1 bare-land mask: data
+  # error reported to Bao (mask should exclude WorldCover 70 snow/ice and glacier outlines).
+  L1-E10K_726_-686:
+    action: downgrade
+    status: hypothesis
+    note: "S2 check: an ice cap / glacier covers about half of the 4 km footprint; slope statistics partly describe ice, not regolith. Downgraded per PLAN B10."
+  L1-E10K_724_-200:
+    action: keep
+    note: "S2 check: bare rock with snow patches and a lake in one corner."
+  L1-E10K_406_810:
+    action: keep
+    note: "S2 check: bare high-mountain terrain, snow on ridge crests."
+  L1-E10K_-249_-664:
+    action: keep
+    note: "S2 check: bare desert terrain. Outside the 350 km Atacama exclusion circle, but geographically still the northern Atacama Desert (a classic analog region): weak 'hidden' claim."
+  L1-E10K_-150_-743:
+    action: keep
+    note: "S2 check: coastal desert hills and dunes, no urban area visible; the name comes from the administrative region (Lima)."
+  L2-E10K_413_804:
+    action: downgrade
+    status: hypothesis
+    note: "S2 check: persistent snow cover in the 2023 median composite; 'bare ground' condition of the lens doubtful. Downgraded per PLAN B10."
+  L2-E10K_695_-696:
+    action: downgrade
+    status: hypothesis
+    note: "S2 check: mostly ice and snow with rock outcrops. Downgraded per PLAN B10."
+  L2-E10K_-555_-695:
+    action: downgrade
+    status: hypothesis
+    note: "S2 check: footprint is entirely glacier ice (Southern Patagonian Ice Field). Data error in the bare-land mask. Downgraded per PLAN B10."
+  L2-E10K_289_551:
+    action: keep
+    note: "S2 check: bare, deeply incised rock terrain (Hajar Mountains, Oman)."
+  L2-E10K_341_539:
+    action: keep
+    note: "S2 check: bare eroded terrain, no visible disturbance."
