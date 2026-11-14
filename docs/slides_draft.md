@@ -43,7 +43,7 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
 ## Slide 4 — Honest validation
 - Expectations **written before results** (`config/controls.yaml`); met for **6 of 20**
   control/lens/target checks [`controls_expectations_met` / `controls_expectations_total`] —
-  shown, not hidden.
+  every miss is on the slide.
 - Mineral test at pixel scale (rules committed before any pixel: B14a 17:20, noise floor B14b
   17:29, from **490,734** null pixels in **69** footprints [`m1_null_pixels`,
   `m1_null_footprints`]): "Hollywood's Mars" **Wadi Rum 0 km²** matched
@@ -56,34 +56,41 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
 - Deviations from pre-registration table ⟨from A9b `docs/validation_report.md`⟩.
 Visual: bar chart of controls vs decoys, pass line.
 
-## Slide 5 — What the data found
-- **Lunar terrain (L1):** **5** Earth cells stay closer to Connecting Ridge than half of the
-  **49** sampled Artemis footprints under all three metric configurations
-  [`l1_robust_cells_connecting_ridge`, `l1_n_native_footprints`] ⟨names + Attention: TBD⟩.
-- **Ice under a dry overburden (X1, semi-quantitative):** **7** Earth cells pass all three
-  configuration conditions and are not glacier ice [`x1_cells_pass_all_not_glacier`]
-  (Canadian High Arctic, Peary Land); Beacon Valley reference **3/3**
-  [`x1_beacon_valley_conditions_met`].
-- **A hypothesis rejected by data:** Pamir–Changtang **0 of 6** seeds pass
-  [`x1_pamir_changtang_pass` / `x1_pamir_changtang_total`] — **130–234** surface freeze–thaw
+## Slide 5 — What the data found (B17: by site, 2c contract `config/sites.yaml`)
+- Headline: **"Of 307 scored cells — sampled towards Connecting Ridge — 93 are usable analogs of
+  the steep Shackleton inner wall and only 2 of Connecting Ridge."**
+  [`l1_cells_scored_rank_seed` = 307; `scarcity_L1_shackleton_rim_n_usable` = 93;
+  `scarcity_L1_connecting_ridge_n_usable_not_downgraded` = 2, all visually reviewed:
+  `scarcity_L1_connecting_ridge_n_usable_b10_unreviewed` = 0]. Same-filter comparison outside
+  exclusion zones: **54 vs 2** [`scarcity_L1_shackleton_rim_n_usable_outside_exclusion`,
+  `scarcity_L1_connecting_ridge_n_usable_outside_exclusion`]. Say "within the 307 scored cells",
+  never "on Earth": the coarse screen was biased towards Connecting Ridge slopes.
+- **Peary Land, North Greenland — two engine lenses at one camp:** L1 engine-confirmed
+  (Connecting Ridge terrain, via a rank cell found by the coarse screen, ice flag 0.15) + X1
+  engine-semiquant (ice under dry overburden). The only engine–engine multi-lens site in the
+  sample [`multilens_engine_engine_sites` = 1]. DESIGN's L2 hypothesis for Peary Land was **not**
+  confirmed (sun geometry is NO-ANALOG everywhere).
+- **Rejected by data:** Pamir–Changtang for X1 — **0 of 6** seeds pass
+  [`x1_pamir_changtang_pass` / `x1_pamir_changtang_total`], **130–234** surface freeze–thaw
   days per year [`x1_tibet_ft_days_min`–`max`]; Mars ice never thaws.
-- **Minerals:** Semail ophiolite matches the Jezero carbonate family over **19.5 km²**
-  [`semail_matched_area_km2_max`], but the method's own positive control failed → reported as a
-  method illustration only.
-- Attention × verdict matrix ⟨TBD after Attention for L1/L2⟩.
-Visual: world map of verdict cells coloured by lens; inset Attention × verdict.
+- Do **not** use the word "hidden": site-level literature attention is still unknown for all
+  showcase sites [`sites_attention_known` = 0] (A17 reruns after 07:00).
+- M1 stays on slide 4 (stop rule FAIL); Jebel Akhdar's card leads with L2, M1 only as context.
+Visual: map of the **6** showcase sites [`sites_showcase`] (squares), Peary Land highlighted.
 
-## Slide 6 — The product: Analog Test Card + Transfer Matrix
-- Web app (static, GitHub Pages): pick a lens → map → Test Card with TRANSFERS / NO-ANALOG /
-  UNOBSERVED per test, native rank or matched area, Transfer Ledger with sources.
+## Slide 6 — The product: Field / Facility card ("which rows of your test matrix come home valid")
+- One real card: **Peary Land** — *Comes home valid:* L1 slope–roughness vs Connecting Ridge
+  (native rank 43/26/44 of 49), X1 ice configuration (3/3 conditions). *Needs a facility:*
+  gravity 0.165 g → offload rig / parabolic flight; vacuum → thermal-vacuum chamber; radiation →
+  irradiation facility (each row has its source). *Not certified:* metre-scale boulders below the
+  30 m baseline; overburden dielectric (in situ GPR). Rows from `data/derived/field_facility.json`.
 - Closing line: the lunar south-pole sun geometry cannot be tested anywhere on Earth — the best
   Earth site has the Sun below 7° for **28 %** of daylight versus **100 %** at the lunar target
   [`l2_earth_best_lowsun_frac_daylight` = 0.277, `l2_moon_lowsun_frac_daylight` = 1.0]. That is
   a number, not an excuse.
-- Transfer Ledger examples (sourced): gravity 0.165 g / 0.38 g → offload rig; surface dose
-  1.37 mSv/day (Chang'e-4) / 0.67 mSv/day (MSL RAD) → irradiation facility.
-- QR → ⟨Pages URL⟩
-Visual: screenshot of the Peary Land Test Card (`data/raw/review/b16_card_desktop.png`).
+- Web app (static, GitHub Pages): Sites tab → card; lens tabs → per-cell Test Cards with
+  TRANSFERS / NO-ANALOG / UNOBSERVED. QR → ⟨Pages URL⟩
+Visual: screenshot of the Peary Land site card (`data/raw/review/b17_card_desktop.png`).
 
 ## Slide 7 — Data, licence, SI use, limits
 - NASA: EMIT L2A, MRO CRISM type spectra (MICA), CTX via Mars Trek, LRO/LOLA + PGDA 78,

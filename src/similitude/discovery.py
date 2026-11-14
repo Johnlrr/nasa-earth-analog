@@ -377,6 +377,64 @@ def pixel_match_for(pixels: pd.DataFrame | None, cell_id: str, target_id: str) -
     return out
 
 
+def _split(v) -> list[str]:
+    if v is None or (isinstance(v, float) and math.isnan(v)):
+        return []
+    if isinstance(v, (list, tuple)):
+        return [str(x) for x in v if str(x)]
+    return [s.strip() for s in str(v).split(",") if s.strip()]
+
+
+def _int_or_none(v):
+    try:
+        return None if v is None or pd.isna(v) else int(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def site_features(field_facility: dict, sites: pd.DataFrame | None = None,
+                  multilens: pd.DataFrame | None = None) -> list[dict]:
+    """B17: one ``site`` feature per showcase site card of field_facility.json (A20).
+
+    Column names follow sites.parquet (A17); comma strings become lists; member_cells = cells.
+    Nothing is recomputed here: evidence columns, hidden_status and card rows are copied.
+    """
+    sidx = sites.set_index("site_id") if sites is not None and len(sites) else None
+    out = []
+    for c in field_facility.get("sites", []):
+        sid = c["site_id"]
+        row = sidx.loc[sid] if sidx is not None and sid in sidx.index else {}
+        props = {
+            "feature_type": "site", "id": sid, "site_id": sid, "name": c["name"],
+            "lat": round(float(c["lat"]), 4), "lon": round(float(c["lon"]), 4),
+            "n_cells": int(c["n_cells"]), "member_cells": _split(c.get("cells")),
+            "max_span_km": float(c.get("max_span_km") or 0.0),
+            "lenses": _split(c.get("lenses")), "targets": _split(c.get("targets")),
+            "lenses_engine_confirmed": _split(c.get("lenses_engine_confirmed")),
+            "lenses_engine_semiquant": _split(c.get("lenses_engine_semiquant")),
+            "lenses_hypothesis": _split(c.get("lenses_hypothesis")),
+            "lenses_literature_only": _split(c.get("lenses_literature_only")),
+            "b10_unreviewed_cells": _split(c.get("b10_unreviewed_cells")),
+            "hidden_status": str(c.get("hidden_status") or "unknown"),
+            "attention_n": _int_or_none(c.get("attention_n")),
+            "n_in_exclusion": int(c.get("n_in_exclusion") or row.get("n_in_exclusion", 0) or 0),
+            "n_ice_flag": int(c.get("n_ice_flag") or 0),
+            "showcase": str(c.get("showcase") or ""),
+            "note": c.get("note"),
+            "l2_snow_free_frac": c.get("l2_snow_free_frac") or {},
+            "field": list(c.get("field") or []),
+            "facility": list(c.get("facility") or []),
+            "unobserved": list(c.get("unobserved") or []),
+        }
+        if multilens is not None and len(multilens):
+            ml = multilens[multilens["site_id"] == sid]
+            props["multilens"] = [
+                {k: (None if pd.isna(v) else (v.item() if hasattr(v, "item") else v))
+                 for k, v in r.items()} for r in ml.to_dict("records")]
+        out.append(feature(props))
+    return out
+
+
 def feature(props: dict) -> dict:
     return {"type": "Feature",
             "geometry": {"type": "Point", "coordinates": [props["lon"], props["lat"]]},

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T21:15",
+ "generated": "2026-11-15T01:31",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -140,6 +140,122 @@
   "x1_beacon_valley_conditions_met": {
    "value": 3,
    "source": "data/derived/x1_checklist.parquet"
+  },
+  "l1_cells_scored_rank_seed": {
+   "value": 307,
+   "source": "data/derived/earth_L1.parquet (sample_role rank + seed)"
+  },
+  "scarcity_L1_connecting_ridge_n_transfers": {
+   "value": 5,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_connecting_ridge_n_usable": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_connecting_ridge_n_usable_outside_exclusion": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_connecting_ridge_n_usable_not_downgraded": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_connecting_ridge_n_usable_b10_unreviewed": {
+   "value": 0,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_connecting_ridge_n_sites_usable": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_transfers": {
+   "value": 99,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_usable": {
+   "value": 93,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_usable_outside_exclusion": {
+   "value": 54,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_usable_not_downgraded": {
+   "value": 93,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_usable_b10_unreviewed": {
+   "value": 90,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L1_shackleton_rim_n_sites_usable": {
+   "value": 27,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_transfers": {
+   "value": 3,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_usable": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_usable_outside_exclusion": {
+   "value": 1,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_usable_not_downgraded": {
+   "value": 1,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_usable_b10_unreviewed": {
+   "value": 0,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_connecting_ridge_n_sites_usable": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_transfers": {
+   "value": 7,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_usable": {
+   "value": 6,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_usable_outside_exclusion": {
+   "value": 4,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_usable_not_downgraded": {
+   "value": 4,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_usable_b10_unreviewed": {
+   "value": 2,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "scarcity_L2_shackleton_rim_n_sites_usable": {
+   "value": 5,
+   "source": "data/derived/target_scarcity.parquet"
+  },
+  "multilens_engine_engine_sites": {
+   "value": 1,
+   "source": "data/derived/multilens.parquet"
+  },
+  "sites_total": {
+   "value": 31,
+   "source": "data/derived/sites.parquet"
+  },
+  "sites_showcase": {
+   "value": 6,
+   "source": "data/derived/sites.parquet"
+  },
+  "sites_attention_known": {
+   "value": 0,
+   "source": "data/derived/sites.parquet"
   },
   "emit_footprints_m1": {
    "value": 123,

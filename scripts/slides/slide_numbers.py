@@ -110,6 +110,26 @@ def main() -> None:
     xi = x.set_index("cell_id")
     put("x1_beacon_valley_conditions_met", int(xi.loc["ctl_beacon_valley", "n_met"]), src)
 
+    # ---- B17: sites, target scarcity, multi-lens (slide 5-6), 2c contract ----
+    e1 = pd.read_parquet(D / "earth_L1.parquet")
+    put("l1_cells_scored_rank_seed", int(e1.sample_role.isin(["rank", "seed"]).sum()),
+        "data/derived/earth_L1.parquet (sample_role rank + seed)")
+    sc = pd.read_parquet(D / "target_scarcity.parquet").set_index(["lens_id", "target_id"])
+    src = "data/derived/target_scarcity.parquet"
+    for (lid, tid), r in sc.iterrows():
+        for col in ("n_transfers", "n_usable", "n_usable_outside_exclusion",
+                    "n_usable_not_downgraded", "n_usable_b10_unreviewed", "n_sites_usable"):
+            put(f"scarcity_{lid}_{tid}_{col}", int(r[col]), src)
+    ml = pd.read_parquet(D / "multilens.parquet")
+    eng = ml[ml.partner_state.astype(str).str.startswith("engine")]
+    put("multilens_engine_engine_sites", int(eng.site_id.nunique()),
+        "data/derived/multilens.parquet")
+    st = pd.read_parquet(D / "sites.parquet")
+    put("sites_total", int(len(st)), "data/derived/sites.parquet")
+    put("sites_showcase", int((st.showcase.astype(str).str.len() > 0).sum()),
+        "data/derived/sites.parquet")
+    put("sites_attention_known", int(st.attention_n.notna().sum()), "data/derived/sites.parquet")
+
     # ---- data volume (slide 7) ----
     put("emit_footprints_m1", int(pd.read_parquet(D / "earth_M1.parquet").shape[0]),
         "data/derived/earth_M1.parquet")

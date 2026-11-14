@@ -23,8 +23,14 @@
     return (typeof v === 'number' && isFinite(v)) ? v.toFixed(digits === undefined ? 2 : digits) : '—';
   }
   function cap(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); }
-  function lensInfo(id) { return LENSES.filter(function (l) { return l.id === id; })[0] || { id: id, name: id, body: '', question: '' }; }
+  function lensInfo(id) { if (id === 'SITES') return SITES_TAB; return LENSES.filter(function (l) { return l.id === id; })[0] || { id: id, name: id, body: '', question: '' }; }
   function roleOf(p) { return p.role === 'control' || p.role === 'decoy' ? p.role : 'hidden'; }
+  // B17: the word "hidden" is not shown until site-level attention exists (A17 after 07:00)
+  var ROLE_LABEL = { hidden: 'engine-qualified cell', control: 'control', decoy: 'decoy' };
+  function roleLabel(r) { return ROLE_LABEL[r] || r; }
+  var SITES_TAB = { id: 'SITES', name: 'Showcase sites', body: 'Earth',
+    question: 'Engine-qualified 4 km cells grouped into field sites (150 km): which rows of your test matrix come home valid, which need a facility, which are not certified.' };
+  function isSite(f) { return !!(f && f.properties && f.properties.feature_type === 'site'); }
   function safeUrl(u) { return /^https?:\/\//i.test(String(u || '')) ? String(u) : ''; }
 
   function sigmaColor(s) {
@@ -129,7 +135,8 @@
   // ---------- UI ----------
   function buildLensTabs() {
     var host = $('lens-tabs');
-    host.innerHTML = LENSES.map(function (l) {
+    var siteBtn = '<button type="button" class="lens-btn" data-lens="SITES" aria-pressed="false" aria-label="Showcase sites">Sites<small>showcase</small></button>';
+    host.innerHTML = siteBtn + LENSES.map(function (l) {
       return '<button type="button" class="lens-btn" data-lens="' + esc(l.id) + '" aria-pressed="false" aria-label="Lens ' +
         esc(l.id) + ': ' + esc(l.name) + ', ' + esc(l.body) + '">' + esc(l.id) + ' ' + esc(l.name) +
         '<small>' + esc(l.body) + '</small></button>';
@@ -142,17 +149,24 @@
     ].map(function (i) {
       return '<span class="item"><span class="swatch" style="background:' + i[1] + '"></span>' + esc(i[0]) + '</span>';
     }).join('');
-    var roles = '<span class="item"><span class="swatch" style="background:#ccc"></span><b>hidden analog</b> (filled)</span>' +
+    var roles = '<span class="item"><span class="swatch" style="background:#ccc"></span><b>engine-qualified cell</b> (filled)</span>' +
       '<span class="item"><span class="swatch ring"></span><b>control</b> (ring: known good site)</span>' +
       '<span class="item"><span class="swatch diamond"></span><b>decoy</b> (diamond: looks similar, should fail)</span>';
     var ev = '<span class="item"><span class="swatch" style="background:#ccc;border-style:solid"></span>engine-confirmed (solid)</span>' +
       '<span class="item"><span class="swatch" style="background:#ccc;border-style:dashed"></span>engine-semiquant (dashed)</span>' +
       '<span class="item"><span class="swatch" style="background:#ccc;border-color:#868e96"></span>literature-only / hypothesis (grey)</span>';
     $('legend').innerHTML = '<div class="lg-row">' + items + '<span class="item">σ small = good analog; "> X σ" = capped</span></div>' +
-      '<div class="lg-row">' + roles + '</div><div class="lg-row">' + ev + '</div>';
+      '<div class="lg-row">' + roles + '<span class="item"><span class="swatch sq"></span><b>site</b> (square, Sites tab)</span></div><div class="lg-row">' + ev + '</div>';
   }
 
+  function siteFeatures() {
+    return state.features.filter(isSite).sort(function (a, b) {
+      return String(a.properties.showcase).localeCompare(String(b.properties.showcase)) ||
+        String(a.properties.name).localeCompare(String(b.properties.name));
+    });
+  }
   function lensFeatures() {
+    if (state.lens === 'SITES') return siteFeatures();
     return state.features.filter(function (f) {
       return f.properties && f.properties.lens_scores && f.properties.lens_scores[state.lens];
     }).sort(function (a, b) {
@@ -169,7 +183,7 @@
     });
     $('lens-question').textContent = lensInfo(id).question || '';
     var sel = state.features.filter(function (f) { return f.properties.id === state.selectedId; })[0];
-    if (sel && !sel.properties.lens_scores[id]) state.selectedId = null;
+    if (sel && (id === 'SITES' ? !isSite(sel) : (isSite(sel) || !sel.properties.lens_scores[id]))) state.selectedId = null;
     renderMap(); renderList(); renderCard();
   }
 
@@ -194,10 +208,21 @@
     markerLayer.clearLayers(); markers = {};
     var feats = lensFeatures();
     feats.forEach(function (f) {
+      if (isSite(f)) {
+        var sp = f.properties, big = sp.id === state.selectedId, sz = big ? 22 : 16;
+        var col = sp.lenses_engine_confirmed.length ? BAND_COLORS.good : (sp.lenses_engine_semiquant.length ? BAND_COLORS.ok : '#868e96');
+        var sm = L.marker([f.geometry.coordinates[1], f.geometry.coordinates[0]], { icon: L.divIcon({
+          className: 'site-icon', iconSize: [sz, sz], iconAnchor: [sz / 2, sz / 2],
+          html: '<span style="background:' + col + '"></span>' }), keyboard: false });
+        sm.bindTooltip(esc(sp.name) + ' — site, ' + esc(sp.n_cells) + ' cell(s)');
+        sm.on('click', function () { select(sp.id, false); });
+        sm.addTo(markerLayer); markers[sp.id] = sm;
+        return;
+      }
       var p = f.properties, ls = p.lens_scores[state.lens];
       var lat = f.geometry.coordinates[1], lon = f.geometry.coordinates[0];
       var m = makeMarker(p, ls, lat, lon, p.id === state.selectedId);
-      m.bindTooltip(esc(p.name) + ' (' + esc(roleOf(p)) + ') — ' + esc(rankSigmaText(ls)));
+      m.bindTooltip(esc(p.name) + ' (' + esc(roleLabel(roleOf(p))) + ') — ' + esc(rankSigmaText(ls)));
       m.on('click', function () { select(p.id, false); });
       m.addTo(markerLayer);
       markers[p.id] = m;
@@ -208,10 +233,18 @@
     }
   }
 
+  function siteRowHtml(f) {
+    var p = f.properties;
+    var chips = p.lenses_engine_confirmed.concat(p.lenses_engine_semiquant.map(function (x) { return x + '~'; }));
+    return '<li><button type="button" data-id="' + esc(p.id) + '"' + (p.id === state.selectedId ? ' aria-current="true"' : '') + '>' +
+      '<span class="dot sq"></span><span>' + esc(p.name) + '<br><span class="note">' + esc(p.n_cells) + ' cell(s) · showcase ' + esc(p.showcase) + '</span></span>' +
+      '<span class="sig">' + esc(chips.join(' ')) + '</span></button></li>';
+  }
   function rowHtml(f) {
+    if (isSite(f)) return siteRowHtml(f);
     var p = f.properties, ls = p.lens_scores[state.lens], role = roleOf(p);
     var dot = role === 'decoy' ? 'dot diamond' : (role === 'control' ? 'dot ring' : 'dot');
-    var tag = role === 'hidden' ? '' : ' <span class="tag ' + role + '">' + role + '</span>';
+    var tag = role === 'hidden' ? '' : ' <span class="tag ' + role + '">' + esc(roleLabel(role)) + '</span>';
     return '<li><button type="button" data-id="' + esc(p.id) + '"' + (p.id === state.selectedId ? ' aria-current="true"' : '') + '>' +
       '<span class="' + dot + '" style="background:' + sigmaColor(rankSigma(ls)) + '"></span>' +
       '<span>' + esc(p.name) + tag + '<br><span class="note">' + esc(p.country || '') + '</span></span>' +
@@ -220,8 +253,13 @@
 
   function renderList() {
     var li = lensInfo(state.lens), feats = lensFeatures(), lm = lensMeta(state.lens);
-    $('list-title').textContent = 'Candidates for ' + li.id + ' ' + li.name + ' (' + li.body + '), best first';
     var host = $('list');
+    if (state.lens === 'SITES') {
+      $('list-title').textContent = 'Showcase sites (selection rule in config/sites.yaml, not hand-picked)';
+      host.innerHTML = feats.length ? feats.map(siteRowHtml).join('') : '<li class="empty">No site table published yet.</li>';
+      return;
+    }
+    $('list-title').textContent = 'Cells for ' + li.id + ' ' + li.name + ' (' + li.body + '), best first';
     if (!feats.length) {
       var msg = (lm && lm.status) ? 'No engine results for this lens yet' + (lm.status !== 'no fidelity data yet' ? ' (' + lm.status + ')' : '') :
         'No candidates scored for this lens.';
@@ -230,11 +268,11 @@
     }
     var hidden = feats.filter(function (f) { return roleOf(f.properties) === 'hidden'; });
     var valid = feats.filter(function (f) { return roleOf(f.properties) !== 'hidden'; });
-    var h = '<li class="group-h">Hidden analogs</li>';
+    var h = '<li class="group-h">Engine-qualified cells</li>';
     if (hidden.length) h += hidden.map(rowHtml).join('');
-    else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No hidden analog found for this lens' : 'No hidden analogs in the current data') + '</li>';
+    else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No engine-qualified cell for this lens' : 'No engine-qualified cells in the current data') + '</li>';
     if (lm && lm.n_attention_unknown) {
-      h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "hidden".</li>';
+      h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "little studied".</li>';
     }
     if (valid.length) h += '<li class="group-h">Validation: controls &amp; decoys</li>' + valid.map(rowHtml).join('');
     host.innerHTML = h;
@@ -318,15 +356,61 @@
     return parts.length ? '<p class="scale">' + parts.join('<br>') + '</p>' : '';
   }
 
+  // ---------- B17 site card (2c contract; rows copied from field_facility.json) ----------
+  function rowsHtml(rows, kind) {
+    if (!rows || !rows.length) return '<p class="note">None.</p>';
+    return '<ul class="rows ' + kind + '">' + rows.map(function (r) {
+      var src = safeUrl(r.source);
+      return '<li><strong>' + esc(r.lens) + '</strong> ' + (r.target_label ? esc(r.target_label) + ' — ' : '') +
+        esc(r.variable) + (r.value !== null && r.value !== undefined ? ' <span class="note">(' + esc(r.value) + ')</span>' : '') +
+        (r.reason ? '<br><span class="note">' + esc(r.reason) + '</span>' : '') +
+        (r.facility ? '<br>→ ' + esc(r.facility) : '') +
+        (src ? ' <a href="' + esc(src) + '" target="_blank" rel="noopener">source</a>' : '') + '</li>';
+    }).join('') + '</ul>';
+  }
+  function chip(list, cls, label) {
+    return (list || []).map(function (l) { return '<span class="chip ' + cls + '" title="' + esc(label) + '">' + esc(l) + ' · ' + esc(label) + '</span>'; }).join(' ');
+  }
+  function siteCardHtml(p) {
+    var h = '<h2>' + esc(p.name) + '</h2>';
+    h += '<p class="meta">Site · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · ' + esc(p.n_cells) + ' cell(s) · span ' +
+      esc(num(p.max_span_km, 0)) + ' km' + (p.max_span_km > 300 ? ' <span class="flag">a region, not one camp</span>' : '') +
+      ' · <span class="note">' + esc(p.id) + '</span></p>';
+    h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'engine-confirmed') + ' ' +
+      chip(p.lenses_engine_semiquant, 'c-semi', 'engine-semiquant') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (B10 downgraded)') + ' ' +
+      chip(p.lenses_literature_only, 'c-lit', 'literature-only context') + '</p>';
+    h += '<p><strong>Literature attention:</strong> ' + esc(p.hidden_status) +
+      (typeof p.attention_n === 'number' ? ' (' + esc(p.attention_n) + ' papers)' : '') + '</p>';
+    if (p.note) h += '<p class="note">' + esc(p.note) + '</p>';
+    h += '<h3>Comes home valid (Field)</h3>' + rowsHtml(p.field, 'r-field');
+    h += '<h3>Needs a facility</h3>' + rowsHtml(p.facility, 'r-fac');
+    h += '<h3>Not certified (unobserved)</h3>' + rowsHtml(p.unobserved, 'r-unobs');
+    var snow = p.l2_snow_free_frac || {};
+    var sk = Object.keys(snow);
+    if (sk.length) h += '<p class="note">L2 cells snow-free fraction (MODIS 2023): ' + sk.map(function (k) { return esc(k) + ' ' + esc(num(snow[k], 2)); }).join(', ') + '</p>';
+    if (p.multilens && p.multilens.length) {
+      h += '<h3>Other lenses nearby (≤ 150 km)</h3><ul class="rows">' + p.multilens.map(function (m) {
+        return '<li>' + esc(m.partner_lens) + ' ' + esc(m.partner_label) + ' · ' + esc(num(m.distance_km, 0)) + ' km · ' + esc(m.partner_state) +
+          (m.edge_of_radius ? ' <span class="note">(edge of radius)</span>' : '') + '</li>';
+      }).join('') + '</ul>';
+    }
+    if (p.b10_unreviewed_cells && p.b10_unreviewed_cells.length) {
+      h += '<p class="note">Cells not yet visually reviewed (B10): ' + esc(p.b10_unreviewed_cells.join(', ')) + '</p>';
+    }
+    h += '<p class="note">Member cells: ' + esc(p.member_cells.join(', ')) + '</p>';
+    return h;
+  }
+
   function renderCard() {
     var host = $('card');
     var f = state.features.filter(function (x) { return x.properties.id === state.selectedId; })[0];
     if (!f) { host.innerHTML = '<p class="muted">Select a site on the map or in the list to open its Analog Test Card.</p>'; return; }
+    if (isSite(f)) { host.innerHTML = siteCardHtml(f.properties); return; }
     var p = f.properties, h = '', role = roleOf(p);
     h += '<h2>' + esc(p.process_title) + '</h2>';
     h += '<p class="meta"><strong>' + esc(p.name) + '</strong>' + (p.country ? ' · ' + esc(p.country) : '') +
       ' · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · footprint ' + esc(p.footprint_km) + ' km · ' +
-      '<span class="tag ' + role + '">' + esc(role) + '</span> <span class="note">' + esc(p.id) + '</span></p>';
+      '<span class="tag ' + role + '">' + esc(roleLabel(role)) + '</span> <span class="note">' + esc(p.id) + '</span></p>';
     if (role !== 'hidden') h += '<p class="note">' + (role === 'control' ?
       'Control: a site that should match; it validates the method.' : 'Decoy: a site that looks similar but should fail; it validates the method.') + '</p>';
     if (p.process_summary) h += '<p>' + esc(p.process_summary) + '</p>';
@@ -337,7 +421,7 @@
         ' — this is what the site is a candidate for (long shadows over matching relief).</p>' +
         '<p class="note"><strong>Sun geometry: no Earth analog</strong> (σ ' + esc(num(l2.sigma, 1)) +
         '). The Sun circling the horizon at 0–7° all day needs latitude ≳ 83–86°; this was expected before scoring' +
-        ' and is reported as a number, not hidden.</p></div>';
+        ' and is reported as a number.</p></div>';
     }
     h += verdictHtml(p);
     h += evidenceScaleHtml(p.lens_scores[state.lens]);
@@ -428,7 +512,7 @@
       var first = LENSES.filter(function (l) {
         return state.features.some(function (f) { return f.properties.lens_scores && f.properties.lens_scores[l.id]; });
       })[0];
-      setLens(first ? first.id : LENSES[0].id);
+      setLens(state.features.some(isSite) ? 'SITES' : (first ? first.id : LENSES[0].id));
     }).catch(function (err) {
       var b = $('error-banner'); b.textContent = 'Could not load data: ' + err.message; b.hidden = false;
       buildLensTabs();

@@ -1,7 +1,7 @@
 {
  "type": "FeatureCollection",
  "metadata": {
-  "generated": "2026-11-14T20:55",
+  "generated": "2026-11-15T01:29",
   "provisional": false,
   "mock": false,
   "lenses": {
@@ -28,24 +28,26 @@
    "L1": {
     "n_scored": 515,
     "n_null": 200,
-    "n_hidden": 0,
+    "n_hidden": 5,
     "ranking": "d",
     "best_sigma": 0.0,
     "best_sigma_ranked": 0.0,
-    "n_attention_unknown": 5,
+    "n_attention_unknown": 2,
     "no_hidden_found": false
    },
    "L2": {
     "n_scored": 513,
     "n_null": 200,
-    "n_hidden": 0,
+    "n_hidden": 5,
     "ranking": "d_shadow",
     "best_sigma": 13.921,
     "best_sigma_ranked": 0.013,
-    "n_attention_unknown": 5,
+    "n_attention_unknown": 0,
     "no_hidden_found": false
    }
   },
+  "n_sites": 6,
+  "site_contract": "config/sites.yaml (2c); cards from field_facility.json",
   "verdicts_source": "data/derived/verdicts.parquet (A15)",
   "thresholds": {
    "percentile_min": 90.0,
@@ -1543,6 +1545,1036 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
+     -70.56,
+     69.9389
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_691_-680",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "country": "",
+    "lat": 69.9389,
+    "lon": -70.56,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 1.7,
+      "sigma": 0.01,
+      "sigma_capped": false,
+      "percentile": 98.0,
+      "limiting_factor": "rms_s8",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 44,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 14.1061,
+        "target": 12.3842,
+        "z": 0.24
+       },
+       "slope_p90": {
+        "earth": 20.5643,
+        "target": 19.2581,
+        "z": 0.22
+       },
+       "frac_gt8": {
+        "earth": 0.7794,
+        "target": 0.7584,
+        "z": 0.12
+       },
+       "frac_gt15": {
+        "earth": 0.4365,
+        "target": 0.3681,
+        "z": 0.21
+       },
+       "frac_gt20": {
+        "earth": 0.1194,
+        "target": 0.0578,
+        "z": 0.18
+       },
+       "rms_s1": {
+        "earth": 5.9244,
+        "target": 4.9278,
+        "z": 0.72
+       },
+       "rms_s2": {
+        "earth": 11.7861,
+        "target": 9.7531,
+        "z": 0.73
+       },
+       "rms_s4": {
+        "earth": 23.281,
+        "target": 19.1424,
+        "z": 0.74
+       },
+       "rms_s8": {
+        "earth": 45.3754,
+        "target": 37.1394,
+        "z": 0.75
+       },
+       "rms_s16": {
+        "earth": 85.4044,
+        "target": 70.3731,
+        "z": 0.71
+       },
+       "hurst": {
+        "earth": 0.9644,
+        "target": 0.9601,
+        "z": 0.09
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Qikiqtaaluk Region\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 45.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 44/48/45 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -66.5102,
+     -26.4996
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_-329_-641",
+    "name": "Departamento Belén, Catamarca (Argentina)",
+    "country": "",
+    "lat": -26.4996,
+    "lon": -66.5102,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "shackleton_rim",
+      "d": 4.272,
+      "sigma": 1.775,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "slope_p50",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 39,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 15.8687,
+        "target": 31.3601,
+        "z": -2.18
+       },
+       "slope_p90": {
+        "earth": 25.1773,
+        "target": 33.8216,
+        "z": -1.48
+       },
+       "frac_gt8": {
+        "earth": 0.8273,
+        "target": 0.9611,
+        "z": -0.79
+       },
+       "frac_gt15": {
+        "earth": 0.5401,
+        "target": 0.9013,
+        "z": -1.12
+       },
+       "frac_gt20": {
+        "earth": 0.3056,
+        "target": 0.8782,
+        "z": -1.65
+       },
+       "rms_s1": {
+        "earth": 6.4248,
+        "target": 4.7319,
+        "z": 1.23
+       },
+       "rms_s2": {
+        "earth": 12.6244,
+        "target": 9.1664,
+        "z": 1.24
+       },
+       "rms_s4": {
+        "earth": 24.0608,
+        "target": 17.2954,
+        "z": 1.22
+       },
+       "rms_s8": {
+        "earth": 43.3069,
+        "target": 31.1926,
+        "z": 1.1
+       },
+       "rms_s16": {
+        "earth": 70.7431,
+        "target": 50.7402,
+        "z": 0.95
+       },
+       "hurst": {
+        "earth": 0.87,
+        "target": 0.8612,
+        "z": 0.18
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Departamento Belén\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 44.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/48/44 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.3978,
+     35.1355
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_423_793",
+    "name": "Gêrzê County, Xizang (China)",
+    "country": "",
+    "lat": 35.1355,
+    "lon": 82.3978,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "shackleton_rim",
+      "d": 4.309,
+      "sigma": 1.817,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "slope_p50",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 39,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 14.8856,
+        "target": 31.3601,
+        "z": -2.32
+       },
+       "slope_p90": {
+        "earth": 22.3903,
+        "target": 33.8216,
+        "z": -1.96
+       },
+       "frac_gt8": {
+        "earth": 0.908,
+        "target": 0.9611,
+        "z": -0.31
+       },
+       "frac_gt15": {
+        "earth": 0.4914,
+        "target": 0.9013,
+        "z": -1.27
+       },
+       "frac_gt20": {
+        "earth": 0.2016,
+        "target": 0.8782,
+        "z": -1.95
+       },
+       "rms_s1": {
+        "earth": 6.0541,
+        "target": 4.7319,
+        "z": 0.96
+       },
+       "rms_s2": {
+        "earth": 11.8852,
+        "target": 9.1664,
+        "z": 0.98
+       },
+       "rms_s4": {
+        "earth": 22.5442,
+        "target": 17.2954,
+        "z": 0.94
+       },
+       "rms_s8": {
+        "earth": 39.9194,
+        "target": 31.1926,
+        "z": 0.8
+       },
+       "rms_s16": {
+        "earth": 64.1101,
+        "target": 50.7402,
+        "z": 0.63
+       },
+       "hurst": {
+        "earth": 0.8557,
+        "target": 0.8612,
+        "z": -0.11
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Gêrzê County\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 42.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/48/42 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -69.7292,
+     -31.7725
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_-388_-672",
+    "name": "Calingasta, San Juan (Argentina)",
+    "country": "",
+    "lat": -31.7725,
+    "lon": -69.7292,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "shackleton_rim",
+      "d": 4.369,
+      "sigma": 1.884,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "slope_p50",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 39,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 12.9401,
+        "target": 31.3601,
+        "z": -2.59
+       },
+       "slope_p90": {
+        "earth": 25.0294,
+        "target": 33.8216,
+        "z": -1.51
+       },
+       "frac_gt8": {
+        "earth": 0.7313,
+        "target": 0.9611,
+        "z": -1.36
+       },
+       "frac_gt15": {
+        "earth": 0.4326,
+        "target": 0.9013,
+        "z": -1.45
+       },
+       "frac_gt20": {
+        "earth": 0.2691,
+        "target": 0.8782,
+        "z": -1.76
+       },
+       "rms_s1": {
+        "earth": 6.0134,
+        "target": 4.7319,
+        "z": 0.93
+       },
+       "rms_s2": {
+        "earth": 11.643,
+        "target": 9.1664,
+        "z": 0.89
+       },
+       "rms_s4": {
+        "earth": 21.5118,
+        "target": 17.2954,
+        "z": 0.76
+       },
+       "rms_s8": {
+        "earth": 37.3234,
+        "target": 31.1926,
+        "z": 0.56
+       },
+       "rms_s16": {
+        "earth": 60.6185,
+        "target": 50.7402,
+        "z": 0.47
+       },
+       "hurst": {
+        "earth": 0.8348,
+        "target": 0.8612,
+        "z": -0.53
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Calingasta\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 39.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/35/42 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.6325,
+     31.5892
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_385_776",
+    "name": "Gar County, Xizang (China)",
+    "country": "",
+    "lat": 31.5892,
+    "lon": 80.6325,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "shackleton_rim",
+      "d": 4.385,
+      "sigma": 1.903,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "slope_p50",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 39,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 12.3673,
+        "target": 31.3601,
+        "z": -2.67
+       },
+       "slope_p90": {
+        "earth": 22.1062,
+        "target": 33.8216,
+        "z": -2.01
+       },
+       "frac_gt8": {
+        "earth": 0.782,
+        "target": 0.9611,
+        "z": -1.06
+       },
+       "frac_gt15": {
+        "earth": 0.3702,
+        "target": 0.9013,
+        "z": -1.64
+       },
+       "frac_gt20": {
+        "earth": 0.1686,
+        "target": 0.8782,
+        "z": -2.05
+       },
+       "rms_s1": {
+        "earth": 4.6921,
+        "target": 4.7319,
+        "z": -0.03
+       },
+       "rms_s2": {
+        "earth": 9.2089,
+        "target": 9.1664,
+        "z": 0.02
+       },
+       "rms_s4": {
+        "earth": 17.5129,
+        "target": 17.2954,
+        "z": 0.04
+       },
+       "rms_s8": {
+        "earth": 31.347,
+        "target": 31.1926,
+        "z": 0.01
+       },
+       "rms_s16": {
+        "earth": 51.2542,
+        "target": 50.7402,
+        "z": 0.02
+       },
+       "hurst": {
+        "earth": 0.8666,
+        "target": 0.8612,
+        "z": 0.11
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Gar County\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 42.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/48/42 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
      -89.68,
      75.38
     ]
@@ -2523,6 +3555,981 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
+     83.5401,
+     34.1884
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_413_804",
+    "name": "Gêrzê County, Xizang (China)",
+    "country": "",
+    "lat": 34.1884,
+    "lon": 83.5401,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.4,
+      "sigma": 17.819,
+      "sigma_capped": false,
+      "percentile": 99.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.197,
+      "sigma_shadow": 0.388,
+      "native_rank": 35,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.1006,
+        "target": 1.0,
+        "z": -17.99
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3889,
+        "target": 1.0,
+        "z": -3.64
+       },
+       "shadow_e2": {
+        "earth": 0.5711,
+        "target": 0.5628,
+        "z": 0.17
+       },
+       "shadow_e5": {
+        "earth": 0.4488,
+        "target": 0.4986,
+        "z": -0.99
+       },
+       "shadow_e7": {
+        "earth": 0.3807,
+        "target": 0.4636,
+        "z": -1.16
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Gêrzê County\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 17.8, expected before scoring). Terrain shadows alone: sigma_shadow 0.39 - this is what the cell is a candidate for. S2 check: persistent snow cover in the 2023 median composite; 'bare ground' condition of the lens doubtful. Downgraded per PLAN B10.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L2",
+      "scope": "cell",
+      "test": "Low-Sun Navigation",
+      "variable": "shadow_casting",
+      "state": "TRANSFERS",
+      "value": 35.0,
+      "reason": "native rank (d_shadow) 35 of 49; sigma_shadow 0.39",
+      "facility": null
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "day_night_cycle",
+      "state": "NO-ANALOG",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "diffuse_skylight",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "sun_geometry",
+      "state": "NO-ANALOG",
+      "value": 13.9208,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "Horizon occlusion beyond 10 km",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -72.1176,
+     -48.8676
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_-555_-695",
+    "name": "Lago Argentino, Santa Cruz (Argentina)",
+    "country": "",
+    "lat": -48.8676,
+    "lon": -72.1176,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 17.682,
+      "sigma": 17.086,
+      "sigma_capped": false,
+      "percentile": 99.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.437,
+      "sigma_shadow": 0.585,
+      "native_rank": 29,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.1336,
+        "target": 1.0,
+        "z": -17.33
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.5,
+        "target": 1.0,
+        "z": -2.97
+       },
+       "shadow_e2": {
+        "earth": 0.6062,
+        "target": 0.5628,
+        "z": 0.87
+       },
+       "shadow_e5": {
+        "earth": 0.4973,
+        "target": 0.4986,
+        "z": -0.03
+       },
+       "shadow_e7": {
+        "earth": 0.4276,
+        "target": 0.4636,
+        "z": -0.5
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Lago Argentino\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 17.1, expected before scoring). Terrain shadows alone: sigma_shadow 0.58 - this is what the cell is a candidate for. S2 check: footprint is entirely glacier ice (Southern Patagonian Ice Field). Data error in the bare-land mask. Downgraded per PLAN B10.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L2",
+      "scope": "cell",
+      "test": "Low-Sun Navigation",
+      "variable": "shadow_casting",
+      "state": "TRANSFERS",
+      "value": 29.0,
+      "reason": "native rank (d_shadow) 29 of 49; sigma_shadow 0.58",
+      "facility": null
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "day_night_cycle",
+      "state": "NO-ANALOG",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "diffuse_skylight",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "sun_geometry",
+      "state": "NO-ANALOG",
+      "value": 13.9208,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "Horizon occlusion beyond 10 km",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     57.2683,
+     23.142
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_289_551",
+    "name": "Al Hamra Province, Ad Dakhiliyah Governorate (Oman)",
+    "country": "",
+    "lat": 23.142,
+    "lon": 57.2683,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.74,
+      "sigma": 18.165,
+      "sigma_capped": false,
+      "percentile": 96.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.515,
+      "sigma_shadow": 0.653,
+      "native_rank": 29,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.0895,
+        "target": 1.0,
+        "z": -18.21
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3333,
+        "target": 1.0,
+        "z": -3.97
+       },
+       "shadow_e2": {
+        "earth": 0.6302,
+        "target": 0.5628,
+        "z": 1.35
+       },
+       "shadow_e5": {
+        "earth": 0.5113,
+        "target": 0.4986,
+        "z": 0.26
+       },
+       "shadow_e7": {
+        "earth": 0.4421,
+        "target": 0.4636,
+        "z": -0.3
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Al Hamra Province\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 18.2, expected before scoring). Terrain shadows alone: sigma_shadow 0.65 - this is what the cell is a candidate for. S2 check: bare, deeply incised rock terrain (Hajar Mountains, Oman).",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L2",
+      "scope": "cell",
+      "test": "Low-Sun Navigation",
+      "variable": "shadow_casting",
+      "state": "TRANSFERS",
+      "value": 29.0,
+      "reason": "native rank (d_shadow) 29 of 49; sigma_shadow 0.65",
+      "facility": null
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "day_night_cycle",
+      "state": "NO-ANALOG",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "diffuse_skylight",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "sun_geometry",
+      "state": "NO-ANALOG",
+      "value": 13.9208,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "Horizon occlusion beyond 10 km",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     56.0222,
+     27.6396
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_341_539",
+    "name": "Bandar-e-Abbas County, Hormozgan Province (Iran)",
+    "country": "",
+    "lat": 27.6396,
+    "lon": 56.0222,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 18.596,
+      "sigma": 18.019,
+      "sigma_capped": false,
+      "percentile": 97.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.532,
+      "sigma_shadow": 0.669,
+      "native_rank": 29,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.0928,
+        "target": 1.0,
+        "z": -18.14
+       },
+       "lowsun_az_coverage": {
+        "earth": 0.3889,
+        "target": 1.0,
+        "z": -3.64
+       },
+       "shadow_e2": {
+        "earth": 0.6361,
+        "target": 0.5628,
+        "z": 1.47
+       },
+       "shadow_e5": {
+        "earth": 0.5478,
+        "target": 0.4986,
+        "z": 0.99
+       },
+       "shadow_e7": {
+        "earth": 0.5001,
+        "target": 0.4636,
+        "z": 0.51
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Bandar-e-Abbas County\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 18.0, expected before scoring). Terrain shadows alone: sigma_shadow 0.67 - this is what the cell is a candidate for. S2 check: bare eroded terrain, no visible disturbance.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L2",
+      "scope": "cell",
+      "test": "Low-Sun Navigation",
+      "variable": "shadow_casting",
+      "state": "TRANSFERS",
+      "value": 29.0,
+      "reason": "native rank (d_shadow) 29 of 49; sigma_shadow 0.67",
+      "facility": null
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "day_night_cycle",
+      "state": "NO-ANALOG",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "diffuse_skylight",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "sun_geometry",
+      "state": "NO-ANALOG",
+      "value": 13.9208,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "Horizon occlusion beyond 10 km",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -72.2214,
+     71.0935
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_695_-696",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "country": "",
+    "lat": 71.0935,
+    "lon": -72.2214,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 14.594,
+      "sigma": 13.921,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.564,
+      "sigma_shadow": 0.698,
+      "native_rank": 28,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
+      "descriptors": {
+       "lowsun_frac_daylight": {
+        "earth": 0.2745,
+        "target": 1.0,
+        "z": -14.51
+       },
+       "lowsun_az_coverage": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "shadow_e2": {
+        "earth": 0.5796,
+        "target": 0.5628,
+        "z": 0.34
+       },
+       "shadow_e5": {
+        "earth": 0.4464,
+        "target": 0.4986,
+        "z": -1.04
+       },
+       "shadow_e7": {
+        "earth": 0.365,
+        "target": 0.4636,
+        "z": -1.38
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Qikiqtaaluk Region\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Sun geometry: no Earth analog (sigma 13.9, expected before scoring). Terrain shadows alone: sigma_shadow 0.70 - this is what the cell is a candidate for. S2 check: mostly ice and snow with rock outcrops. Downgraded per PLAN B10.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L2",
+      "scope": "cell",
+      "test": "Low-Sun Navigation",
+      "variable": "shadow_casting",
+      "state": "TRANSFERS",
+      "value": 28.0,
+      "reason": "native rank (d_shadow) 28 of 49; sigma_shadow 0.70",
+      "facility": null
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "day_night_cycle",
+      "state": "NO-ANALOG",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "diffuse_skylight",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "sun_geometry",
+      "state": "NO-ANALOG",
+      "value": 13.9208,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry"
+     },
+     {
+      "lens": "L2",
+      "scope": "lens",
+      "test": "Low-Sun Navigation",
+      "variable": "Horizon occlusion beyond 10 km",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
      -89.68,
      75.38
     ]
@@ -2886,6 +4893,1147 @@
       "facility": null
      }
     ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.001,
+     38.6423
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_453_921",
+    "site_id": "site:E10K_453_921",
+    "name": "Da Qaidam, northern Qaidam Basin margin (Qinghai)",
+    "lat": 38.6423,
+    "lon": 96.001,
+    "n_cells": 2,
+    "member_cells": [
+     "E10K_453_921",
+     "E10K_465_927"
+    ],
+    "max_span_km": 143.0,
+    "lenses": [
+     "L1"
+    ],
+    "targets": [
+     "L1:connecting_ridge",
+     "L1:shackleton_rim"
+    ],
+    "lenses_engine_confirmed": [
+     "L1"
+    ],
+    "lenses_engine_semiquant": [],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [],
+    "b10_unreviewed_cells": [
+     "E10K_465_927"
+    ],
+    "hidden_status": "unknown: attention not known",
+    "attention_n": null,
+    "n_in_exclusion": 0,
+    "n_ice_flag": 0,
+    "showcase": "a",
+    "note": "Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain. Not presented as hidden.",
+    "l2_snow_free_frac": {},
+    "field": [
+     {
+      "lens": "L1",
+      "target": "connecting_ridge",
+      "target_label": "Connecting Ridge (Site01)",
+      "variable": "slope_roughness",
+      "value": 41.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 43/36/41 of 49",
+      "n_cells": 1,
+      "best_cell": "E10K_453_921"
+     },
+     {
+      "lens": "L1",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "slope_roughness",
+      "value": 32.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 29/38/32 of 49",
+      "n_cells": 1,
+      "best_cell": "E10K_465_927"
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "angle_of_repose",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant",
+      "source": "https://doi.org/10.1029/2011JE003865"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "regolith_dust",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil",
+      "source": "https://ntrs.nasa.gov/api/citations/20205001806/downloads/CJW%20PIO%20Dust%20Manuscript_V011.docx.pdf"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+     }
+    ],
+    "multilens": []
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -155.5019,
+     19.4485
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_244_-1498",
+    "site_id": "site:E10K_244_-1498",
+    "name": "Mauna Loa – Mauna Kea, Hawaiʻi",
+    "lat": 19.4485,
+    "lon": -155.5019,
+    "n_cells": 1,
+    "member_cells": [
+     "E10K_244_-1498"
+    ],
+    "max_span_km": 0.0,
+    "lenses": [
+     "L2"
+    ],
+    "targets": [
+     "L2:connecting_ridge"
+    ],
+    "lenses_engine_confirmed": [
+     "L2"
+    ],
+    "lenses_engine_semiquant": [],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [],
+    "b10_unreviewed_cells": [],
+    "hidden_status": "no: inside known-analog buffer",
+    "attention_n": null,
+    "n_in_exclusion": 1,
+    "n_ice_flag": 0,
+    "showcase": "a",
+    "note": "Known analog region (inside exclusion buffer).",
+    "l2_snow_free_frac": {
+     "E10K_244_-1498": 0.621
+    },
+    "field": [
+     {
+      "lens": "L2",
+      "target": "connecting_ridge",
+      "target_label": "Connecting Ridge (Site01)",
+      "variable": "shadow_casting",
+      "value": 45.0,
+      "reason": "native rank (d_shadow) 45 of 49; sigma_shadow 0.13",
+      "n_cells": 1,
+      "best_cell": "E10K_244_-1498"
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "day_night_cycle",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "temperature",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility",
+      "source": "https://ntrs.nasa.gov/citations/20110011329"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "diffuse_skylight",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests",
+      "source": "https://science.nasa.gov/moon/sun-and-weather-overview/weather-on-the-moon/"
+     },
+     {
+      "lens": "L2",
+      "target": "connecting_ridge",
+      "target_label": "Connecting Ridge (Site01)",
+      "variable": "sun_geometry",
+      "value": 13.896285382731197,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry",
+      "source": "engine: data/derived/verdicts.parquet (A15) / fidelity.parquet"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "Horizon occlusion beyond 10 km",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides"
+     }
+    ],
+    "multilens": []
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -33.0734,
+     82.6159
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_729_-319",
+    "site_id": "site:E10K_729_-319",
+    "name": "Peary Land, North Greenland",
+    "lat": 82.6159,
+    "lon": -33.0734,
+    "n_cells": 1,
+    "member_cells": [
+     "E10K_729_-319"
+    ],
+    "max_span_km": 0.0,
+    "lenses": [
+     "L1",
+     "X1"
+    ],
+    "targets": [
+     "L1:connecting_ridge"
+    ],
+    "lenses_engine_confirmed": [
+     "L1"
+    ],
+    "lenses_engine_semiquant": [
+     "X1"
+    ],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [],
+    "b10_unreviewed_cells": [],
+    "hidden_status": "unknown: attention not known",
+    "attention_n": null,
+    "n_in_exclusion": 0,
+    "n_ice_flag": 1,
+    "showcase": "a,b",
+    "note": "DESIGN 2.5 #6 proposed Peary Land for L2 (low Sun); the engine does NOT confirm L2 there (sun geometry is NO-ANALOG everywhere). It confirms L1 instead, through a rank cell found by the coarse screen (not the seed), 20 km from the X1 seed, and X1, which is only engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley; the X1 seed list was committed together with the first X1 scores, so it is not provably pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored sample (X1 has 8 cell-level TRANSFERS, M1 none).",
+    "l2_snow_free_frac": {},
+    "field": [
+     {
+      "lens": "L1",
+      "target": "connecting_ridge",
+      "target_label": "Connecting Ridge (Site01)",
+      "variable": "slope_roughness",
+      "value": 43.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 43/26/44 of 49",
+      "n_cells": 1,
+      "best_cell": "E10K_729_-319"
+     },
+     {
+      "lens": "X1",
+      "target": "arcadia_planitia",
+      "target_label": "Arcadia Planitia",
+      "variable": "ice_configuration",
+      "value": 3.0,
+      "reason": "all 3 conditions met (permafrost, no thaw to ice, dry overburden) (thresholds set after seeing data)",
+      "n_cells": 2,
+      "best_cell": "seed_peary_land"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "day_night_cycle",
+      "value": 1.027,
+      "reason": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
+      "n_cells": null,
+      "best_cell": null
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "angle_of_repose",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant",
+      "source": "https://doi.org/10.1029/2011JE003865"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "regolith_dust",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil",
+      "source": "https://ntrs.nasa.gov/api/citations/20205001806/downloads/CJW%20PIO%20Dust%20Manuscript_V011.docx.pdf"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.38,
+      "reason": "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "angle_of_repose",
+      "value": null,
+      "reason": "Slope-failure and avalanche behavior do not transfer 1:1 from Earth.",
+      "facility": "Parabolic-flight drum tests with the actual simulant",
+      "source": "https://doi.org/10.1029/2011JE003865"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 0.0063,
+      "reason": "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them.",
+      "facility": "Mars-pressure CO2 chamber",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 102.0,
+      "reason": "Cumulative dose to crew and electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://swri.org/node/9079"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "temperature",
+      "value": 0.743,
+      "reason": "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites.",
+      "facility": "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "perchlorate",
+      "value": null,
+      "reason": "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils.",
+      "facility": "Dope simulant with perchlorate salts",
+      "source": "https://experts.arizona.edu/en/publications/detection-of-perchlorate-and-the-soluble-chemistry-of-martian-soi/"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+     },
+     {
+      "lens": "X1",
+      "target": null,
+      "target_label": null,
+      "variable": "Overburden dielectric properties (radar / GPR response)",
+      "value": null,
+      "reason": "no global Earth dataset matched to SWIM radar observables"
+     }
+    ],
+    "multilens": [
+     {
+      "cell_id": "E10K_729_-319",
+      "site_id": "site:E10K_729_-319",
+      "lenses": "L1",
+      "partner_lens": "X1",
+      "partner_id": "seed_peary_land",
+      "partner_label": "seed_peary_land (Peary Land polar desert (Greenland))",
+      "distance_km": 20.1,
+      "partner_state": "engine TRANSFERS",
+      "edge_of_radius": false
+     },
+     {
+      "cell_id": "E10K_729_-319",
+      "site_id": "site:E10K_729_-319",
+      "lenses": "L1",
+      "partner_lens": "X1",
+      "partner_id": "rank_0123",
+      "partner_label": "rank_0123 (rank sample)",
+      "distance_km": 82.7,
+      "partner_state": "engine TRANSFERS",
+      "edge_of_radius": false
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -67.937,
+     -24.6718
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_-228_-669",
+    "site_id": "site:E10K_-228_-669",
+    "name": "Atacama – Puna altiplano (Chile, Argentina, Bolivia)",
+    "lat": -24.6718,
+    "lon": -67.937,
+    "n_cells": 54,
+    "member_cells": [
+     "E10K_-228_-669",
+     "E10K_-237_-663",
+     "E10K_-249_-664",
+     "E10K_-254_-662",
+     "E10K_-265_-663",
+     "E10K_-271_-653",
+     "E10K_-275_-644",
+     "E10K_-275_-651",
+     "E10K_-276_-648",
+     "E10K_-278_-653",
+     "E10K_-280_-643",
+     "E10K_-281_-655",
+     "E10K_-284_-646",
+     "E10K_-287_-645",
+     "E10K_-293_-644",
+     "E10K_-300_-679",
+     "E10K_-301_-664",
+     "E10K_-302_-653",
+     "E10K_-305_-634",
+     "E10K_-305_-641",
+     "E10K_-305_-645",
+     "E10K_-305_-656",
+     "E10K_-306_-675",
+     "E10K_-309_-641",
+     "E10K_-314_-649",
+     "E10K_-314_-654",
+     "E10K_-316_-661",
+     "E10K_-317_-650",
+     "E10K_-318_-653",
+     "E10K_-319_-643",
+     "E10K_-319_-663",
+     "E10K_-321_-646",
+     "E10K_-321_-652",
+     "E10K_-324_-648",
+     "E10K_-324_-666",
+     "E10K_-325_-642",
+     "E10K_-325_-654",
+     "E10K_-325_-663",
+     "E10K_-326_-657",
+     "E10K_-327_-645",
+     "E10K_-329_-641",
+     "E10K_-329_-660",
+     "E10K_-331_-646",
+     "E10K_-331_-664",
+     "E10K_-331_-676",
+     "E10K_-333_-657",
+     "E10K_-334_-650",
+     "E10K_-336_-664",
+     "E10K_-338_-656",
+     "E10K_-339_-667",
+     "E10K_-340_-660",
+     "E10K_-341_-657",
+     "E10K_-345_-657",
+     "E10K_-346_-664"
+    ],
+    "max_span_km": 1108.0,
+    "lenses": [
+     "L1",
+     "L2"
+    ],
+    "targets": [
+     "L1:shackleton_rim",
+     "L2:shackleton_rim"
+    ],
+    "lenses_engine_confirmed": [
+     "L1",
+     "L2"
+    ],
+    "lenses_engine_semiquant": [],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [
+     "M1"
+    ],
+    "b10_unreviewed_cells": [
+     "E10K_-228_-669",
+     "E10K_-237_-663",
+     "E10K_-254_-662",
+     "E10K_-265_-663",
+     "E10K_-271_-653",
+     "E10K_-275_-644",
+     "E10K_-275_-651",
+     "E10K_-276_-648",
+     "E10K_-278_-653",
+     "E10K_-280_-643",
+     "E10K_-281_-655",
+     "E10K_-284_-646",
+     "E10K_-287_-645",
+     "E10K_-293_-644",
+     "E10K_-300_-679",
+     "E10K_-301_-664",
+     "E10K_-302_-653",
+     "E10K_-305_-634",
+     "E10K_-305_-641",
+     "E10K_-305_-645",
+     "E10K_-305_-656",
+     "E10K_-306_-675",
+     "E10K_-309_-641",
+     "E10K_-314_-649",
+     "E10K_-314_-654",
+     "E10K_-316_-661",
+     "E10K_-317_-650",
+     "E10K_-318_-653",
+     "E10K_-319_-643",
+     "E10K_-319_-663",
+     "E10K_-321_-646",
+     "E10K_-321_-652",
+     "E10K_-324_-648",
+     "E10K_-324_-666",
+     "E10K_-325_-642",
+     "E10K_-325_-654",
+     "E10K_-325_-663",
+     "E10K_-326_-657",
+     "E10K_-327_-645",
+     "E10K_-329_-641",
+     "E10K_-329_-660",
+     "E10K_-331_-646",
+     "E10K_-331_-664",
+     "E10K_-331_-676",
+     "E10K_-333_-657",
+     "E10K_-334_-650",
+     "E10K_-336_-664",
+     "E10K_-338_-656",
+     "E10K_-339_-667",
+     "E10K_-340_-660",
+     "E10K_-341_-657",
+     "E10K_-345_-657",
+     "E10K_-346_-664"
+    ],
+    "hidden_status": "no: inside known-analog buffer",
+    "attention_n": null,
+    "n_in_exclusion": 40,
+    "n_ice_flag": 1,
+    "showcase": "b",
+    "note": "Classic analog region: 40 of its cells are inside known-analog exclusion buffers. Engine rediscovering it is a sanity check, not a discovery.",
+    "l2_snow_free_frac": {
+     "E10K_-319_-663": 0.973,
+     "E10K_-336_-664": 0.959
+    },
+    "field": [
+     {
+      "lens": "L1",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "slope_roughness",
+      "value": 47.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 45/49/47 of 49",
+      "n_cells": 53,
+      "best_cell": "E10K_-336_-664"
+     },
+     {
+      "lens": "L2",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "shadow_casting",
+      "value": 49.0,
+      "reason": "native rank (d_shadow) 49 of 49; sigma_shadow 0.01",
+      "n_cells": 2,
+      "best_cell": "E10K_-336_-664"
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "angle_of_repose",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant",
+      "source": "https://doi.org/10.1029/2011JE003865"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "regolith_dust",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil",
+      "source": "https://ntrs.nasa.gov/api/citations/20205001806/downloads/CJW%20PIO%20Dust%20Manuscript_V011.docx.pdf"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "day_night_cycle",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "temperature",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility",
+      "source": "https://ntrs.nasa.gov/citations/20110011329"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "diffuse_skylight",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests",
+      "source": "https://science.nasa.gov/moon/sun-and-weather-overview/weather-on-the-moon/"
+     },
+     {
+      "lens": "L2",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "sun_geometry",
+      "value": 13.920817715429267,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry",
+      "source": "engine: data/derived/verdicts.parquet (A15) / fidelity.parquet"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "Horizon occlusion beyond 10 km",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides"
+     }
+    ],
+    "multilens": [
+     {
+      "cell_id": "E10K_-271_-653",
+      "site_id": "site:E10K_-228_-669",
+      "lenses": "L1",
+      "partner_lens": "M1",
+      "partner_id": "salar_de_uyuni_edge",
+      "partner_label": "seed Salar de Uyuni margin",
+      "distance_km": 149.1,
+      "partner_state": "literature-only",
+      "edge_of_radius": true
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     57.2683,
+     23.142
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_289_551",
+    "site_id": "site:E10K_289_551",
+    "name": "Jebel Akhdar, Hajar Mountains (Oman)",
+    "lat": 23.142,
+    "lon": 57.2683,
+    "n_cells": 1,
+    "member_cells": [
+     "E10K_289_551"
+    ],
+    "max_span_km": 0.0,
+    "lenses": [
+     "L2"
+    ],
+    "targets": [
+     "L2:shackleton_rim"
+    ],
+    "lenses_engine_confirmed": [
+     "L2"
+    ],
+    "lenses_engine_semiquant": [],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [
+     "M1"
+    ],
+    "b10_unreviewed_cells": [],
+    "hidden_status": "unknown: attention not known",
+    "attention_n": null,
+    "n_in_exclusion": 0,
+    "n_ice_flag": 0,
+    "showcase": "b",
+    "note": "The finding here is L2 (terrain shadows, engine). Semail ophiolite (M1) lies about 106 km away but M1 failed its pre-registered stop rule, so the aqueous-mineral part is literature context only, not a second lens.",
+    "l2_snow_free_frac": {
+     "E10K_289_551": 0.999
+    },
+    "field": [
+     {
+      "lens": "L2",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "shadow_casting",
+      "value": 29.0,
+      "reason": "native rank (d_shadow) 29 of 49; sigma_shadow 0.65",
+      "n_cells": 1,
+      "best_cell": "E10K_289_551"
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "day_night_cycle",
+      "value": 29.6,
+      "reason": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+      "facility": "Thermal-vacuum cycling of hardware",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "temperature",
+      "value": null,
+      "reason": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility",
+      "source": "https://ntrs.nasa.gov/citations/20110011329"
+     },
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "diffuse_skylight",
+      "value": null,
+      "reason": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests",
+      "source": "https://science.nasa.gov/moon/sun-and-weather-overview/weather-on-the-moon/"
+     },
+     {
+      "lens": "L2",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "sun_geometry",
+      "value": 13.920817715429267,
+      "reason": "best sigma 13.9 (E10K_695_-696); low-sun fraction of daylight: Earth best 0.28 vs target 1.00",
+      "facility": "High-latitude summer field site or lighting rig for the solar geometry",
+      "source": "engine: data/derived/verdicts.parquet (A15) / fidelity.parquet"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L2",
+      "target": null,
+      "target_label": null,
+      "variable": "Horizon occlusion beyond 10 km",
+      "value": null,
+      "reason": "shadows are computed inside the 10 km chip only, on both sides"
+     }
+    ],
+    "multilens": [
+     {
+      "cell_id": "E10K_289_551",
+      "site_id": "site:E10K_289_551",
+      "lenses": "L2",
+      "partner_lens": "M1",
+      "partner_id": "semail_wadi_tayin_a",
+      "partner_label": "seed Semail ophiolite, Wadi Tayin A",
+      "distance_km": 128.9,
+      "partner_state": "literature-only",
+      "edge_of_radius": false
+     },
+     {
+      "cell_id": "E10K_289_551",
+      "site_id": "site:E10K_289_551",
+      "lenses": "L2",
+      "partner_lens": "M1",
+      "partner_id": "semail_wadi_tayin_b",
+      "partner_label": "seed Semail ophiolite, Wadi Tayin B",
+      "distance_km": 106.0,
+      "partner_state": "literature-only",
+      "edge_of_radius": false
+     },
+     {
+      "cell_id": "E10K_289_551",
+      "site_id": "site:E10K_289_551",
+      "lenses": "L2",
+      "partner_lens": "M1",
+      "partner_id": "semail_ibra",
+      "partner_label": "seed Semail ophiolite, Ibra",
+      "distance_km": 143.2,
+      "partner_state": "literature-only",
+      "edge_of_radius": true
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.2795,
+     31.7741
+    ]
+   },
+   "properties": {
+    "feature_type": "site",
+    "id": "site:E10K_379_778",
+    "site_id": "site:E10K_379_778",
+    "name": "Zanda (Tsamda) and Gar, Ngari, western Tibet",
+    "lat": 31.7741,
+    "lon": 80.2795,
+    "n_cells": 5,
+    "member_cells": [
+     "E10K_379_778",
+     "E10K_383_771",
+     "E10K_385_776",
+     "E10K_394_764",
+     "E10K_394_774"
+    ],
+    "max_span_km": 206.0,
+    "lenses": [
+     "L1"
+    ],
+    "targets": [
+     "L1:shackleton_rim"
+    ],
+    "lenses_engine_confirmed": [
+     "L1"
+    ],
+    "lenses_engine_semiquant": [],
+    "lenses_hypothesis": [],
+    "lenses_literature_only": [],
+    "b10_unreviewed_cells": [
+     "E10K_379_778",
+     "E10K_383_771",
+     "E10K_385_776",
+     "E10K_394_764",
+     "E10K_394_774"
+    ],
+    "hidden_status": "unknown: attention not known",
+    "attention_n": null,
+    "n_in_exclusion": 0,
+    "n_ice_flag": 0,
+    "showcase": "c",
+    "note": null,
+    "l2_snow_free_frac": {},
+    "field": [
+     {
+      "lens": "L1",
+      "target": "shackleton_rim",
+      "target_label": "Shackleton inner wall (Site04 centre)",
+      "variable": "slope_roughness",
+      "value": 42.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/48/42 of 49",
+      "n_cells": 5,
+      "best_cell": "E10K_385_776"
+     }
+    ],
+    "facility": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "gravity",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "angle_of_repose",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant",
+      "source": "https://doi.org/10.1029/2011JE003865"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "atmospheric_pressure",
+      "value": 3e-15,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "radiation_dose",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components",
+      "source": "https://doi.org/10.1126/sciadv.aaz1334"
+     },
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "regolith_dust",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil",
+      "source": "https://ntrs.nasa.gov/api/citations/20205001806/downloads/CJW%20PIO%20Dust%20Manuscript_V011.docx.pdf"
+     }
+    ],
+    "unobserved": [
+     {
+      "lens": "L1",
+      "target": null,
+      "target_label": null,
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+     }
+    ],
+    "multilens": []
    }
   }
  ]

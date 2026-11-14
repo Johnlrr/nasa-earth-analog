@@ -226,3 +226,24 @@ def test_lens_level_transfers_summary_not_shown_and_transfers_cells():
     out = disc.select_hidden(fid, earth, att, lens, transfers=disc.transfers_cells(v, "L1"))
     assert list(out["cell_id"]) == ["c1"]  # c3 has a better sigma but no TRANSFERS verdict
     assert disc.select_hidden(fid, earth, att, lens, transfers={}).empty
+
+
+def test_site_features_copy_contract_columns_and_validate():
+    """B17: site features are copied from field_facility.json (A20) + sites/multilens tables."""
+    import json
+
+    ffp = io.REPO_ROOT / "data/derived/field_facility.json"
+    if not ffp.exists():
+        pytest.skip("field_facility.json not built")
+    ff = json.loads(ffp.read_text(encoding="utf-8"))
+    sites = pd.read_parquet(io.REPO_ROOT / "data/derived/sites.parquet")
+    ml = pd.read_parquet(io.REPO_ROOT / "data/derived/multilens.parquet")
+    feats = disc.site_features(ff, sites, ml)
+    assert len(feats) == len(ff["sites"])
+    assert io.check_candidates({"type": "FeatureCollection", "features": feats}) == []
+    for f in feats:
+        p = f["properties"]
+        assert p["feature_type"] == "site" and p["n_cells"] == len(p["member_cells"])
+        assert "X1" not in p["lenses_engine_confirmed"]
+        assert all(r.get("source") for r in p["facility"])
+        assert not p["hidden_status"].lower().startswith("yes")  # no site attention yet

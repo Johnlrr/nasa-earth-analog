@@ -273,9 +273,23 @@ def main() -> None:
             p["process_title"] = rv["process_title"]
         p["evidence_note"] = (p.get("evidence_note", "") + " " + rv.get("note", "")).strip()
 
+    # B17: showcase sites (2c contract) from A17/A19/A20 tables; copied, not recomputed
+    ffp = DERIVED / "field_facility.json"
+    n_sites = 0
+    if ffp.exists():
+        ff = json.loads(ffp.read_text(encoding="utf-8"))
+        sp_ = DERIVED / "sites.parquet"
+        mp_ = DERIVED / "multilens.parquet"
+        sites_feats = disc.site_features(ff, pd.read_parquet(sp_) if sp_.exists() else None,
+                                         pd.read_parquet(mp_) if mp_.exists() else None)
+        features += sites_feats
+        n_sites = len(sites_feats)
+
     doc = {"type": "FeatureCollection",
            "metadata": {"generated": dt.datetime.now().isoformat(timespec="minutes"),
                         "provisional": provisional, "mock": False, "lenses": summary,
+                        "n_sites": n_sites,
+                        "site_contract": "config/sites.yaml (2c); cards from field_facility.json",
                         "verdicts_source": "data/derived/verdicts.parquet (A15)"
                         if verdicts is not None else None,
                         "thresholds": {"percentile_min": disc.PERCENTILE_MIN,
@@ -287,6 +301,11 @@ def main() -> None:
     print(json.dumps(summary, indent=1))
     for ft in features:
         p = ft["properties"]
+        if p.get("feature_type") == "site":
+            print(f"site     {p['id']:38s} {p['name'][:40]:40s} "
+                  f"confirmed={p['lenses_engine_confirmed']}"
+                  f" semiquant={p['lenses_engine_semiquant']} {p['hidden_status']}")
+            continue
         ls = next(iter(p["lens_scores"].values()))
         print(f"{p['role']:8s} {p['id']:38s} {p['name'][:40]:40s} sigma={ls['sigma']:6.2f} "
               f"pct={ls['percentile']} att={p['attention']['n_pubs']} {p['evidence_status']}")
