@@ -5,6 +5,7 @@ Outputs : data/derived/fidelity.parquet          (contract schema; discovery pre
           data/derived/validation_controls.parquet
           data/derived/validation_null.parquet
           data/derived/validation_sensitivity.parquet
+          data/derived/bridge_bias.parquet      (A16: CRISM-EMIT bridge bias, M1)
           docs/figures/validation_*.png
 Run     : .venv/bin/python scripts/run_all.py
 """
@@ -25,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from similitude import io  # noqa: E402
-from similitude.fidelity import score_lens  # noqa: E402
+from similitude.fidelity import _min_scale, fit_population, score_lens  # noqa: E402
 from similitude.validation import (  # noqa: E402
     control_report,
     null_summary,
@@ -73,6 +74,41 @@ def plot_controls(rep: pd.DataFrame, nulls: pd.DataFrame) -> None:
         plt.close(fig)
 
 
+# Parameters whose continuum (shoulder) wavelengths sit in or next to the bands masked for
+# Earth's atmosphere -> systematic offset between CRISM I/F and EMIT surface reflectance
+# (review G1 1.2(b)).
+CONTINUUM_SENSITIVE = {"HCPINDEX", "BD2250", "MIN2250", "OLINDEX"}
+
+
+def bridge_bias(earth: pd.DataFrame, targets: pd.DataFrame, lens: dict) -> pd.DataFrame:
+    """A16: per (M1 target, parameter) mean and median z of all Earth cells.
+
+    z = (earth - target) / scale with the same population and min_scale as fidelity.
+    Measured on FOOTPRINT-MEDIAN spectra (earth_M1), not on pixels.
+    """
+    # fidelity descriptors + those excluded from fidelity "for the bridge-bias table only"
+    extra = [n for n, why in (lens.get("excluded_descriptors") or {}).items()
+             if "bridge-bias" in str(why) and n in earth and n in targets]
+    names = list(lens["descriptors"]) + extra
+    pop = targets[~targets["is_reference"].astype(bool)]
+    rows = []
+    for _, t in targets[targets["is_reference"].astype(bool)].iterrows():
+        ms = [_min_scale(lens, n, t[n]) for n in names]
+        m = fit_population(pop[names].to_numpy(float), pd.Series(ms).to_numpy(float))
+        z = (earth[names].to_numpy(float) - t[names].to_numpy(float)) / m.scale
+        zdf = pd.DataFrame(z, columns=names)
+        for i, n in enumerate(names):
+            rows.append({
+                "lens_id": lens["id"], "target_id": t["target_id"], "parameter": n,
+                "z_mean": float(zdf[n].mean()), "z_median": float(zdf[n].median()),
+                "n_cells": int(zdf[n].notna().sum()), "scale": float(m.scale[i]),
+                "continuum_sensitive": n in CONTINUUM_SENSITIVE,
+                "in_fidelity": n in lens["descriptors"],
+                "level": "footprint-median spectrum (not pixel)",
+            })
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     lenses = io.load_lenses()
     fids, reps, nulls, sens = [], [], [], []
@@ -86,6 +122,9 @@ def main() -> None:
         primary = lens.get("primary_target") or fid["target_id"].iloc[0]
         if len(lens["descriptors"]) > 2:
             sens.append(sensitivity_drop_one(earth, targets, lens, primary))
+        if lens_id == "M1":
+            bridge_bias(earth, targets, lens).to_parquet(DERIVED / "bridge_bias.parquet",
+                                                          index=False)
         best = fid[fid["target_id"] == primary].nsmallest(1, "d").iloc[0]
         print(
             f"{lens_id}: {len(earth)} earth cells, targets {sorted(fid.target_id.unique())}; "
