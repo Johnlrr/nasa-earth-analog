@@ -18,3 +18,6 @@ data/raw/
 
 # Môi trường
 .env
+
+# Tier-1 CSV is large (44 MB); the committed copy is tier1_terrain.parquet
+data/derived/tier1_terrain.csv
