@@ -30,8 +30,19 @@ Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` 
 | B14a đăng ký trước quy tắc pixel M1 | ✓ commit riêng 17:20, trước mọi pixel | `66f9da7` |
 | B13 giai đoạn null | ✓ 69 footprint null, ~490 nghìn pixel | `1e8ae67` |
 | B14b sàn nhiễu | ✓ commit riêng 17:29, trước đối chứng: D2300 0,110 · MIN2295_2480 0,040 · OLINDEX 0,273 | `4e007f2` |
-| B13 đối chứng/mồi nhử | **Chờ A14 của Bảo** (dời toạ độ Lake Salda, hạn 18:00) → chạy `python scripts/emit/pixel_m1.py --stage controls` (đọc `data/derived/relocated_points.csv` nếu có: cột `point_id, lat, lon, reason`) | — |
-| B13 hạt giống / rank | Sau đối chứng (`--stage seeds`, `--stage rank`) | — |
+| B13 đối chứng/mồi nhử | ✓ chạy 20:21 sau A14 · **tiêu chí dừng: FAIL** (xem dưới) | (commit này) |
+| B13 hạt giống / rank | ✓ chạy cho đủ hồ sơ, **không công bố** (tiêu chí dừng trượt) | (commit này) |
+
+**B13 — tiêu chí dừng 21:00 (đăng ký ở B14a, sàn nhiễu B14b), mục tiêu Jezero, đạt = mảng khớp lớn nhất ≥ 0,1 km²:** `data/derived/m1_stop_rule.json`
+| Điểm | Mảng lớn nhất (km²) | Kỳ vọng | Kết quả |
+| :--- | ---: | :--- | :--- |
+| Lake Salda (toạ độ A14, dời 2,65 km) | 0,052 (tổng khớp 0,19) | đạt | **trượt** — chỉ khớp vụn dọc bờ |
+| Lake Salda (toạ độ gốc, 141 pixel) | 0 | — | trượt |
+| Semail Wadi Tayin A / B / Ibra | 3,19 / 19,25 / 0,35 | đạt | đạt |
+| Wadi Rum (mồi nhử) | 0 | bị bác | đạt |
+| Simpson (mồi nhử) | 0 | bị bác | đạt |
+| Harrat Khaybar / Rahat | 0 / 0,003 | — | xác nhận "khớp rỗng" |
+**Phán quyết: FAIL** → theo quy tắc PLAN 2b: M1 lên slide dạng "minh hoạ phương pháp trên 4 địa điểm + kết quả âm ở tỷ lệ footprint", **không công bố hidden analog M1**. Không chỉnh ngưỡng sau khi xem kết quả. Ghi chú để báo cáo: sàn D2300 (0,110) > mục tiêu (0,080) làm phép thử rất bảo thủ; Salda tổng khớp 0,19 km² nhưng phân mảnh. Hạt giống/rank (ghi lại, không công bố): rank_001 khớp 100 % pixel (25 km²) — đáng ngờ, cần soi ảnh nếu dùng; New Idria, Troodos ít pixel hợp lệ (thực vật).
 | B15 X1 danh sách 3 điều kiện | ✓ | `677777a` |
 | B16 phần "Attention rỗng ≠ hidden" | ✓ | `4ce40cf` |
 | B16 phần còn lại (verdicts ba trạng thái, native rank, matched area) | Chờ A15, A11, B13 | — |

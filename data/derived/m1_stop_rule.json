@@ -1,0 +1,29 @@
+{
+ "rule": "B13 stop rule (PLAN 2b, pre-registered in B14a): Lake Salda (A14 coordinates) and Semail pass, Wadi Rum and Simpson rejected; pass = largest_patch_km2 >= 0.1 (target jezero_margin)",
+ "evaluated": "2026-11-14T20:23",
+ "noise_floor": {
+  "D2300": 0.11,
+  "MIN2295_2480": 0.0396,
+  "OLINDEX": 0.2734
+ },
+ "largest_patch_km2": {
+  "ctl_lake_salda__relocated": 0.05200528094394232,
+  "ctl_lake_salda": 0.0,
+  "seed_semail_wadi_tayin_a": 3.185156515299794,
+  "seed_semail_wadi_tayin_b": 19.25066423664039,
+  "seed_semail_ibra": 0.3460830399943089,
+  "ctl_wadi_rum": 0.0,
+  "ctl_simpson_desert": 0.0,
+  "seed_harrat_khaybar": 0.0,
+  "seed_harrat_rahat": 0.003346349704246995
+ },
+ "matched_area_km2_lake_salda_relocated": 0.1906860301277885,
+ "checks": {
+  "lake_salda_relocated_passes": false,
+  "semail_wadi_tayin_a_passes": true,
+  "wadi_rum_rejected": true,
+  "simpson_desert_rejected": true
+ },
+ "verdict": "FAIL",
+ "consequence": "M1 is presented only as a method illustration on 4 sites plus the negative result at footprint scale; no M1 hidden analog is published (seeds/rank results are recorded, not published)."
+}
