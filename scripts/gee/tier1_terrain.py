@@ -118,9 +118,10 @@ def cells_for(bbox: tuple[float, float, float, float]) -> ee.FeatureCollection:
     keep = terrain.reduceRegions(collection=keep, reducer=reducer, scale=90, tileScale=4)
 
     def tidy(f: ee.Feature) -> ee.Feature:
-        c = f.geometry().centroid(maxError=10).coordinates()
+        centre = f.geometry().centroid(maxError=10)
+        c = centre.coordinates()
         return ee.Feature(
-            None,
+            centre,  # Export.table.toAsset requires a geometry
             {
                 "lon": c.get(0),
                 "lat": c.get(1),
