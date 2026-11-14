@@ -1,0 +1,40 @@
+# M1 seed footprints (B5). Owner: Linh (B). Separate from config/seeds.yaml (Bao, terrain lenses).
+# Seeds are HYPOTHESES fed to the engine, never results: a seed is published only if the engine
+# confirms it. Every seed must lie inside EMIT coverage (|lat| <= 52). Coordinates approximate the
+# bare outcrop; the engine picks the best EMIT scene and masks vegetation / water itself.
+# class: ophiolite (olivine/serpentine/carbonate), basalt (mafic), evaporite (salts/sulfates),
+#        acid_sulfate (jarosite), clay (smectite/kaolinite sediments)
+
+seeds:
+  # ---- ophiolites / ultramafic (Jezero, Nili Fossae analog hypotheses) ----
+  - {id: semail_wadi_tayin_a, name: "Semail ophiolite, Wadi Tayin A", country: Oman, lat: 22.90, lon: 58.50, class: ophiolite}
+  - {id: semail_wadi_tayin_b, name: "Semail ophiolite, Wadi Tayin B", country: Oman, lat: 23.05, lon: 58.30, class: ophiolite}
+  - {id: semail_ibra, name: "Semail ophiolite, Ibra", country: Oman, lat: 22.75, lon: 58.60, class: ophiolite}
+  - {id: semail_fizh, name: "Semail ophiolite, Fizh block", country: Oman, lat: 24.40, lon: 56.35, class: ophiolite}
+  - {id: semail_khawr_fakkan, name: "Semail ophiolite, Khawr Fakkan block", country: UAE, lat: 25.30, lon: 56.15, class: ophiolite}
+  - {id: troodos_olympus, name: "Troodos ophiolite mantle sequence", country: Cyprus, lat: 34.93, lon: 32.87, class: ophiolite}
+  - {id: bay_of_islands, name: "Bay of Islands ophiolite, Table Mountain", country: Canada, lat: 49.45, lon: -58.00, class: ophiolite}
+  - {id: new_idria, name: "New Idria serpentinite", country: USA, lat: 36.40, lon: -120.67, class: ophiolite}
+  - {id: kempirsai, name: "Kempirsai ultramafic massif", country: Kazakhstan, lat: 50.20, lon: 58.10, class: ophiolite}
+  # ---- basalt fields (mafic, weathering, Oxia/Nili context) ----
+  - {id: harrat_khaybar, name: "Harrat Khaybar", country: Saudi Arabia, lat: 25.60, lon: 39.90, class: basalt}
+  - {id: harrat_rahat, name: "Harrat Rahat", country: Saudi Arabia, lat: 23.30, lon: 39.85, class: basalt}
+  - {id: harrat_uwayrid, name: "Harrat Uwayrid", country: Saudi Arabia, lat: 27.00, lon: 37.30, class: basalt}
+  - {id: haruj, name: "Haruj volcanic field", country: Libya, lat: 27.20, lon: 17.50, class: basalt}
+  - {id: pinacate, name: "Pinacate volcanic field", country: Mexico, lat: 31.77, lon: -113.50, class: basalt}
+  - {id: craters_of_the_moon, name: "Craters of the Moon lava field", country: USA, lat: 43.42, lon: -113.55, class: basalt}
+  - {id: tibesti_emi_koussi, name: "Emi Koussi, Tibesti", country: Chad, lat: 19.80, lon: 18.55, class: basalt}
+  # ---- evaporites / playas (sulfate, chloride; Meridiani context) ----
+  - {id: bonneville, name: "Bonneville Salt Flats", country: USA, lat: 40.75, lon: -113.85, class: evaporite}
+  - {id: lop_nur, name: "Lop Nur playa", country: China, lat: 40.30, lon: 90.30, class: evaporite}
+  - {id: qaidam_dalangtan, name: "Dalangtan playa, Qaidam Basin", country: China, lat: 38.50, lon: 91.90, class: evaporite}
+  - {id: chott_el_djerid, name: "Chott el Djerid", country: Tunisia, lat: 33.70, lon: 8.40, class: evaporite}
+  - {id: salar_de_uyuni_edge, name: "Salar de Uyuni margin", country: Bolivia, lat: -20.30, lon: -67.20, class: evaporite}
+  - {id: makgadikgadi, name: "Makgadikgadi pans", country: Botswana, lat: -20.70, lon: 25.60, class: evaporite}
+  - {id: white_sands, name: "White Sands gypsum dunes", country: USA, lat: 32.80, lon: -106.30, class: evaporite}
+  # ---- acid-sulfate / jarosite ----
+  - {id: matanomadh, name: "Matanomadh, Kutch", country: India, lat: 23.53, lon: 68.95, class: acid_sulfate}
+  - {id: cuprite_nevada, name: "Cuprite hydrothermal alteration", country: USA, lat: 37.55, lon: -117.20, class: acid_sulfate}
+  # ---- clay-rich sediments (Fe/Mg smectite; Oxia / Mawrth context) ----
+  - {id: painted_desert, name: "Painted Desert, Chinle Fm bentonites", country: USA, lat: 35.08, lon: -109.80, class: clay}
+  - {id: hanksville_mancos, name: "Mancos Shale badlands, Hanksville", country: USA, lat: 38.40, lon: -110.80, class: clay}

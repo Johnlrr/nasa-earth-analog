@@ -1,0 +1,94 @@
+# Planetary targets (Moon / Mars) — contract file (B0). Owner: Linh (B).
+# Coordinates are planetocentric, lon in -180..180 (east positive).
+# Moon targets use PGDA Product 78 site rasters (polar stereographic); the authoritative centre is the
+# raster centre computed by scripts/targets/moon_terrain.py, so lat/lon here are left null.
+# Mars M1 targets are represented by MICA type spectra (Viviano-Beck et al. 2014); the exact MICA
+# spectrum names are resolved in B2 (scripts/targets/mica_ingest.py) and recorded in targets_M1.parquet.
+
+moon:
+  - id: connecting_ridge
+    name: Connecting Ridge (Shackleton - de Gerlache)
+    lenses: [L1, L2]
+    pgda_site: Site01
+    lat: null
+    lon: null
+    role: primary
+    note: "Moon Base Architecture User's Guide (NASA, 04/2026) names Shackleton rim and Connecting Ridge."
+    source: "https://pgda.gsfc.nasa.gov/products/78"
+  - id: shackleton_rim
+    name: Shackleton crater rim
+    lenses: [L1, L2]
+    pgda_site: Site04
+    lat: null
+    lon: null
+    role: secondary
+    note: "A3: chip at Site04 raster centre has median slope 31 deg (likely inner wall, not rim crest). See G1."
+    source: "https://pgda.gsfc.nasa.gov/products/78"
+  - id: shackleton_psr
+    name: Shackleton permanently shadowed interior
+    lenses: [X1]
+    ledger_only: true
+    lat: -89.67
+    lon: 129.78
+    note: "Ledger-only: PSR cold-trap ice has no field analog; reported in the Transfer Ledger."
+    source: "https://pgda.gsfc.nasa.gov/products/78"
+
+mars:
+  - id: jezero_margin
+    name: Jezero crater marginal carbonates
+    lenses: [M1]
+    lat: 18.50
+    lon: 77.38
+    roi_km: 5
+    mineral_class: carbonate
+    mica_match: ["Mg carbonate", "Mg-carbonate", "carbonate"]
+    role: primary
+    source: "https://doi.org/10.1016/j.icarus.2019.113526"
+    source_note: "Horgan et al. 2020, Icarus 339:113526 (marginal carbonates of Jezero)"
+  - id: oxia_planum
+    name: Oxia Planum (ESA Rosalind Franklin landing site)
+    lenses: [M1]
+    lat: 18.20
+    lon: -24.55
+    roi_km: 5
+    mineral_class: fe_mg_smectite
+    mica_match: ["Fe/Mg smectite", "Fe smectite", "Mg smectite", "smectite"]
+    role: secondary
+    source: "https://doi.org/10.1089/ast.2016.1533"
+    source_note: "Vago et al. 2017, Astrobiology 17 (ExoMars rover science; Oxia Planum selected as landing site later)"
+  - id: meridiani
+    name: Meridiani Planum sulfates / jarosite
+    lenses: [M1]
+    lat: -1.95
+    lon: -5.53
+    roi_km: 5
+    mineral_class: jarosite
+    mica_match: ["Jarosite", "jarosite"]
+    role: secondary
+    source: "https://doi.org/10.1126/science.1104653"
+    source_note: "Klingelhoefer et al. 2004, Science 306 (jarosite at Meridiani, MER Opportunity)"
+  - id: nili_fossae_olivine
+    name: Nili Fossae olivine-rich unit (Jezero watershed)
+    lenses: [M1]
+    lat: 21.0
+    lon: 78.5
+    roi_km: 5
+    mineral_class: olivine
+    mica_match: ["Olivine", "olivine", "Fe-olivine", "Mg olivine"]
+    role: auxiliary
+    source: "https://doi.org/10.1029/2009JE003349"
+    source_note: "Mustard et al. 2009, JGR Planets 114, E00D12 (olivine around Isidis / Nili Fossae)"
+  - id: arcadia_planitia
+    name: Arcadia Planitia shallow ice (SWIM)
+    lenses: [X1]
+    lat: 44.0
+    lon: -167.0
+    roi_bbox: {lat_min: 38, lat_max: 50, lon_min: -180, lon_max: -150}
+    role: primary
+    configuration:            # semi-quantitative target vector for ice_config (B6)
+      maat_c: -60.0           # far below 0 C: permanent frozen ground
+      ice_depth_m: 0.5        # ice within the upper ~1 m (SWIM consistency maps)
+      aridity_p_pet: 0.0      # no precipitation
+      freeze_thaw_per_yr: 0   # no liquid-water freeze-thaw at the surface
+    source: "https://swim.psi.edu/"
+    source_note: "Subsurface Water Ice Mapping (SWIM) project; Morgan et al. 2021 Nature Astronomy doi:10.1038/s41550-020-01290-z"

@@ -1,0 +1,96 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {"mock": true, "note": "FAKE NUMBERS for UI development only (B0/B4). Do not cite.", "generated": "2026-11-14"},
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {"type": "Point", "coordinates": [39.9, 25.6]},
+   "properties": {
+    "id": "MOCK-L1-001",
+    "name": "Harrat Khaybar basalt field (MOCK)",
+    "country": "Saudi Arabia",
+    "lat": 25.6, "lon": 39.9, "footprint_km": 4, "role": "hidden",
+    "process_title": "Where fresh basalt flows keep lunar-like slope statistics (MOCK)",
+    "process_summary": "Hyper-arid Holocene lava field; no vegetation masks the surface.",
+    "lens_scores": {
+     "L1": {"target": "connecting_ridge", "d": 2.1, "sigma": 0.9, "sigma_capped": false, "percentile": 97.0,
+            "limiting_factor": "frac_gt20", "no_analog": false, "metric_mode": "diag", "n_null": 200,
+            "descriptors": {"slope_p50": {"earth": 9.5, "target": 12.0, "z": -2.5},
+                            "frac_gt20": {"earth": 0.05, "target": 0.18, "z": -2.6},
+                            "hurst": {"earth": 0.78, "target": 0.8, "z": -0.4}}},
+     "L2": {"target": "connecting_ridge", "d": 9.0, "sigma": 7.4, "sigma_capped": false, "percentile": 40.0,
+            "limiting_factor": "lowsun_frac_daylight", "no_analog": true, "metric_mode": "diag", "n_null": 200,
+            "d_shadow": 1.2, "sigma_shadow": 0.6,
+            "descriptors": {"lowsun_frac_daylight": {"earth": 0.08, "target": 1.0, "z": -18.4}}}
+    },
+    "process_rates": {"freeze_thaw_cycles_per_yr": null, "wind_exceedance_frac": null},
+    "test_here": [{"tech": "LTV slope traverse and EVA route planning", "nasa_gap": null, "lens": "L1"}],
+    "cannot_test": ["gravity 0.165 g", "vacuum", "14-day lunar night"],
+    "attention": {"n_pubs": 0, "query": "\"Harrat Khaybar\" AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)", "source": "OpenAlex", "date": "2026-11-14"},
+    "access": {"travel_time_h": 3.0, "protected_area": false, "note": "MOCK"},
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Mock feature for UI development.",
+    "data_sources": ["Copernicus GLO-30 DEM", "NASA PGDA Product 78"],
+    "mock": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {"type": "Point", "coordinates": [58.5, 22.9]},
+   "properties": {
+    "id": "MOCK-M1-001",
+    "name": "Semail ophiolite peridotite (MOCK)",
+    "country": "Oman",
+    "lat": 22.9, "lon": 58.5, "footprint_km": 5, "role": "hidden",
+    "process_title": "Where olivine is turning into carbonate today (MOCK)",
+    "process_summary": "Exposed mantle peridotite undergoing serpentinization and carbonation.",
+    "lens_scores": {
+     "M1": {"target": "jezero_margin", "d": 3.0, "sigma": 1.4, "sigma_capped": false, "percentile": 96.0,
+            "limiting_factor": "MIN2295_2480", "no_analog": false, "metric_mode": "diag", "n_null": 60,
+            "descriptors": {"MIN2295_2480": {"earth": 0.02, "target": 0.06, "z": -1.9},
+                            "OLINDEX": {"earth": 0.11, "target": 0.09, "z": 0.7},
+                            "D2300": {"earth": 0.04, "target": 0.05, "z": -0.5}}}
+    },
+    "process_rates": {"freeze_thaw_cycles_per_yr": null, "wind_exceedance_frac": null},
+    "test_here": [{"tech": "Rover VSWIR spectrometer and carbonate sampling drill", "nasa_gap": null, "lens": "M1"}],
+    "cannot_test": ["gravity 0.378 g", "pressure 0.6 kPa", "surface radiation"],
+    "attention": {"n_pubs": 4, "query": "\"Semail ophiolite\" AND (analog OR analogue) AND (Mars OR planetary)", "source": "OpenAlex", "date": "2026-11-14"},
+    "access": {"travel_time_h": 2.0, "protected_area": false, "note": "MOCK"},
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Mock feature for UI development.",
+    "data_sources": ["NASA EMIT L2A reflectance", "MRO CRISM MICA type spectra"],
+    "mock": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {"type": "Point", "coordinates": [74.5, 38.6]},
+   "properties": {
+    "id": "MOCK-X1-001",
+    "name": "East Pamir cold desert (MOCK)",
+    "country": "Tajikistan",
+    "lat": 38.6, "lon": 74.5, "footprint_km": 10, "role": "hidden",
+    "process_title": "Where ground ice survives under a dry, cold overburden (MOCK)",
+    "process_summary": "High, hyper-cold desert plateau with permafrost and very low precipitation.",
+    "lens_scores": {
+     "X1": {"target": "arcadia_planitia", "d": 2.4, "sigma": 1.1, "sigma_capped": false, "percentile": null,
+            "limiting_factor": "ft_cycles_yr", "no_analog": false, "metric_mode": "diag", "n_null": 12,
+            "descriptors": {"ft_cycles_yr": {"earth": 25, "target": 0, "z": 2.5},
+                            "aridity_p_pet": {"earth": 0.1, "target": 0.0, "z": 2.0}}}
+    },
+    "process_rates": {"freeze_thaw_cycles_per_yr": 25, "wind_exceedance_frac": null},
+    "test_here": [{"tech": "1 m ice drill, GPR and neutron spectrometer calibration", "nasa_gap": null, "lens": "X1"}],
+    "cannot_test": ["ice temperature (Mars ice ~ -60 C or colder)", "pressure 0.6 kPa (sublimation)"],
+    "attention": {"n_pubs": 1, "query": "\"East Pamir\" AND (analog OR analogue) AND (Mars OR planetary)", "source": "OpenAlex", "date": "2026-11-14"},
+    "access": {"travel_time_h": 8.0, "protected_area": false, "note": "MOCK"},
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-semiquant",
+    "evidence_note": "Mock feature for UI development.",
+    "data_sources": ["MODIS LST (MOD11A1)", "TerraClimate", "SWIM (Mars)"],
+    "mock": true
+   }
+  }
+ ]
+}

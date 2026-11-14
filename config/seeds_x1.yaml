@@ -1,0 +1,14 @@
+# X1 seed footprints (B6). Owner: Linh (B). Hypotheses only; the engine decides.
+seeds:
+  - {id: east_pamir_murghab, name: "East Pamir plateau, Murghab", country: Tajikistan, lat: 38.20, lon: 74.00}
+  - {id: karakul_structure, name: "Karakul impact structure", country: Tajikistan, lat: 39.02, lon: 73.45}
+  - {id: west_kunlun_aksai_chin, name: "Aksai Chin / West Kunlun", country: China/India, lat: 35.20, lon: 79.50}
+  - {id: changtang_north, name: "Northern Changtang plateau", country: China, lat: 34.50, lon: 84.50}
+  - {id: qiangtang_east, name: "Eastern Qiangtang", country: China, lat: 34.00, lon: 89.00}
+  - {id: kunlun_pass, name: "Kunlun Pass permafrost", country: China, lat: 35.65, lon: 94.05}
+  - {id: mongolian_altai_south, name: "Southern Mongolian Altai", country: Mongolia, lat: 46.50, lon: 91.50}
+  - {id: peary_land, name: "Peary Land polar desert", country: Greenland, lat: 82.50, lon: -32.00}
+  - {id: devon_island, name: "Devon Island polar desert", country: Canada, lat: 75.40, lon: -89.70}
+  - {id: svalbard_adventdalen, name: "Adventdalen, Svalbard", country: Norway, lat: 78.20, lon: 15.80}
+  - {id: puna_high, name: "High Puna (dry permafrost)", country: Argentina, lat: -24.80, lon: -67.80}
+  - {id: tianshan_central, name: "Central Tien Shan cold desert", country: Kyrgyzstan, lat: 41.80, lon: 78.20}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Johnlrr/nasa-earth-analog/schemas/candidate.schema.json",
+  "title": "SIMILITUDE candidates FeatureCollection",
+  "description": "Contract for web/data/candidates.geojson (DESIGN 2.4 + PLAN schema section). Locked 13:45 14/11/2026.",
+  "type": "object",
+  "required": ["type", "features"],
+  "properties": {
+    "type": {"const": "FeatureCollection"},
+    "metadata": {"type": "object"},
+    "features": {"type": "array", "items": {"$ref": "#/$defs/feature"}}
+  },
+  "$defs": {
+    "lens_id": {"enum": ["L1", "L2", "M1", "X1"]},
+    "number_or_null": {"type": ["number", "null"]},
+    "feature": {
+      "type": "object",
+      "required": ["type", "geometry", "properties"],
+      "properties": {
+        "type": {"const": "Feature"},
+        "geometry": {
+          "type": "object",
+          "required": ["type", "coordinates"],
+          "properties": {
+            "type": {"const": "Point"},
+            "coordinates": {
+              "type": "array",
+              "prefixItems": [
+                {"type": "number", "minimum": -180, "maximum": 180},
+                {"type": "number", "minimum": -90, "maximum": 90}
+              ],
+              "minItems": 2,
+              "maxItems": 3
+            }
+          }
+        },
+        "properties": {"$ref": "#/$defs/candidate"}
+      }
+    },
+    "lens_score": {
+      "type": "object",
+      "required": ["target", "d", "sigma", "sigma_capped", "percentile", "limiting_factor", "no_analog"],
+      "properties": {
+        "target": {"type": "string"},
+        "d": {"type": "number", "minimum": 0},
+        "sigma": {"type": "number", "minimum": 0},
+        "sigma_capped": {"type": "boolean"},
+        "percentile": {"$ref": "#/$defs/number_or_null"},
+        "limiting_factor": {"type": "string"},
+        "no_analog": {"type": "boolean"},
+        "metric_mode": {"enum": ["full", "pca", "diag"]},
+        "n_null": {"type": ["integer", "null"]},
+        "d_shadow": {"$ref": "#/$defs/number_or_null"},
+        "sigma_shadow": {"$ref": "#/$defs/number_or_null"},
+        "descriptors": {
+          "type": "object",
+          "description": "descriptor name -> {earth, target, z} (z = signed deviation / scale)",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "earth": {"$ref": "#/$defs/number_or_null"},
+              "target": {"$ref": "#/$defs/number_or_null"},
+              "z": {"$ref": "#/$defs/number_or_null"}
+            }
+          }
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["id", "name", "lat", "lon", "footprint_km", "process_title", "lens_scores",
+                   "test_here", "cannot_test", "attention", "evidence_status", "data_sources"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "country": {"type": "string"},
+        "lat": {"type": "number", "minimum": -90, "maximum": 90},
+        "lon": {"type": "number", "minimum": -180, "maximum": 180},
+        "footprint_km": {"type": "number", "exclusiveMinimum": 0},
+        "role": {"enum": ["hidden", "control", "decoy", "seed"]},
+        "process_title": {"type": "string", "minLength": 1},
+        "process_summary": {"type": "string"},
+        "lens_scores": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"$ref": "#/$defs/lens_id"},
+          "additionalProperties": {"$ref": "#/$defs/lens_score"}
+        },
+        "process_rates": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/number_or_null"}
+        },
+        "test_here": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tech"],
+            "properties": {
+              "tech": {"type": "string"},
+              "nasa_gap": {"type": ["string", "null"]},
+              "lens": {"$ref": "#/$defs/lens_id"}
+            }
+          }
+        },
+        "cannot_test": {"type": "array", "items": {"type": "string"}},
+        "attention": {
+          "type": "object",
+          "required": ["n_pubs", "query", "source", "date"],
+          "properties": {
+            "n_pubs": {"type": ["integer", "null"], "minimum": 0},
+            "query": {"type": "string"},
+            "source": {"type": "string"},
+            "date": {"type": "string"}
+          }
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "travel_time_h": {"$ref": "#/$defs/number_or_null"},
+            "protected_area": {"type": ["boolean", "null"]},
+            "note": {"type": "string"}
+          }
+        },
+        "in_exclusion_buffer": {"type": "boolean"},
+        "evidence_status": {"enum": ["engine-confirmed", "engine-semiquant", "literature-only", "hypothesis"]},
+        "evidence_note": {"type": "string"},
+        "data_sources": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "mock": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -1,0 +1,213 @@
+# Validation controls — contract file (B0). Owner: Linh (B).
+# LOCKED 13:45 14/11/2026 together with the contract. Expectations are written BEFORE any result is seen
+# and must not be edited after results (PLAN: config/controls.yaml rule).
+#   role: positive (NASA- or literature-confirmed analog) | decoy (looks similar, physics differs)
+#   expected:     high | uncertain | low   -> expectation for the twin-formula engine on this lens
+#   expected_rgb: high | uncertain | low   -> expectation for the RGB/texture ablation branch (a)
+# L1/L2 entries for Haughton and SP Crater mirror the expectations Bao already used in A4 (spike_r5.py).
+
+controls:
+  # ---------------- L1 Touchdown & Traverse (Moon terrain) ----------------
+  - id: haughton_devon
+    name: Haughton impact structure, Devon Island
+    lens_id: L1
+    role: positive
+    lat: 75.38
+    lon: -89.68
+    footprint_km: 4
+    expected: high
+    expected_rgb: low
+    source: "https://www.nasa.gov/general/haughton-mars-project/"
+    note: "NASA Haughton-Mars Project; ranked worst by image-texture method (NHSJS 2026)."
+  - id: sp_crater_black_point
+    name: SP Crater / Black Point lava flow, Arizona
+    lens_id: L1
+    role: positive
+    lat: 35.58
+    lon: -111.63
+    footprint_km: 4
+    expected: uncertain
+    expected_rgb: uncertain
+    source: "https://www.nasa.gov/mission/desert-rats/"
+    note: "NASA Desert RATS field tests; basaltic (mare-like) terrain, highland match uncertain."
+  - id: kilauea_lava
+    name: Kilauea lava fields, Hawaii
+    lens_id: L1
+    role: positive
+    lat: 19.40
+    lon: -155.28
+    footprint_km: 4
+    expected: uncertain
+    expected_rgb: high
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "NASA Analog Explorer pair (Kilauea-Moon). Mare analog, so uncertain for south-pole highland."
+  - id: lava_beds_california
+    name: Lava Beds National Monument, California
+    lens_id: L1
+    role: positive
+    lat: 41.71
+    lon: -121.51
+    footprint_km: 4
+    expected: uncertain
+    expected_rgb: uncertain
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "NASA Analog Explorer pair (lava caves California-Moon). Cave analog more than surface-slope analog."
+  - id: meteor_crater_arizona
+    name: Barringer (Meteor) Crater, Arizona
+    lens_id: L1
+    role: positive
+    lat: 35.027
+    lon: -111.022
+    footprint_km: 4
+    expected: uncertain
+    expected_rgb: high
+    source: "https://www.usgs.gov/centers/astrogeology-science-center"
+    note: "Apollo astronaut geology training site. 1.2 km crater inside a 4 km footprint: rim slopes diluted by flat plain."
+
+  # ---------------- L2 Low-Sun Navigation ----------------
+  - id: haughton_devon_l2
+    name: Haughton impact structure, Devon Island
+    lens_id: L2
+    role: positive
+    lat: 75.38
+    lon: -89.68
+    footprint_km: 4
+    expected: high
+    expected_rgb: low
+    source: "https://www.nasa.gov/general/haughton-mars-project/"
+    note: "High-latitude polar desert; best Earth case for low sun among NASA analogs, still far from lunar pole geometry."
+  - id: sahara_lowlat_l2
+    name: Low-latitude Sahara reference (Tibesti foreland)
+    lens_id: L2
+    role: decoy
+    lat: 21.0
+    lon: 17.0
+    footprint_km: 4
+    expected: low
+    expected_rgb: high
+    source: "geometry: low latitude -> sun rarely below 7 deg elevation for long"
+    note: "Looks Moon/Mars-like in RGB; sun geometry is the opposite of the lunar pole."
+
+  # ---------------- M1 Aqueous minerals (Mars spectral) ----------------
+  - id: lake_salda
+    name: Lake Salda hydromagnesite shoreline, Turkey
+    lens_id: M1
+    target_id: jezero_margin
+    role: positive
+    lat: 37.55
+    lon: 29.68
+    footprint_km: 5
+    expected: high
+    expected_rgb: uncertain
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "NASA Analog Explorer pair with Jezero. Strict water mask required (PLAN edge case)."
+  - id: pilot_valley_utah
+    name: Pilot Valley playa, Utah
+    lens_id: M1
+    target_id: meridiani
+    role: positive
+    lat: 41.05
+    lon: -113.95
+    footprint_km: 5
+    expected: uncertain
+    expected_rgb: uncertain
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "NASA Analog Explorer (Pilot Valley-Mars). Chloride/sulfate evaporites, not jarosite: partial match expected."
+  - id: atacama_yungay
+    name: Atacama Desert, Yungay area, Chile
+    lens_id: M1
+    target_id: meridiani
+    role: positive
+    lat: -24.08
+    lon: -70.02
+    footprint_km: 5
+    expected: uncertain
+    expected_rgb: high
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "NASA Analog Explorer (Atacama-Mars). Famous for aridity/biology, sulfates/nitrates; mineral match uncertain."
+  - id: rio_tinto
+    name: Rio Tinto headwaters, Spain
+    lens_id: M1
+    target_id: meridiani
+    role: positive
+    lat: 37.72
+    lon: -6.56
+    footprint_km: 5
+    expected: uncertain
+    expected_rgb: uncertain
+    source: "https://doi.org/10.1016/j.epsl.2005.09.043"
+    note: "Classic jarosite/Meridiani analog; open-pit mining disturbance may dominate the footprint."
+  - id: wadi_rum
+    name: Wadi Rum, Jordan (The Martian filming location)
+    lens_id: M1
+    target_id: jezero_margin
+    role: decoy
+    lat: 29.58
+    lon: 35.42
+    footprint_km: 5
+    expected: low
+    expected_rgb: high
+    source: "quartz sandstone + Fe-oxide coatings: Mars-red in RGB, no aqueous-alteration minerals"
+    note: "Hollywood's Mars. Expected to fail the mineral test."
+  - id: simpson_desert
+    name: Simpson Desert red quartz dunes, Australia
+    lens_id: M1
+    target_id: jezero_margin
+    role: decoy
+    lat: -25.20
+    lon: 137.00
+    footprint_km: 5
+    expected: low
+    expected_rgb: high
+    source: "red Fe-oxide-coated quartz dune sand"
+    note: "Red sand decoy (DESIGN: 'cat do thach anh noi dia Uc')."
+
+  # ---------------- X1 Ice under dry overburden ----------------
+  - id: axel_heiberg_eureka
+    name: Axel Heiberg / Eureka polar desert, Nunavut
+    lens_id: X1
+    target_id: arcadia_planitia
+    role: positive
+    lat: 79.98
+    lon: -85.90
+    footprint_km: 10
+    expected: high
+    expected_rgb: uncertain
+    source: "McGill Arctic Research Station; Mars permafrost analog literature"
+    note: "Cold polar desert with continuous permafrost and ground ice."
+  - id: beacon_valley
+    name: Beacon Valley, McMurdo Dry Valleys, Antarctica
+    lens_id: X1
+    target_id: arcadia_planitia
+    role: positive
+    lat: -77.83
+    lon: 160.67
+    footprint_km: 10
+    expected: high
+    expected_rgb: uncertain
+    source: "https://science.nasa.gov/solar-system/analog-explorer/"
+    note: "Buried glacier ice under dry till; classic (saturated) Mars ice analog. In exclusion buffer by design."
+  - id: yakutsk_lowland
+    name: Central Yakutian lowland (wet permafrost), Russia
+    lens_id: X1
+    target_id: arcadia_planitia
+    role: decoy
+    lat: 62.0
+    lon: 129.7
+    footprint_km: 10
+    expected: low
+    expected_rgb: low
+    source: "continuous permafrost with thick active layer, vegetation and summer thaw lakes"
+    note: "Permafrost yes, but wet, vegetated, strong seasonal thaw: wrong configuration for Mars."
+  - id: west_siberia_lowland
+    name: West Siberian lowland (wet permafrost), Russia
+    lens_id: X1
+    target_id: arcadia_planitia
+    role: decoy
+    lat: 66.5
+    lon: 75.0
+    footprint_km: 10
+    expected: low
+    expected_rgb: low
+    source: "wetland permafrost (PLAN B6 check: Siberian plains must rank below Pamir/Changtang)"
+    note: "Humid permafrost decoy."
