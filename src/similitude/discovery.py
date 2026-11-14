@@ -194,12 +194,14 @@ def control_cell_ids(control_id: str) -> tuple[str, str]:
 
 
 def select_hidden(fid_best: pd.DataFrame, earth: pd.DataFrame, attention: dict, lens: dict,
-                  per_lens: int = 5) -> pd.DataFrame:
+                  per_lens: int = 5, keep_unknown_attention: bool = False) -> pd.DataFrame:
     """Hidden-analog candidates of one lens.
 
     Steps: role in rank/seed -> gates -> in_exclusion_buffer False (the ONLY place the flag
-    filters) -> fidelity threshold -> attention <= ATTENTION_MAX (unknown kept) -> NMS by
-    footprint -> top ``per_lens``.
+    filters) -> fidelity threshold -> attention <= ATTENTION_MAX -> NMS by footprint -> top
+    ``per_lens``. B16: an unknown attention count means "not known", never "hidden"; unknown
+    cells are kept only when ``keep_unknown_attention`` (the pre-pass that looks up names and
+    attention for them).
     """
     e = earth[gate_mask(earth, lens)]
     e = e[e["sample_role"].isin(CANDIDATE_ROLES) & ~e["in_exclusion_buffer"].astype(bool)]
@@ -210,7 +212,8 @@ def select_hidden(fid_best: pd.DataFrame, earth: pd.DataFrame, attention: dict, 
     if m.empty:
         return m
     m = m.assign(attention_n=[attention.get(attention_key(r)) for _, r in m.iterrows()])
-    m = m[m["attention_n"].isna() | (m["attention_n"] <= ATTENTION_MAX)]
+    known_low = m["attention_n"].notna() & (m["attention_n"] <= ATTENTION_MAX)
+    m = m[known_low | (m["attention_n"].isna() & keep_unknown_attention)]
     m = nms(m, float(lens["footprint_km"]), score=score_column(fid_best))
     return m.head(per_lens)
 

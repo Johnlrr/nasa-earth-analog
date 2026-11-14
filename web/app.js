@@ -233,6 +233,9 @@
     var h = '<li class="group-h">Hidden analogs</li>';
     if (hidden.length) h += hidden.map(rowHtml).join('');
     else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No hidden analog found for this lens' : 'No hidden analogs in the current data') + '</li>';
+    if (lm && lm.n_attention_unknown) {
+      h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "hidden".</li>';
+    }
     if (valid.length) h += '<li class="group-h">Validation: controls &amp; decoys</li>' + valid.map(rowHtml).join('');
     host.innerHTML = h;
   }

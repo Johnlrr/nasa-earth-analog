@@ -121,7 +121,8 @@ def main() -> None:
 
         # 1st pass: names + attention for every candidate passing fidelity that has none yet
         att, _ = attention_table()
-        pre = disc.select_hidden(best, earth, att, lens, per_lens=15)
+        pre = disc.select_hidden(best, earth, att, lens, per_lens=15,
+                                 keep_unknown_attention=True)
         names = []
         for _, r in pre.iterrows():
             key = disc.attention_key(r)
@@ -225,6 +226,9 @@ def main() -> None:
                 continue
             row = rows.sort_values(score).iloc[0]
             features.append(build(row, "decoy" if c["role"] == "decoy" else "control"))
+        pending = disc.select_hidden(best, earth, att, lens, per_lens=5,
+                                     keep_unknown_attention=True)
+        n_unknown = int(pending["attention_n"].isna().sum()) if len(pending) else 0
         scored = set(f["cell_id"])
         n_null = int(earth[earth["cell_id"].isin(scored)]["sample_role"].eq("null").sum())
         best_sig = best["sigma_shadow"] if score == "d_shadow" else best["sigma"]
@@ -235,7 +239,9 @@ def main() -> None:
             "ranking": score,
             "best_sigma": round(float(best["sigma"].min()), 3),
             "best_sigma_ranked": round(float(best_sig.min()), 3),
-            "no_hidden_found": bool(hidden.empty),
+            # B16: unknown attention is "not known", never "hidden"
+            "n_attention_unknown": n_unknown,
+            "no_hidden_found": bool(hidden.empty and n_unknown == 0),
         }
 
     review_path = io.CONFIG_DIR / "review_b10.yaml"

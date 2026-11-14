@@ -51,7 +51,7 @@ def test_select_hidden_filters_role_gate_buffer_fidelity_attention():
 def test_select_hidden_uses_sigma_when_percentile_missing():
     fid = pd.DataFrame([fid_row("a", 1.0, 0.8, None), fid_row("b", 2.0, 1.5, None)])
     earth = pd.DataFrame([earth_row("a", 10, 10), earth_row("b", 30, 30)])
-    out = disc.select_hidden(fid, earth, {}, LENS_M1)
+    out = disc.select_hidden(fid, earth, {"a": 0, "b": 0}, LENS_M1)
     assert list(out["cell_id"]) == ["a"]
 
 
@@ -89,7 +89,8 @@ def test_permafrost_gate_for_x1():
                         fid_row("cold", 1.2, 0.6, 98.0, lens="X1")])
     earth = pd.DataFrame([earth_row("hot", 20, 10, permafrost_flag=0.0),
                           earth_row("cold", 75, 10, permafrost_flag=1.0)])
-    assert list(disc.select_hidden(fid, earth, {}, lens)["cell_id"]) == ["cold"]
+    att = {"hot": 0, "cold": 0}
+    assert list(disc.select_hidden(fid, earth, att, lens)["cell_id"]) == ["cold"]
 
 
 def test_evidence_status_caps():
@@ -134,3 +135,12 @@ def test_feature_from_lens_score_is_contract_valid():
                     reason="discovery not run yet")
 def test_exported_candidates_file_is_valid():
     assert io.validate_candidates(io.REPO_ROOT / "web/data/candidates.geojson") > 0
+
+
+def test_unknown_attention_is_not_hidden():
+    fid = pd.DataFrame([fid_row("known", 1.0, 0.5, 99.0), fid_row("unknown", 0.9, 0.4, 99.0)])
+    earth = pd.DataFrame([earth_row("known", 10, 10), earth_row("unknown", 30, 30)])
+    att = {"known": 0}
+    assert list(disc.select_hidden(fid, earth, att, LENS_M1)["cell_id"]) == ["known"]
+    both = disc.select_hidden(fid, earth, att, LENS_M1, keep_unknown_attention=True)
+    assert set(both["cell_id"]) == {"known", "unknown"}
