@@ -1,0 +1,18 @@
+# A17 — geomorphic names for sites (clusters of A13 cells), set by hand after seeing the clusters.
+# A site takes the entry whose anchor cell it contains. `query` is the place part of the B8
+# Attention query (scripts/attention/openalex.py adds the same planetary-analog context).
+# Sites without an entry are named after the reverse-geocoded place of their first cell.
+sites:
+  - {anchor: E10K_729_-319, name: "Peary Land, North Greenland", query: '"Peary Land"'}
+  - {anchor: E10K_453_921, name: "Da Qaidam, northern Qaidam Basin margin (Qinghai)",
+     query: '"Da Qaidam" OR "northern Qaidam"'}
+  - {anchor: E10K_394_774, name: "Zanda (Tsamda) and Gar, Ngari, western Tibet",
+     query: '"Zanda" OR "Tsamda" OR "Ngari"'}
+  - {anchor: E10K_413_804, name: "Gêrzê, central Changtang plateau (Tibet)",
+     query: '"Gerze" OR "Gêrzê"'}
+  - {anchor: E10K_289_551, name: "Jebel Akhdar, Hajar Mountains (Oman)",
+     query: '"Jebel Akhdar" OR "Hajar Mountains"'}
+  - {anchor: E10K_-305_-645, name: "Atacama – Puna altiplano (Chile, Argentina, Bolivia)",
+     query: '"Atacama" OR "Puna"'}
+  - {anchor: E10K_244_-1498, name: "Mauna Loa – Mauna Kea, Hawaiʻi", query: '"Mauna Loa" OR "Mauna Kea"'}
+  - {anchor: E10K_691_-680, name: "Baffin Island, Nunavut", query: '"Baffin Island"'}
