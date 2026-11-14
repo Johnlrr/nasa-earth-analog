@@ -104,6 +104,9 @@ def check_candidates(doc: dict) -> list[str]:
             errors.append(
                 f"{where}: geometry ({lon}, {lat}) != properties lon/lat ({p['lon']}, {p['lat']})"
             )
+        if p.get("feature_type") == "site":
+            errors += _check_site(p, where)
+            continue
         unknown = set(p["lens_scores"]) - known_lenses
         if unknown:
             errors.append(f"{where}: lens ids not in config/lenses.yaml: {sorted(unknown)}")
@@ -112,6 +115,35 @@ def check_candidates(doc: dict) -> list[str]:
         for lens_id, score in p["lens_scores"].items():
             if score["sigma_capped"] and score["no_analog"] is False and score["sigma"] < 2:
                 errors.append(f"{where}: {lens_id} sigma_capped but sigma < 2")
+    return errors
+
+
+#: Attention above this means "well known" (same threshold as discovery.ATTENTION_MAX).
+SITE_ATTENTION_MAX = 10
+
+
+def _check_site(p: dict, where: str) -> list[str]:
+    """B17 cross-field rules for a site feature (2c contract, config/sites.yaml)."""
+    errors = []
+    confirmed = set(p["lenses_engine_confirmed"])
+    if confirmed & SEMIQUANT_LENSES:
+        errors.append(f"{where}: X1 can never be engine-confirmed at a site "
+                      "(use lenses_engine_semiquant)")
+    groups = ("lenses_engine_confirmed", "lenses_engine_semiquant", "lenses_hypothesis")
+    for a in range(len(groups)):
+        for b in range(a + 1, len(groups)):
+            both = set(p[groups[a]]) & set(p[groups[b]])
+            if both:
+                errors.append(f"{where}: lens {sorted(both)} in both {groups[a]} and {groups[b]}")
+    if p["n_cells"] != len(p["member_cells"]):
+        errors.append(f"{where}: n_cells {p['n_cells']} != {len(p['member_cells'])} member_cells")
+    status = p["hidden_status"].lower()
+    if status.startswith("yes") or status == "hidden":
+        att = p.get("attention_n")
+        if att is None or att > SITE_ATTENTION_MAX:
+            errors.append(f"{where}: 'hidden' needs a known attention <= {SITE_ATTENTION_MAX}")
+        if p.get("n_in_exclusion", 0) > 0:
+            errors.append(f"{where}: a site with cells in an exclusion zone is never hidden")
     return errors
 
 

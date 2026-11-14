@@ -184,3 +184,60 @@ def test_a15_contract_for_m1_x1():
     sr = json.loads((io.REPO_ROOT / "data/derived/m1_stop_rule.json").read_text(encoding="utf-8"))
     assert isinstance(sr["m1_controls_pass"], bool)
     assert sr["m1_controls_pass"] == (sr["verdict"] == "PASS")
+
+
+# ---------------- B17: site features (2c contract) ----------------
+
+
+def site_feature(**over):
+    props = {"feature_type": "site", "id": "site:E10K_729_-319", "site_id": "site:E10K_729_-319",
+             "name": "Peary Land, North Greenland", "lat": 82.6, "lon": -33.1, "n_cells": 1,
+             "member_cells": ["E10K_729_-319"], "max_span_km": 0.0, "lenses": ["L1"],
+             "lenses_engine_confirmed": ["L1"], "lenses_engine_semiquant": ["X1"],
+             "lenses_hypothesis": [], "lenses_literature_only": [], "b10_unreviewed_cells": [],
+             "hidden_status": "unknown: attention not known", "attention_n": None,
+             "n_in_exclusion": 0,
+             "field": [{"lens": "L1", "target": "connecting_ridge", "variable": "slope_roughness",
+                        "value": 41.0, "reason": "robust set"}],
+             "facility": [{"lens": "L1", "target": None, "variable": "gravity", "value": 0.165,
+                           "reason": "r", "facility": "offload rig", "source": "https://x"}],
+             "unobserved": [{"lens": "L1", "variable": "boulders", "reason": "30 m DEM"}]}
+    props.update(over)
+    return {"type": "Feature", "geometry": {"type": "Point", "coordinates": [props["lon"],
+                                                                             props["lat"]]},
+            "properties": props}
+
+
+def test_site_feature_valid_next_to_cell_candidates(mock_doc):
+    mock_doc["features"].append(site_feature())
+    assert io.check_candidates(mock_doc) == []
+
+
+def test_site_with_x1_engine_confirmed_is_rejected():
+    doc = {"type": "FeatureCollection",
+           "features": [site_feature(lenses_engine_confirmed=["L1", "X1"],
+                                     lenses_engine_semiquant=[])]}
+    errors = io.check_candidates(doc)
+    assert any("X1 can never be engine-confirmed" in e for e in errors)
+
+
+def test_site_hidden_needs_known_low_attention_and_no_exclusion():
+    doc = {"type": "FeatureCollection", "features": [site_feature(hidden_status="yes")]}
+    assert any("known attention" in e for e in io.check_candidates(doc))
+    doc = {"type": "FeatureCollection",
+           "features": [site_feature(hidden_status="yes", attention_n=2, n_in_exclusion=1)]}
+    assert any("exclusion zone" in e for e in io.check_candidates(doc))
+    doc = {"type": "FeatureCollection",
+           "features": [site_feature(hidden_status="yes", attention_n=2)]}
+    assert io.check_candidates(doc) == []
+
+
+def test_site_facility_rows_need_a_source_and_counts_match():
+    bad = site_feature()
+    del bad["properties"]["facility"][0]["source"]
+    assert io.check_candidates({"type": "FeatureCollection", "features": [bad]})
+    doc = {"type": "FeatureCollection", "features": [site_feature(n_cells=2)]}
+    assert any("member_cells" in e for e in io.check_candidates(doc))
+    doc = {"type": "FeatureCollection",
+           "features": [site_feature(lenses_hypothesis=["L1"])]}
+    assert any("in both" in e for e in io.check_candidates(doc))

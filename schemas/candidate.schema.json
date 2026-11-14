@@ -8,11 +8,84 @@
   "properties": {
     "type": {"const": "FeatureCollection"},
     "metadata": {"type": "object"},
-    "features": {"type": "array", "items": {"$ref": "#/$defs/feature"}}
+    "features": {"type": "array", "items": {"$ref": "#/$defs/any_feature"}}
   },
   "$defs": {
     "lens_id": {"enum": ["L1", "L2", "M1", "X1"]},
     "number_or_null": {"type": ["number", "null"]},
+    "lens_list": {"type": "array", "items": {"$ref": "#/$defs/lens_id"}, "uniqueItems": true},
+    "any_feature": {
+      "description": "B17: a cell-level candidate (default) or a site (properties.feature_type == 'site', 2c contract config/sites.yaml)",
+      "if": {"properties": {"properties": {"properties": {"feature_type": {"const": "site"}},
+                                           "required": ["feature_type"]}}},
+      "then": {"$ref": "#/$defs/site_feature"},
+      "else": {"$ref": "#/$defs/feature"}
+    },
+    "site_feature": {
+      "type": "object",
+      "required": ["type", "geometry", "properties"],
+      "properties": {
+        "type": {"const": "Feature"},
+        "geometry": {"$ref": "#/$defs/feature/properties/geometry"},
+        "properties": {"$ref": "#/$defs/site"}
+      }
+    },
+    "card_row": {
+      "type": "object",
+      "required": ["lens", "variable"],
+      "properties": {
+        "lens": {"$ref": "#/$defs/lens_id"},
+        "target": {"type": ["string", "null"]},
+        "target_label": {"type": ["string", "null"]},
+        "variable": {"type": "string"},
+        "value": {"type": ["number", "string", "null"]},
+        "reason": {"type": ["string", "null"]},
+        "facility": {"type": ["string", "null"]},
+        "source": {"type": ["string", "null"]},
+        "n_cells": {"type": ["integer", "null"]},
+        "best_cell": {"type": ["string", "null"]}
+      }
+    },
+    "site": {
+      "description": "Column names exactly as data/derived/sites.parquet (A17); field/facility/unobserved from data/derived/field_facility.json (A20)",
+      "type": "object",
+      "required": ["feature_type", "id", "site_id", "name", "lat", "lon", "n_cells", "member_cells",
+                   "max_span_km", "lenses_engine_confirmed", "lenses_engine_semiquant",
+                   "lenses_hypothesis", "lenses_literature_only", "b10_unreviewed_cells",
+                   "hidden_status", "field", "facility", "unobserved"],
+      "properties": {
+        "feature_type": {"const": "site"},
+        "id": {"type": "string", "minLength": 1},
+        "site_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "lat": {"type": "number", "minimum": -90, "maximum": 90},
+        "lon": {"type": "number", "minimum": -180, "maximum": 180},
+        "n_cells": {"type": "integer", "minimum": 1},
+        "member_cells": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "max_span_km": {"type": "number", "minimum": 0},
+        "lenses": {"$ref": "#/$defs/lens_list"},
+        "targets": {"type": "array", "items": {"type": "string"}},
+        "lenses_engine_confirmed": {"$ref": "#/$defs/lens_list"},
+        "lenses_engine_semiquant": {"$ref": "#/$defs/lens_list"},
+        "lenses_hypothesis": {"$ref": "#/$defs/lens_list"},
+        "lenses_literature_only": {"$ref": "#/$defs/lens_list"},
+        "b10_unreviewed_cells": {"type": "array", "items": {"type": "string"}},
+        "hidden_status": {"type": "string", "minLength": 1},
+        "attention_n": {"type": ["integer", "null"], "minimum": 0},
+        "n_in_exclusion": {"type": "integer", "minimum": 0},
+        "n_ice_flag": {"type": "integer", "minimum": 0},
+        "showcase": {"type": "string"},
+        "note": {"type": ["string", "null"]},
+        "l2_snow_free_frac": {"type": "object"},
+        "field": {"type": "array", "items": {"$ref": "#/$defs/card_row"}},
+        "facility": {"type": "array",
+                     "items": {"allOf": [{"$ref": "#/$defs/card_row"},
+                                         {"required": ["facility", "source"]}]}},
+        "unobserved": {"type": "array", "items": {"$ref": "#/$defs/card_row"}},
+        "multilens": {"type": "array", "items": {"type": "object"}},
+        "data_sources": {"type": "array", "items": {"type": "string"}}
+      }
+    },
     "feature": {
       "type": "object",
       "required": ["type", "geometry", "properties"],
