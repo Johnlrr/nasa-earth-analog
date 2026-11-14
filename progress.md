@@ -45,7 +45,10 @@ Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` 
 **Phán quyết: FAIL** → theo quy tắc PLAN 2b: M1 lên slide dạng "minh hoạ phương pháp trên 4 địa điểm + kết quả âm ở tỷ lệ footprint", **không công bố hidden analog M1**. Không chỉnh ngưỡng sau khi xem kết quả. Ghi chú để báo cáo: sàn D2300 (0,110) > mục tiêu (0,080) làm phép thử rất bảo thủ; Salda tổng khớp 0,19 km² nhưng phân mảnh. Hạt giống/rank (ghi lại, không công bố): rank_001 khớp 100 % pixel (25 km²) — đáng ngờ, cần soi ảnh nếu dùng; New Idria, Troodos ít pixel hợp lệ (thực vật).
 | B15 X1 danh sách 3 điều kiện | ✓ | `677777a` |
 | B16 phần "Attention rỗng ≠ hidden" | ✓ | `4ce40cf` |
-| B16 phần còn lại (verdicts ba trạng thái, native rank, matched area) | Chờ A15, A11, B13 | — |
+| Hợp đồng A15 cho M1/X1 | ✓ `verdict_variables`, `unobserved: [{variable, reason, facility}]` trong `lenses.yaml`; cờ `m1_controls_pass` (= False) trong `m1_stop_rule.json` và cột của `earth_M1_pixels.parquet`; trường `variable`/`facility` cho mọi mục `ledger/*.yaml` (nội dung không đổi). **Bảo:** định dạng `verdict_variables` cho L1/L2 nên theo cùng khóa (`test, targets, source, rule`) | `8de6700` |
+| B16 phần đọc | ✓ schema thêm `verdicts[]`, `analog_role` (**thêm giá trị `ice-configuration` cho X1**, ngoài 3 giá trị PLAN), native rank, matched area; discovery **chỉ đọc** `verdicts.parquet` (không có bảng → không sinh verdict); web: khối ba trạng thái + native rank + matched area (Lake Salda hiển thị footprint A14, kèm số gốc). Kiểm bằng file verdicts giả + ảnh chụp `data/raw/review/web_verdicts_card.png` | (commit này) |
+| B16 còn lại | Chờ `verdicts.parquet` (A15) → chạy lại `scripts/discovery/run_discovery.py`; chụp desktop + 375 px | — |
+| Không push `main` nữa | Linh yêu cầu merge vào `main` một lần (20:20, `ca70f94` → `d444de3`); các commit sau chỉ lên `linh/spectral-story` | — |
 
 **B13 null:** thư viện phổ được vector hoá (`resample` nhóm theo mẫu kênh hợp lệ, `crism_params_stack`) — **cho kết quả trùng tuyệt đối** với cách tính từng phổ trên 154 phổ thật (31 MICA + 123 EMIT; sai khác lớn nhất 0); thêm test. Tải pixel bằng `computePixels` ~6 s/footprint. Sàn D2300 (0,110) cao hơn chính giá trị mục tiêu Jezero (0,080) → ngưỡng pixel Jezero thực tế là D2300 ≥ 0,110 và MIN2295_2480 ≥ 0,040 (bảo thủ, đúng rủi ro PLAN đã ghi: caliche/sét trong null hoang mạc).
 

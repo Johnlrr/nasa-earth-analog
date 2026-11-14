@@ -89,6 +89,10 @@ def engine_z(lens: dict, earth: pd.DataFrame, targets: pd.DataFrame) -> pd.DataF
 
 def main() -> None:
     fid, ztab_prov, provisional = load_fidelity()
+    vpath = DERIVED / "verdicts.parquet"  # A15: single verdict source (B16 only reads it)
+    verdicts = pd.read_parquet(vpath) if vpath.exists() else None
+    ppath = DERIVED / "earth_M1_pixels.parquet"  # B13 matched area
+    pixels = pd.read_parquet(ppath) if ppath.exists() else None
     lenses = io.load_lenses()
     seeds = seed_meta()
     controls = {}
@@ -163,6 +167,8 @@ def main() -> None:
                 zr = zz.iloc[0] if len(zz) else None
             tr = tref.loc[row["target_id"]] if row["target_id"] in tref.index else None
             ls = disc.lens_score(row, lens, zr, tr, er)
+            if lens_id == "M1":
+                ls.update(disc.pixel_match_for(pixels, cid, str(row["target_id"])))
             if cid in seeds:
                 s = seeds[cid]
                 name, country, klass = s["name"], s["country"], s.get("class")
@@ -211,6 +217,8 @@ def main() -> None:
                 "in_exclusion_buffer": bool(er["in_exclusion_buffer"]),
                 "evidence_status": status, "evidence_note": note.strip(),
                 "data_sources": disc.DATA_SOURCES[lens_id],
+                "analog_role": disc.ANALOG_ROLE[lens_id],
+                "verdicts": disc.verdicts_for(verdicts, lens_id, cid),
             }
             return disc.feature(props)
 
@@ -260,6 +268,8 @@ def main() -> None:
     doc = {"type": "FeatureCollection",
            "metadata": {"generated": dt.datetime.now().isoformat(timespec="minutes"),
                         "provisional": provisional, "mock": False, "lenses": summary,
+                        "verdicts_source": "data/derived/verdicts.parquet (A15)"
+                        if verdicts is not None else None,
                         "thresholds": {"percentile_min": disc.PERCENTILE_MIN,
                                        "sigma_max_without_percentile": disc.SIGMA_MAX_NO_PCT,
                                        "attention_max": disc.ATTENTION_MAX}},

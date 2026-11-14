@@ -282,6 +282,42 @@
     return h + '</details>';
   }
 
+  // B16: three-state verdicts, read from verdicts.parquet (A15) by discovery; never computed here.
+  var VERDICT_LABEL = { 'TRANSFERS': 'Qualified for', 'NO-ANALOG': 'Not qualified for', 'UNOBSERVED': 'Not certified' };
+  function verdictHtml(p) {
+    var v = (p.verdicts || []);
+    if (!v.length) {
+      return '<p class="note">Verdicts (TRANSFERS / NO-ANALOG / UNOBSERVED) appear here once the verdict table is published.</p>';
+    }
+    var h = '<div class="verdicts"><h3>Test verdicts</h3><ul>';
+    v.forEach(function (r) {
+      var cls = r.state === 'TRANSFERS' ? 'v-ok' : (r.state === 'NO-ANALOG' ? 'v-no' : 'v-unk');
+      h += '<li class="' + cls + '"><span class="v-state">' + esc(VERDICT_LABEL[r.state] || r.state) + '</span> ' +
+        '<strong>' + esc(r.test) + '</strong> — ' + esc(r.variable) + ' <span class="tag">' + esc(r.state) + '</span>' +
+        (r.value !== null && r.value !== undefined ? ' <span class="note">(' + esc(r.value) + ')</span>' : '') +
+        (r.reason ? '<br><span class="note">' + esc(r.reason) + '</span>' : '') +
+        (r.facility ? '<br><span class="note">→ ' + esc(r.facility) + '</span>' : '') +
+        (r.scope === 'lens' ? ' <span class="note">[applies to the whole lens]</span>' : '') + '</li>';
+    });
+    return h + '</ul></div>';
+  }
+  function evidenceScaleHtml(s) {
+    if (!s) return '';
+    var parts = [];
+    if (typeof s.native_rank === 'number' && typeof s.n_native === 'number') {
+      parts.push('Native rank <strong>' + esc(s.native_rank) + '/' + esc(s.n_native) + '</strong>' +
+        ' <span class="note">(target-body footprints farther from the target than this site' +
+        (s.native_rank_basis ? ', by ' + esc(s.native_rank_basis) : '') + ')</span>');
+    }
+    if (typeof s.largest_patch_km2 === 'number') {
+      parts.push('Matched area <strong>' + esc(num(s.matched_area_km2, 3)) + ' km²</strong>, largest patch ' +
+        esc(num(s.largest_patch_km2, 3)) + ' km² <span class="note">(per-pixel match; pass ≥ 0.1 km²' +
+        (s.pixel_footprint === 'relocated' ? '; footprint relocated by rule A14, original: ' +
+          esc(num(s.largest_patch_km2_original, 3)) + ' km²' : '') + ')</span>');
+    }
+    return parts.length ? '<p class="scale">' + parts.join('<br>') + '</p>' : '';
+  }
+
   function renderCard() {
     var host = $('card');
     var f = state.features.filter(function (x) { return x.properties.id === state.selectedId; })[0];
@@ -303,6 +339,8 @@
         '). The Sun circling the horizon at 0–7° all day needs latitude ≳ 83–86°; this was expected before scoring' +
         ' and is reported as a number, not hidden.</p></div>';
     }
+    h += verdictHtml(p);
+    h += evidenceScaleHtml(p.lens_scores[state.lens]);
 
     h += '<h3>Fidelity per lens</h3><div class="tbl-wrap"><table><thead><tr><th>Lens</th><th>Target</th><th>σ</th><th>Percentile</th><th>d</th><th>Mode</th><th>Limiting factor</th><th>No analog</th></tr></thead><tbody>';
     var nullNote = false;

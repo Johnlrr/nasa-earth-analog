@@ -271,11 +271,71 @@ def lens_score(row, lens: dict, z_row=None, target_row=None, earth_row=None) -> 
     for k in ("d_shadow", "sigma_shadow"):
         if _clean(row.get(k)) is not None:
             out[k] = round(float(row[k]), 3)
+    for k in ("native_rank", "n_native"):  # A11 (L1: d, L2: d_shadow); empty for M1/X1
+        if _clean(row.get(k)) is not None:
+            out[k] = int(row[k])
+    if not _blank(row.get("native_rank_basis")):
+        out["native_rank_basis"] = str(row["native_rank_basis"])
     if z_row is not None and target_row is not None and earth_row is not None:
         out["descriptors"] = {
             d: {"earth": _round(earth_row.get(d)), "target": _round(target_row.get(d)),
                 "z": _round(z_row.get(f"z_{d}"), 2)}
             for d in lens["descriptors"]}
+    return out
+
+
+#: B16 analog role shown on the Test Card (review 3.4). ``ice-configuration`` added for X1.
+ANALOG_ROLE = {"M1": "aqueous", "L1": "terrain", "L2": "terrain", "X1": "ice-configuration"}
+VERDICT_STATES = ("TRANSFERS", "NO-ANALOG", "UNOBSERVED")
+
+
+def _blank(v) -> bool:
+    return v is None or (isinstance(v, float) and math.isnan(v)) or (isinstance(v, str) and not v)
+
+
+def verdicts_for(verdicts: pd.DataFrame | None, lens_id: str, cell_id: str) -> list[dict]:
+    """B16: verdict rows of one cell (+ the lens-level rows) read from verdicts.parquet (A15).
+
+    Never generates a verdict: with no table, returns an empty list. Cell-level rows first,
+    ordered TRANSFERS -> NO-ANALOG -> UNOBSERVED.
+    """
+    if verdicts is None or verdicts.empty:
+        return []
+    v = verdicts[verdicts["lens_id"] == lens_id]
+    cell = v[v["cell_id"].astype(str) == str(cell_id)]
+    lens_level = v[v["cell_id"].map(_blank)]
+    out = []
+    for scope, part in (("cell", cell), ("lens", lens_level)):
+        for _, r in part.iterrows():
+            val = r.get("value")
+            out.append({"lens": lens_id, "scope": scope, "test": str(r["test"]),
+                        "variable": str(r["variable"]), "state": str(r["state"]),
+                        "value": None if _blank(val) else (round(float(val), 4)
+                                                           if isinstance(val, (int, float))
+                                                           else str(val)),
+                        "reason": None if _blank(r.get("reason")) else str(r["reason"]),
+                        "facility": None if _blank(r.get("facility")) else str(r["facility"])})
+    order = {s: i for i, s in enumerate(VERDICT_STATES)}
+    return sorted(out, key=lambda x: (x["scope"] != "cell", order.get(x["state"], 9)))
+
+
+def pixel_match_for(pixels: pd.DataFrame | None, cell_id: str, target_id: str) -> dict:
+    """M1 matched area of a cell vs a target from earth_M1_pixels.parquet (B13), if available."""
+    if pixels is None or pixels.empty or "largest_patch_km2" not in pixels:
+        return {}
+    out = {}
+    # A14-relocated footprint (rule-based, e.g. Lake Salda) is the one judged; original kept too
+    for cid, key in ((f"{cell_id}__relocated", "relocated"), (cell_id, "original")):
+        r = pixels[(pixels["cell_id"] == cid) & (pixels["target_id"] == target_id)]
+        if r.empty or r["largest_patch_km2"].isna().all():
+            continue
+        r = r.iloc[0]
+        if not out:
+            out = {"matched_area_km2": round(float(r["matched_area_km2"]), 3),
+                   "largest_patch_km2": round(float(r["largest_patch_km2"]), 3),
+                   "pixel_footprint": key}
+        else:
+            out["largest_patch_km2_original"] = round(float(r["largest_patch_km2"]), 3)
     return out
 
 

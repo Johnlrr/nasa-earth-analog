@@ -1,7 +1,7 @@
 {
  "type": "FeatureCollection",
  "metadata": {
-  "generated": "2026-11-14T17:34",
+  "generated": "2026-11-14T20:29",
   "provisional": false,
   "mock": false,
   "lenses": {
@@ -26,7 +26,7 @@
     "no_hidden_found": true
    },
    "L1": {
-    "n_scored": 513,
+    "n_scored": 515,
     "n_null": 200,
     "n_hidden": 1,
     "ranking": "d",
@@ -46,6 +46,7 @@
     "no_hidden_found": false
    }
   },
+  "verdicts_source": null,
   "thresholds": {
    "percentile_min": 90.0,
    "sigma_max_without_percentile": 1.0,
@@ -81,6 +82,7 @@
       "limiting_factor": "BD2250",
       "no_analog": true,
       "metric_mode": "diag",
+      "native_rank_basis": "not defined: the M1 population is mineral classes, not sites (pixel matching instead)",
       "descriptors": {
        "OLINDEX": {
         "earth": -0.2258,
@@ -157,7 +159,11 @@
         "target": 0.0112,
         "z": 1.79
        }
-      }
+      },
+      "matched_area_km2": 0.191,
+      "largest_patch_km2": 0.052,
+      "pixel_footprint": "relocated",
+      "largest_patch_km2_original": 0.0
      }
     },
     "process_rates": {
@@ -202,7 +208,9 @@
      "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
      "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
      "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
-    ]
+    ],
+    "analog_role": "aqueous",
+    "verdicts": []
    }
   },
   {
@@ -233,6 +241,7 @@
       "limiting_factor": "BD2265",
       "no_analog": true,
       "metric_mode": "diag",
+      "native_rank_basis": "not defined: the M1 population is mineral classes, not sites (pixel matching instead)",
       "descriptors": {
        "OLINDEX": {
         "earth": 0.1426,
@@ -309,7 +318,10 @@
         "target": 0.0112,
         "z": 0.15
        }
-      }
+      },
+      "matched_area_km2": 0.0,
+      "largest_patch_km2": 0.0,
+      "pixel_footprint": "original"
      }
     },
     "process_rates": {
@@ -354,7 +366,9 @@
      "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
      "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
      "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
-    ]
+    ],
+    "analog_role": "aqueous",
+    "verdicts": []
    }
   },
   {
@@ -385,6 +399,7 @@
       "limiting_factor": "BD2265",
       "no_analog": true,
       "metric_mode": "diag",
+      "native_rank_basis": "not defined: the M1 population is mineral classes, not sites (pixel matching instead)",
       "descriptors": {
        "OLINDEX": {
         "earth": 0.1662,
@@ -461,7 +476,10 @@
         "target": 0.0112,
         "z": 0.51
        }
-      }
+      },
+      "matched_area_km2": 0.0,
+      "largest_patch_km2": 0.0,
+      "pixel_footprint": "original"
      }
     },
     "process_rates": {
@@ -506,7 +524,9 @@
      "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
      "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
      "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
-    ]
+    ],
+    "analog_role": "aqueous",
+    "verdicts": []
    }
   },
   {
@@ -537,6 +557,7 @@
       "limiting_factor": "aridity_p_pet",
       "no_analog": true,
       "metric_mode": "diag",
+      "native_rank_basis": "not defined: only 5 target sites",
       "descriptors": {
        "permafrost_flag": {
         "earth": 1.0,
@@ -601,7 +622,9 @@
      "TerraClimate",
      "SWIM subsurface water-ice maps (Mars)",
      "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
-    ]
+    ],
+    "analog_role": "ice-configuration",
+    "verdicts": []
    }
   },
   {
@@ -632,6 +655,7 @@
       "limiting_factor": "aridity_p_pet",
       "no_analog": true,
       "metric_mode": "diag",
+      "native_rank_basis": "not defined: only 5 target sites",
       "descriptors": {
        "permafrost_flag": {
         "earth": 1.0,
@@ -696,7 +720,9 @@
      "TerraClimate",
      "SWIM subsurface water-ice maps (Mars)",
      "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
-    ]
+    ],
+    "analog_role": "ice-configuration",
+    "verdicts": []
    }
   },
   {
@@ -727,6 +753,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 21,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 6.0089,
@@ -826,7 +855,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -857,6 +888,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 0,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 3.2329,
@@ -956,7 +990,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -987,6 +1023,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 25,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 5.1366,
@@ -1086,7 +1125,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -1117,6 +1158,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 5,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 2.1998,
@@ -1216,7 +1260,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -1247,6 +1293,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 3,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 3.6615,
@@ -1346,7 +1395,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -1377,6 +1428,9 @@
       "limiting_factor": "frac_gt8",
       "no_analog": false,
       "metric_mode": "diag",
+      "native_rank": 5,
+      "n_native": 49,
+      "native_rank_basis": "d",
       "descriptors": {
        "slope_p50": {
         "earth": 1.1891,
@@ -1476,7 +1530,9 @@
     "data_sources": [
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -1509,6 +1565,9 @@
       "metric_mode": "full",
       "d_shadow": 12.336,
       "sigma_shadow": 11.924,
+      "native_rank": 0,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
       "descriptors": {
        "lowsun_frac_daylight": {
         "earth": 0.2289,
@@ -1575,7 +1634,9 @@
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78",
      "MODIS snow cover"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   },
   {
@@ -1608,6 +1669,9 @@
       "metric_mode": "full",
       "d_shadow": 6.095,
       "sigma_shadow": 5.479,
+      "native_rank": 0,
+      "n_native": 49,
+      "native_rank_basis": "d_shadow",
       "descriptors": {
        "lowsun_frac_daylight": {
         "earth": 0.0878,
@@ -1674,7 +1738,9 @@
      "Copernicus GLO-30 DEM",
      "NASA PGDA Product 78",
      "MODIS snow cover"
-    ]
+    ],
+    "analog_role": "terrain",
+    "verdicts": []
    }
   }
  ]

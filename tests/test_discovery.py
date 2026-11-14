@@ -137,6 +137,55 @@ def test_exported_candidates_file_is_valid():
     assert io.validate_candidates(io.REPO_ROOT / "web/data/candidates.geojson") > 0
 
 
+def test_verdicts_read_not_generated():
+    assert disc.verdicts_for(None, "L1", "c1") == []
+    v = pd.DataFrame([
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "c1", "test": "LTV traverse",
+         "variable": "slope_roughness", "state": "TRANSFERS", "value": 30, "reason": "robust set",
+         "facility": None},
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": None, "test": "wheel sinkage",
+         "variable": "gravity", "state": "NO-ANALOG", "value": 0.165, "reason": None,
+         "facility": "offload rig"},
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "", "test": "landing safety",
+         "variable": "boulders", "state": "UNOBSERVED", "value": None, "reason": "30 m DEM",
+         "facility": "in situ"},
+        {"lens_id": "L2", "target_id": "connecting_ridge", "cell_id": "c1", "test": "x",
+         "variable": "y", "state": "TRANSFERS", "value": None, "reason": None, "facility": None},
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "c2", "test": "x",
+         "variable": "y", "state": "TRANSFERS", "value": None, "reason": None, "facility": None},
+    ])
+    out = disc.verdicts_for(v, "L1", "c1")
+    assert [r["state"] for r in out] == ["TRANSFERS", "NO-ANALOG", "UNOBSERVED"]
+    assert [r["scope"] for r in out] == ["cell", "lens", "lens"]
+    assert out[0]["value"] == 30 and out[2]["value"] is None
+
+
+def test_pixel_match_and_new_fields_are_contract_valid():
+    px = pd.DataFrame([{"cell_id": "seed_x", "target_id": "jezero_margin",
+                        "matched_area_km2": 3.333, "largest_patch_km2": 3.185}])
+    pm = disc.pixel_match_for(px, "seed_x", "jezero_margin")
+    assert pm == {"matched_area_km2": 3.333, "largest_patch_km2": 3.185,
+                  "pixel_footprint": "original"}
+    assert disc.pixel_match_for(px, "seed_x", "nili_fossae_olivine") == {}
+    lens = io.load_lenses()["M1"]
+    row = pd.Series({**fid_row("seed_x", 2.5, 1.2, 95.0, target="jezero_margin"),
+                     "native_rank": 40, "n_native": 53, "native_rank_basis": "d"})
+    ls = {**disc.lens_score(row, lens), **pm}
+    assert ls["native_rank"] == 40 and ls["n_native"] == 53
+    props = {"id": "M1-seed_x", "name": "X", "lat": 10.0, "lon": 20.0, "footprint_km": 5.0,
+             "role": "control", "analog_role": "aqueous", "process_title": "t",
+             "lens_scores": {"M1": ls}, "test_here": [], "cannot_test": [],
+             "attention": {"n_pubs": 0, "query": "q", "source": "OpenAlex", "date": "d"},
+             "evidence_status": "literature-only", "data_sources": ["NASA EMIT"],
+             "verdicts": [{"lens": "M1", "scope": "lens", "test": "t", "variable": "v",
+                           "state": "UNOBSERVED", "value": None, "reason": "r",
+                           "facility": "f"}]}
+    assert io.check_candidates({"type": "FeatureCollection",
+                                "features": [disc.feature(props)]}) == []
+    props["verdicts"][0]["state"] = "MAYBE"
+    assert io.check_candidates({"type": "FeatureCollection", "features": [disc.feature(props)]})
+
+
 def test_unknown_attention_is_not_hidden():
     fid = pd.DataFrame([fid_row("known", 1.0, 0.5, 99.0), fid_row("unknown", 0.9, 0.4, 99.0)])
     earth = pd.DataFrame([earth_row("known", 10, 10), earth_row("unknown", 30, 30)])

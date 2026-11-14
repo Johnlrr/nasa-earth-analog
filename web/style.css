@@ -129,3 +129,12 @@ th { color: var(--muted); font-weight: 600; }
 /* L2 two-part verdict: terrain shadows (candidate) vs sun geometry (no Earth analog) */
 .split-box { border: 1px solid var(--border); border-left: 4px solid #2b9348; border-radius: 6px; padding: 8px 12px; margin: 8px 0 12px; }
 .split-box p { margin: 4px 0; }
+
+/* B16 three-state verdicts */
+.verdicts ul { list-style: none; padding: 0; margin: 4px 0 10px; }
+.verdicts li { border-left: 4px solid #868e96; padding: 4px 8px; margin: 4px 0; }
+.verdicts li.v-ok { border-left-color: #2b9348; }
+.verdicts li.v-no { border-left-color: #d62828; }
+.verdicts li.v-unk { border-left-color: #f08c00; }
+.v-state { font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); }
+.scale { margin: 6px 0 10px; }
