@@ -90,7 +90,9 @@ def test_swir_subset_matches_m1_lens_descriptors():
     keys = set(sp.crism_params(np.full_like(WL, 0.3), subset="swir"))
     m1 = set(io.load_lenses()["M1"]["descriptors"])
     assert m1 <= keys
-    assert keys - m1 == set(sp.EXCLUDED_FROM_M1)
+    excluded = set(io.load_lenses()["M1"]["excluded_descriptors"])
+    assert keys - m1 == excluded  # every SWIR parameter is either used or excluded with a reason
+    assert set(sp.EXCLUDED_FROM_M1) <= excluded
     assert not keys & set(sp.VNIR_PARAMS)
 
 

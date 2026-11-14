@@ -136,3 +136,29 @@ def test_controls_complete_and_locked_fields():
             assert abs(c["lat"]) <= 52
     roles = {(c["lens_id"], c["role"]) for c in controls}
     assert ("M1", "decoy") in roles and ("M1", "positive") in roles
+
+
+def test_m1_pixel_match_rules_preregistered():
+    """B14a: the pixel-match rules exist and are internally consistent before B13 runs."""
+    from similitude.descriptors import spectral as sp
+
+    lens = io.load_lenses()["M1"]
+    pm = lens["pixel_match"]
+    swir = set(sp.SWIR_PARAMS)
+    assert set(pm["diagnostic"]) == set(lens["analog_targets"])
+    for tid, spec in pm["diagnostic"].items():
+        assert spec["params"] and set(spec["params"]) <= swir, tid
+        assert set(spec["params"]) <= set(lens["descriptors"]), tid  # no excluded parameter
+        assert spec["mica_phase"]
+    assert pm["diagnostic"]["nili_fossae_olivine"]["target_variant"]["OLINDEX"] == "ratioed"
+    assert 0 < pm["frac_of_target"] <= 1
+    assert pm["noise_floor_min"] == 0.01 and pm["noise_floor_quantile"] == 0.95
+    assert pm["connectivity"] == 8 and pm["pass_largest_patch_km2"] == 0.1
+    assert pm["scene_rule"] == "most_valid_pixels"
+    nf = pm["noise_floor"]
+    if nf is not None:  # filled in B14b: one floor per diagnostic parameter, never below min
+        used = {p for spec in pm["diagnostic"].values() for p in spec["params"]}
+        assert set(nf) == used and min(nf.values()) >= pm["noise_floor_min"]
+    for k in ("HCPINDEX", "BD2250", "MIN2250"):
+        assert k not in lens["descriptors"] and k in lens["excluded_descriptors"]
+    assert lens["unobserved_variables"] and io.load_lenses()["X1"]["unobserved_variables"]

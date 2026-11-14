@@ -93,22 +93,67 @@
   "descriptors": [
    "OLINDEX",
    "LCPINDEX",
-   "HCPINDEX",
    "BD1300",
    "BD2100",
    "BD2165",
    "BD2190",
    "BD2210",
    "BD2230",
-   "BD2250",
    "BD2265",
    "BD2290",
    "D2300",
    "BD2355",
    "SINDEX",
-   "MIN2250",
    "MIN2295_2480",
    "MIN2345_2537"
+  ],
+  "excluded_descriptors": {
+   "BD1750": "14/11 B3: EMIT -0.01 fill starts ~1765 nm in recent scenes -> no right shoulder",
+   "HCPINDEX": "B14a: continuum-sensitive (CRISM I/F vs EMIT reflectance), bridge-bias table only",
+   "BD2250": "B14a: continuum-sensitive, bridge-bias table only",
+   "MIN2250": "B14a: continuum-sensitive, bridge-bias table only"
+  },
+  "pixel_match": {
+   "source": "Viviano-Beck et al. 2014, JGR Planets 119:1403, doi:10.1002/2014JE004627, Table 3 (browse products)",
+   "diagnostic": {
+    "jezero_margin": {
+     "mica_phase": "MG_CARBONATE",
+     "params": [
+      "MIN2295_2480",
+      "D2300"
+     ],
+     "browse": "CR2 (MIN2295_2480; MIN2345_2537 and CINDEX2 not usable: target 0.011 at noise floor / beyond EMIT) + CAR (D2300; BD2500_2, BD1900_2 beyond EMIT or masked)",
+     "target_variant": {
+      "default": "numerator"
+     },
+     "label": "Mg-carbonate / serpentine family (2.3 um only: the 2.5 um anchor sits at the EMIT edge, so serpentine and Mg-carbonate are not separable)",
+     "confidence": "medium"
+    },
+    "nili_fossae_olivine": {
+     "mica_phase": "FE_OLIVINE",
+     "params": [
+      "OLINDEX"
+     ],
+     "browse": "MAF (OLINDEX3; LCPINDEX2, HCPINDEX2 are pyroxene, not olivine diagnostics)",
+     "target_variant": {
+      "OLINDEX": "ratioed"
+     },
+     "label": "olivine (broad 1 um band)",
+     "confidence": "low",
+     "flag": "continuum-sensitive: OLINDEX responds to red slopes / Fe-oxide coatings; low confidence"
+    }
+   },
+   "frac_of_target": 0.5,
+   "noise_floor_quantile": 0.95,
+   "noise_floor_min": 0.01,
+   "noise_floor": null,
+   "scene_rule": "most_valid_pixels",
+   "connectivity": 8,
+   "pass_largest_patch_km2": 0.1
+  },
+  "unobserved_variables": [
+   "Hydration bands at 1.4 and 1.9 um: hidden by Earth's atmosphere in EMIT (CRISM's most sensitive water indicators)",
+   "Serpentine vs Mg-carbonate: not separable with 2.3 um alone (2.5 um anchor at the EMIT edge)"
   ],
   "gates": {
    "ndvi_max": 0.15,
@@ -163,6 +208,9 @@
   "primary_target": "arcadia_planitia",
   "ledger_only_targets": [
    "shackleton_psr"
+  ],
+  "unobserved_variables": [
+   "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables"
   ],
   "ledger": "ledger/mars.yaml"
  }
