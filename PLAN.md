@@ -183,7 +183,7 @@ Nhãn: **[A]** / **[B]** = chủ sở hữu; **[agent]** = giao được cho age
   - Xong khi: CSV ô ứng viên tải về `data/derived/tier1_terrain.csv`.
   - Kiểm chứng: số ô > 0; các đối chứng dương L1/L2 (vd Devon Island, Haughton) nằm trong mặt nạ và có mặt trong CSV (có cờ nếu nằm trong vùng đệm).
   - Đường lùi (R7): danh sách hạt giống ~150 footprint (hố va chạm, trường núi lửa Holocene, cao nguyên cực) trong `config/seeds.yaml`.
-- [ ] A3. **[A]** Spike R4 — mục tiêu Moon từ PGDA Product 78 (DEM 5 m, phép chiếu cực nam; đã tải về `data/raw/moon/pgda78/` cho Site01 Connecting Ridge, Site04 Shackleton rim, Site06, Site07, Site11, Site23):
+- [x] A3. **[A]** Spike R4 — mục tiêu Moon từ PGDA Product 78 (DEM 5 m, phép chiếu cực nam; đã tải về `data/raw/moon/pgda78/` cho Site01 Connecting Ridge, Site04 Shackleton rim, Site06, Site07, Site11, Site23):
   - Gộp DEM về L = 30 m. Lấy footprint 4 km + vùng đệm 3 km.
   - Mục tiêu (`is_reference=True`): tâm Site01 và Site04.
   - Quần thể Σ: lưới footprint 4 km không chồng lấn (chip 10 km được phép chồng nhau), chip nằm trọn trong site, lấy ở cả 6 site, ≥ 30 footprint; không đủ thì giảm bước lưới xuống 3 km và ghi chú. Ghi rõ quần thể là "địa hình các vùng ứng viên hạ cánh Artemis".
@@ -193,7 +193,7 @@ Nhãn: **[A]** / **[B]** = chủ sở hữu; **[agent]** = giao được cho age
   - Chờ: A1 (có thể viết script song song, chạy sau).
   - Xong khi: bảng đủ cột theo schema.
   - Kiểm chứng: trung vị dốc khác file `*_slp.tif` của PGDA (gộp cùng cách) ≤ 2°. Trượt → dùng thẳng sản phẩm dốc PGDA, ghi vào Câu hỏi mở. Không lấy được ảnh LROC trước G1 → bỏ ablation (a), ghi vào Nhật ký.
-- [ ] A4. **[A]** Spike R5 — tách biệt địa hình: chip DEM 10 km (footprint 4 km + đệm, chiếu về UTM cục bộ) cho 5 điểm Trái Đất (2 đối chứng dương L1 có `expected: high` + 3 ngẫu nhiên trên đất trơ), tính descriptor, tính σ thô (dạng đường chéo có `min_scale`) so với mục tiêu Connecting Ridge — File: `scripts/gee/chip_dem.py`, `scripts/spike_r5.py` — Chờ: A1, A3 — Xong khi: có bảng σ cho 5 điểm — Kiểm chứng: cả hai đối chứng dương có σ nhỏ hơn cả ba điểm ngẫu nhiên. Trượt → thêm `roughness_spectrum` hoặc thu footprint về 2 km, ghi kết quả vào Nhật ký.
+- [x] A4. **[A]** Spike R5 — tách biệt địa hình: chip DEM 10 km (footprint 4 km + đệm, chiếu về UTM cục bộ) cho 5 điểm Trái Đất (2 đối chứng dương L1 có `expected: high` + 3 ngẫu nhiên trên đất trơ), tính descriptor, tính σ thô (dạng đường chéo có `min_scale`) so với mục tiêu Connecting Ridge — File: `scripts/gee/chip_dem.py`, `scripts/spike_r5.py` — Chờ: A1, A3 — Xong khi: có bảng σ cho 5 điểm — Kiểm chứng: cả hai đối chứng dương có σ nhỏ hơn cả ba điểm ngẫu nhiên. Trượt → thêm `roughness_spectrum` hoặc thu footprint về 2 km, ghi kết quả vào Nhật ký.
 - [ ] B1. **[B][agent]** `descriptors/spectral.py` theo chữ ký trên, tham số lấy theo Viviano-Beck 2014:
   - **Trước khi code**, soạn `PARAM_TABLE` ghi mốc gốc và mốc thay thế của từng tham số, rồi để Linh duyệt. Mốc thay thế dùng **giống nhau ở cả hai phía**. Chú ý: `D2300` (mốc 1815/1862 nm) và `OLINDEX` (mốc 1404/1417 nm) có mốc rơi vào dải bị che nên phải thay. `MIN2295_2480` cần lưới lên tới 2490 nm; `MIN2345_2537` vượt biên EMIT (2500 nm) nên thay mốc 2537 bằng 2490 hoặc bỏ, và ghi rõ.
   - `subset="swir"` (mặc định cho M1) chỉ gồm tham số trong 1000–2490 nm. Tham số VNIR chỉ dùng khi phổ mục tiêu có VNIR.
@@ -263,6 +263,11 @@ Nhãn: **[A]** / **[B]** = chủ sở hữu; **[agent]** = giao được cho age
 - **Hạn ngạch GEE:** export lớn có thể bị xếp hàng lâu; chia lô theo vùng, dùng `computePixels` cho chip nhỏ.
 
 ## Câu hỏi mở
+- **[Cho Linh, B3(i) đã có lời giải]** EMIT L2A trên GEE có ID **`NASA/EMIT/L2A/RFL`** (không phải `L2A_RFL` như ABOUT.md), ~249 nghìn cảnh, 08/2022–08/2026, 579 band — kiểm bằng tài khoản GEE của Bảo lúc 13:00. EMIT L2B mineral không có trên GEE. Không cần Earthdata cho đường chính của B3/B5.
+- **Earthdata:** máy chủ đăng nhập `urs.earthdata.nasa.gov` không tới được từ mạng của Bảo (timeout IPv4); các máy chủ dữ liệu NASA khác vẫn tới được. Chỉ cần khi M1 phải lùi về EMIT L2B.
+- **Máy Bảo không có `make`.** Dùng `.venv/bin/python -m pytest -q` và `.venv/bin/python -m ruff check .`, hoặc `sudo apt install make`.
+- **Quota proxy:** Claude 4.6 (Opus và Sonnet) trên proxy Antigravity hết lúc 12:50; tài khoản 2 reset 15:16. Việc `[agent]` tới lúc đó chuyển sang Antigravity IDE (Gemini) hoặc làm tay.
+- **G1 cần quyết:** (1) R5 trượt theo tiêu chí nhưng đạt mục đích tách biệt — giữ L1 và báo Haughton như một kết quả âm có giải thích, hay đổi cách đo? Không được đổi đối chứng/kỳ vọng hồi tố. (2) Mục tiêu L1 chính là Connecting Ridge; chip Shackleton nên dời sang gờ vành thật hay bỏ.
 - Kết quả G0 về quy định SI (0.1): cần đội xác nhận trước khi triển khai.
 - Nộp slide hay video 30 s? Điểm thi TP. HCM có thuyết trình trực tiếp không?
 - Bảo đã đăng ký Earthdata và GEE lúc ~12:05 (chưa xác thực trên máy, chưa có tên project). Linh: chưa rõ. Nếu GEE chưa được duyệt trước 13:45, dùng đường lùi ghi ở 0.2.
@@ -276,6 +281,9 @@ Nhãn: **[A]** / **[B]** = chủ sở hữu; **[agent]** = giao được cho age
 - 2026-11-14 12:12 · Opus 5.5 · cổng 1 lần 1 = REVISE (7 blocker); đã sửa: lưới phổ 2490 nm + PARAM_TABLE, MICA numerator, mẫu null phân tầng, cờ vùng đệm thay vì xóa, min_scale chống Σ suy biến + kỳ vọng L2 no-analog, chip ảnh LROC/CTX cho ablation, trạng thái engine-semiquant cho X1; thêm footprint 4 km + đệm 3 km, kỳ vọng đối chứng ghi trước, quy tắc cắt L2 tại G1 · test: chưa có code
 
 ### Nhật ký — Bảo (A)
+- 2026-11-14 13:05 · claude-agy viết + Opus 5.5 chạy/kiểm · **A4 xong, R5 TRƯỢT theo tiêu chí PLAN** (d đường chéo tạm, min_scale như A4; so với Connecting Ridge): SP Crater/Black Point (expected uncertain) 4,32 · Sahara ngẫu nhiên 7,40 · Úc ngẫu nhiên 7,63 · Haughton/Devon (expected high) 10,56 · Gobi ngẫu nhiên 15,52. Không chỉnh gì sau khi xem kết quả. Diễn giải đưa ra G1: descriptor **tách được** địa điểm (d trải 4–16, mục đích gốc của R5 trong DESIGN đạt); thứ trượt là kỳ vọng của đối chứng — Haughton là analog địa chất/vận hành EVA nhưng địa hình rất phẳng (dốc trung vị 3° so với 12° của Connecting Ridge). n = 5, σ tạm, chưa phải kết luận thống kê. Kết quả: `data/derived/spike_r5.csv` · test: 38 passed
+- 2026-11-14 13:00 · claude-agy viết + Opus 5.5 chạy/kiểm · **A3 xong:** 2 mục tiêu + 54 footprint quần thể (Site11 dùng bước 3 km) → `targets_L1.parquet`, `targets_L1_coarse.parquet`, chạy 69 s. **R4 đạt:** chênh trung vị dốc 5 m so với `*_slp.tif` ≤ 0,001° ở cả 6 site. Lưu ý: chip "shackleton_rim" ở tâm raster Site04 có dốc trung vị 31° (nhiều khả năng là sườn trong hố, không phải gờ vành) → đề xuất dùng Connecting Ridge làm mục tiêu L1 chính. Chip ảnh LROC chưa lấy (quota agent hết) → nếu chưa có trước G1 thì bỏ ablation (a) phía Moon · test: pass
+- 2026-11-14 12:50 · Opus 5.5 · A1 xong (agent viết, Opus 5.5 sửa 2 lỗi: footprint chip không vuông, raise khi vùng trong rỗng thay vì âm thầm dùng cả chip; thêm 2 test hồi quy) · test: 19 passed, ruff sạch
 - 2026-11-14 · Sonnet 4.6 (Antigravity) · A1 xong: terrain.py (aggregate_to_baseline, slope_stats, roughness_spectrum, shadow_fraction, terrain_descriptors), astro.py (low_sun_hours), conftest.py (make_fbm), test_terrain.py (11 test), test_astro.py (5 test) · pytest: 16 passed, ruff: sạch
 - 2026-11-14 12:40 · claude-agy (Sonnet 4.6) + Opus 5.5 kiểm · A0 code xong trên `bao/terrain-engine`: `.venv/bin/python -m pytest` 1 passed, `ruff check` sạch, import rasterio/pyproj/earthaccess/ee OK. **Máy chưa cài `make`** (agent báo nhầm là `make` chạy được); tạm dùng lệnh trực tiếp. Chưa `[x]` vì chưa merge vào `main` · test: pass
 - 2026-11-14 12:10 · Opus 5.5 · tải PGDA 78 (DEM 5 m + dốc) cho Site01, 04, 06, 07, 11, 23 vào `data/raw/moon/pgda78/` (~580 MB, không commit)
