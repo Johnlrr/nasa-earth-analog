@@ -1,0 +1,1591 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "generated": "2026-11-14T16:16",
+  "provisional": false,
+  "mock": false,
+  "lenses": {
+   "M1": {
+    "n_scored": 120,
+    "n_null": null,
+    "n_hidden": 3,
+    "best_sigma": 0.237,
+    "no_hidden_found": false
+   },
+   "X1": {
+    "n_scored": 125,
+    "n_null": null,
+    "n_hidden": 0,
+    "best_sigma": 2.071,
+    "no_hidden_found": true
+   },
+   "L1": {
+    "n_scored": 513,
+    "n_null": null,
+    "n_hidden": 5,
+    "best_sigma": 0.0,
+    "no_hidden_found": false
+   },
+   "L2": {
+    "n_scored": 513,
+    "n_null": null,
+    "n_hidden": 5,
+    "best_sigma": 13.896,
+    "no_hidden_found": false
+   }
+  },
+  "thresholds": {
+   "percentile_min": 90.0,
+   "sigma_max_without_percentile": 1.0,
+   "attention_max": 10
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     39.85,
+     23.3
+    ]
+   },
+   "properties": {
+    "id": "M1-seed_harrat_rahat",
+    "name": "Harrat Rahat",
+    "country": "Saudi Arabia",
+    "lat": 23.3,
+    "lon": 39.85,
+    "footprint_km": 5.0,
+    "role": "hidden",
+    "process_title": "Where fresh basalt weathers under a hyper-arid sky",
+    "lens_scores": {
+     "M1": {
+      "target": "oxia_planum",
+      "d": 3.555,
+      "sigma": 0.237,
+      "sigma_capped": false,
+      "percentile": 97.1,
+      "limiting_factor": "HCPINDEX",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Harrat Rahat\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "S2 check: basalt plain, but a settlement with roads sits in the NW quadrant of the 5 km footprint; pick the field site away from the town.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     39.9,
+     25.6
+    ]
+   },
+   "properties": {
+    "id": "M1-seed_harrat_khaybar",
+    "name": "Harrat Khaybar",
+    "country": "Saudi Arabia",
+    "lat": 25.6,
+    "lon": 39.9,
+    "footprint_km": 5.0,
+    "role": "hidden",
+    "process_title": "Where fresh basalt weathers under a hyper-arid sky",
+    "lens_scores": {
+     "M1": {
+      "target": "oxia_planum",
+      "d": 4.112,
+      "sigma": 0.629,
+      "sigma_capped": false,
+      "percentile": 97.1,
+      "limiting_factor": "HCPINDEX",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Harrat Khaybar\" OR \"Khaybar lava\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "S2 check: dark lava flows and a wadi, no visible disturbance.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -113.5,
+     31.77
+    ]
+   },
+   "properties": {
+    "id": "M1-seed_pinacate",
+    "name": "Pinacate volcanic field",
+    "country": "Mexico",
+    "lat": 31.77,
+    "lon": -113.5,
+    "footprint_km": 5.0,
+    "role": "hidden",
+    "process_title": "Where fresh basalt weathers under a hyper-arid sky",
+    "lens_scores": {
+     "M1": {
+      "target": "oxia_planum",
+      "d": 5.404,
+      "sigma": 1.996,
+      "sigma_capped": false,
+      "percentile": 95.7,
+      "limiting_factor": "MIN2295_2480",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 1,
+     "query": "(\"Pinacate\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "S2 check: cinder cones and lava flows, no visible disturbance.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     29.68,
+     37.55
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_lake_salda",
+    "name": "Lake Salda hydromagnesite shoreline, Turkey",
+    "country": "",
+    "lat": 37.55,
+    "lon": 29.68,
+    "footprint_km": 5.0,
+    "role": "control",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "jezero_margin",
+      "d": 19.732,
+      "sigma": 17.886,
+      "sigma_capped": false,
+      "percentile": 11.6,
+      "limiting_factor": "BD2250",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 14,
+     "query": "(\"Salda\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": true,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -113.95,
+     41.05
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_pilot_valley_utah",
+    "name": "Pilot Valley playa, Utah",
+    "country": "",
+    "lat": 41.05,
+    "lon": -113.95,
+    "footprint_km": 5.0,
+    "role": "control",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "meridiani",
+      "d": 13.429,
+      "sigma": 11.138,
+      "sigma_capped": false,
+      "percentile": 50.7,
+      "limiting_factor": "BD2100",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 5,
+     "query": "(\"Pilot Valley\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": true,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -70.02,
+     -24.08
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_atacama_yungay",
+    "name": "Atacama Desert, Yungay area, Chile",
+    "country": "",
+    "lat": -24.08,
+    "lon": -70.02,
+    "footprint_km": 5.0,
+    "role": "control",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "meridiani",
+      "d": 16.611,
+      "sigma": 14.573,
+      "sigma_capped": false,
+      "percentile": 30.4,
+      "limiting_factor": "HCPINDEX",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 223,
+     "query": "(\"Atacama\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": true,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -6.56,
+     37.72
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_rio_tinto",
+    "name": "Rio Tinto headwaters, Spain",
+    "country": "",
+    "lat": 37.72,
+    "lon": -6.56,
+    "footprint_km": 5.0,
+    "role": "control",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "meridiani",
+      "d": 7.998,
+      "sigma": 5.043,
+      "sigma_capped": false,
+      "percentile": 95.7,
+      "limiting_factor": "HCPINDEX",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 128,
+     "query": "(\"Rio Tinto\" OR \"Río Tinto\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     35.42,
+     29.58
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_wadi_rum",
+    "name": "Wadi Rum, Jordan (The Martian filming location)",
+    "country": "",
+    "lat": 29.58,
+    "lon": 35.42,
+    "footprint_km": 5.0,
+    "role": "decoy",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "jezero_margin",
+      "d": 17.362,
+      "sigma": 15.374,
+      "sigma_capped": false,
+      "percentile": 21.7,
+      "limiting_factor": "BD2265",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 2,
+     "query": "(\"Wadi Rum\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.0,
+     -25.2
+    ]
+   },
+   "properties": {
+    "id": "M1-ctl_simpson_desert",
+    "name": "Simpson Desert red quartz dunes, Australia",
+    "country": "",
+    "lat": -25.2,
+    "lon": 137.0,
+    "footprint_km": 5.0,
+    "role": "decoy",
+    "process_title": "Where a bare mafic surface carries Mars-like alteration-mineral band depths",
+    "lens_scores": {
+     "M1": {
+      "target": "jezero_margin",
+      "d": 10.413,
+      "sigma": 7.801,
+      "sigma_capped": false,
+      "percentile": 73.9,
+      "limiting_factor": "BD2265",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover VSWIR spectrometer and mineral-mapping calibration on the same alteration minerals",
+      "nasa_gap": null,
+      "lens": "M1"
+     },
+     {
+      "tech": "Sampling / caching and biosignature-preservation protocols in water-altered rock",
+      "nasa_gap": null,
+      "lens": "M1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 1,
+     "query": "(\"Simpson Desert\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "hypothesis",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "NASA EMIT L2A surface reflectance (NASA/EMIT/L2A/RFL, Google Earth Engine)",
+     "MRO CRISM MICA type spectra (PDS MROCR_8001, Viviano-Beck et al. 2014)",
+     "ASTER GED AG100 (NASA/JPL), ESA WorldCover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -85.9,
+     79.98
+    ]
+   },
+   "properties": {
+    "id": "X1-ctl_axel_heiberg_eureka",
+    "name": "Axel Heiberg / Eureka polar desert, Nunavut",
+    "country": "",
+    "lat": 79.98,
+    "lon": -85.9,
+    "footprint_km": 10.0,
+    "role": "control",
+    "process_title": "Where ground ice survives under a dry, cold overburden",
+    "lens_scores": {
+     "X1": {
+      "target": "arcadia_planitia",
+      "d": 5.571,
+      "sigma": 4.67,
+      "sigma_capped": false,
+      "percentile": 46.3,
+      "limiting_factor": "aridity_p_pet",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": 11.4,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "1 m ice drill, ground-penetrating radar and neutron spectrometer tests on shallow ground ice under dry overburden",
+      "nasa_gap": "ESDMD #0603 Water Recovery from Lunar Regolith/Ice",
+      "lens": "X1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 30,
+     "query": "(\"Axel Heiberg\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "ERA5-Land monthly (Copernicus C3S)",
+     "MODIS MOD11A1 / MOD13A2 (NASA LP DAAC)",
+     "TerraClimate",
+     "SWIM subsurface water-ice maps (Mars)",
+     "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     160.67,
+     -77.83
+    ]
+   },
+   "properties": {
+    "id": "X1-ctl_beacon_valley",
+    "name": "Beacon Valley, McMurdo Dry Valleys, Antarctica",
+    "country": "",
+    "lat": -77.83,
+    "lon": 160.67,
+    "footprint_km": 10.0,
+    "role": "control",
+    "process_title": "Where ground ice survives under a dry, cold overburden",
+    "lens_scores": {
+     "X1": {
+      "target": "arcadia_planitia",
+      "d": 4.177,
+      "sigma": 3.16,
+      "sigma_capped": false,
+      "percentile": 98.1,
+      "limiting_factor": "aridity_p_pet",
+      "no_analog": true,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": 0.0,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "1 m ice drill, ground-penetrating radar and neutron spectrometer tests on shallow ground ice under dry overburden",
+      "nasa_gap": "ESDMD #0603 Water Recovery from Lunar Regolith/Ice",
+      "lens": "X1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 10,
+     "query": "(\"Beacon Valley\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": true,
+    "evidence_status": "literature-only",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "ERA5-Land monthly (Copernicus C3S)",
+     "MODIS MOD11A1 / MOD13A2 (NASA LP DAAC)",
+     "TerraClimate",
+     "SWIM subsurface water-ice maps (Mars)",
+     "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -71.183,
+     80.9971
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_726_-686",
+    "name": "Cell E10K_726_-686",
+    "country": "",
+    "lat": 80.9971,
+    "lon": -71.183,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 0.857,
+      "sigma": 0.0,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "frac_gt8",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -20.7163,
+     80.0624
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_724_-200",
+    "name": "Cell E10K_724_-200",
+    "country": "",
+    "lat": 80.0624,
+    "lon": -20.7163,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 0.985,
+      "sigma": 0.0,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "slope_p90",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     84.1631,
+     33.5316
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_406_810",
+    "name": "Cell E10K_406_810",
+    "country": "",
+    "lat": 33.5316,
+    "lon": 84.1631,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 1.07,
+      "sigma": 0.0,
+      "sigma_capped": false,
+      "percentile": 99.5,
+      "limiting_factor": "hurst",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -68.8985,
+     -19.7807
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_-249_-664",
+    "name": "Cell E10K_-249_-664",
+    "country": "",
+    "lat": -19.7807,
+    "lon": -68.8985,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 1.117,
+      "sigma": 0.0,
+      "sigma_capped": false,
+      "percentile": 99.5,
+      "limiting_factor": "hurst",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -77.1019,
+     -11.7213
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_-150_-743",
+    "name": "Cell E10K_-150_-743",
+    "country": "",
+    "lat": -11.7213,
+    "lon": -77.1019,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 1.313,
+      "sigma": 0.001,
+      "sigma_capped": false,
+      "percentile": 99.5,
+      "limiting_factor": "hurst",
+      "no_analog": false,
+      "metric_mode": "diag"
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -72.2214,
+     71.0935
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_695_-696",
+    "name": "Cell E10K_695_-696",
+    "country": "",
+    "lat": 71.0935,
+    "lon": -72.2214,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "connecting_ridge",
+      "d": 14.57,
+      "sigma": 13.896,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.327,
+      "sigma_shadow": 0.491
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -75.2328,
+     71.3326
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_696_-725",
+    "name": "Cell E10K_696_-725",
+    "country": "",
+    "lat": 71.3326,
+    "lon": -75.2328,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 14.72,
+      "sigma": 14.05,
+      "sigma_capped": false,
+      "percentile": 100.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 2.366,
+      "sigma_shadow": 1.503
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -89.1475,
+     78.8043
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_721_-859",
+    "name": "Cell E10K_721_-859",
+    "country": "",
+    "lat": 78.8043,
+    "lon": -89.1475,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 15.987,
+      "sigma": 15.351,
+      "sigma_capped": false,
+      "percentile": 99.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 2.499,
+      "sigma_shadow": 1.643
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -71.183,
+     80.9971
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_726_-686",
+    "name": "Cell E10K_726_-686",
+    "country": "",
+    "lat": 80.9971,
+    "lon": -71.183,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 16.094,
+      "sigma": 15.461,
+      "sigma_capped": false,
+      "percentile": 99.5,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 2.271,
+      "sigma_shadow": 1.403
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -72.1176,
+     -48.8676
+    ]
+   },
+   "properties": {
+    "id": "L2-E10K_-555_-695",
+    "name": "Cell E10K_-555_-695",
+    "country": "",
+    "lat": -48.8676,
+    "lon": -72.1176,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where the Sun skims the horizon over bare ground",
+    "lens_scores": {
+     "L2": {
+      "target": "shackleton_rim",
+      "d": 17.682,
+      "sigma": 17.086,
+      "sigma_capped": false,
+      "percentile": 99.0,
+      "limiting_factor": "lowsun_frac_daylight",
+      "no_analog": true,
+      "metric_mode": "full",
+      "d_shadow": 1.437,
+      "sigma_shadow": 0.585
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Low-sun navigation and hazard cameras under long shadows",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L2"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Solar day (synodic period): 29.53 d vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 100 K vs Earth 288 K",
+     "Atmospheric diffuse skylight"
+    ],
+    "attention": {
+     "n_pubs": null,
+     "query": "",
+     "source": "OpenAlex",
+     "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78",
+     "MODIS snow cover"
+    ]
+   }
+  }
+ ]
+}

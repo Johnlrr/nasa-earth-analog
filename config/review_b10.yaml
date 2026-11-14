@@ -1,0 +1,27 @@
+# B10 visual review of hidden candidates (Sentinel-2 L2A median composite, 2023; high latitude:
+# Jul-Aug 2023). Contact sheet: data/raw/review/contact_sheet.png. Applied by
+# scripts/discovery/run_discovery.py. Reviewer decisions: downgrade suspicious cells to
+# "hypothesis" with a note (PLAN B10); "keep" adds a note only. Final list needs both reviewers.
+reviewed: 2026-11-14
+reviewer: "Linh (B) via agent, pending Bao cross-check"
+features:
+  M1-seed_harrat_rahat:
+    action: keep
+    note: "S2 check: basalt plain, but a settlement with roads sits in the NW quadrant of the 5 km footprint; pick the field site away from the town."
+  M1-seed_harrat_khaybar:
+    action: keep
+    note: "S2 check: dark lava flows and a wadi, no visible disturbance."
+  M1-seed_pinacate:
+    action: keep
+    note: "S2 check: cinder cones and lava flows, no visible disturbance."
+  M1-rank_018:
+    action: downgrade
+    status: hypothesis
+    note: "S2 check: coastal footprint with rectangular field plots (cultivation) and sea; spectral match likely contaminated. Downgraded per PLAN B10."
+  M1-rank_009:
+    action: keep
+    process_title: "Where a desert playa dries out under an arid sky"
+    note: "S2 check: natural playa / sabkha surface (Ardakan, Yazd); seasonal moisture possible."
+  X1-rank_0038:
+    action: keep
+    note: "S2 check inconclusive: high-latitude summer composite is noisy (low sun, patchy snow). Semi-quantitative evidence only."

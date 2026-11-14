@@ -1,0 +1,124 @@
+cell_id,name,lat,lon,sample_role,seed_class,aster_mi,null_scene
+ctl_lake_salda,"Lake Salda hydromagnesite shoreline, Turkey",37.55,29.68,control,,,
+ctl_pilot_valley_utah,"Pilot Valley playa, Utah",41.05,-113.95,control,,,
+ctl_atacama_yungay,"Atacama Desert, Yungay area, Chile",-24.08,-70.02,control,,,
+ctl_rio_tinto,"Rio Tinto headwaters, Spain",37.72,-6.56,control,,,
+ctl_wadi_rum,"Wadi Rum, Jordan (The Martian filming location)",29.58,35.42,decoy,,,
+ctl_simpson_desert,"Simpson Desert red quartz dunes, Australia",-25.2,137.0,decoy,,,
+seed_semail_wadi_tayin_a,"Semail ophiolite, Wadi Tayin A (Oman)",22.9,58.5,seed,ophiolite,,
+seed_semail_wadi_tayin_b,"Semail ophiolite, Wadi Tayin B (Oman)",23.05,58.3,seed,ophiolite,,
+seed_semail_ibra,"Semail ophiolite, Ibra (Oman)",22.75,58.6,seed,ophiolite,,
+seed_semail_fizh,"Semail ophiolite, Fizh block (Oman)",24.4,56.35,seed,ophiolite,,
+seed_semail_khawr_fakkan,"Semail ophiolite, Khawr Fakkan block (UAE)",25.3,56.15,seed,ophiolite,,
+seed_troodos_olympus,Troodos ophiolite mantle sequence (Cyprus),34.93,32.87,seed,ophiolite,,
+seed_bay_of_islands,"Bay of Islands ophiolite, Table Mountain (Canada)",49.45,-58.0,seed,ophiolite,,
+seed_new_idria,New Idria serpentinite (USA),36.4,-120.67,seed,ophiolite,,
+seed_kempirsai,Kempirsai ultramafic massif (Kazakhstan),50.2,58.1,seed,ophiolite,,
+seed_harrat_khaybar,Harrat Khaybar (Saudi Arabia),25.6,39.9,seed,basalt,,
+seed_harrat_rahat,Harrat Rahat (Saudi Arabia),23.3,39.85,seed,basalt,,
+seed_harrat_uwayrid,Harrat Uwayrid (Saudi Arabia),27.0,37.3,seed,basalt,,
+seed_haruj,Haruj volcanic field (Libya),27.2,17.5,seed,basalt,,
+seed_pinacate,Pinacate volcanic field (Mexico),31.77,-113.5,seed,basalt,,
+seed_craters_of_the_moon,Craters of the Moon lava field (USA),43.42,-113.55,seed,basalt,,
+seed_tibesti_emi_koussi,"Emi Koussi, Tibesti (Chad)",19.8,18.55,seed,basalt,,
+seed_bonneville,Bonneville Salt Flats (USA),40.75,-113.85,seed,evaporite,,
+seed_lop_nur,Lop Nur playa (China),40.3,90.3,seed,evaporite,,
+seed_qaidam_dalangtan,"Dalangtan playa, Qaidam Basin (China)",38.5,91.9,seed,evaporite,,
+seed_chott_el_djerid,Chott el Djerid (Tunisia),33.7,8.4,seed,evaporite,,
+seed_salar_de_uyuni_edge,Salar de Uyuni margin (Bolivia),-20.3,-67.2,seed,evaporite,,
+seed_makgadikgadi,Makgadikgadi pans (Botswana),-20.7,25.6,seed,evaporite,,
+seed_white_sands,White Sands gypsum dunes (USA),32.8,-106.3,seed,evaporite,,
+seed_matanomadh,"Matanomadh, Kutch (India)",23.53,68.95,seed,acid_sulfate,,
+seed_cuprite_nevada,Cuprite hydrothermal alteration (USA),37.55,-117.2,seed,acid_sulfate,,
+seed_painted_desert,"Painted Desert, Chinle Fm bentonites (USA)",35.08,-109.8,seed,clay,,
+seed_hanksville_mancos,"Mancos Shale badlands, Hanksville (USA)",38.4,-110.8,seed,clay,,
+rank_000,mafic rank 0,24.4867,56.2497,rank,,1.001,
+rank_001,mafic rank 1,28.635,66.7186,rank,,0.9979,
+rank_002,mafic rank 2,23.0833,40.4774,rank,,0.9959,
+rank_003,mafic rank 3,34.0628,89.5386,rank,,0.9928,
+rank_004,mafic rank 4,33.8148,80.8967,rank,,0.9917,
+rank_005,mafic rank 5,31.1399,20.2509,rank,,0.9876,
+rank_006,mafic rank 6,12.7289,41.8889,rank,,0.9876,
+rank_007,mafic rank 7,13.9272,43.6572,rank,,0.9856,
+rank_008,mafic rank 8,36.0618,79.7815,rank,,0.9856,
+rank_009,mafic rank 9,32.9508,54.544,rank,,0.9845,
+rank_010,mafic rank 10,26.498,66.4101,rank,,0.9845,
+rank_011,mafic rank 11,34.9332,79.2068,rank,,0.9835,
+rank_012,mafic rank 12,33.9531,51.663,rank,,0.9825,
+rank_013,mafic rank 13,19.7907,36.4029,rank,,0.9792,
+rank_014,mafic rank 14,31.7197,14.5193,rank,,0.9763,
+rank_015,mafic rank 15,26.0332,-103.3491,rank,,0.9762,
+rank_016,mafic rank 16,10.3954,48.7925,rank,,0.9762,
+rank_017,mafic rank 17,-26.6595,19.1551,rank,,0.9752,
+rank_018,mafic rank 18,31.6082,25.8372,rank,,0.9721,
+rank_019,mafic rank 19,32.696,46.5769,rank,,0.972,
+null_000,null sample,-27.3199,134.1016,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_EMIT_L2A_RFL_001_20220903T023054_2224602_001
+null_001,null sample,-27.3596,135.0893,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_EMIT_L2A_RFL_001_20220903T023105_2224602_002
+null_002,null sample,-15.0603,135.644,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20220905T005155_2224801_002
+null_003,null sample,-24.0523,14.4585,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230111T064627_2301104_002
+null_004,null sample,-24.7373,15.3001,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230111T064651_2301104_004
+null_005,null sample,-36.618,139.862,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230120T031018_2302002_003
+null_006,null sample,-33.8705,120.6982,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230128T013024_2302801_003
+null_007,null sample,45.5934,106.8162,null,,,1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230217T045832_2304803_001
+null_008,null sample,45.614,108.1612,null,,,1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230217T045844_2304803_002
+null_009,null sample,-27.7575,134.0635,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230328T014424_2308701_004
+null_010,null sample,49.0372,54.8529,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230413T064256_2310305_002
+null_011,null sample,50.5068,92.1701,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230417T051319_2310704_001
+null_012,null sample,50.3526,93.3102,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230417T051331_2310704_002
+null_013,null sample,50.2809,92.1406,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230420T042507_2311003_001
+null_014,null sample,49.5142,92.7833,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230420T042519_2311003_002
+null_015,null sample,43.2978,108.2618,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230427T020207_2311701_001
+null_016,null sample,42.9173,108.908,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230427T020219_2311701_002
+null_017,null sample,39.3615,104.0296,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230429T020127_2311901_002
+null_018,null sample,38.7571,105.5209,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230429T020139_2311901_003
+null_019,null sample,-24.2934,136.3811,null,,,1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230524T031446_2314402_002
+null_020,null sample,-23.7623,137.7113,null,,,1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230524T031457_2314402_003
+null_021,null sample,-22.5182,139.55,null,,,1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230528T013812_2314801_002
+null_022,null sample,37.9713,127.2251,null,,,1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230602T041146_2315303_002
+null_023,null sample,27.9769,97.8567,null,,,1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230603T045306_2315404_002
+null_024,null sample,36.686,93.2481,null,,,1_1_1_2_EMIT_L2A_RFL_001_20230612T022354_2316302_001
+null_025,null sample,36.8005,94.1449,null,,,1_1_1_2_EMIT_L2A_RFL_001_20230612T022406_2316302_002
+null_026,null sample,49.4397,93.2057,null,,,2_EMIT_L2A_RFL_001_20230623T031003_2317402_001
+null_027,null sample,49.035,94.4771,null,,,2_EMIT_L2A_RFL_001_20230623T031014_2317402_002
+null_028,null sample,29.526,86.9088,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230701T030839_2318202_003
+null_029,null sample,28.7232,88.1087,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230701T030851_2318202_004
+null_030,null sample,49.3562,92.1564,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230819T043832_2323103_001
+null_031,null sample,48.7924,93.9498,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230819T043844_2323103_002
+null_032,null sample,50.2975,93.2871,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230820T035044_2323203_002
+null_033,null sample,45.4108,106.6614,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230823T030622_2323502_001
+null_034,null sample,44.7864,106.8881,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230823T030634_2323502_002
+null_035,null sample,45.7979,87.1999,null,,,1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230824T035152_2323603_002
+null_036,null sample,41.7472,109.1979,null,,,1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230826T021937_2323802_001
+null_037,null sample,30.1856,96.8631,null,,,1_1_1_1_1_2_EMIT_L2A_RFL_001_20230902T013047_2324501_001
+null_038,null sample,29.7687,97.1289,null,,,1_1_1_1_1_2_EMIT_L2A_RFL_001_20230902T013059_2324501_002
+null_039,null sample,-16.474,139.4056,null,,,1_1_1_1_2_EMIT_L2A_RFL_001_20230903T005902_2324601_001
+null_040,null sample,-42.504,-71.2397,null,,,2_EMIT_L2A_RFL_001_20230910T141128_2325309_003
+null_041,null sample,-42.6931,-70.1521,null,,,2_EMIT_L2A_RFL_001_20230910T141140_2325309_004
+null_042,null sample,-47.9905,-68.7705,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_EMIT_L2A_RFL_001_20230912T141413_2325509_003
+null_043,null sample,-31.6843,135.8873,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230928T002817_2327015_005
+null_044,null sample,-31.9338,136.6529,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20230928T002829_2327015_006
+null_045,null sample,28.504,98.5944,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231007T030150_2328002_004
+null_046,null sample,38.2141,93.9728,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231027T030738_2330002_001
+null_047,null sample,38.0245,94.6684,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231027T030749_2330002_002
+null_048,null sample,-24.4846,137.1558,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231102T015138_2330601_004
+null_049,null sample,-30.1456,135.0852,null,,,1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231120T034028_2332402_003
+null_050,null sample,36.5587,140.2634,null,,,1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231201T030911_2333502_002
+null_051,null sample,28.2905,92.6998,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20231217T075242_2335105_005
+null_052,null sample,50.301,90.1224,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240411T043941_2410203_002
+null_053,null sample,-29.1084,-64.3392,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240515T184216_2413612_002
+null_054,null sample,-28.8468,136.7988,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240528T002717_2414815_016
+null_055,null sample,-28.6806,137.0093,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240528T002729_2414815_017
+null_056,null sample,50.416,-124.1755,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240604T000547_2415516_005
+null_057,null sample,33.6465,69.9011,null,,,1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240612T024334_2416402_001
+null_058,null sample,34.0828,70.8392,null,,,1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240612T024346_2416402_002
+null_059,null sample,35.5568,116.9487,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20240808T011206_2422101_002
+null_060,null sample,-28.5506,120.6309,null,,,1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250127T005617_2502616_002
+null_061,null sample,-31.3499,120.5948,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250322T031459_2508103_001
+null_062,null sample,48.4894,131.1602,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250413T033749_2510302_003
+null_063,null sample,45.2435,93.2733,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250610T025122_2516102_002
+null_064,null sample,45.2669,93.813,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250610T025134_2516102_003
+null_065,null sample,43.5153,100.7437,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250618T042932_2516903_002
+null_066,null sample,42.5148,101.9833,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20250618T042944_2516903_003
+null_067,null sample,-31.0729,141.5741,null,,,1_2_EMIT_L2A_RFL_001_20250924T001839_2526701_001
+null_068,null sample,-30.0547,141.9952,null,,,1_2_EMIT_L2A_RFL_001_20250924T001851_2526701_002
+null_069,null sample,25.0872,118.4944,null,,,1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_EMIT_L2A_RFL_001_20251024T022146_2529702_002

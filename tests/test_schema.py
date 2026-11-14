@@ -1,0 +1,138 @@
+"""B0 contract tests: config files are consistent and the candidates schema bites."""
+
+import copy
+import json
+
+import pytest
+
+from similitude import io
+
+MOCK = io.REPO_ROOT / "web" / "data" / "candidates.mock.geojson"
+
+
+@pytest.fixture()
+def mock_doc():
+    with open(MOCK, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def test_mock_file_is_valid():
+    assert io.validate_candidates(MOCK) == 3
+
+
+def test_mock_covers_every_mvp_lens(mock_doc):
+    lenses = set()
+    for f in mock_doc["features"]:
+        lenses |= set(f["properties"]["lens_scores"])
+    assert lenses == {"L1", "L2", "M1", "X1"}
+
+
+def test_missing_evidence_status_is_rejected(mock_doc):
+    del mock_doc["features"][0]["properties"]["evidence_status"]
+    errors = io.check_candidates(mock_doc)
+    assert any("evidence_status" in e for e in errors)
+
+
+def test_bad_evidence_status_value_is_rejected(mock_doc):
+    mock_doc["features"][0]["properties"]["evidence_status"] = "confirmed"
+    assert io.check_candidates(mock_doc)
+
+
+def test_validate_raises_with_all_errors(tmp_path, mock_doc):
+    bad = copy.deepcopy(mock_doc)
+    del bad["features"][0]["properties"]["evidence_status"]
+    del bad["features"][1]["properties"]["data_sources"]
+    p = tmp_path / "bad.geojson"
+    p.write_text(json.dumps(bad), encoding="utf-8")
+    with pytest.raises(io.CandidateValidationError) as exc:
+        io.validate_candidates(p)
+    assert len(exc.value.errors) >= 2
+
+
+def test_percentile_may_be_null_but_must_be_present(mock_doc):
+    assert mock_doc["features"][2]["properties"]["lens_scores"]["X1"]["percentile"] is None
+    assert io.check_candidates(mock_doc) == []
+    del mock_doc["features"][2]["properties"]["lens_scores"]["X1"]["percentile"]
+    assert io.check_candidates(mock_doc)
+
+
+def test_geometry_must_match_lat_lon(mock_doc):
+    mock_doc["features"][0]["geometry"]["coordinates"] = [0.0, 0.0]
+    errors = io.check_candidates(mock_doc)
+    assert any("geometry" in e for e in errors)
+
+
+def test_x1_only_cannot_be_engine_confirmed(mock_doc):
+    mock_doc["features"][2]["properties"]["evidence_status"] = "engine-confirmed"
+    errors = io.check_candidates(mock_doc)
+    assert any("engine-semiquant" in e for e in errors)
+
+
+def test_unknown_lens_rejected(mock_doc):
+    scores = mock_doc["features"][0]["properties"]["lens_scores"]
+    scores["Z9"] = scores["L1"]
+    assert io.check_candidates(mock_doc)
+
+
+def test_duplicate_ids_rejected(mock_doc):
+    mock_doc["features"][1]["properties"]["id"] = mock_doc["features"][0]["properties"]["id"]
+    errors = io.check_candidates(mock_doc)
+    assert any("duplicate" in e for e in errors)
+
+
+# ---------------- config consistency ----------------
+
+
+def test_lenses_have_required_fields():
+    lenses = io.load_lenses()
+    assert set(lenses) == {"L1", "L2", "M1", "X1"}
+    for lens in lenses.values():
+        for key in ("id", "body", "footprint_km", "baseline", "descriptors", "min_scale",
+                    "gates", "targets", "ledger"):
+            assert key in lens, f"{lens['id']} missing {key}"
+        for d in lens["descriptors"]:
+            io.min_scale_for(lens, d, target_value=1.0)  # every descriptor has a tolerance
+
+
+def test_l1_l2_footprint_is_4km():
+    lenses = io.load_lenses()
+    assert lenses["L1"]["footprint_km"] == 4 and lenses["L2"]["footprint_km"] == 4
+
+
+def test_l1_descriptors_match_terrain_library():
+    import numpy as np
+
+    from similitude.descriptors.terrain import roughness_spectrum, slope_stats
+
+    dem = np.random.default_rng(0).normal(size=(64, 64))
+    keys = set(slope_stats(dem, 30.0)) | set(roughness_spectrum(dem, 30.0))
+    assert set(io.load_lenses()["L1"]["descriptors"]) <= keys
+
+
+def test_lens_targets_exist():
+    targets = io.load_targets()
+    for lens in io.load_lenses().values():
+        for t in lens["targets"]:
+            assert t in targets, f"{lens['id']}: unknown target {t}"
+            assert lens["id"] in targets[t]["lenses"]
+
+
+def test_controls_complete_and_locked_fields():
+    controls = io.load_controls()
+    assert len(controls) >= 10
+    ids = [c["id"] for c in controls]
+    assert len(ids) == len(set(ids))
+    lenses = io.load_lenses()
+    for c in controls:
+        for key in ("lens_id", "lat", "lon", "footprint_km", "source", "expected",
+                    "expected_rgb", "role"):
+            assert key in c, f"{c['id']} missing {key}"
+        assert c["lens_id"] in lenses
+        assert c["expected"] in {"high", "uncertain", "low"}
+        assert c["expected_rgb"] in {"high", "uncertain", "low"}
+    # M1 controls must lie inside EMIT coverage (PLAN edge case)
+    for c in controls:
+        if c["lens_id"] == "M1":
+            assert abs(c["lat"]) <= 52
+    roles = {(c["lens_id"], c["role"]) for c in controls}
+    assert ("M1", "decoy") in roles and ("M1", "positive") in roles
