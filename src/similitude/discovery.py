@@ -76,6 +76,7 @@ def footprint_box(lat: float, lon: float, km: float) -> tuple[float, float, floa
 #: Hidden = high fidelity AND low attention (DESIGN 2.2(6)).
 PERCENTILE_MIN = 90.0
 SIGMA_MAX_NO_PCT = 1.0  # PLAN B9: lens without percentile -> sigma <= 1
+SIGMA_MAX_ANALOG = 2.0  # DESIGN 2.2(3): beyond 2 sigma = no natural analog
 ATTENTION_MAX = 10
 CANDIDATE_ROLES = ("rank", "seed")
 
@@ -149,10 +150,19 @@ def nms(df: pd.DataFrame, footprint_km: float, score: str = "d") -> pd.DataFrame
 
 
 def passes_fidelity(row) -> bool:
+    """High percentile alone is not enough: when every cell is far from the target (no-analog),
+    the closest ones still get percentile 100. A candidate must also be within the no-analog
+    threshold (sigma <= 2, DESIGN 2.2(3)). L2 is judged on its terrain-shadow part
+    (``sigma_shadow``); its sun-geometry part is a pre-registered no-analog reported separately.
+    """
+    sig = _clean(row.get("sigma_shadow"))
+    sig = float(row["sigma"]) if sig is None else float(sig)
+    if sig > SIGMA_MAX_ANALOG:
+        return False
     pct = _clean(row.get("percentile"))
     if pct is not None:
         return float(pct) >= PERCENTILE_MIN
-    return float(row["sigma"]) <= SIGMA_MAX_NO_PCT
+    return sig <= SIGMA_MAX_NO_PCT
 
 
 def attention_key(row) -> str:

@@ -155,7 +155,6 @@ def score_lens(
 ) -> pd.DataFrame:
     lens_id = lens["id"]
     desc_names: list[str] = lens["descriptors"]
-    min_scale_cfg: dict = lens["min_scale"]
 
     is_l2 = lens_id == "L2"
     shadow_names = [n for n in desc_names if n.startswith("shadow_")] if is_l2 else []
@@ -171,7 +170,7 @@ def score_lens(
         # Build min_scale vector for this target
         t_vec = np.array([trow[d] for d in desc_names], dtype=float)
         min_scale_vec = np.array(
-            [_resolve_min_scale(min_scale_cfg.get(d, 1e-6), trow.get(d, 0.0)) for d in desc_names],
+            [_min_scale(lens, d, trow.get(d, 0.0)) for d in desc_names],
             dtype=float,
         )
 
@@ -209,7 +208,7 @@ def score_lens(
         if is_l2 and shadow_names:
             sh_min_scale = np.array(
                 [
-                    _resolve_min_scale(min_scale_cfg.get(d, 1e-6), trow.get(d, 0.0))
+                    _min_scale(lens, d, trow.get(d, 0.0))
                     for d in shadow_names
                 ],
                 dtype=float,
@@ -244,7 +243,12 @@ def score_lens(
     return pd.DataFrame(rows)
 
 
-def _resolve_min_scale(cfg_val, target_val: float) -> float:
-    if isinstance(cfg_val, str) and cfg_val == "10%target":
-        return max(0.1 * abs(float(target_val)), 1e-6)
-    return float(cfg_val)
+def _min_scale(lens: dict, descriptor: str, target_val: float) -> float:
+    """Physical tolerance from lenses.yaml via ``io.min_scale_for`` (number, {rel: x}, default).
+
+    Missing configuration raises (no silent tiny default). Relative tolerances on a zero target
+    value are floored at 1e-6 to keep the metric finite.
+    """
+    from similitude import io
+
+    return max(io.min_scale_for(lens, descriptor, target_val), 1e-6)

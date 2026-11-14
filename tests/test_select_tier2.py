@@ -189,9 +189,19 @@ class TestSeedFixed:
 )
 class TestIntegration:
     def test_select_main_produces_correct_counts(self):
-        """Run select_main and verify: 300 rank, 200 null, no overlap."""
-        select_main()
-        result = pd.read_csv(ROOT / "data/derived/tier2_L1_selection.csv", keep_default_na=False)
+        """Run select_main and verify: 300 rank, 200 null, no overlap.
+
+        select_main() writes the committed selection file; restore it afterwards so the test
+        never changes the frozen tier-2 sample that earth_L1.parquet was built from.
+        """
+        path = ROOT / "data/derived/tier2_L1_selection.csv"
+        original = path.read_bytes() if path.exists() else None
+        try:
+            select_main()
+            result = pd.read_csv(path, keep_default_na=False)
+        finally:
+            if original is not None:
+                path.write_bytes(original)
         rank_ids = set(result[result["sample_role"] == "rank"]["cell_id"])
         null_ids = set(result[result["sample_role"] == "null"]["cell_id"])
         assert len(rank_ids) <= 300

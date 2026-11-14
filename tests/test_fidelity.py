@@ -456,7 +456,7 @@ def test_score_lens_feature_set():
 
 
 def test_score_lens_min_scale_10pct_target():
-    """min_scale value '10%target' resolves to 0.1*|t_k|."""
+    """min_scale value {rel: 0.1} (lenses.yaml contract) resolves to 0.1*|t_k|."""
     rng = np.random.default_rng(88)
     K = 2
     names = ["d1", "d2"]
@@ -481,7 +481,7 @@ def test_score_lens_min_scale_10pct_target():
     ]
     earth = pd.DataFrame(earth_rows)
 
-    lens = {"id": "L1", "descriptors": names, "min_scale": {"d1": "10%target", "d2": "10%target"}}
+    lens = {"id": "L1", "descriptors": names, "min_scale": {"d1": {"rel": 0.1}, "d2": {"rel": 0.1}}}
     result = score_lens(earth, targets, lens)
     # Just check it runs without error and produces valid numbers
     assert result["d"].notna().any()
