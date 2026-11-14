@@ -1,0 +1,4 @@
+point_id,lens_id,footprint_km,lat_orig,lon_orig,lat_new,lon_new,moved,found,valid_frac_orig,valid_frac_new,shift_km,rule,d_orig,d_new,sigma_orig,sigma_new,percentile_orig,percentile_new
+SEED_Karakul,L1,4,39.0,73.5,38.98755,73.54183,True,True,0.0,0.501,3.88,valid=WorldCover!=80 & GLO30 present; move if <0.5 to nearest footprint >=0.5,16.85389855757058,3.704751830992015,15.535616901287948,1.1538180774452738,3.5000000000000004,96.5
+CTRL_Mistastin,L1,4,55.88,-63.31,55.83367,-63.29526,True,True,0.36,0.501,5.24,valid=WorldCover!=80 & GLO30 present; move if <0.5 to nearest footprint >=0.5,8.44282744373681,9.747876088336401,6.521349337697196,7.960081613204611,79.5,65.5
+lake_salda,M1,5,37.55,29.68,37.53595,29.65573,True,True,0.016,0.501,2.65,valid=WorldCover!=80 & GLO30 present; move if <0.5 to nearest footprint >=0.5,,,,,,

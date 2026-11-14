@@ -1,0 +1,4 @@
+point_id,lat,lon,reason
+SEED_Karakul,38.98755,73.54183,"A14 rule: valid land 0.00 -> 0.50 of footprint, moved 3.88 km (WorldCover!=80 & GLO-30 present; nearest footprint >= 0.5)"
+CTRL_Mistastin,55.83367,-63.29526,"A14 rule: valid land 0.36 -> 0.50 of footprint, moved 5.24 km (WorldCover!=80 & GLO-30 present; nearest footprint >= 0.5)"
+lake_salda,37.53595,29.65573,"A14 rule: valid land 0.02 -> 0.50 of footprint, moved 2.65 km (WorldCover!=80 & GLO-30 present; nearest footprint >= 0.5)"
