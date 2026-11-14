@@ -153,7 +153,9 @@ def write_points(rel: pd.DataFrame) -> None:
         "reason": [
             f"A14 rule: valid land {a:.2f} -> {b:.2f} of footprint, moved {k:.2f} km "
             "(WorldCover!=80 & GLO-30 present; nearest footprint >= 0.5)"
-            for a, b, k in zip(moved["valid_frac_orig"], moved["valid_frac_new"], moved["shift_km"])
+            for a, b, k in zip(
+                moved["valid_frac_orig"], moved["valid_frac_new"], moved["shift_km"], strict=True
+            )
         ],
     }).to_csv(OUT_POINTS, index=False)
 
