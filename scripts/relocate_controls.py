@@ -28,6 +28,8 @@ from similitude.relocate import relocate  # noqa: E402
 RES_M = 60.0
 SEARCH_KM = 40.0
 OUT = ROOT / "data" / "derived" / "relocations.csv"
+# Interface for B13 (Linh, scripts/emit/pixel_m1.py): point_id, lat, lon, reason
+OUT_POINTS = ROOT / "data" / "derived" / "relocated_points.csv"
 
 # (point id, lens, lat, lon, footprint_km). Coordinates are the pre-registered ones.
 POINTS = [
@@ -108,6 +110,9 @@ def apply_l1() -> None:
 
 
 def main() -> None:
+    if "--points-only" in sys.argv:
+        write_points(pd.read_csv(OUT))
+        return
     if "--apply-l1" in sys.argv:
         apply_l1()
         return
@@ -135,7 +140,22 @@ def main() -> None:
         print(f"{pid:16s} frac {r.frac_before:.2f} -> {r.frac_after:.2f}  "
               f"shift {r.shift_m / 1000:.2f} km  ({lat1:.4f}, {lon1:.4f})  found={r.found}")
     pd.DataFrame(rows).to_csv(OUT, index=False)
-    print(f"wrote {OUT.relative_to(ROOT)}")
+    write_points(pd.DataFrame(rows))
+    print(f"wrote {OUT.relative_to(ROOT)}, {OUT_POINTS.relative_to(ROOT)}")
+
+
+def write_points(rel: pd.DataFrame) -> None:
+    moved = rel[rel["moved"].astype(bool)]
+    pd.DataFrame({
+        "point_id": moved["point_id"],
+        "lat": moved["lat_new"],
+        "lon": moved["lon_new"],
+        "reason": [
+            f"A14 rule: valid land {a:.2f} -> {b:.2f} of footprint, moved {k:.2f} km "
+            "(WorldCover!=80 & GLO-30 present; nearest footprint >= 0.5)"
+            for a, b, k in zip(moved["valid_frac_orig"], moved["valid_frac_new"], moved["shift_km"])
+        ],
+    }).to_csv(OUT_POINTS, index=False)
 
 
 if __name__ == "__main__":
