@@ -3,6 +3,7 @@
 > Soạn: 14/11/2026 ~11:30 (UTC+7), Fable 5.2 (Solution Architect). Đầu vào: `ABOUT.md` + prompt của người dùng (không có `BRIEF.md`).
 > Quy ước độ tin cậy: **[Đã kiểm]** = tra được nguồn trong phiên này; **[Nhớ]** = từ kiến thức nền, chưa tra lại; **[Giả thuyết]** = suy luận, phải để dữ liệu xác nhận.
 > Tên "SIMILITUDE" là tên làm việc, đội tự đặt lại.
+> **Cập nhật G1 (14/11 ~16:45):** xem `docs/review_g1.md`. Bản review thay thế tài liệu này ở các điểm: M1 so khớp theo pixel thay cho trung vị footprint; phán quyết ba trạng thái (TRANSFERS / NO-ANALOG / UNOBSERVED); native rank và matched area; các kỳ vọng đã bị dữ liệu bác (Lake Salda ở tỷ lệ 5 km, Haughton cho L1, Pamir–Changtang cho X1).
 
 ---
 

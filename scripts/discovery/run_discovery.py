@@ -113,6 +113,9 @@ def main() -> None:
         earth = pd.read_parquet(earth_path)
         targets = pd.read_parquet(DERIVED / f"targets_{lens_id}.parquet")
         tref = targets[targets["is_reference"].astype(bool)].set_index("target_id")
+        # Only targets the lens can actually observe (lenses.yaml analog_targets, G1 review).
+        if lens.get("analog_targets"):
+            f = f[f["target_id"].isin(lens["analog_targets"])]
         best = disc.best_target(f)
         ztab = ztab_prov if ztab_prov is not None else engine_z(lens, earth, targets)
 

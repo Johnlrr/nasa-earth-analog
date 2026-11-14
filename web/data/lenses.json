@@ -123,6 +123,14 @@
    "nili_fossae_olivine"
   ],
   "primary_target": "jezero_margin",
+  "analog_targets": [
+   "jezero_margin",
+   "nili_fossae_olivine"
+  ],
+  "unobserved_targets": {
+   "oxia_planum": "FE_SMECTITE diagnostic depths (D2300 0.030, BD2290 0.015) are at the 0.01 tolerance floor: featureless basalt matches it (empty match). Verdict UNOBSERVED.",
+   "meridiani": "JAROSITE diagnostic depths (BD2265 0.023, BD2210 0.011) are near the tolerance floor in EMIT-usable parameters. Verdict UNOBSERVED."
+  },
   "population_note": "Sigma population = all usable MICA type spectra: variation BETWEEN mineral classes on Mars.",
   "ledger": "ledger/mars.yaml"
  },
