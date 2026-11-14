@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "similitude"
+version = "0.1.0"
+description = "Mission-task-based Earth analog finder for Moon and Mars test sites"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = []
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+    "pyarrow",
+    "rasterio",
+    "pyproj",
+    "xarray",
+    "netCDF4",
+    "h5netcdf",
+    "pyyaml",
+    "jsonschema",
+    "earthaccess",
+    "earthengine-api",
+    "requests",
+    "matplotlib",
+    "pillow",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/similitude"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

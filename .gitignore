@@ -2,3 +2,19 @@
 DESIGN.*.bak.md
 # Cài đặt Claude Code cá nhân
 .claude/settings.local.json
+
+# Python
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Dữ liệu thô (không commit)
+data/raw/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Môi trường
+.env
