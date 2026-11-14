@@ -1,0 +1,33 @@
+# Exclusion zones (PLAN A2/B9). Cells inside are FLAGGED (in_exclusion_buffer=True), never
+# deleted; only discovery (B9) filters on the flag. Positive controls inside a zone stay usable.
+# Classic four per the challenge brief + NASA Analog Explorer pairings.
+zones:
+  - name: Antarctica
+    lat_max: -60.0
+    source: "Challenge brief: classic analog region"
+  - name: Atacama
+    lat: -24.5
+    lon: -69.3
+    radius_km: 350
+    source: "Challenge brief: classic analog region"
+  - name: Iceland
+    bbox: [-25.0, 63.0, -13.0, 67.0]
+    source: "Challenge brief: classic analog region"
+  - name: Hawaii
+    bbox: [-161.0, 18.5, -154.0, 22.5]
+    source: "Challenge brief; NASA Analog Explorer (Kilauea-Moon)"
+  - name: Lake Salda
+    lat: 37.55
+    lon: 29.68
+    radius_km: 30
+    source: "NASA Analog Explorer (Turkey-Mars)"
+  - name: Pilot Valley
+    lat: 40.85
+    lon: -113.95
+    radius_km: 30
+    source: "NASA Analog Explorer (Utah-Mars)"
+  - name: Lava Beds
+    lat: 41.71
+    lon: -121.51
+    radius_km: 30
+    source: "NASA Analog Explorer (California lava caves-Moon)"
