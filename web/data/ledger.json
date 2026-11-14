@@ -342,6 +342,7 @@
     "consequence": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
     "mitigation": "None needed for the cycle itself",
     "facility": "None needed for the cycle itself",
+    "verdict": "TRANSFERS",
     "applies_to": [
      "M1",
      "X1"

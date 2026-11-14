@@ -121,11 +121,19 @@ def main() -> None:
         if lens.get("analog_targets"):
             f = f[f["target_id"].isin(lens["analog_targets"])]
         best = disc.best_target(f)
+        # A15 single source: qualified cells and the target they qualify for
+        transfers = disc.transfers_cells(verdicts, lens_id)
+        if transfers:
+            vt = f[[c in transfers and transfers[c] in (None, t)
+                    for c, t in zip(f["cell_id"], f["target_id"], strict=True)]]
+            best = pd.concat([disc.best_target(vt),
+                              best[~best["cell_id"].isin(set(vt["cell_id"]))]],
+                             ignore_index=True)
         ztab = ztab_prov if ztab_prov is not None else engine_z(lens, earth, targets)
 
         # 1st pass: names + attention for every candidate passing fidelity that has none yet
         att, _ = attention_table()
-        pre = disc.select_hidden(best, earth, att, lens, per_lens=15,
+        pre = disc.select_hidden(best, earth, att, lens, per_lens=15, transfers=transfers,
                                  keep_unknown_attention=True)
         names = []
         for _, r in pre.iterrows():
@@ -149,7 +157,7 @@ def main() -> None:
                             "--only-missing"], check=False, timeout=900)
         att, att_df = attention_table()
         att_q = att_df.set_index("key")
-        hidden = disc.select_hidden(best, earth, att, lens, per_lens=5)
+        hidden = disc.select_hidden(best, earth, att, lens, per_lens=5, transfers=transfers)
 
         cn_path = DERIVED / "candidate_names.csv"
         cname = (pd.read_csv(cn_path).set_index("key") if cn_path.exists()
@@ -218,7 +226,7 @@ def main() -> None:
                 "evidence_status": status, "evidence_note": note.strip(),
                 "data_sources": disc.DATA_SOURCES[lens_id],
                 "analog_role": disc.ANALOG_ROLE[lens_id],
-                "verdicts": disc.verdicts_for(verdicts, lens_id, cid),
+                "verdicts": disc.verdicts_for(verdicts, lens_id, cid, str(row["target_id"])),
             }
             return disc.feature(props)
 
@@ -234,7 +242,7 @@ def main() -> None:
                 continue
             row = rows.sort_values(score).iloc[0]
             features.append(build(row, "decoy" if c["role"] == "decoy" else "control"))
-        pending = disc.select_hidden(best, earth, att, lens, per_lens=5,
+        pending = disc.select_hidden(best, earth, att, lens, per_lens=5, transfers=transfers,
                                      keep_unknown_attention=True)
         n_unknown = int(pending["attention_n"].isna().sum()) if len(pending) else 0
         scored = set(f["cell_id"])

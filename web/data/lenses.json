@@ -33,7 +33,28 @@
    "shackleton_rim"
   ],
   "primary_target": "connecting_ridge",
-  "ledger": "ledger/moon.yaml"
+  "ledger": "ledger/moon.yaml",
+  "verdict_variables": {
+   "slope_roughness": {
+    "descriptors": [
+     "slope_p50",
+     "slope_p90",
+     "frac_gt8",
+     "frac_gt15",
+     "frac_gt20",
+     "rms_s1",
+     "rms_s2",
+     "rms_s4",
+     "rms_s8",
+     "rms_s16",
+     "hurst"
+    ],
+    "rule": "cell TRANSFERS when in the A12 robust set (native rank >= n_native/2 under configs i, ii, iii)"
+   }
+  },
+  "unobserved_variables": [
+   "Metre-scale boulders and craters < 60 m: below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+  ]
  },
  {
   "id": "L2",
@@ -76,7 +97,27 @@
   ],
   "primary_target": "connecting_ridge",
   "expectation_note": "Astro part very likely no-analog on Earth (needs lat >= ~83-86 deg). Valid result, reported as a number.",
-  "ledger": "ledger/moon.yaml"
+  "ledger": "ledger/moon.yaml",
+  "verdict_variables": {
+   "sun_geometry": {
+    "descriptors": [
+     "lowsun_frac_daylight",
+     "lowsun_az_coverage"
+    ],
+    "rule": "lens-level: NO-ANALOG when fidelity no_analog (best sigma > 2), value = best sigma"
+   },
+   "shadow_casting": {
+    "descriptors": [
+     "shadow_e2",
+     "shadow_e5",
+     "shadow_e7"
+    ],
+    "rule": "cell TRANSFERS when native_rank(d_shadow) >= n_native/2 (rank/seed cells only)"
+   }
+  },
+  "unobserved_variables": [
+   "Horizon occlusion beyond 10 km: shadows are computed inside the 10 km chip only, on both sides"
+  ]
  },
  {
   "id": "M1",

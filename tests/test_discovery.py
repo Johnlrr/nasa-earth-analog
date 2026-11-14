@@ -143,10 +143,10 @@ def test_verdicts_read_not_generated():
         {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "c1", "test": "LTV traverse",
          "variable": "slope_roughness", "state": "TRANSFERS", "value": 30, "reason": "robust set",
          "facility": None},
-        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": None, "test": "wheel sinkage",
+        {"lens_id": "L1", "target_id": None, "cell_id": None, "test": "wheel sinkage",
          "variable": "gravity", "state": "NO-ANALOG", "value": 0.165, "reason": None,
          "facility": "offload rig"},
-        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "", "test": "landing safety",
+        {"lens_id": "L1", "target_id": "", "cell_id": "", "test": "landing safety",
          "variable": "boulders", "state": "UNOBSERVED", "value": None, "reason": "30 m DEM",
          "facility": "in situ"},
         {"lens_id": "L2", "target_id": "connecting_ridge", "cell_id": "c1", "test": "x",
@@ -193,3 +193,36 @@ def test_unknown_attention_is_not_hidden():
     assert list(disc.select_hidden(fid, earth, att, LENS_M1)["cell_id"]) == ["known"]
     both = disc.select_hidden(fid, earth, att, LENS_M1, keep_unknown_attention=True)
     assert set(both["cell_id"]) == {"known", "unknown"}
+
+
+def test_lens_level_transfers_summary_not_shown_and_transfers_cells():
+    v = pd.DataFrame([
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": "c1", "test": "t",
+         "variable": "slope_roughness", "state": "TRANSFERS", "value": 30, "reason": None,
+         "facility": None},
+        {"lens_id": "L1", "target_id": "connecting_ridge", "cell_id": None, "test": "t",
+         "variable": "slope_roughness", "state": "TRANSFERS", "value": 5,
+         "reason": "5 cells in the robust set", "facility": None},
+        {"lens_id": "L1", "target_id": "shackleton_rim", "cell_id": "c2", "test": "t",
+         "variable": "slope_roughness", "state": "TRANSFERS", "value": 10, "reason": None,
+         "facility": None},
+        {"lens_id": "L1", "target_id": None, "cell_id": None, "test": "t",
+         "variable": "gravity", "state": "NO-ANALOG", "value": 0.165, "reason": None,
+         "facility": "rig"},
+    ])
+    # a control outside the robust set: physics only, no summary TRANSFERS pretending to be its own
+    ctrl = disc.verdicts_for(v, "L1", "ctrl_x", "connecting_ridge")
+    assert [(r["variable"], r["state"]) for r in ctrl] == [("gravity", "NO-ANALOG")]
+    c1 = disc.verdicts_for(v, "L1", "c1", "connecting_ridge")
+    assert [(r["scope"], r["state"]) for r in c1] == [("cell", "TRANSFERS"), ("lens", "NO-ANALOG")]
+    assert disc.transfers_cells(None, "L1") is None
+    assert disc.transfers_cells(v, "L1") == {"c1": "connecting_ridge", "c2": "shackleton_rim"}
+    assert disc.transfers_cells(v, "M1") == {}
+    fid = pd.DataFrame([fid_row("c1", 1.0, 0.5, 50.0, lens="L1"),
+                        fid_row("c3", 0.5, 0.2, 99.0, lens="L1")])
+    earth = pd.DataFrame([earth_row("c1", 10, 10), earth_row("c3", 30, 30)])
+    lens = {"id": "L1", "footprint_km": 4, "gates": {}, "descriptors": []}
+    att = {"c1": 0, "c3": 0}
+    out = disc.select_hidden(fid, earth, att, lens, transfers=disc.transfers_cells(v, "L1"))
+    assert list(out["cell_id"]) == ["c1"]  # c3 has a better sigma but no TRANSFERS verdict
+    assert disc.select_hidden(fid, earth, att, lens, transfers={}).empty
