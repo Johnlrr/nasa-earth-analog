@@ -43,7 +43,7 @@ def add_astro(df: pd.DataFrame, obliquity: float) -> pd.DataFrame:
 def snow_free_fraction(df: pd.DataFrame) -> pd.Series:
     import ee
 
-    ee.Initialize(project=os.environ.get("EE_PROJECT", "similitude-ee"))
+    ee.Initialize(project=os.environ["EE_PROJECT"])
     col = ee.ImageCollection("MODIS/061/MOD10A1").filterDate("2023-01-01", "2024-01-01")
 
     def snow_free(img: ee.Image) -> ee.Image:

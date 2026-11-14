@@ -202,7 +202,7 @@ def transfers_cells(verdicts: pd.DataFrame | None, lens_id: str) -> dict[str, st
     if verdicts is None:
         return None
     v = verdicts[(verdicts["lens_id"] == lens_id) & (verdicts["state"] == "TRANSFERS")
-                 & ~verdicts["cell_id"].map(_blank)]
+                 & ~verdicts["cell_id"].map(_blank).astype(bool)]
     return {str(r.cell_id): (None if _blank(r.target_id) else str(r.target_id))
             for r in v.itertuples()}
 
@@ -333,11 +333,11 @@ def verdicts_for(verdicts: pd.DataFrame | None, lens_id: str, cell_id: str,
     v = verdicts[verdicts["lens_id"] == lens_id]
     cell = v[v["cell_id"].astype(str) == str(cell_id)]
     if target_id is not None:
-        cell = cell[cell["target_id"].map(_blank) | (cell["target_id"] == target_id)]
-    lens_level = v[v["cell_id"].map(_blank)]
+        cell = cell[cell["target_id"].map(_blank).astype(bool) | (cell["target_id"] == target_id)]
+    lens_level = v[v["cell_id"].map(_blank).astype(bool)]
     is_transfer = lens_level["state"] == "TRANSFERS"
     own_target = (lens_level["target_id"] == target_id) & ~is_transfer
-    no_target = lens_level["target_id"].map(_blank)
+    no_target = lens_level["target_id"].map(_blank).astype(bool)
     # a lens-level TRANSFERS without target is shown only for Transfer-Ledger physics (e.g. day
     # length); any other one is a set summary
     physics = no_target & (~is_transfer | lens_level["variable"].isin(_ledger_variables(lens_id)))

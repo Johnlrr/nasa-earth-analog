@@ -1,0 +1,72 @@
+# PLAN 2c (A17-A20) — site contract. Post hoc (written after the A13 cell distribution was seen);
+# every item below is listed in the Deviations table of docs/validation_report.md.
+
+cluster_km: 150      # single-linkage distance between member cells (one campaign's driving range)
+multilens_km: 150    # radius for pairing a site cell with an X1 TRANSFERS cell or an M1 seed
+span_warn_km: 300    # a site wider than this is reported as a region, not one camp
+
+# Display labels. Target ids stay unchanged in every table; only what people read changes.
+# shackleton_rim: the Site04 centre chip has a 31 deg median slope (A3) -> inner crater wall,
+# not the rim crest (targets.yaml note; G1 proposal, not moved after seeing results).
+target_labels:
+  connecting_ridge: "Connecting Ridge (Site01)"
+  shackleton_rim: "Shackleton inner wall (Site04 centre)"   # a steep comparison slope, not a Moon Base site
+  arcadia_planitia: "Arcadia Planitia"
+
+# Site membership and evidence (contract for B17 / candidate.schema.json):
+#  - a cell with ice_check "excluded" (WorldCover class 70 > 0.2, A13) is NOT a site member;
+#  - a lens is engine-confirmed at a site when >= 1 member cell has a cell-level TRANSFERS row;
+#    an engine partner (X1 TRANSFERS cell within multilens_km) only adds X1 to
+#    lenses_engine_semiquant (X1 is never engine-confirmed); a literature-only partner never
+#    raises any status (columns lenses_engine_confirmed / lenses_engine_semiquant);
+#  - B10 visual review (config/review_b10.yaml) caps a lens: a lens is engine-confirmed at a
+#    site only through member cells NOT downgraded by B10; when every TRANSFERS cell of that
+#    lens is downgraded, the lens is shown as "hypothesis" and never presented as a finding;
+#  - flagged cells (ice 0.05-0.2) stay members and are shown with their flag;
+#  - a site with any member inside a known-analog exclusion buffer is never "hidden";
+#    "hidden" also needs a known site Attention <= discovery.ATTENTION_MAX (unknown != hidden).
+#  - site Attention = max(site-name query, member-cell queries) so a hand-picked name cannot
+#    lower it.
+#
+# Showcase rule (no hand picking), a site is shown when ANY holds:
+#  (a) it has a member cell with a cell-level Connecting Ridge TRANSFERS verdict (any lens)
+#      that was NOT downgraded by the B10 review;
+#  (b) it has a multi-lens partner (engine or literature-only; the state is printed);
+#  (c) it is the largest site (most member cells; tie -> smallest site_id) with no member
+#      inside an exclusion buffer.
+#
+# Sample caveat: every count is "of the scored sample" — 300 rank cells = top 300 of 196,008
+# bare-land cells by a coarse diagonal sigma against CONNECTING RIDGE (A2/A6; 90 m slope/relief),
+# + seeds. Screened towards Connecting Ridge on coarse slope, not on the fine-scale full metric
+# (configuration ii) that binds it. Not a global census.
+
+sites:
+  - {anchor: E10K_729_-319, name: "Peary Land, North Greenland", query: '"Peary Land"',
+     note: "DESIGN 2.5 #6 proposed Peary Land for L2 (low Sun); the engine does NOT confirm L2
+       there (sun geometry is NO-ANALOG everywhere). It confirms L1 instead, through a rank cell
+       found by the coarse screen (not the seed), 20 km from the X1 seed, and X1, which is only
+       engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley;
+       the X1 seed list was committed together with the first X1 scores, so it is not provably
+       pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored
+       sample (X1 has 8 cell-level TRANSFERS, M1 none)."}
+  - {anchor: E10K_453_921, name: "Da Qaidam, northern Qaidam Basin margin (Qinghai)",
+     query: '"Da Qaidam" OR "northern Qaidam" OR "Qaidam"',
+     note: "Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its
+       match to Connecting Ridge terrain. Not presented as hidden."}
+  - {anchor: E10K_394_774, name: "Zanda (Tsamda) and Gar, Ngari, western Tibet",
+     query: '"Zanda" OR "Tsamda" OR "Ngari"'}
+  - {anchor: E10K_413_804, name: "Gêrzê, central Changtang plateau (Tibet)",
+     query: '"Gerze" OR "Gêrzê" OR "Changtang"',
+     note: "L2 cell: snow-free fraction 0.44 in the low-sun season; B10 review rated the L2 card
+       hypothesis (seasonal snow)."}
+  - {anchor: E10K_289_551, name: "Jebel Akhdar, Hajar Mountains (Oman)",
+     query: '"Jebel Akhdar" OR "Hajar Mountains" OR "Oman"',
+     note: "The finding here is L2 (terrain shadows, engine). Semail ophiolite (M1) lies about
+       106 km away but M1 failed its pre-registered stop rule, so the aqueous-mineral part is
+       literature context only, not a second lens."}
+  - {anchor: E10K_-305_-645, name: "Atacama – Puna altiplano (Chile, Argentina, Bolivia)",
+     query: '"Atacama" OR "Puna"',
+     note: "Classic analog region: 40 of its cells are inside known-analog exclusion buffers.
+       Engine rediscovering it is a sanity check, not a discovery."}
+  - {anchor: E10K_244_-1498, name: "Mauna Loa – Mauna Kea, Hawaiʻi", query: '"Mauna Loa" OR "Mauna Kea" OR "Hawaii"',
+     note: "Known analog region (inside exclusion buffer)."}
