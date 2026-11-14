@@ -1,0 +1,419 @@
+{
+ "moon": {
+  "body": "moon",
+  "lens_ids": [
+   "L1",
+   "L2",
+   "X1"
+  ],
+  "updated": "2026-11-14",
+  "items": [
+   {
+    "id": "gravity",
+    "quantity": "Surface gravity",
+    "earth": {
+     "value": 9.82,
+     "unit": "m/s^2"
+    },
+    "target": {
+     "value": 1.62,
+     "unit": "m/s^2"
+    },
+    "ratio_target_over_earth": 0.165,
+    "consequence": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+    "mitigation": "Reduced-gravity offload rig, parabolic flight",
+    "applies_to": [
+     "L1",
+     "L2",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    "source_note": "Fact sheet 'Surface gravity (m/s2)' = 1.62; Earth mean 9.820 from https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+   },
+   {
+    "id": "angle_of_repose",
+    "quantity": "Angle of repose of loose granular material (gravity dependence)",
+    "earth": {
+     "value": 40,
+     "unit": "deg",
+     "note": "angular grains, time-averaged at 1 g"
+    },
+    "target": {
+     "value": null,
+     "unit": "deg",
+     "note": "tested at 0.1 g, 0.38 g and 1 g (not exactly 0.165 g); static angle rises ~5 deg and dynamic angle falls ~10 deg in reduced gravity"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+    "mitigation": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant",
+    "applies_to": [
+     "L1"
+    ],
+    "source": "https://doi.org/10.1029/2011JE003865",
+    "source_note": "Kleinhans et al. 2011, JGR Planets 116, E11004; numbers from abstract (read via https://dare.uva.nl/id/18109ef6-2d5a-4280-9181-072ce10b5238). A later study of Martian dunes reportedly disputes gravity dependence."
+   },
+   {
+    "id": "atmospheric_pressure",
+    "quantity": "Surface pressure",
+    "earth": {
+     "value": 101400,
+     "unit": "Pa",
+     "note": "1014 mb"
+    },
+    "target": {
+     "value": 3e-10,
+     "unit": "Pa",
+     "note": "3e-15 bar (night); ~2e5 particles/cm3"
+    },
+    "ratio_target_over_earth": 3e-15,
+    "consequence": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+    "mitigation": "Thermal-vacuum chamber with regolith simulant",
+    "applies_to": [
+     "L1",
+     "L2",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    "source_note": "Fact sheet 'Surface pressure (night): 3 x 10-15 bar (2 x 10-12 torr)'; Earth 1014 mb from earthfact.html"
+   },
+   {
+    "id": "day_night_cycle",
+    "quantity": "Solar day (synodic period)",
+    "earth": {
+     "value": 24.0,
+     "unit": "h"
+    },
+    "target": {
+     "value": 29.53,
+     "unit": "d",
+     "note": "synodic period, ~708.7 h"
+    },
+    "ratio_target_over_earth": 29.6,
+    "consequence": "Multi-day lunar night and its thermal soak cannot be reproduced outdoors on Earth.",
+    "mitigation": "Thermal-vacuum cycling of hardware",
+    "applies_to": [
+     "L2",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    "source_note": "Fact sheet 'Synodic period (days)' = 29.53; Earth length of day 24.0000 h from earthfact.html"
+   },
+   {
+    "id": "radiation_dose",
+    "quantity": "Surface radiation dose equivalent rate",
+    "earth": {
+     "value": 0.0066,
+     "unit": "mSv/day",
+     "note": "2.4 mSv/yr worldwide average natural background (UNSCEAR 2008) divided by 365"
+    },
+    "target": {
+     "value": 1.369,
+     "unit": "mSv/day",
+     "note": "Chang'e-4 LND, charged-particle dose equivalent, average; ISS interior 0.731 mSv/day in same paper"
+    },
+    "ratio_target_over_earth": 208,
+    "consequence": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+    "mitigation": "Accelerator or isotope-source irradiation of components",
+    "applies_to": [
+     "L1",
+     "L2",
+     "X1"
+    ],
+    "source": "https://doi.org/10.1126/sciadv.aaz1334",
+    "source_note": "Zhang et al. 2020 Sci. Adv. 6(39):eaaz1334, full text https://pmc.ncbi.nlm.nih.gov/articles/PMC7518862/ ('average dose equivalent of 1369 uSv/day'). Earth value: https://www.cnsc-ccsn.gc.ca/eng/resources/fact-sheets/natural-background-radiation/ (cites UNSCEAR 2008). 2.4 mSv/yr is a world average."
+   },
+   {
+    "id": "temperature",
+    "quantity": "Surface temperature",
+    "earth": {
+     "value": 288,
+     "unit": "K",
+     "note": "global mean"
+    },
+    "target": {
+     "value": 100,
+     "unit": "K",
+     "note": "upper bound: permanently shadowed polar terrain well below 100 K; equatorial diurnal range 95-390 K"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Earth ice sits near its melting point while PSR ice is deep-cryogenic with very different mechanical behavior, so strength and drilling response do not transfer.",
+    "mitigation": "Cryogenic test bench for ice-regolith drilling and mobility",
+    "applies_to": [
+     "L2",
+     "X1"
+    ],
+    "source": "https://ntrs.nasa.gov/citations/20110011329",
+    "source_note": "Paige et al. 2010 Science 330:479 (doi 10.1126/science.1187726), abstract: 'large areas of lunar polar terrain with surface temperatures well below 100K'. Equatorial 95-390 K and Earth 288 K from the NSSDC fact sheets. The '<110 K' wording in DESIGN.md was not found in Paige 2010 and is dropped."
+   },
+   {
+    "id": "diffuse_skylight",
+    "quantity": "Atmospheric diffuse skylight",
+    "earth": {
+     "value": null,
+     "unit": null,
+     "note": "atmosphere scatters sunlight into shadows"
+    },
+    "target": {
+     "value": 0,
+     "unit": null,
+     "note": "essentially none; exosphere ~2e5 particles/cm3, black sky"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Shadows on Earth are filled by skylight, so low-sun optical and navigation tests transfer only partly.",
+    "mitigation": "Add artificial single-source lighting with black enclosures, or night tests",
+    "applies_to": [
+     "L2"
+    ],
+    "source": "https://science.nasa.gov/moon/sun-and-weather-overview/weather-on-the-moon/",
+    "source_note": "NASA: 'pitch-black sky'; exosphere cannot spread the Sun's energy so sunlit/shadowed differences are extreme. Particle density from moonfact.html. Qualitative only; no numeric skylight value verified."
+   },
+   {
+    "id": "regolith_dust",
+    "quantity": "Regolith and dust material properties",
+    "earth": {
+     "value": null,
+     "unit": null,
+     "note": "water- and weather-processed natural soils"
+    },
+    "target": {
+     "value": null,
+     "unit": null,
+     "note": "micrometeorite-generated agglutinated, jagged particles; observed levitation at the terminator"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+    "mitigation": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil",
+    "applies_to": [
+     "L1",
+     "X1"
+    ],
+    "source": "https://ntrs.nasa.gov/api/citations/20205001806/downloads/CJW%20PIO%20Dust%20Manuscript_V011.docx.pdf",
+    "source_note": "Wohl et al. (NASA Langley), introduction: 'many of the particles consists of agglutinated smaller particles, often forming complex, jagged conformations'; levitation at terminator. The same paper estimates electrostatic adhesion is weak vs van der Waals, so 'electrostatically charged' is contested and not asserted here."
+   }
+  ],
+  "nasa_gaps": [
+   {
+    "id": "ESDMD #0301",
+    "name": "Systems to Survive and Operate through Extended Periods of Lunar Shadow",
+    "relevance": "No field analog reproduces multi-day lunar night in vacuum (day_night_cycle, temperature).",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #0801",
+    "name": "Lunar Dust Tolerant Systems and Dust Mitigation",
+    "relevance": "Linked to regolith_dust and atmospheric_pressure.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #0805",
+    "name": "Autonomous Surface Mobility and Navigation",
+    "relevance": "Linked to gravity, angle_of_repose and diffuse_skylight (L1, L2).",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #1101",
+    "name": "Lunar Precision Landing and Hazard Avoidance for Human Exploration",
+    "relevance": "Linked to the touchdown terrain lens (L1).",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #0603",
+    "name": "Water Recovery from Lunar Regolith/Ice",
+    "relevance": "Linked to the ice-under-dry-overburden lens (X1) and the temperature item.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #0307",
+    "name": "Radiation Monitoring and Modeling",
+    "relevance": "Linked to radiation_dose.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   }
+  ]
+ },
+ "mars": {
+  "body": "mars",
+  "lens_ids": [
+   "M1",
+   "X1"
+  ],
+  "updated": "2026-11-14",
+  "items": [
+   {
+    "id": "gravity",
+    "quantity": "Surface gravity",
+    "earth": {
+     "value": 9.82,
+     "unit": "m/s^2"
+    },
+    "target": {
+     "value": 3.73,
+     "unit": "m/s^2"
+    },
+    "ratio_target_over_earth": 0.38,
+    "consequence": "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not.",
+    "mitigation": "Reduced-gravity offload rig, parabolic flight",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    "source_note": "Fact sheet mean 3.73 m/s2 (DESIGN.md had 3.71); Earth mean 9.820 from https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+   },
+   {
+    "id": "angle_of_repose",
+    "quantity": "Angle of repose of loose granular material (gravity dependence)",
+    "earth": {
+     "value": 40,
+     "unit": "deg",
+     "note": "angular grains, time-averaged at 1 g"
+    },
+    "target": {
+     "value": null,
+     "unit": "deg",
+     "note": "tested at 0.38 g among others; static angle rises ~5 deg, dynamic angle falls ~10 deg in reduced gravity"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Slope-failure and avalanche behavior do not transfer 1:1 from Earth.",
+    "mitigation": "Parabolic-flight drum tests with the actual simulant",
+    "applies_to": [
+     "X1"
+    ],
+    "source": "https://doi.org/10.1029/2011JE003865",
+    "source_note": "Kleinhans et al. 2011, JGR Planets 116, E11004; abstract read via https://dare.uva.nl/id/18109ef6-2d5a-4280-9181-072ce10b5238. A later Martian dune study reportedly disputes gravity dependence."
+   },
+   {
+    "id": "atmospheric_pressure",
+    "quantity": "Surface pressure",
+    "earth": {
+     "value": 101400,
+     "unit": "Pa",
+     "note": "1014 mb"
+    },
+    "target": {
+     "value": 636,
+     "unit": "Pa",
+     "note": "6.36 mb at mean radius; seasonal range 4.0-8.7 mb; 95.1% CO2"
+    },
+    "ratio_target_over_earth": 0.0063,
+    "consequence": "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them.",
+    "mitigation": "Mars-pressure CO2 chamber",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    "source_note": "Fact sheet: 6.36 mb mean radius, 4.0-8.7 mb seasonal; Earth 1014 mb from earthfact.html"
+   },
+   {
+    "id": "day_night_cycle",
+    "quantity": "Length of day",
+    "earth": {
+     "value": 24.0,
+     "unit": "h"
+    },
+    "target": {
+     "value": 24.6597,
+     "unit": "h"
+    },
+    "ratio_target_over_earth": 1.027,
+    "consequence": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
+    "mitigation": "None needed for the cycle itself",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    "source_note": "Fact sheet 'Length of day' 24.6597 h; Earth 24.0000 h from earthfact.html"
+   },
+   {
+    "id": "radiation_dose",
+    "quantity": "Surface radiation dose equivalent rate (GCR)",
+    "earth": {
+     "value": 0.0066,
+     "unit": "mSv/day",
+     "note": "2.4 mSv/yr worldwide average natural background (UNSCEAR 2008) divided by 365"
+    },
+    "target": {
+     "value": 0.67,
+     "unit": "mSv/day",
+     "note": "MSL RAD at Gale crater, Aug 2012 to Jun 2013 average GCR dose equivalent rate"
+    },
+    "ratio_target_over_earth": 102,
+    "consequence": "Cumulative dose to crew and electronics cannot be reproduced by any field site.",
+    "mitigation": "Accelerator or isotope-source irradiation of components",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://swri.org/node/9079",
+    "source_note": "SwRI press release quoting Hassler et al., Science 2014 (doi 10.1126/science.1244797): 'average GCR dose equivalent rate of 0.67 millisieverts per day'. Paper itself paywalled and not opened, so the figure is from the press release. Earth: https://www.cnsc-ccsn.gc.ca/eng/resources/fact-sheets/natural-background-radiation/ (cites UNSCEAR 2008)."
+   },
+   {
+    "id": "temperature",
+    "quantity": "Surface temperature",
+    "earth": {
+     "value": 288,
+     "unit": "K",
+     "note": "global mean"
+    },
+    "target": {
+     "value": 214,
+     "unit": "K",
+     "note": "mean; Viking 1 site range 184-242 K"
+    },
+    "ratio_target_over_earth": 0.743,
+    "consequence": "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites.",
+    "mitigation": "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    "source_note": "Fact sheet 'about 214 K' (DESIGN.md had ~210 K); Earth 288 K from earthfact.html"
+   },
+   {
+    "id": "perchlorate",
+    "quantity": "Perchlorate content of soil",
+    "earth": {
+     "value": null,
+     "unit": "wt%",
+     "note": "not verified for Earth soils"
+    },
+    "target": {
+     "value": 0.5,
+     "unit": "wt%",
+     "note": "0.4 to 0.6% perchlorate by mass in leachate at Phoenix site; midpoint is derived"
+    },
+    "ratio_target_over_earth": null,
+    "consequence": "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils.",
+    "mitigation": "Dope simulant with perchlorate salts",
+    "applies_to": [
+     "M1",
+     "X1"
+    ],
+    "source": "https://experts.arizona.edu/en/publications/detection-of-perchlorate-and-the-soluble-chemistry-of-martian-soi/",
+    "source_note": "Hecht et al. 2009 Science 325:64 (doi 10.1126/science.1172466), abstract: '0.4 to 0.6% perchlorate (ClO4) by mass leached from each sample'."
+   }
+  ],
+  "nasa_gaps": [
+   {
+    "id": "ESDMD #0802",
+    "name": "Mars Dust-Tolerant Systems and Dust Mitigation",
+    "relevance": "Linked to atmospheric_pressure and perchlorate.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #1102",
+    "name": "Mars Precision Landing and Hazard Avoidance for Human Exploration",
+    "relevance": "Linked to terrain and gravity items.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   },
+   {
+    "id": "ESDMD #0307",
+    "name": "Radiation Monitoring and Modeling",
+    "relevance": "Linked to radiation_dose.",
+    "source": "https://www.nationalacademies.org/cdn/materials/a055a45c-1f83-41ad-8b66-29153f296b14"
+   }
+  ]
+ }
+}
