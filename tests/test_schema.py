@@ -162,3 +162,25 @@ def test_m1_pixel_match_rules_preregistered():
     for k in ("HCPINDEX", "BD2250", "MIN2250"):
         assert k not in lens["descriptors"] and k in lens["excluded_descriptors"]
     assert lens["unobserved_variables"] and io.load_lenses()["X1"]["unobserved_variables"]
+
+
+def test_a15_contract_for_m1_x1():
+    """verdict_variables / unobserved (structured) for Linh's lenses, ledger variable+facility."""
+    import json
+
+    lenses = io.load_lenses()
+    for lid in ("M1", "X1"):
+        lens = lenses[lid]
+        assert lens["verdict_variables"]
+        for var, spec in lens["verdict_variables"].items():
+            assert {"test", "targets", "source", "rule"} <= set(spec), (lid, var)
+            assert set(spec["targets"]) <= set(lens["targets"]), (lid, var)
+        for u in lens["unobserved"]:
+            assert {"variable", "reason", "facility"} <= set(u), lid
+    for body in ("moon", "mars"):
+        led = io.load_yaml(io.REPO_ROOT / "ledger" / f"{body}.yaml")
+        for it in led["items"]:
+            assert it.get("variable") and it.get("facility"), (body, it["id"])
+    sr = json.loads((io.REPO_ROOT / "data/derived/m1_stop_rule.json").read_text(encoding="utf-8"))
+    assert isinstance(sr["m1_controls_pass"], bool)
+    assert sr["m1_controls_pass"] == (sr["verdict"] == "PASS")
