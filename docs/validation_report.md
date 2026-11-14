@@ -42,8 +42,9 @@ matching, and a single verdict source. **Every table below is written by
    site) and 5 for Connecting Ridge; after the A13 ice filter 93 vs 2 remain usable (§7). The
    sample was screened towards Connecting Ridge on coarse slope (not on the fine-scale full
    metric that binds it). It is not a global census, and the comparison also reflects how unusual
-   each lunar target is within its own population. None of the usable Connecting Ridge cells
-   (L1 or L2) has yet been through the B10 visual review (§7, column "of which B10-unreviewed").
+   each lunar target is within its own population. No usable Connecting Ridge cell that is still
+   kept (not downgraded) has yet been through the B10 visual review; the one reviewed L2 cell
+   (Gêrzê) was downgraded (§7, columns "B10-downgraded" and "of which B10-unreviewed").
 2. **L2: the Sun geometry of the lunar south pole has no Earth analog** (best σ ≈ 13.9, as
    pre-registered in A7); only the terrain-shadow part transfers (10 cell-level TRANSFERS).
 3. **M1 fails its pre-registered stop rule.** At pixel level, Semail (Oman) passes and both decoys
