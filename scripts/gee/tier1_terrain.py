@@ -135,7 +135,10 @@ def cells_for(bbox: tuple[float, float, float, float]) -> ee.FeatureCollection:
             },
         )
 
-    return keep.map(tidy).filter(ee.Filter.notNull(["slope_p50_90m"]))
+    # Drop cells with no DEM coverage BEFORE map(): null elev_max/min would make
+    # ee.Number(null).subtract() fail the whole export.
+    keep = keep.filter(ee.Filter.notNull(["slope_median", "elev_max", "elev_min"]))
+    return keep.map(tidy)
 
 
 def finalize(df: pd.DataFrame) -> pd.DataFrame:
@@ -174,8 +177,10 @@ def asset_id(project: str, name: str) -> str:
     return f"projects/{project}/assets/tier1_terrain_{name}"
 
 
-def mode_export(project: str) -> None:
+def mode_export(project: str, only: list[str] | None = None) -> None:
     for name, bbox in REGIONS.items():
+        if only and name not in only:
+            continue
         task = ee.batch.Export.table.toAsset(
             collection=cells_for(bbox),
             description=f"tier1_terrain_{name}",
@@ -219,13 +224,14 @@ def main() -> None:
     ap.add_argument("--mode", choices=["test", "export", "status", "collect"], default="test")
     ap.add_argument("--bbox", default="-95,72,-80,78", help="minlon,minlat,maxlon,maxlat")
     ap.add_argument("--out", default=str(RAW_DIR / "tier1_test.csv"))
+    ap.add_argument("--regions", default="", help="comma list for --mode export")
     args = ap.parse_args()
     project = init()
     if args.mode == "test":
         bbox = tuple(float(v) for v in args.bbox.split(","))
         mode_test(bbox, Path(args.out))
     elif args.mode == "export":
-        mode_export(project)
+        mode_export(project, [r for r in args.regions.split(",") if r] or None)
     elif args.mode == "status":
         mode_status()
     else:
