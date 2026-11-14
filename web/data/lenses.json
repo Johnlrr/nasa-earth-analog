@@ -33,7 +33,28 @@
    "shackleton_rim"
   ],
   "primary_target": "connecting_ridge",
-  "ledger": "ledger/moon.yaml"
+  "ledger": "ledger/moon.yaml",
+  "verdict_variables": {
+   "slope_roughness": {
+    "descriptors": [
+     "slope_p50",
+     "slope_p90",
+     "frac_gt8",
+     "frac_gt15",
+     "frac_gt20",
+     "rms_s1",
+     "rms_s2",
+     "rms_s4",
+     "rms_s8",
+     "rms_s16",
+     "hurst"
+    ],
+    "rule": "cell TRANSFERS when in the A12 robust set (native rank >= n_native/2 under configs i, ii, iii)"
+   }
+  },
+  "unobserved_variables": [
+   "Metre-scale boulders and craters < 60 m: below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
+  ]
  },
  {
   "id": "L2",
@@ -76,7 +97,27 @@
   ],
   "primary_target": "connecting_ridge",
   "expectation_note": "Astro part very likely no-analog on Earth (needs lat >= ~83-86 deg). Valid result, reported as a number.",
-  "ledger": "ledger/moon.yaml"
+  "ledger": "ledger/moon.yaml",
+  "verdict_variables": {
+   "sun_geometry": {
+    "descriptors": [
+     "lowsun_frac_daylight",
+     "lowsun_az_coverage"
+    ],
+    "rule": "lens-level: NO-ANALOG when fidelity no_analog (best sigma > 2), value = best sigma"
+   },
+   "shadow_casting": {
+    "descriptors": [
+     "shadow_e2",
+     "shadow_e5",
+     "shadow_e7"
+    ],
+    "rule": "cell TRANSFERS when native_rank(d_shadow) >= n_native/2 (rank/seed cells only)"
+   }
+  },
+  "unobserved_variables": [
+   "Horizon occlusion beyond 10 km: shadows are computed inside the 10 km chip only, on both sides"
+  ]
  },
  {
   "id": "M1",
@@ -155,6 +196,39 @@
    "connectivity": 8,
    "pass_largest_patch_km2": 0.1
   },
+  "verdict_variables": {
+   "mg_carbonate_serpentine_2p3um": {
+    "test": "Rover VSWIR mineral mapping and sampling of Mg-carbonate / serpentine (Jezero margin)",
+    "targets": [
+     "jezero_margin"
+    ],
+    "source": "data/derived/earth_M1_pixels.parquet (B13), rules pixel_match (B14a/B14b)",
+    "rule": "TRANSFERS per cell when largest_patch_km2 >= 0.1 AND m1_controls_pass; NO-ANALOG when < 0.1",
+    "gate_flag": "data/derived/m1_stop_rule.json: m1_controls_pass"
+   },
+   "olivine_1um": {
+    "test": "Rover VSWIR detection of olivine (Nili Fossae / Jezero watershed)",
+    "targets": [
+     "nili_fossae_olivine"
+    ],
+    "source": "data/derived/earth_M1_pixels.parquet (B13)",
+    "rule": "same as above",
+    "confidence": "low",
+    "reason_note": "low confidence: OLINDEX only, continuum-sensitive"
+   }
+  },
+  "unobserved": [
+   {
+    "variable": "hydration_1p4_1p9um",
+    "reason": "Hydration bands at 1.4 and 1.9 um are hidden by Earth's atmosphere in EMIT (CRISM's most sensitive water indicators)",
+    "facility": "In situ VSWIR spectrometer or laboratory spectroscopy of field samples"
+   },
+   {
+    "variable": "serpentine_vs_mg_carbonate",
+    "reason": "Not separable with 2.3 um alone: the 2.5 um anchor sits at the EMIT edge",
+    "facility": "In situ XRD / Raman or laboratory mineralogy"
+   }
+  ],
   "unobserved_variables": [
    "Hydration bands at 1.4 and 1.9 um: hidden by Earth's atmosphere in EMIT (CRISM's most sensitive water indicators)",
    "Serpentine vs Mg-carbonate: not separable with 2.3 um alone (2.5 um anchor at the EMIT edge)"
@@ -231,6 +305,23 @@
     "Freeze-thaw days: MODIS clear-sky land-surface temperature (day > 0 C and night < 0 C)"
    ]
   },
+  "verdict_variables": {
+   "ice_under_dry_overburden": {
+    "test": "1 m ice drill, ground-penetrating radar and neutron spectrometer on shallow ground ice under a dry overburden",
+    "targets": [
+     "arcadia_planitia"
+    ],
+    "source": "data/derived/x1_checklist.parquet (B15: cond_permafrost, cond_no_thaw_to_ice, cond_dry_overburden, ice_check, candidate)",
+    "rule": "TRANSFERS when candidate (all 3 conditions, not glacier ice); NO-ANALOG listing the failed conditions; evidence max engine-semiquant"
+   }
+  },
+  "unobserved": [
+   {
+    "variable": "overburden_dielectric",
+    "reason": "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables",
+    "facility": "In situ GPR survey on the candidate site"
+   }
+  ],
   "unobserved_variables": [
    "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables"
   ],

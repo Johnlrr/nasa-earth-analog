@@ -89,6 +89,10 @@ def engine_z(lens: dict, earth: pd.DataFrame, targets: pd.DataFrame) -> pd.DataF
 
 def main() -> None:
     fid, ztab_prov, provisional = load_fidelity()
+    vpath = DERIVED / "verdicts.parquet"  # A15: single verdict source (B16 only reads it)
+    verdicts = pd.read_parquet(vpath) if vpath.exists() else None
+    ppath = DERIVED / "earth_M1_pixels.parquet"  # B13 matched area
+    pixels = pd.read_parquet(ppath) if ppath.exists() else None
     lenses = io.load_lenses()
     seeds = seed_meta()
     controls = {}
@@ -117,11 +121,19 @@ def main() -> None:
         if lens.get("analog_targets"):
             f = f[f["target_id"].isin(lens["analog_targets"])]
         best = disc.best_target(f)
+        # A15 single source: qualified cells and the target they qualify for
+        transfers = disc.transfers_cells(verdicts, lens_id)
+        if transfers:
+            vt = f[[c in transfers and transfers[c] in (None, t)
+                    for c, t in zip(f["cell_id"], f["target_id"], strict=True)]]
+            best = pd.concat([disc.best_target(vt),
+                              best[~best["cell_id"].isin(set(vt["cell_id"]))]],
+                             ignore_index=True)
         ztab = ztab_prov if ztab_prov is not None else engine_z(lens, earth, targets)
 
         # 1st pass: names + attention for every candidate passing fidelity that has none yet
         att, _ = attention_table()
-        pre = disc.select_hidden(best, earth, att, lens, per_lens=15,
+        pre = disc.select_hidden(best, earth, att, lens, per_lens=15, transfers=transfers,
                                  keep_unknown_attention=True)
         names = []
         for _, r in pre.iterrows():
@@ -145,7 +157,7 @@ def main() -> None:
                             "--only-missing"], check=False, timeout=900)
         att, att_df = attention_table()
         att_q = att_df.set_index("key")
-        hidden = disc.select_hidden(best, earth, att, lens, per_lens=5)
+        hidden = disc.select_hidden(best, earth, att, lens, per_lens=5, transfers=transfers)
 
         cn_path = DERIVED / "candidate_names.csv"
         cname = (pd.read_csv(cn_path).set_index("key") if cn_path.exists()
@@ -163,6 +175,8 @@ def main() -> None:
                 zr = zz.iloc[0] if len(zz) else None
             tr = tref.loc[row["target_id"]] if row["target_id"] in tref.index else None
             ls = disc.lens_score(row, lens, zr, tr, er)
+            if lens_id == "M1":
+                ls.update(disc.pixel_match_for(pixels, cid, str(row["target_id"])))
             if cid in seeds:
                 s = seeds[cid]
                 name, country, klass = s["name"], s["country"], s.get("class")
@@ -211,6 +225,8 @@ def main() -> None:
                 "in_exclusion_buffer": bool(er["in_exclusion_buffer"]),
                 "evidence_status": status, "evidence_note": note.strip(),
                 "data_sources": disc.DATA_SOURCES[lens_id],
+                "analog_role": disc.ANALOG_ROLE[lens_id],
+                "verdicts": disc.verdicts_for(verdicts, lens_id, cid, str(row["target_id"])),
             }
             return disc.feature(props)
 
@@ -226,7 +242,7 @@ def main() -> None:
                 continue
             row = rows.sort_values(score).iloc[0]
             features.append(build(row, "decoy" if c["role"] == "decoy" else "control"))
-        pending = disc.select_hidden(best, earth, att, lens, per_lens=5,
+        pending = disc.select_hidden(best, earth, att, lens, per_lens=5, transfers=transfers,
                                      keep_unknown_attention=True)
         n_unknown = int(pending["attention_n"].isna().sum()) if len(pending) else 0
         scored = set(f["cell_id"])
@@ -260,6 +276,8 @@ def main() -> None:
     doc = {"type": "FeatureCollection",
            "metadata": {"generated": dt.datetime.now().isoformat(timespec="minutes"),
                         "provisional": provisional, "mock": False, "lenses": summary,
+                        "verdicts_source": "data/derived/verdicts.parquet (A15)"
+                        if verdicts is not None else None,
                         "thresholds": {"percentile_min": disc.PERCENTILE_MIN,
                                        "sigma_max_without_percentile": disc.SIGMA_MAX_NO_PCT,
                                        "attention_max": disc.ATTENTION_MAX}},

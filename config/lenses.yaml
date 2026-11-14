@@ -148,7 +148,30 @@
     #   decoy is rejected   when largest_patch_km2 <  0.1
     pass_largest_patch_km2: 0.1
     # Null footprints: the existing B5 null set (sample_role == null), not re-drawn.
-  unobserved_variables:
+  # A15 contract (added 14/11 ~20:30; should have been declared with B14a): variable -> test,
+  # source table and rule. verdicts.parquet rows use these variable ids.
+  verdict_variables:
+    mg_carbonate_serpentine_2p3um:
+      test: "Rover VSWIR mineral mapping and sampling of Mg-carbonate / serpentine (Jezero margin)"
+      targets: [jezero_margin]
+      source: "data/derived/earth_M1_pixels.parquet (B13), rules pixel_match (B14a/B14b)"
+      rule: "TRANSFERS per cell when largest_patch_km2 >= 0.1 AND m1_controls_pass; NO-ANALOG when < 0.1"
+      gate_flag: "data/derived/m1_stop_rule.json: m1_controls_pass"
+    olivine_1um:
+      test: "Rover VSWIR detection of olivine (Nili Fossae / Jezero watershed)"
+      targets: [nili_fossae_olivine]
+      source: "data/derived/earth_M1_pixels.parquet (B13)"
+      rule: "same as above"
+      confidence: low
+      reason_note: "low confidence: OLINDEX only, continuum-sensitive"
+  unobserved:
+    - variable: hydration_1p4_1p9um
+      reason: "Hydration bands at 1.4 and 1.9 um are hidden by Earth's atmosphere in EMIT (CRISM's most sensitive water indicators)"
+      facility: "In situ VSWIR spectrometer or laboratory spectroscopy of field samples"
+    - variable: serpentine_vs_mg_carbonate
+      reason: "Not separable with 2.3 um alone: the 2.5 um anchor sits at the EMIT edge"
+      facility: "In situ XRD / Raman or laboratory mineralogy"
+  unobserved_variables:   # legacy plain-text list (kept for the web 'Data & limits' text)
     - "Hydration bands at 1.4 and 1.9 um: hidden by Earth's atmosphere in EMIT (CRISM's most sensitive water indicators)"
     - "Serpentine vs Mg-carbonate: not separable with 2.3 um alone (2.5 um anchor at the EMIT edge)"
   gates: {ndvi_max: 0.15, emit_coverage: true, lat_abs_max: 52, min_valid_pixels: 50}
@@ -200,6 +223,16 @@
     data_notes:
       - "MAAT: ERA5-Land soil temperature 28-100 cm = reanalysis model output on a ~9 km grid, not an observation"
       - "Freeze-thaw days: MODIS clear-sky land-surface temperature (day > 0 C and night < 0 C)"
+  verdict_variables:
+    ice_under_dry_overburden:
+      test: "1 m ice drill, ground-penetrating radar and neutron spectrometer on shallow ground ice under a dry overburden"
+      targets: [arcadia_planitia]
+      source: "data/derived/x1_checklist.parquet (B15: cond_permafrost, cond_no_thaw_to_ice, cond_dry_overburden, ice_check, candidate)"
+      rule: "TRANSFERS when candidate (all 3 conditions, not glacier ice); NO-ANALOG listing the failed conditions; evidence max engine-semiquant"
+  unobserved:
+    - variable: overburden_dielectric
+      reason: "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables"
+      facility: "In situ GPR survey on the candidate site"
   unobserved_variables:
     - "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables"
   ledger: ledger/mars.yaml

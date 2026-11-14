@@ -25,5 +25,6 @@
   "simpson_desert_rejected": true
  },
  "verdict": "FAIL",
- "consequence": "M1 is presented only as a method illustration on 4 sites plus the negative result at footprint scale; no M1 hidden analog is published (seeds/rank results are recorded, not published)."
+ "consequence": "M1 is presented only as a method illustration on 4 sites plus the negative result at footprint scale; no M1 hidden analog is published (seeds/rank results are recorded, not published).",
+ "m1_controls_pass": false
 }

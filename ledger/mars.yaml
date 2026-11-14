@@ -3,73 +3,87 @@ lens_ids: [M1, X1]
 updated: 2026-11-14
 items:
   - id: gravity
+    variable: gravity
     quantity: Surface gravity
     earth: {value: 9.82, unit: m/s^2}
     target: {value: 3.73, unit: m/s^2}
     ratio_target_over_earth: 0.380
     consequence: "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not."
     mitigation: "Reduced-gravity offload rig, parabolic flight"
+    facility: "Reduced-gravity offload rig, parabolic flight"
     applies_to: [M1, X1]
     source: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
     source_note: "Fact sheet mean 3.73 m/s2 (DESIGN.md had 3.71); Earth mean 9.820 from https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
   - id: angle_of_repose
+    variable: angle_of_repose
     quantity: Angle of repose of loose granular material (gravity dependence)
     earth: {value: 40, unit: deg, note: "angular grains, time-averaged at 1 g"}
     target: {value: null, unit: deg, note: "tested at 0.38 g among others; static angle rises ~5 deg, dynamic angle falls ~10 deg in reduced gravity"}
     ratio_target_over_earth: null
     consequence: "Slope-failure and avalanche behavior do not transfer 1:1 from Earth."
     mitigation: "Parabolic-flight drum tests with the actual simulant"
+    facility: "Parabolic-flight drum tests with the actual simulant"
     applies_to: [X1]
     source: "https://doi.org/10.1029/2011JE003865"
     source_note: "Kleinhans et al. 2011, JGR Planets 116, E11004; abstract read via https://dare.uva.nl/id/18109ef6-2d5a-4280-9181-072ce10b5238. A later Martian dune study reportedly disputes gravity dependence."
   - id: atmospheric_pressure
+    variable: atmospheric_pressure
     quantity: Surface pressure
     earth: {value: 101400, unit: Pa, note: "1014 mb"}
     target: {value: 636, unit: Pa, note: "6.36 mb at mean radius; seasonal range 4.0-8.7 mb; 95.1% CO2"}
     ratio_target_over_earth: 0.0063
     consequence: "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them."
     mitigation: "Mars-pressure CO2 chamber"
+    facility: "Mars-pressure CO2 chamber"
     applies_to: [M1, X1]
     source: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
     source_note: "Fact sheet: 6.36 mb mean radius, 4.0-8.7 mb seasonal; Earth 1014 mb from earthfact.html"
   - id: day_night_cycle
+    variable: day_night_cycle
     quantity: Length of day
     earth: {value: 24.0, unit: h}
     target: {value: 24.6597, unit: h}
     ratio_target_over_earth: 1.027
     consequence: "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not."
     mitigation: "None needed for the cycle itself"
+    facility: "None needed for the cycle itself"
     verdict: TRANSFERS   # A15: structured field read by build_verdicts.py (default NO-ANALOG)
     applies_to: [M1, X1]
     source: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
     source_note: "Fact sheet 'Length of day' 24.6597 h; Earth 24.0000 h from earthfact.html"
   - id: radiation_dose
+    variable: radiation_dose
     quantity: Surface radiation dose equivalent rate (GCR)
     earth: {value: 0.0066, unit: mSv/day, note: "2.4 mSv/yr worldwide average natural background (UNSCEAR 2008) divided by 365"}
     target: {value: 0.67, unit: mSv/day, note: "MSL RAD at Gale crater, Aug 2012 to Jun 2013 average GCR dose equivalent rate"}
     ratio_target_over_earth: 102
     consequence: "Cumulative dose to crew and electronics cannot be reproduced by any field site."
     mitigation: "Accelerator or isotope-source irradiation of components"
+    facility: "Accelerator or isotope-source irradiation of components"
     applies_to: [M1, X1]
     source: "https://swri.org/node/9079"
     source_note: "SwRI press release quoting Hassler et al., Science 2014 (doi 10.1126/science.1244797): 'average GCR dose equivalent rate of 0.67 millisieverts per day'. Paper itself paywalled and not opened, so the figure is from the press release. Earth: https://www.cnsc-ccsn.gc.ca/eng/resources/fact-sheets/natural-background-radiation/ (cites UNSCEAR 2008)."
   - id: temperature
+    variable: temperature
     quantity: Surface temperature
     earth: {value: 288, unit: K, note: "global mean"}
     target: {value: 214, unit: K, note: "mean; Viking 1 site range 184-242 K"}
     ratio_target_over_earth: 0.743
     consequence: "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites."
     mitigation: "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies"
+    facility: "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies"
     applies_to: [M1, X1]
     source: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
     source_note: "Fact sheet 'about 214 K' (DESIGN.md had ~210 K); Earth 288 K from earthfact.html"
   - id: perchlorate
+    variable: perchlorate
     quantity: Perchlorate content of soil
     earth: {value: null, unit: wt%, note: "not verified for Earth soils"}
     target: {value: 0.5, unit: wt%, note: "0.4 to 0.6% perchlorate by mass in leachate at Phoenix site; midpoint is derived"}
     ratio_target_over_earth: null
     consequence: "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils."
     mitigation: "Dope simulant with perchlorate salts"
+    facility: "Dope simulant with perchlorate salts"
     applies_to: [M1, X1]
     source: "https://experts.arizona.edu/en/publications/detection-of-perchlorate-and-the-soluble-chemistry-of-martian-soi/"
     source_note: "Hecht et al. 2009 Science 325:64 (doi 10.1126/science.1172466), abstract: '0.4 to 0.6% perchlorate (ClO4) by mass leached from each sample'."

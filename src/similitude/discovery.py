@@ -193,22 +193,41 @@ def control_cell_ids(control_id: str) -> tuple[str, str]:
     return f"ctl_{control_id}", f"CTRL_{control_id}"
 
 
+def transfers_cells(verdicts: pd.DataFrame | None, lens_id: str) -> dict[str, str] | None:
+    """Cells with a cell-level TRANSFERS verdict for the lens -> their target (A15 single source).
+
+    Returns None when there is no verdict table (then discovery falls back to the fidelity
+    threshold), an empty dict when the table has no TRANSFERS cell for the lens (no candidates).
+    """
+    if verdicts is None:
+        return None
+    v = verdicts[(verdicts["lens_id"] == lens_id) & (verdicts["state"] == "TRANSFERS")
+                 & ~verdicts["cell_id"].map(_blank)]
+    return {str(r.cell_id): (None if _blank(r.target_id) else str(r.target_id))
+            for r in v.itertuples()}
+
+
 def select_hidden(fid_best: pd.DataFrame, earth: pd.DataFrame, attention: dict, lens: dict,
-                  per_lens: int = 5, keep_unknown_attention: bool = False) -> pd.DataFrame:
+                  per_lens: int = 5, keep_unknown_attention: bool = False,
+                  transfers: dict[str, str] | None = None) -> pd.DataFrame:
     """Hidden-analog candidates of one lens.
 
     Steps: role in rank/seed -> gates -> in_exclusion_buffer False (the ONLY place the flag
-    filters) -> fidelity threshold -> attention <= ATTENTION_MAX -> NMS by footprint -> top
-    ``per_lens``. B16: an unknown attention count means "not known", never "hidden"; unknown
-    cells are kept only when ``keep_unknown_attention`` (the pre-pass that looks up names and
-    attention for them).
+    filters) -> qualification -> attention <= ATTENTION_MAX -> NMS by footprint -> top
+    ``per_lens``. Qualification = a cell-level TRANSFERS verdict from verdicts.parquet (A15,
+    ``transfers``) when that table exists; otherwise the fidelity threshold (``passes_fidelity``).
+    B16: an unknown attention count means "not known", never "hidden"; unknown cells are kept
+    only when ``keep_unknown_attention`` (the pre-pass that looks up names and attention).
     """
     e = earth[gate_mask(earth, lens)]
     e = e[e["sample_role"].isin(CANDIDATE_ROLES) & ~e["in_exclusion_buffer"].astype(bool)]
     m = fid_best.merge(e, on="cell_id", how="inner", suffixes=("", "_earth"))
     if m.empty:
         return m
-    m = m[m.apply(passes_fidelity, axis=1)]
+    if transfers is not None:
+        m = m[m["cell_id"].isin(set(transfers))]
+    else:
+        m = m[m.apply(passes_fidelity, axis=1)]
     if m.empty:
         return m
     m = m.assign(attention_n=[attention.get(attention_key(r)) for _, r in m.iterrows()])
@@ -271,11 +290,90 @@ def lens_score(row, lens: dict, z_row=None, target_row=None, earth_row=None) -> 
     for k in ("d_shadow", "sigma_shadow"):
         if _clean(row.get(k)) is not None:
             out[k] = round(float(row[k]), 3)
+    for k in ("native_rank", "n_native"):  # A11 (L1: d, L2: d_shadow); empty for M1/X1
+        if _clean(row.get(k)) is not None:
+            out[k] = int(row[k])
+    if not _blank(row.get("native_rank_basis")):
+        out["native_rank_basis"] = str(row["native_rank_basis"])
     if z_row is not None and target_row is not None and earth_row is not None:
         out["descriptors"] = {
             d: {"earth": _round(earth_row.get(d)), "target": _round(target_row.get(d)),
                 "z": _round(z_row.get(f"z_{d}"), 2)}
             for d in lens["descriptors"]}
+    return out
+
+
+#: B16 analog role shown on the Test Card (review 3.4). ``ice-configuration`` added for X1.
+ANALOG_ROLE = {"M1": "aqueous", "L1": "terrain", "L2": "terrain", "X1": "ice-configuration"}
+VERDICT_STATES = ("TRANSFERS", "NO-ANALOG", "UNOBSERVED")
+
+
+def _blank(v) -> bool:
+    return v is None or (isinstance(v, float) and math.isnan(v)) or (isinstance(v, str) and not v)
+
+
+def _ledger_variables(lens_id: str) -> set[str]:
+    lens = io.load_lenses()[lens_id]
+    ledger = io.load_yaml(io.REPO_ROOT / lens["ledger"])
+    return {str(it.get("variable", it["id"])) for it in ledger["items"]}
+
+
+def verdicts_for(verdicts: pd.DataFrame | None, lens_id: str, cell_id: str,
+                 target_id: str | None = None) -> list[dict]:
+    """B16: verdict rows of one cell (+ the lens-level rows) read from verdicts.parquet (A15).
+
+    Never generates a verdict: with no table, returns an empty list. Cell-level rows first,
+    ordered TRANSFERS -> NO-ANALOG -> UNOBSERVED. Lens-level rows kept on a card: rows with no
+    target (physics / unobserved, they apply to every site) and NO-ANALOG / UNOBSERVED rows of
+    the card's own target. Lens-level TRANSFERS rows are set summaries ("N cells transfer") and
+    are NOT shown as if they were this site's verdict.
+    """
+    if verdicts is None or verdicts.empty:
+        return []
+    v = verdicts[verdicts["lens_id"] == lens_id]
+    cell = v[v["cell_id"].astype(str) == str(cell_id)]
+    if target_id is not None:
+        cell = cell[cell["target_id"].map(_blank) | (cell["target_id"] == target_id)]
+    lens_level = v[v["cell_id"].map(_blank)]
+    is_transfer = lens_level["state"] == "TRANSFERS"
+    own_target = (lens_level["target_id"] == target_id) & ~is_transfer
+    no_target = lens_level["target_id"].map(_blank)
+    # a lens-level TRANSFERS without target is shown only for Transfer-Ledger physics (e.g. day
+    # length); any other one is a set summary
+    physics = no_target & (~is_transfer | lens_level["variable"].isin(_ledger_variables(lens_id)))
+    lens_level = lens_level[physics | own_target]
+    out = []
+    for scope, part in (("cell", cell), ("lens", lens_level)):
+        for _, r in part.iterrows():
+            val = r.get("value")
+            out.append({"lens": lens_id, "scope": scope, "test": str(r["test"]),
+                        "variable": str(r["variable"]), "state": str(r["state"]),
+                        "value": None if _blank(val) else (round(float(val), 4)
+                                                           if isinstance(val, (int, float))
+                                                           else str(val)),
+                        "reason": None if _blank(r.get("reason")) else str(r["reason"]),
+                        "facility": None if _blank(r.get("facility")) else str(r["facility"])})
+    order = {s: i for i, s in enumerate(VERDICT_STATES)}
+    return sorted(out, key=lambda x: (x["scope"] != "cell", order.get(x["state"], 9)))
+
+
+def pixel_match_for(pixels: pd.DataFrame | None, cell_id: str, target_id: str) -> dict:
+    """M1 matched area of a cell vs a target from earth_M1_pixels.parquet (B13), if available."""
+    if pixels is None or pixels.empty or "largest_patch_km2" not in pixels:
+        return {}
+    out = {}
+    # A14-relocated footprint (rule-based, e.g. Lake Salda) is the one judged; original kept too
+    for cid, key in ((f"{cell_id}__relocated", "relocated"), (cell_id, "original")):
+        r = pixels[(pixels["cell_id"] == cid) & (pixels["target_id"] == target_id)]
+        if r.empty or r["largest_patch_km2"].isna().all():
+            continue
+        r = r.iloc[0]
+        if not out:
+            out = {"matched_area_km2": round(float(r["matched_area_km2"]), 3),
+                   "largest_patch_km2": round(float(r["largest_patch_km2"]), 3),
+                   "pixel_footprint": key}
+        else:
+            out["largest_patch_km2_original"] = round(float(r["largest_patch_km2"]), 3)
     return out
 
 
