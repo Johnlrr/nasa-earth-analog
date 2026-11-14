@@ -213,6 +213,24 @@
   "ledger_only_targets": [
    "shackleton_psr"
   ],
+  "checklist": {
+   "permafrost": {
+    "rule": "maat_c <= -1",
+    "basis": "permafrost_flag midpoint; Beacon Valley MAAT -40 C, Mars mid-latitude ~ -60 C"
+   },
+   "no_thaw_to_ice": {
+    "rule": "ft_yr <= 20",
+    "basis": "Mars: no liquid-water freeze-thaw at the surface (0). Beacon Valley 0; polar deserts 8-13 d/yr; registered wet-permafrost decoys 33-37; Tibet/Pamir 160-230. 20 d/yr chosen after seeing these values."
+   },
+   "dry_overburden": {
+    "rule": "aridity_p_pet <= 0.5",
+    "basis": "UNEP aridity-index upper bound of the semi-arid class (0.5), applied to P / max(PET, 500 mm) (PET floor, see descriptors/ice.py). Beacon Valley 0.21; Mars 0."
+   },
+   "data_notes": [
+    "MAAT: ERA5-Land soil temperature 28-100 cm = reanalysis model output on a ~9 km grid, not an observation",
+    "Freeze-thaw days: MODIS clear-sky land-surface temperature (day > 0 C and night < 0 C)"
+   ]
+  },
   "unobserved_variables": [
    "Overburden dielectric properties (radar / GPR response): no global Earth dataset matched to SWIM radar observables"
   ],
