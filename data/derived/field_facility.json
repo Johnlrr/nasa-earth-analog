@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15 01:03",
+ "generated": "2026-11-15 01:25",
  "contract": "config/sites.yaml",
  "cluster_km": 150.0,
  "target_labels": {
@@ -32,7 +32,7 @@
    "showcase": "a",
    "lenses_engine_confirmed": "L1",
    "lenses_engine_semiquant": "",
-   "b10_unreviewed_cells": "E10K_453_921,E10K_465_927",
+   "b10_unreviewed_cells": "E10K_465_927",
    "lenses_literature_only": "",
    "lenses_hypothesis": "",
    "hidden_status": "unknown: attention not known",
@@ -148,7 +148,7 @@
    "showcase": "a",
    "lenses_engine_confirmed": "L2",
    "lenses_engine_semiquant": "",
-   "b10_unreviewed_cells": "E10K_244_-1498",
+   "b10_unreviewed_cells": "",
    "lenses_literature_only": "",
    "lenses_hypothesis": "",
    "hidden_status": "no: inside known-analog buffer",
@@ -277,7 +277,7 @@
    "showcase": "a,b",
    "lenses_engine_confirmed": "L1",
    "lenses_engine_semiquant": "X1",
-   "b10_unreviewed_cells": "E10K_729_-319",
+   "b10_unreviewed_cells": "",
    "lenses_literature_only": "",
    "lenses_hypothesis": "",
    "hidden_status": "unknown: attention not known",

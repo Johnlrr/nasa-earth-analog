@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-15 01:03 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 01:25 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 
@@ -8,16 +8,16 @@ Both columns of a comparison must use the same filter (e.g. *usable* vs *usable*
 
 | Lens | Target | TRANSFERS cells | ice ok / flag / excluded | usable | usable outside known-analog buffers | sites | usable, not B10-downgraded (incl. unreviewed) | of which B10-unreviewed |
 |---|---|---|---|---|---|---|---|---|
-| L1 | Connecting Ridge (Site01) | 5 | 1 / 1 / 3 | 2 | 2 | 2 | 2 | 2 |
+| L1 | Connecting Ridge (Site01) | 5 | 1 / 1 / 3 | 2 | 2 | 2 | 2 | 0 |
 | L1 | Shackleton inner wall (Site04 centre) | 99 | 90 / 3 / 6 | 93 | 54 | 27 | 93 | 90 |
-| L2 | Connecting Ridge (Site01) | 3 | 2 / 0 / 1 | 2 | 1 | 2 | 1 | 1 |
+| L2 | Connecting Ridge (Site01) | 3 | 2 / 0 / 1 | 2 | 1 | 2 | 1 | 0 |
 | L2 | Shackleton inner wall (Site04 centre) | 7 | 5 / 1 / 1 | 6 | 4 | 5 | 4 | 2 |
 
 ## Da Qaidam, northern Qaidam Basin margin (Qinghai)
 
 `site:E10K_453_921` · 38.64, 96.00 · 2 member cell(s) · span 143 km · ice ok/flag 2/0 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule a
 
-Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_453_921,E10K_465_927
+Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_465_927
 
 > Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain. Not presented as hidden.
 
@@ -42,7 +42,7 @@ Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_453_921,E10K_4
 
 `site:E10K_244_-1498` · 19.45, -155.50 · 1 member cell(s) · span 0 km · ice ok/flag 1/0 · in known-analog buffer 1 · Attention unknown · hidden: no: inside known-analog buffer · showcase rule a
 
-Engine-confirmed: **L2** · not yet visually reviewed (B10): E10K_244_-1498
+Engine-confirmed: **L2**
 
 > Known analog region (inside exclusion buffer).
 
@@ -70,7 +70,7 @@ L2 cells, snow-free fraction of the year (MODIS; seasonal snow is the risk that 
 
 `site:E10K_729_-319` · 82.62, -33.07 · 1 member cell(s) · span 0 km · ice ok/flag 0/1 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule a,b
 
-Engine-confirmed: **L1** · engine-semiquant: **X1** · not yet visually reviewed (B10): E10K_729_-319
+Engine-confirmed: **L1** · engine-semiquant: **X1**
 
 > DESIGN 2.5 #6 proposed Peary Land for L2 (low Sun); the engine does NOT confirm L2 there (sun geometry is NO-ANALOG everywhere). It confirms L1 instead, through a rank cell found by the coarse screen (not the seed), 20 km from the X1 seed, and X1, which is only engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley; the X1 seed list was committed together with the first X1 scores, so it is not provably pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored sample (X1 has 8 cell-level TRANSFERS, M1 none).
 

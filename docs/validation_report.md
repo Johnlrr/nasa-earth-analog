@@ -344,9 +344,9 @@ Figures are drawn from the same tables by `scripts/figures_report.py`.
 <!-- BEGIN:scarcity -->
 | lens | target | TRANSFERS cells | ice ok | ice flag | ice excluded | usable | usable outside known-analog buffers | sites | usable, B10-downgraded | usable, not B10-downgraded (incl. unreviewed) | of which B10-unreviewed |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| L1 | Connecting Ridge (Site01) | 5 | 1 | 1 | 3 | 2 | 2 | 2 | 0 | 2 | 2 |
+| L1 | Connecting Ridge (Site01) | 5 | 1 | 1 | 3 | 2 | 2 | 2 | 0 | 2 | 0 |
 | L1 | Shackleton inner wall (Site04 centre) | 99 | 90 | 3 | 6 | 93 | 54 | 27 | 0 | 93 | 90 |
-| L2 | Connecting Ridge (Site01) | 3 | 2 | 0 | 1 | 2 | 1 | 2 | 1 | 1 | 1 |
+| L2 | Connecting Ridge (Site01) | 3 | 2 | 0 | 1 | 2 | 1 | 2 | 1 | 1 | 0 |
 | L2 | Shackleton inner wall (Site04 centre) | 7 | 5 | 1 | 1 | 6 | 4 | 5 | 2 | 4 | 2 |
 <!-- END:scarcity -->
 
@@ -380,10 +380,10 @@ Figures are drawn from the same tables by `scripts/figures_report.py`.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 54 | 1108 | L1,L2 |  |  | 53 | M1 | 1 | 40 | — | no: inside known-analog buffer | b |
 | Zanda (Tsamda) and Gar, Ngari, western Tibet | 5 | 206 | L1 |  |  | 5 |  | 0 | 0 | — | unknown: attention not known | c |
-| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 2 |  | 0 | 0 | — | unknown: attention not known | a |
-| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 1 |  | 0 | 1 | — | no: inside known-analog buffer | a |
+| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 1 |  | 0 | 0 | — | unknown: attention not known | a |
+| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 0 |  | 0 | 1 | — | no: inside known-analog buffer | a |
 | Jebel Akhdar, Hajar Mountains (Oman) | 1 | 0 | L2 |  |  | 0 | M1 | 0 | 0 | — | unknown: attention not known | b |
-| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 1 |  | 1 | 0 | — | unknown: attention not known | a,b |
+| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | — | unknown: attention not known | a,b |
 <!-- END:sites -->
 
 ## 8. Deviations from pre-registration

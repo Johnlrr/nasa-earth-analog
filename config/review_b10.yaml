@@ -62,3 +62,16 @@ features:
   L2-E10K_341_539:
     action: keep
     note: "S2 check: bare eroded terrain, no visible disturbance."
+  # ---- B17 (15/11 ~01:40): every Connecting Ridge TRANSFERS cell in target_scarcity.usable_cells
+  # (L1 + L2). Sheet: data/raw/review/contact_sheet_B17_CR.png (4 km footprint + 10 km context;
+  # Sentinel-2 L2A median, 2023; >60 deg: Jul-Sep 2023). E10K_413_804 (L2, Gerze) was reviewed
+  # and downgraded above.
+  L1-E10K_453_921:
+    action: keep
+    note: "S2 check (B17): bare, deeply incised mountain rock (Da Qaidam, Qinghai); white streaks are seasonal snow in the annual median (snow_free_frac 0.67), no ice cap, no settlement or mining visible."
+  L1-E10K_729_-319:
+    action: keep
+    note: "S2 check (B17): bare polar-desert ground with snowbanks in gullies and a small lake/ice patch in one corner (ice flag 0.15 kept visible); summer composite at 82.6 N is coarse but shows exposed ground."
+  L2-E10K_244_-1498:
+    action: keep
+    note: "S2 check (B17): bare dark basalt lava flows (Mauna Loa, Hawaii); natural surface. Inside the Hawaii exclusion zone: never 'hidden'; snow_free_frac 0.62 printed on the card."
