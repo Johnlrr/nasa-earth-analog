@@ -267,6 +267,11 @@ Nhãn: **[A]** / **[B]** = chủ sở hữu; **[agent]** = giao được cho age
 - **Earthdata:** máy chủ đăng nhập `urs.earthdata.nasa.gov` không tới được từ mạng của Bảo (timeout IPv4); các máy chủ dữ liệu NASA khác vẫn tới được. Chỉ cần khi M1 phải lùi về EMIT L2B.
 - **Máy Bảo không có `make`.** Dùng `.venv/bin/python -m pytest -q` và `.venv/bin/python -m ruff check .`, hoặc `sudo apt install make`.
 - **Quota proxy:** Claude 4.6 (Opus và Sonnet) trên proxy Antigravity hết lúc 12:50; tài khoản 2 reset 15:16. Việc `[agent]` tới lúc đó chuyển sang Antigravity IDE (Gemini) hoặc làm tay.
+- **Đề xuất cho G1, phần Bảo (Opus 5.5, 15:10; chờ Bảo + Linh chốt):**
+  1. **Giữ L1.** R5 đạt mục đích gốc (descriptor tách được địa điểm, d 4–16). Báo Haughton như một kết quả âm có giải thích ("analog địa chất/EVA, không phải analog phân bố dốc của sống núi cực") — đây là bằng chứng engine không bị "tên tuổi" dẫn dắt. Giữ nguyên `expected: high` đã ghi trước cho Haughton trong báo cáo, không sửa hồi tố.
+  2. **Mục tiêu L1 chính = Connecting Ridge.** Chip `shackleton_rim` (dốc trung vị 31°) giữ trong bảng nhưng đổi nhãn thành "Shackleton inner wall (Site04 centre)" và không dùng làm mục tiêu; không dời chip sau khi đã xem kết quả.
+  3. **Giữ L2** nhưng trình bày tách: `sigma_shadow` (địa hình) là kết quả khám phá; phần thiên văn báo là no-analog có số (đúng kỳ vọng ghi trước ở A7).
+  4. **Bỏ ablation (a) phía Moon** (chưa lấy được chip LROC); giữ ablation (a) cho M1 nếu Linh có chip CTX. Mồi nhử Wadi Rum vẫn chạy trên nhánh phổ.
 - **G1 cần quyết:** (1) R5 trượt theo tiêu chí nhưng đạt mục đích tách biệt — giữ L1 và báo Haughton như một kết quả âm có giải thích, hay đổi cách đo? Không được đổi đối chứng/kỳ vọng hồi tố. (2) Mục tiêu L1 chính là Connecting Ridge; chip Shackleton nên dời sang gờ vành thật hay bỏ.
 - Kết quả G0 về quy định SI (0.1): cần đội xác nhận trước khi triển khai.
 - Nộp slide hay video 30 s? Điểm thi TP. HCM có thuyết trình trực tiếp không?
