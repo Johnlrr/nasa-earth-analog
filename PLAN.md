@@ -304,6 +304,7 @@ Nguyên tắc chung: (1) mọi quy tắc/ngưỡng mới phải được **commi
 - Nộp slide hay video 30 s? Điểm thi TP. HCM có thuyết trình trực tiếp không?
 - Bảo đã đăng ký Earthdata và GEE lúc ~12:05 (chưa xác thực trên máy, chưa có tên project). Linh: chưa rõ. Nếu GEE chưa được duyệt trước 13:45, dùng đường lùi ghi ở 0.2.
 - Kế hoạch giả định Bảo mạnh xử lý raster/Python, Linh mạnh dữ liệu phổ và trình bày. Nếu không đúng, đổi nguyên lát dọc giữa hai người, không đổi từng hạng mục.
+- **A13 → B16 (Linh quyết, 14/11 tối):** Attention cấp ô dùng tên huyện từ reverse-geocode nên gần như luôn = 0 (93/99 ô), kể cả 42 ô trong vùng loại trừ đã biết. Đề xuất: ô `in_exclusion_buffer` không bao giờ được gắn "ẩn" dù Attention = 0, và Test Card ghi rõ Attention đo ở cấp tên huyện. Không đổi ngưỡng `ATTENTION_MAX`.
 
 ## Nhật ký
 - 2026-11-14 · Opus 5.5 · soạn PLAN.md từ DESIGN.md cho đội 2 người; cập nhật phân vai Bảo/Linh, tài khoản, quy tắc nhánh · test: chưa có code
@@ -313,6 +314,7 @@ Nguyên tắc chung: (1) mọi quy tắc/ngưỡng mới phải được **commi
 - 2026-11-14 12:12 · Opus 5.5 · cổng 1 lần 1 = REVISE (7 blocker); đã sửa: lưới phổ 2490 nm + PARAM_TABLE, MICA numerator, mẫu null phân tầng, cờ vùng đệm thay vì xóa, min_scale chống Σ suy biến + kỳ vọng L2 no-analog, chip ảnh LROC/CTX cho ablation, trạng thái engine-semiquant cho X1; thêm footprint 4 km + đệm 3 km, kỳ vọng đối chứng ghi trước, quy tắc cắt L2 tại G1 · test: chưa có code
 
 ### Nhật ký — Bảo (A)
+- 2026-11-14 20:58 · Opus 5.5 · A13 phần lớn xong, **chưa đánh [x]**: `scripts/l1_profile.py` → `cell_profiles.parquet` (108 ô = 102 L1 + 8 L2, trùng 2) + cột `name`/`ice_frac`/`review_note` trong `earth_L1/L2.parquet` + `data/raw/review/l1_contact_sheet.png`. ice_frac: 96 ok, 4 gắn cờ, **8 loại** (> 0,2: Baffin/Nunavut, Himalaya, Andes Nam). Tên đủ 108/108 (DNS WSL không phân giải `nominatim.openstreetmap.org`; chạy với IP ghim trong tiến trình). Attention 99/108: 9 ô thiếu vì OpenAlex hết ngân sách miễn phí ngày (reset 07:00 giờ VN), chạy lại `scripts/l1_profile.py` để điền. **Lưu ý cho B16:** 93/99 ô Attention = 0 vì truy vấn B8 dùng tên cấp huyện (vd "Provincia de Copiapó"), kể cả 42 ô nằm trong vùng loại trừ đã biết (Atacama/Puna, Hawaii) → Attention 0 ở cấp ô **không** chứng minh "ẩn"; xem Câu hỏi mở. Chờ Linh duyệt chéo · test: 155 passed, ruff sạch
 - 2026-11-14 21:10 · Opus 5.5 · A16 xong (`bridge_bias.parquet` sinh trong run_all.py) · test: 151 passed
 - 2026-11-14 21:00 · Opus 5.5 · A15 xong (`verdicts.parquet` 310 dòng, đủ 4 lens; thêm `verdict_variables`/`unobserved_variables` cho L1/L2 vào lenses.yaml, một trường `verdict` vào ledger/mars.yaml của Linh) · test: 151 passed
 - 2026-11-14 20:45 · Opus 5.5 · A12 xong: tập bền vững L1 Connecting Ridge 5 ô, Shackleton rim 99 ô (`l1_robust_set.parquet`; descriptor L = 60 m cache ở `earth_L1_L60.parquet`, `targets_L1_L60.parquet`) · test: 131 passed
