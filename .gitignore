@@ -1,0 +1,4 @@
+# Bản sao lưu DESIGN.md do claude-fable-design tạo
+DESIGN.*.bak.md
+# Cài đặt Claude Code cá nhân
+.claude/settings.local.json
