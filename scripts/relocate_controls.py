@@ -119,7 +119,7 @@ def main() -> None:
     import ee
     from pyproj import Transformer
 
-    ee.Initialize(project=os.environ.get("EE_PROJECT", "similitude-ee"))
+    ee.Initialize(project=os.environ["EE_PROJECT"])
     rows = []
     for pid, lens, lat, lon, fp_km in POINTS:
         mask, epsg, x0, y0 = _mask(ee, lat, lon)

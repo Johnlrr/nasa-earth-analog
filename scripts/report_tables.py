@@ -123,8 +123,14 @@ def t_x1() -> str:
     out = named[["cell_id", "sample_role", "n_met", "failed", "ice_check", "passes_all"]]
     pool = x[x["sample_role"].isin(["rank", "null"])]
     ok = pool[pool["candidate"].astype(bool) & pool["qa_flag"].eq("ok")]
+    v = pd.read_parquet(DERIVED / "verdicts.parquet")
+    xt = v[v["lens_id"].eq("X1") & v["state"].eq("TRANSFERS") & v["cell_id"].fillna("").ne("")]
+    qa = x.set_index("cell_id").loc[xt["cell_id"].unique(), "qa_flag"]
+    not_ok = ", ".join(f"{c} (qa {q})" for c, q in qa[qa.ne("ok")].items()) or "none"
     return (md_table(out) + f"\n\nRank + null cells: {len(pool)}; meeting all three conditions, "
-            f"not glacier ice, qa ok: {len(ok)} ({', '.join(ok['cell_id'])}).")
+            f"not glacier ice, qa ok: {len(ok)} ({', '.join(ok['cell_id'])}). Cell-level X1 "
+            f"TRANSFERS in verdicts.parquet (rank + seed; the A15 rule does not use qa_flag): "
+            f"{len(qa)}; with a qa flag other than ok: {not_ok}.")
 
 
 def t_bridge() -> str:

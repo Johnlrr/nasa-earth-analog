@@ -6,14 +6,16 @@ Nothing here changes a threshold or a verdict: every table is a regrouping of
 
 A17 sites       : single-linkage clusters of A13 cells at CLUSTER_KM (one field campaign's
                   driving range); site_id = "site:<smallest cell_id>"; names from
-                  config/site_names.yaml; Attention by site name (same B8 context).
+                  config/sites.yaml; Attention by site name (same B8 context), max with member
+                  cells; ice-excluded cells are not members.
 A18 scarcity    : per lens x target, how many TRANSFERS cells survive the ice filter, how many
                   lie outside known-analog exclusion buffers, in how many sites.
 A19 multi-lens  : A13 cells within CLUSTER_KM of an X1 TRANSFERS cell or an M1 seed; the other
                   lens' state is read from verdicts.parquet (no cell-level TRANSFERS ->
                   literature-only, never engine-confirmed).
 A20 field/facility cards for showcase sites, chosen by rule:
-                  (a) holds a Connecting Ridge TRANSFERS cell whose ice is not excluded;
+                  (a) holds a Connecting Ridge TRANSFERS cell whose ice is not excluded and
+                      which B10 did not downgrade;
                   (b) has a multi-lens partner; (c) largest site with no cell in an exclusion
                   buffer.
 
@@ -304,11 +306,18 @@ def _row(r, sources: dict | None = None) -> dict:
 
 
 def field_facility(site: dict, cell_ids: list[str], verdicts: pd.DataFrame,
-                   partners: pd.DataFrame, sources: dict | None = None) -> dict:
+                   partners: pd.DataFrame, sources: dict | None = None,
+                   downgraded: set | None = None) -> dict:
     """Field = cell-level TRANSFERS of the site's cells and of engine partners (+ lens-level
     physics that transfers); Facility = NO-ANALOG rows with a facility; Unobserved = rows
-    UNOBSERVED. Lens-level TRANSFERS set summaries ("N cells") are never a site's verdict."""
+    UNOBSERVED. Lens-level TRANSFERS set summaries ("N cells") are never a site's verdict.
+    Cells downgraded by B10 for a lens are left out of Field (they are only a hypothesis)."""
+    downgraded = downgraded or set()
     v = verdicts.fillna({"cell_id": "", "target_id": "", "facility": ""})
+    keep = pd.Series([(lens, c) not in downgraded for lens, c in zip(v["lens_id"], v["cell_id"],
+                                                                     strict=True)],
+                     index=v.index, dtype=bool)
+    v = v[keep]
     own = v[v["cell_id"].isin(cell_ids) & v["state"].eq("TRANSFERS")]
     eng = partners[partners["partner_state"].eq("engine TRANSFERS")]
     part = v[v["cell_id"].isin(eng["partner_id"]) & v["state"].eq("TRANSFERS")
@@ -342,7 +351,8 @@ def render_md(cards: list[dict], scarcity: pd.DataFrame, generated: str) -> str:
            "`cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. "
            "Post hoc grouping: no threshold or verdict changed. Sites are single-linkage "
            f"clusters of engine-kept cells at {CLUSTER_KM:.0f} km, without ice-excluded cells. "
-           "Showcase: (a) a Connecting Ridge TRANSFERS cell, (b) a multi-lens partner, "
+           "Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, "
+           "(b) a multi-lens partner, "
            "(c) the largest site outside exclusion buffers.", "",
            "## Target scarcity (A18)", "",
            "Both columns of a comparison must use the same filter (e.g. *usable* vs *usable*). "
@@ -499,8 +509,9 @@ def main() -> None:
 
     verdicts = pd.read_parquet(DERIVED / "verdicts.parquet")
     prof = pd.read_parquet(DERIVED / "cell_profiles.parquet")
+    down = b10_downgrades()
     t = build(verdicts, prof, load_partners(), attention_enabled=not args.no_attention,
-              attention_max=ATTENTION_MAX, downgraded=b10_downgrades())
+              attention_max=ATTENTION_MAX, downgraded=down)
     prof, sites, ml, scarcity = t["prof"], t["sites"], t["multilens"], t["scarcity"]
 
     cols = ["cell_id", "site_id", "lat", "lon", "lenses", "targets", "name", "ice_check",
@@ -522,7 +533,7 @@ def main() -> None:
         s["l2_snow_free_frac"] = {c: round(float(snow[c]), 3) for c in s["cells"].split(",")
                                   if c in l2 and c in snow.index and pd.notna(snow[c])}
         cards.append(field_facility(s, s["cells"].split(","), verdicts,
-                                    ml[ml["site_id"].eq(s["site_id"])], sources))
+                                    ml[ml["site_id"].eq(s["site_id"])], sources, down))
     generated = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     (DERIVED / "field_facility.json").write_text(
         json.dumps({"generated": generated, "contract": "config/sites.yaml",

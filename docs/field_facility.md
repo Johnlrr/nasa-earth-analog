@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-14 22:39 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 01:03 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 

@@ -260,8 +260,8 @@ Rule: B13 stop rule (PLAN 2b, pre-registered in B14a): Lake Salda (A14 coordinat
 
 **Why the footprint-median engine misled (bridge bias, A16).** Median z of Earth cells against
 each Mars target, per CRISM summary parameter computed identically on EMIT and on MICA type
-spectra. Continuum-sensitive parameters (HCPINDEX, BD2250, MIN2250) are shifted by −2 to −7 on
-every target: dusty, atmosphere-corrected Mars I/F and Earth surface reflectance do not share a
+spectra. Continuum-sensitive parameters (HCPINDEX, BD2250, MIN2250) have a negative median z
+on every target (between about −1.4 and −7, table below): dusty, atmosphere-corrected Mars I/F and Earth surface reflectance do not share a
 continuum, so those parameters are left out of the fidelity vector.
 
 <!-- BEGIN:bridge -->
@@ -317,7 +317,7 @@ ERA5-Land reanalysis (~9 km grid), not an observation. Maximum status: `engine-s
 | seed_puna_high | seed | 1 | permafrost, no_thaw_to_ice | ok | False |
 | seed_tianshan_central | seed | 1 | no_thaw_to_ice, dry_overburden | excluded: glacier ice | False |
 
-Rank + null cells: 400; meeting all three conditions, not glacier ice, qa ok: 7 (rank_0038, rank_0040, rank_0058, rank_0087, rank_0123, null5_0011, null5_0042).
+Rank + null cells: 400; meeting all three conditions, not glacier ice, qa ok: 7 (rank_0038, rank_0040, rank_0058, rank_0087, rank_0123, null5_0011, null5_0042). Cell-level X1 TRANSFERS in verdicts.parquet (rank + seed; the A15 rule does not use qa_flag): 8; with a qa flag other than ok: rank_0056 (qa vegetated).
 <!-- END:x1 -->
 
 ## 7. From cells to field sites (PLAN 2c, post hoc)

@@ -13,7 +13,7 @@ Modes
 --mode status  : print the state of the export tasks.
 --mode collect : download finished assets and write ``data/derived/tier1_terrain.csv``.
 
-Project id comes from the ``EE_PROJECT`` environment variable (default ``similitude-ee``).
+Project id comes from the ``EE_PROJECT`` environment variable (required).
 """
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ REGIONS = {
 
 
 def init() -> str:
-    project = os.environ.get("EE_PROJECT", "similitude-ee")
+    project = os.environ["EE_PROJECT"]
     ee.Initialize(project=project)
     return project
 

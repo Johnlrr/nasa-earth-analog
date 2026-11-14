@@ -75,7 +75,7 @@ def land_mask():
         import ee
         import requests
 
-        ee.Initialize(project=os.environ.get("EE_PROJECT", "similitude-ee"))
+        ee.Initialize(project=os.environ["EE_PROJECT"])
         img = ee.Image("NOAA/NGDC/ETOPO1").select("bedrock").gt(0).selfMask()
         url = img.getThumbURL({"region": ee.Geometry.Rectangle([-180, -90, 180, 90], None, False),
                                "dimensions": "1440x720", "format": "png",

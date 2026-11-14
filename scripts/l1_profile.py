@@ -110,7 +110,7 @@ def apply_profiles(earth: pd.DataFrame, prof: pd.DataFrame) -> pd.DataFrame:
 def _ee():
     import ee
 
-    ee.Initialize(project=os.environ.get("EE_PROJECT", "similitude-ee"))
+    ee.Initialize(project=os.environ["EE_PROJECT"])
     return ee
 
 

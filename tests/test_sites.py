@@ -123,6 +123,11 @@ def test_field_facility_split_never_shows_set_summaries_as_site_verdict():
     assert {f["variable"] for f in card["facility"]} == {"pressure"}  # X1 only; L1 not in site
     assert card["lenses"] == ["L2", "X1"]
     assert len(card["literature_notes"]) == 1 and "literature-only" in card["literature_notes"][0]
+    # a B10-downgraded (lens, cell) pair never appears in Field
+    card = st.field_facility({"site_id": "site:D"}, ["D"], _verdicts(), partners,
+                             downgraded={("L2", "D")})
+    assert ("L2", "shadow_casting") not in {(f["lens"], f["variable"]) for f in card["field"]}
+    assert "L2" not in card["lenses"]
 
 
 def test_site_evidence_contract():
