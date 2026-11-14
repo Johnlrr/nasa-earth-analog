@@ -485,3 +485,66 @@ def test_score_lens_min_scale_10pct_target():
     result = score_lens(earth, targets, lens)
     # Just check it runs without error and produces valid numbers
     assert result["d"].notna().any()
+
+
+# ---------------------------------------------------------------------------
+# Native rank (A11)
+# ---------------------------------------------------------------------------
+
+
+def _native_data(lens_id="L1"):
+    names = ["d1", "d2"]
+    rows = [{"target_id": "site", "is_reference": True, "body": "moon", "lat": -89.0,
+             "lon": 0.0, "footprint_m": 4000.0, "d1": 0.0, "d2": 0.0}]
+    # 10 siblings at descriptor distance 1..10, far apart on the ground
+    for i in range(10):
+        rows.append({"target_id": "site", "is_reference": False, "body": "moon",
+                     "lat": -85.0 + i * 0.2, "lon": 90.0, "footprint_m": 4000.0,
+                     "d1": float(i + 1), "d2": 0.0})
+    # one sibling overlapping the reference footprint (1 km away) -> excluded
+    rows.append({"target_id": "site", "is_reference": False, "body": "moon",
+                 "lat": -89.0 + 1000 / 1_737_400 * 180 / np.pi, "lon": 0.0,
+                 "footprint_m": 4000.0, "d1": 0.0, "d2": 0.0})
+    targets = pd.DataFrame(rows)
+    earth = pd.DataFrame([
+        {"cell_id": "same", "sample_role": "rank", "d1": 0.0, "d2": 0.0},
+        {"cell_id": "far", "sample_role": "rank", "d1": 1e6, "d2": 1e6},
+    ])
+    lens = {"id": lens_id, "descriptors": names, "min_scale": {"d1": 1.0, "d2": 1.0}}
+    return earth, targets, lens
+
+
+def test_native_rank_counts():
+    from similitude.fidelity import native_rank
+
+    out = native_rank(np.array([0.0, 2.5, 99.0, np.nan]), np.array([1, 2, 3, 4.0]))
+    assert out[:3].tolist() == [4, 2, 0] and np.isnan(out[3])
+
+
+def test_native_rank_in_score_lens():
+    earth, targets, lens = _native_data()
+    res = score_lens(earth, targets, lens).set_index("cell_id")
+    assert (res["n_native"] == 10).all()  # overlapping sibling excluded
+    assert res.loc["same", "native_rank"] == 10  # cell identical to target
+    assert res.loc["far", "native_rank"] == 0  # farther than every footprint
+    assert (res["native_rank_basis"] == "d").all()
+
+
+def test_native_rank_empty_for_m1():
+    earth, targets, lens = _native_data("M1")
+    res = score_lens(earth, targets, lens)
+    assert res["native_rank"].isna().all()
+    assert res["native_rank_basis"].str.contains("not defined").all()
+
+
+def test_native_rank_l2_uses_shadow_distance():
+    earth, targets, lens = _native_data("L2")
+    for df in (earth, targets):
+        df["shadow_e2"] = df["d1"]
+        df["lowsun_frac"] = 1e6  # astro part far away: d is huge, d_shadow is not
+    targets.loc[targets.is_reference, "lowsun_frac"] = 0.0
+    lens["descriptors"] = ["lowsun_frac", "shadow_e2"]
+    lens["min_scale"] = {"lowsun_frac": 1.0, "shadow_e2": 1.0}
+    res = score_lens(earth, targets, lens).set_index("cell_id")
+    assert (res["native_rank_basis"] == "d_shadow").all()
+    assert res.loc["same", "native_rank"] == 10

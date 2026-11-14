@@ -148,6 +148,48 @@ def limiting_factor(E: np.ndarray, t: np.ndarray, m: Metric, names: list[str]) -
     return [names[i] for i in idx]
 
 
+BODY_RADIUS_M = {"moon": 1_737_400.0, "mars": 3_389_500.0, "earth": 6_371_000.0}
+
+# Native rank (review G1 2.2): which distance it ranks per lens; others are left empty.
+NATIVE_RANK_COLUMN = {"L1": "d", "L2": "d_shadow"}
+NATIVE_RANK_NOTE = {
+    "M1": "not defined: the M1 population is mineral classes, not sites (pixel matching instead)",
+    "X1": "not defined: only 5 target sites",
+}
+
+
+def _great_circle_m(lat1, lon1, lat2, lon2, radius_m: float) -> np.ndarray:
+    p1, p2 = np.radians(lat1), np.radians(lat2)
+    dlat, dlon = p2 - p1, np.radians(np.asarray(lon2) - lon1)
+    a = np.sin(dlat / 2) ** 2 + np.cos(p1) * np.cos(p2) * np.sin(dlon / 2) ** 2
+    return 2 * radius_m * np.arcsin(np.sqrt(np.clip(a, 0.0, 1.0)))
+
+
+def native_population(population: pd.DataFrame, ref: pd.Series) -> pd.DataFrame:
+    """Sibling footprints on the target body, minus those overlapping the reference footprint.
+
+    Overlap = centre distance < footprint size (spatial rule, not a d-threshold). Without
+    coordinates nothing is excluded.
+    """
+    cols = {"lat", "lon"}
+    if not cols <= set(population.columns) or pd.isna(ref.get("lat")):
+        return population
+    radius = BODY_RADIUS_M.get(str(ref.get("body", "moon")).lower(), BODY_RADIUS_M["moon"])
+    fp = float(ref.get("footprint_m", 4000.0) or 4000.0)
+    dist = _great_circle_m(float(ref["lat"]), float(ref["lon"]),
+                           population["lat"].to_numpy(float), population["lon"].to_numpy(float),
+                           radius)
+    return population[~(dist < fp)]
+
+
+def native_rank(d_cells: np.ndarray, d_native: np.ndarray) -> np.ndarray:
+    """Number of native footprints farther from the target than each cell (NaN stays NaN)."""
+    d_native = np.sort(np.asarray(d_native, dtype=float))
+    d_cells = np.asarray(d_cells, dtype=float)
+    out = len(d_native) - np.searchsorted(d_native, d_cells, side="right")
+    return np.where(np.isnan(d_cells), np.nan, out.astype(float))
+
+
 def score_lens(
     earth: pd.DataFrame,
     targets: pd.DataFrame,
@@ -183,6 +225,13 @@ def score_lens(
         E_mat = earth[desc_names].values.astype(float)
 
         d_arr = mahalanobis_d(E_mat, t_vec, metric)
+        native = native_population(population_targets, trow)
+        n_native = len(native)
+        rank_col = NATIVE_RANK_COLUMN.get(lens_id)
+        nr_arr = None
+        if rank_col == "d":
+            nr_arr = native_rank(d_arr, mahalanobis_d(native[desc_names].values.astype(float),
+                                                      t_vec, metric))
         sigma_arr, capped_arr = sigma_dissimilarity(E_mat, t_vec, metric)
         lf_list = limiting_factor(E_mat, t_vec, metric, desc_names)
 
@@ -219,6 +268,9 @@ def score_lens(
             E_sh = earth[shadow_names].values.astype(float)
             d_sh = mahalanobis_d(E_sh, t_sh, metric_sh)
             sigma_sh, _ = sigma_dissimilarity(E_sh, t_sh, metric_sh)
+            if rank_col == "d_shadow":
+                nr_arr = native_rank(d_sh, mahalanobis_d(
+                    native[shadow_names].values.astype(float), t_sh, metric_sh))
 
         for i, erow in enumerate(earth.itertuples(index=False)):
             cell_id = erow.cell_id
@@ -235,6 +287,14 @@ def score_lens(
                 "no_analog": no_analog,
                 "feature_set": "twin_formula",
             }
+            if nr_arr is not None:
+                rec["native_rank"] = nr_arr[i]
+                rec["n_native"] = n_native
+                rec["native_rank_basis"] = rank_col
+            else:
+                rec["native_rank"] = np.nan
+                rec["n_native"] = np.nan
+                rec["native_rank_basis"] = NATIVE_RANK_NOTE.get(lens_id, "not defined")
             if is_l2 and shadow_names:
                 rec["d_shadow"] = d_sh[i]
                 rec["sigma_shadow"] = sigma_sh[i]
