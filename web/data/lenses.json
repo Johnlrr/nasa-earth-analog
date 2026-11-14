@@ -146,7 +146,11 @@
    "frac_of_target": 0.5,
    "noise_floor_quantile": 0.95,
    "noise_floor_min": 0.01,
-   "noise_floor": null,
+   "noise_floor": {
+    "D2300": 0.11,
+    "MIN2295_2480": 0.0396,
+    "OLINDEX": 0.2734
+   },
    "scene_rule": "most_valid_pixels",
    "connectivity": 8,
    "pass_largest_patch_km2": 0.1

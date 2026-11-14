@@ -111,7 +111,11 @@
     # minimum 0.01. Filled in B14b and committed BEFORE controls/decoys are run.
     noise_floor_quantile: 0.95
     noise_floor_min: 0.01
-    noise_floor: null
+    # B14b (14/11 ~17:30): q95 of 69 null footprints (B5 null set, not re-drawn), ~490k valid
+    # pixels each param; see data/derived/m1_null_quantiles.json. Committed BEFORE controls.
+    # Known risk: desert null pixels can contain real caliche / clays (D2300 q95 0.110 is above
+    # the Jezero target 0.080) -> conservative floor; reported in the validation report.
+    noise_floor: {D2300: 0.11, MIN2295_2480: 0.0396, OLINDEX: 0.2734}
     # Pixel validity: same masks as emit_gee._valid_mask (aggregate_flag == 0, red > 0,
     # NIR > 0.08, NDVI < gates.ndvi_max, NDWI < 0); reflectance <= 0 (EMIT -0.01 fill) ignored.
     # Scene: the single EMIT scene with the MOST valid pixels in the footprint
