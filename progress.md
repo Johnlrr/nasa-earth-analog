@@ -23,6 +23,23 @@ Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` 
 - Hạt giống của B (M1/X1) đặt ở `config/seeds_m1.yaml`, `config/seeds_x1.yaml` vì `config/seeds.yaml` thuộc Bảo.
 - Tên tham số phổ giữ tên ngắn của PLAN (`OLINDEX`, `D2300`, `MIN2295_2480`…); tên gốc Viviano-Beck (`OLINDEX3`…) và mốc thay ghi trong `PARAM_TABLE`.
 
+## Giai đoạn 2b (sau G1, theo `docs/review_g1.md` + PLAN 2b)
+| Hạng mục | Trạng thái | Commit |
+| :--- | :--- | :--- |
+| Gộp nhánh Bảo (G1a) | ✓ Harrat/Pinacate đã gỡ khỏi web | `88bfef6` |
+| B14a đăng ký trước quy tắc pixel M1 | ✓ commit riêng 17:20, trước mọi pixel | `66f9da7` |
+| B13 giai đoạn null | ✓ 69 footprint null, ~490 nghìn pixel | `1e8ae67` |
+| B14b sàn nhiễu | ✓ commit riêng 17:29, trước đối chứng: D2300 0,110 · MIN2295_2480 0,040 · OLINDEX 0,273 | `4e007f2` |
+| B13 đối chứng/mồi nhử | **Chờ A14 của Bảo** (dời toạ độ Lake Salda, hạn 18:00) → chạy `python scripts/emit/pixel_m1.py --stage controls` (đọc `data/derived/relocated_points.csv` nếu có: cột `point_id, lat, lon, reason`) | — |
+| B13 hạt giống / rank | Sau đối chứng (`--stage seeds`, `--stage rank`) | — |
+| B15 X1 danh sách 3 điều kiện | ✓ | `677777a` |
+| B16 phần "Attention rỗng ≠ hidden" | ✓ | `4ce40cf` |
+| B16 phần còn lại (verdicts ba trạng thái, native rank, matched area) | Chờ A15, A11, B13 | — |
+
+**B13 null:** thư viện phổ được vector hoá (`resample` nhóm theo mẫu kênh hợp lệ, `crism_params_stack`) — **cho kết quả trùng tuyệt đối** với cách tính từng phổ trên 154 phổ thật (31 MICA + 123 EMIT; sai khác lớn nhất 0); thêm test. Tải pixel bằng `computePixels` ~6 s/footprint. Sàn D2300 (0,110) cao hơn chính giá trị mục tiêu Jezero (0,080) → ngưỡng pixel Jezero thực tế là D2300 ≥ 0,110 và MIN2295_2480 ≥ 0,040 (bảo thủ, đúng rủi ro PLAN đã ghi: caliche/sét trong null hoang mạc).
+
+**B15 X1:** 3 điều kiện (MAAT ≤ −1 °C; đóng–tan ≤ 20 ngày/năm; khô hạn ≤ 0,5 theo ranh giới bán khô hạn UNEP), **ngưỡng đặt sau khi xem dữ liệu, đã ghi trong `lenses.yaml`**. Kiểm chứng độc lập **ĐẠT**: hai mồi nhử permafrost ẩm đã đăng ký trước (Yakutsk, Tây Siberia) trượt ≥ 1 điều kiện. Beacon Valley đạt 3/3; Axel Heiberg đạt 3/3. **Pamir–Changtang: 0/6 hạt giống đạt** (160–230 ngày đóng–tan/năm) → giả thuyết DESIGN bị dữ liệu bác. Thêm bộ lọc băng hà (WorldCover lớp 70, cùng ngưỡng A13 của Bảo: > 0,2 loại): 4 ô "đạt" thực ra nằm trên chỏm băng Greenland → loại. Còn **7 ô** đạt cả 3 và không phải băng hà (Bắc Cực Canada, Peary Land; 2 ô > 82,75°N ngoài vùng phủ WorldCover = "không đánh giá được băng").
+
 ## Nhật ký
 - 2026-11-14 16:55 · **Sau khi hợp nhất với engine của Bảo (A5–A8):**
   - Duyệt thay đổi của Bảo trong `discovery.passes_fidelity` (thêm σ ≤ 2; L2 xét `sigma_shadow`): **đồng ý**, đúng DESIGN 2.2(3). Thêm test cho nhánh này.
