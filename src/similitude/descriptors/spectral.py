@@ -20,6 +20,8 @@ are comparable only through these parameters and the continuum-removed SAM - nev
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numpy as np
 
 # --------------------------------------------------------------------------------------------
@@ -166,25 +168,48 @@ VNIR_PARAMS: tuple[str, ...] = tuple(k for k, v in PARAM_TABLE.items() if v["gro
 # --------------------------------------------------------------------------------------------
 # Resampling
 # --------------------------------------------------------------------------------------------
-def _resample_1d(wl: np.ndarray, r: np.ndarray) -> np.ndarray:
-    ok = np.isfinite(wl) & np.isfinite(r) & (r > 0.0)  # EMIT bad bands are filled with -0.01
-    wl, r = wl[ok], r[ok]
-    out = np.full(COMMON_WL_NM.shape, np.nan)
+@lru_cache(maxsize=256)
+def _resample_weights(wl_key: bytes) -> np.ndarray:
+    """Linear map (n_grid x n_samples) from sorted valid samples to ``COMMON_WL_NM``.
+
+    Row i = equal weights on the samples inside the +/-5 nm bin of grid point i; if the bin is
+    empty, linear-interpolation weights on the two neighbours when they are <= 15 nm apart;
+    otherwise a NaN row (no extrapolation). Resampling is linear in the reflectance, so one
+    matrix serves every spectrum with the same valid-sample set.
+    """
+    wl = np.frombuffer(wl_key, dtype=float)
+    W = np.full((COMMON_WL_NM.size, wl.size), np.nan)
     if wl.size == 0:
-        return out
-    order = np.argsort(wl)
-    wl, r = wl[order], r[order]
+        return W
     half = GRID_STEP_NM / 2
     for i, lam in enumerate(COMMON_WL_NM):
         in_bin = (wl >= lam - half) & (wl < lam + half)
         if in_bin.any():
-            out[i] = float(np.mean(r[in_bin]))
+            W[i] = 0.0
+            W[i, in_bin] = 1.0 / in_bin.sum()
             continue
         j = int(np.searchsorted(wl, lam))
         if 0 < j < wl.size and (wl[j] - wl[j - 1]) <= 1.5 * GRID_STEP_NM:
             t = (lam - wl[j - 1]) / (wl[j] - wl[j - 1])
-            out[i] = float(r[j - 1] + t * (r[j] - r[j - 1]))
+            W[i] = 0.0
+            W[i, j - 1], W[i, j] = 1.0 - t, t
+    return W
+
+
+def _resample_valid(wl: np.ndarray, R: np.ndarray, ok: np.ndarray) -> np.ndarray:
+    """Resample rows of R (n x bands) that share the same valid-band mask ``ok``."""
+    order = np.argsort(wl[ok])
+    W = _resample_weights(np.ascontiguousarray(wl[ok][order]).tobytes())
+    out = R[:, ok][:, order] @ np.nan_to_num(W).T
+    out[:, np.isnan(W).any(axis=1)] = np.nan
     return out
+
+
+def _resample_1d(wl: np.ndarray, r: np.ndarray) -> np.ndarray:
+    ok = np.isfinite(wl) & np.isfinite(r) & (r > 0.0)  # EMIT bad bands are filled with -0.01
+    if not ok.any():
+        return np.full(COMMON_WL_NM.shape, np.nan)
+    return _resample_valid(wl, r[None, :], ok)[0]
 
 
 def resample(wl_nm: np.ndarray, refl: np.ndarray) -> np.ndarray:
@@ -193,41 +218,56 @@ def resample(wl_nm: np.ndarray, refl: np.ndarray) -> np.ndarray:
     Samples inside a +/-5 nm bin are averaged (EMIT ~7.4 nm, CRISM ~6.55 nm sampling); empty bins
     are linearly interpolated only between samples <= 15 nm apart. Non-finite and non-positive
     values are ignored (EMIT fills bad water-vapour bands with -0.01, PDS uses large constants).
-    Points outside the input range stay NaN (no extrapolation).
+    Points outside the input range stay NaN (no extrapolation). Stacks are processed by groups
+    of identical valid-band masks with the same linear map (identical result, much faster).
     """
     wl = np.asarray(wl_nm, dtype=float)
     r = np.asarray(refl, dtype=float)
     if r.ndim == 1:
         return _resample_1d(wl, r)
     flat = r.reshape(-1, r.shape[-1])
-    out = np.stack([_resample_1d(wl, row) for row in flat])
+    ok = np.isfinite(wl)[None, :] & np.isfinite(flat) & (flat > 0.0)
+    out = np.full((flat.shape[0], COMMON_WL_NM.size), np.nan)
+    patterns, inverse = np.unique(ok, axis=0, return_inverse=True)
+    inverse = np.asarray(inverse).ravel()
+    for k, pat in enumerate(patterns):
+        if not pat.any():
+            continue
+        rows = np.flatnonzero(inverse == k)
+        out[rows] = _resample_valid(wl, flat[rows], pat)
     return out.reshape(*r.shape[:-1], COMMON_WL_NM.size)
 
 
 # --------------------------------------------------------------------------------------------
-# Anchor reading
+# Anchor reading (array-aware: refl may be one spectrum or a stack, bands on the last axis)
 # --------------------------------------------------------------------------------------------
-def _point(refl: np.ndarray, lam: float) -> float:
+def _nan_like(refl: np.ndarray) -> np.ndarray:
+    return np.full(refl.shape[:-1], np.nan)
+
+
+def _point(refl: np.ndarray, lam: float):
     """Reflectance at ``lam`` on the common grid; NaN if outside or in/next to a masked gap."""
     if lam < GRID_MIN_NM - 1e-9 or lam > GRID_MAX_NM + 1e-9 or _in_gap(lam):
-        return np.nan
+        return _nan_like(refl)
     j = int(np.searchsorted(COMMON_WL_NM, lam))
     if j < COMMON_WL_NM.size and abs(COMMON_WL_NM[j] - lam) < 1e-9:
-        return float(refl[j])
+        return refl[..., j]
     if j == 0 or j >= COMMON_WL_NM.size:
-        return np.nan
+        return _nan_like(refl)
     lo, hi = COMMON_WL_NM[j - 1], COMMON_WL_NM[j]
     if hi - lo > GRID_STEP_NM + 1e-9:  # neighbours straddle a gap
-        return np.nan
+        return _nan_like(refl)
     t = (lam - lo) / (hi - lo)
-    return float(refl[j - 1] + t * (refl[j] - refl[j - 1]))
+    return refl[..., j - 1] + t * (refl[..., j] - refl[..., j - 1])
 
 
-def anchor(refl: np.ndarray, lam: float) -> float:
+def anchor(refl: np.ndarray, lam: float):
     """Mean of the 3-channel window (lam - 10, lam, lam + 10 nm), skipping masked points."""
-    vals = [_point(refl, lam + d) for d in (-KERNEL_HALF_NM, 0.0, KERNEL_HALF_NM)]
-    vals = [v for v in vals if np.isfinite(v)]
-    return float(np.mean(vals)) if vals else np.nan
+    vals = np.stack([np.asarray(_point(refl, lam + d), dtype=float)
+                     for d in (-KERNEL_HALF_NM, 0.0, KERNEL_HALF_NM)])
+    n = np.isfinite(vals).sum(axis=0)
+    total = np.nansum(vals, axis=0)
+    return np.where(n > 0, total / np.maximum(n, 1), np.nan)
 
 
 def _lin(s: float, c: float, lg: float) -> tuple[float, float]:
@@ -235,13 +275,13 @@ def _lin(s: float, c: float, lg: float) -> tuple[float, float]:
     return 1.0 - b, b
 
 
-def _bd(refl, s, c, lg) -> float:
+def _bd(refl, s, c, lg):
     a, b = _lin(s, c, lg)
     cont = a * anchor(refl, s) + b * anchor(refl, lg)
     return 1.0 - anchor(refl, c) / cont
 
 
-def _bd1(refl, s, c) -> float:
+def _bd1(refl, s, c):
     """One-sided band depth against a flat continuum at ``s``."""
     return 1.0 - anchor(refl, c) / anchor(refl, s)
 
@@ -252,7 +292,7 @@ def _line(refl, s, lg):
     return lambda lam: rs + slope * (lam - s)
 
 
-def _param(refl: np.ndarray, name: str) -> float:
+def _param(refl: np.ndarray, name: str):
     p = PARAM_TABLE[name]
     kind = p["kind"]
     if kind == "bd":
@@ -270,7 +310,7 @@ def _param(refl: np.ndarray, name: str) -> float:
         total = 0.0
         for lam, w in zip(p["centers_nm"], p["weights"], strict=True):
             rc = cont(lam)
-            total += w * (rc - anchor(refl, lam)) / abs(rc)
+            total = total + w * (rc - anchor(refl, lam)) / np.abs(rc)
         return total
     if kind == "d2300":
         cont = _line(refl, *p["used_nm"])
@@ -280,11 +320,18 @@ def _param(refl: np.ndarray, name: str) -> float:
 
         return 1.0 - (cr(2290) + cr(2320) + cr(2330)) / (cr(2120) + cr(2170) + cr(2210))
     if kind == "min":
-        vals = []
-        for part_kind, nm in p["parts"]:
-            vals.append(_bd(refl, *nm) if part_kind == "bd" else _bd1(refl, *nm))
-        return float(min(vals))
+        vals = [_bd(refl, *nm) if part_kind == "bd" else _bd1(refl, *nm)
+                for part_kind, nm in p["parts"]]
+        return np.minimum.reduce(vals)
     raise ValueError(f"unknown kind {kind}")
+
+
+def _names(subset: str) -> tuple[str, ...]:
+    if subset == "swir":
+        return SWIR_PARAMS
+    if subset == "all":
+        return VNIR_PARAMS + SWIR_PARAMS
+    raise ValueError("subset must be 'swir' or 'all'")
 
 
 def crism_params(refl: np.ndarray, subset: str = "swir") -> dict[str, float]:
@@ -298,14 +345,22 @@ def crism_params(refl: np.ndarray, subset: str = "swir") -> dict[str, float]:
         raise ValueError(
             f"refl must be on COMMON_WL_NM ({COMMON_WL_NM.size} values), got {r.shape}"
         )
-    if subset == "swir":
-        names = SWIR_PARAMS
-    elif subset == "all":
-        names = VNIR_PARAMS + SWIR_PARAMS
-    else:
-        raise ValueError("subset must be 'swir' or 'all'")
+    names = _names(subset)
     with np.errstate(divide="ignore", invalid="ignore"):
         return {n: float(_param(r, n)) for n in names}
+
+
+def crism_params_stack(refl: np.ndarray, subset: str = "swir") -> dict[str, np.ndarray]:
+    """Same formulas as :func:`crism_params` on a stack of spectra (pixels x COMMON_WL_NM).
+
+    Used for the per-pixel M1 match (B13): one code path for one spectrum or a million.
+    """
+    r = np.asarray(refl, dtype=float)
+    if r.ndim != 2 or r.shape[1] != COMMON_WL_NM.size:
+        raise ValueError(f"refl must be (n, {COMMON_WL_NM.size}), got {r.shape}")
+    names = _names(subset)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        return {n: np.asarray(_param(r, n), dtype=float) for n in names}
 
 
 # --------------------------------------------------------------------------------------------

@@ -55,22 +55,18 @@ def _valid_mask(img: ee.Image, ndvi_max: float) -> ee.Image:
             .And(ndwi.lt(0)))
 
 
-def footprint_spectrum(lat: float, lon: float, km: float = 5.0, ndvi_max: float = 0.15,
-                       max_scenes: int = 40) -> dict:
-    """Median EMIT spectrum of the best scene over a footprint.
+def best_scene(lat: float, lon: float, km: float = 5.0, ndvi_max: float = 0.15,
+               max_scenes: int = 40) -> tuple[ee.Image | None, dict]:
+    """The EMIT scene with the MOST valid pixels in the footprint (B5 rule, B14a scene_rule).
 
-    Returns dict(wl, refl (np.ndarray, NaN where no data), n_valid, n_total, scene_id, date,
-    n_scenes, seconds). ``n_valid`` = valid 60 m pixels used; flag footprints with < 50.
+    Returns (image or None, meta: n_valid, n_total, scene_id, date, n_scenes).
     """
-    t0 = time.time()
     geom = footprint_geom(lat, lon, km)
     col = ee.ImageCollection(COLLECTION).filterBounds(geom).limit(max_scenes)
     n_scenes = col.size().getInfo()
-    out = {"wl": wavelengths(), "refl": np.full(N_BANDS, np.nan), "n_valid": 0, "n_total": 0,
-           "scene_id": None, "date": None, "n_scenes": n_scenes, "seconds": 0.0}
+    meta = {"n_valid": 0, "n_total": 0, "scene_id": None, "date": None, "n_scenes": n_scenes}
     if n_scenes == 0:
-        out["seconds"] = time.time() - t0
-        return out
+        return None, meta
 
     def count(img):
         m = _valid_mask(img, ndvi_max)
@@ -80,12 +76,58 @@ def footprint_spectrum(lat: float, lon: float, km: float = 5.0, ndvi_max: float 
         return img.set({"n_valid": n.values().get(0), "n_total": tot.values().get(0)})
 
     best = ee.Image(col.map(count).sort("n_valid", False).first())
-    meta = best.toDictionary(["n_valid", "n_total", "system:index", "system:time_start"]).getInfo()
-    out.update(n_valid=int(meta.get("n_valid") or 0), n_total=int(meta.get("n_total") or 0),
-               scene_id=meta.get("system:index"))
-    if meta.get("system:time_start"):
-        out["date"] = time.strftime("%Y-%m-%d", time.gmtime(meta["system:time_start"] / 1000))
-    if out["n_valid"] > 0:
+    info = best.toDictionary(["n_valid", "n_total", "system:index", "system:time_start"]).getInfo()
+    meta.update(n_valid=int(info.get("n_valid") or 0), n_total=int(info.get("n_total") or 0),
+                scene_id=info.get("system:index"))
+    if info.get("system:time_start"):
+        meta["date"] = time.strftime("%Y-%m-%d", time.gmtime(info["system:time_start"] / 1000))
+    return best, meta
+
+
+#: EMIT L2A grid on GEE (EPSG:4326, checked on scene EMIT_L2A_RFL_001_20230221T093744).
+EMIT_DEG = 0.000542232520256367
+
+
+def footprint_pixels(img: ee.Image, lat: float, lon: float, km: float,
+                     ndvi_max: float = 0.15) -> dict:
+    """All EMIT pixels of a footprint from one scene via ``computePixels`` (B13).
+
+    Returns dict(refl (H, W, 285) float32 with NaN where invalid, valid (H, W) bool,
+    deg (pixel size in degrees), lat0, lon0 (upper-left corner)). Validity = ``_valid_mask``.
+    """
+    half_lat = km / 2 / 111.32
+    half_lon = half_lat / max(np.cos(np.radians(lat)), 1e-6)
+    w = int(np.ceil(2 * half_lon / EMIT_DEG))
+    h = int(np.ceil(2 * half_lat / EMIT_DEG))
+    lon0, lat0 = lon - half_lon, lat + half_lat
+    expr = (img.select(RFL_BANDS).toFloat()
+            .addBands(_valid_mask(img, ndvi_max).unmask(0).toFloat().rename("valid")))
+    arr = ee.data.computePixels({
+        "expression": expr,
+        "fileFormat": "NUMPY_NDARRAY",
+        "grid": {"dimensions": {"width": w, "height": h},
+                 "affineTransform": {"scaleX": EMIT_DEG, "shearX": 0, "translateX": lon0,
+                                     "shearY": 0, "scaleY": -EMIT_DEG, "translateY": lat0},
+                 "crsCode": "EPSG:4326"},
+    })
+    refl = np.stack([arr[b] for b in RFL_BANDS], axis=-1).astype(np.float32)
+    valid = arr["valid"] > 0.5
+    refl[~valid] = np.nan
+    return {"refl": refl, "valid": valid, "deg": EMIT_DEG, "lat0": lat0, "lon0": lon0}
+
+
+def footprint_spectrum(lat: float, lon: float, km: float = 5.0, ndvi_max: float = 0.15,
+                       max_scenes: int = 40) -> dict:
+    """Median EMIT spectrum of the best scene over a footprint.
+
+    Returns dict(wl, refl (np.ndarray, NaN where no data), n_valid, n_total, scene_id, date,
+    n_scenes, seconds). ``n_valid`` = valid 60 m pixels used; flag footprints with < 50.
+    """
+    t0 = time.time()
+    geom = footprint_geom(lat, lon, km)
+    best, meta = best_scene(lat, lon, km, ndvi_max, max_scenes)
+    out = {"wl": wavelengths(), "refl": np.full(N_BANDS, np.nan), "seconds": 0.0, **meta}
+    if best is not None and out["n_valid"] > 0:
         masked = best.select(RFL_BANDS).updateMask(_valid_mask(best, ndvi_max))
         med = masked.reduceRegion(ee.Reducer.median(), geom, EMIT_SCALE_M, maxPixels=1e8,
                                   bestEffort=False).getInfo()

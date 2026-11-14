@@ -142,3 +142,25 @@ def test_resample_ignores_emit_minus_001_fill():
 def test_crism_params_rejects_wrong_grid():
     with pytest.raises(ValueError):
         sp.crism_params(np.ones(10))
+
+
+def test_stack_functions_equal_single_spectrum_path():
+    """B13 per-pixel path: crism_params_stack / resample on a stack == one spectrum at a time."""
+    rng = np.random.default_rng(1)
+    wl_emit = np.arange(381.0, 2493.0, 7.43)
+    base = 0.25 + 0.05 * np.sin(wl_emit / 250.0)
+    stack = base + rng.normal(0, 0.01, size=(40, wl_emit.size))
+    stack[:10, (wl_emit > 1325) & (wl_emit < 1460)] = -0.01   # two different fill patterns
+    stack[10:20, (wl_emit > 1765) & (wl_emit < 1970)] = -0.01
+    stack[20, :] = np.nan                                      # fully masked pixel
+    common = sp.resample(wl_emit, stack)
+    for i in (0, 15, 20, 39):
+        np.testing.assert_allclose(common[i], sp.resample(wl_emit, stack[i]), equal_nan=True)
+    params = sp.crism_params_stack(common)
+    for i in (0, 15, 39):
+        one = sp.crism_params(common[i])
+        for k, v in one.items():
+            np.testing.assert_allclose(params[k][i], v, equal_nan=True, rtol=0, atol=1e-12)
+    assert all(np.isnan(params[k][20]) for k in params)
+    with pytest.raises(ValueError):
+        sp.crism_params_stack(common[0])
