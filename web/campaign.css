@@ -1,4 +1,4 @@
-﻿@font-face{font-family:Chivo;src:url('media/chivo-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Chivo;src:url('media/chivo-400.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:Chivo;src:url('media/chivo-500.ttf') format('truetype');font-weight:500 700;font-display:swap}
 @font-face{font-family:'Chivo Mono';src:url('media/chivo-mono-400.ttf') format('truetype');font-weight:400 500;font-display:swap}
 :root {
@@ -38,7 +38,7 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;background:#dde0d9;colo
 .skip-link{position:fixed;top:-100px;left:16px;background:var(--ink);color:white;padding:12px 24px;z-index:50}
 .skip-link:focus{top:12px}
 .hero{padding:56px 0 0}
-.hero-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:64px;align-items:start}
+.hero-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:var(--space-8);align-items:start}
 .eyebrow{font-size:12px;color:var(--muted);margin-bottom:28px}
 h1{font-size:clamp(36px,3.7vw,56px);line-height:1.08;letter-spacing:-.055em;font-weight:500}
 .hero__lead{font-size:var(--text-lead);line-height:1.6;max-width:42ch;margin-top:24px}
@@ -75,12 +75,12 @@ textarea::placeholder{color:#68736d;opacity:1}
 .window-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding:12px 0}
 .journey{list-style:none;grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin:40px 0 0;padding:20px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
 .journey li{font-size:13px;display:flex;gap:10px;align-items:baseline}.journey span{font-size:11px;color:var(--muted)}
-main>.section{padding:64px 0;border-bottom:1px solid var(--line);scroll-margin-top:0}
-.section-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:32px}
+main>.section{padding:var(--space-8) 0;border-bottom:1px solid var(--line);scroll-margin-top:0}
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);align-items:end;margin-bottom:var(--space-6)}
 .step-label{font-size:12px;color:var(--muted);display:block;margin-bottom:12px}
 h2{font-size:clamp(28px,2.5vw,36px);line-height:1.2;letter-spacing:-.04em}
 .section-head>p{font-size:16px;color:var(--muted);max-width:48ch}
-.objectives-layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:64px}
+.objectives-layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:var(--space-8)}
 .objective-list{border:0;padding:0;margin:0;min-width:0}
 .objective-row{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:16px;padding:18px 0;border-top:1px solid var(--line);cursor:pointer}
 .objective-row:has(input:checked){border-left:2px solid var(--accent);padding-left:14px}
@@ -99,7 +99,8 @@ input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;margin:0;
 .comparison-labels{display:grid;grid-template-columns:34% 1fr 170px;gap:24px;padding:12px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);font:12px var(--font-mono);color:var(--muted)}
 .candidate-grid{display:block}
 .candidate-card{position:relative;display:grid;grid-template-columns:136px 1fr;gap:24px;border-bottom:1px solid var(--line);padding:24px 0;transition:background-color var(--motion)}
-.candidate-card.selected{background:#e9eee6;box-shadow:inset 3px 0 var(--accent);padding-left:16px;padding-right:16px}
+.candidate-card.selected{background:#e9eee6}
+.candidate-card.selected::before{content:'';position:absolute;left:-12px;top:24px;bottom:24px;width:3px;background:var(--accent)}
 .candidate-image{position:relative;width:136px;height:120px;display:flex;align-items:center;background:#dedfd7}
 .candidate-image img{display:block;width:100%;height:100%;object-fit:contain}
 .candidate-image>.state-label{position:absolute;inset:auto 0 0;background:var(--paper);padding:5px 0;color:var(--muted);font-size:10px}
@@ -119,7 +120,7 @@ input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;margin:0;
 #selection-count{font-family:var(--font-mono);border-left:1px solid #ffffff60;padding-left:12px}
 .load-status{padding:16px 0;font-size:14px;color:var(--muted)}.load-status:empty{display:none}
 .load-status.error{border-left:3px solid var(--amber);padding-left:16px;color:var(--amber);background:var(--amber-wash)}
-.campaign-layout{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:64px}
+.campaign-layout{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:var(--space-8)}
 .panel-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
 .panel-top h3{font-size:18px;font-weight:500}.panel-top .mono{color:var(--muted);font-size:11px}
 .matrix-row{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
@@ -132,7 +133,7 @@ input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;margin:0;
 .survey-checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
 .survey-checklist label{display:flex;align-items:center;gap:12px;min-height:44px;font-size:14px;cursor:pointer}
 .survey-checklist>.field-note{grid-column:1/-1;margin-top:4px}
-.export-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px}
+.export-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--space-8)}
 .export-copy h3{font-size:23px;letter-spacing:-.025em;overflow-wrap:anywhere}.export-copy>p{font-size:15px;margin-top:16px;color:var(--muted)}
 .export-contents{list-style:none;margin:24px 0;padding:0}.export-contents li{padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}.export-contents span{font:11px var(--font-mono);color:var(--muted);margin-right:16px}
 .export-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 12px}
@@ -160,3 +161,4 @@ input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px;margin:0;
 @media(max-width:1100px){.comparison-labels{grid-template-columns:38% 1fr 150px}}
 @media(max-width:860px){.comparison-labels{grid-template-columns:1fr 1fr}.matrix-row .state-label{grid-column:1;grid-row:2}.matrix-row small{grid-row:3}}
 @media(max-width:600px){.matrix-row .state-label{grid-column:2;grid-row:1}.matrix-row small{grid-row:2}.journey{margin-top:16px}}
+@media(max-width:600px){.candidate-card.selected{padding-left:0;padding-right:0}.candidate-card.selected::before{left:-10px}}

@@ -1,5 +1,7 @@
 (function () {
   'use strict';
+  var EXPEDITION = document.documentElement.hasAttribute('data-expedition');
+  var dataStatus = 'loading', lensConfigs = [], mapNeedsFit = false;
 
   var FALLBACK_LENSES = [
     { id: 'L1', name: 'Touchdown & Traverse', body: 'Moon', question: '' },
@@ -118,13 +120,15 @@
     }
     return fetchJson('data/candidates.geojson').then(function (d) {
       return { data: d, mock: !!(d.metadata && d.metadata.mock) };
-    }, function () {
+    }, function (error) {
+      if (EXPEDITION) throw error; // published-data failure must not masquerade as a discovery
       return fetchJson('data/candidates.mock.geojson').then(function (d) { return { data: d, mock: true }; });
     });
   }
   function loadLenses() {
     return fetchJson('data/lenses.json').then(function (arr) {
       if (Array.isArray(arr) && arr.length) {
+        lensConfigs = arr;
         LENSES = arr.map(function (l) {
           return { id: String(l.id), name: l.name || l.id, body: cap(l.body), question: l.question || '' };
         });
@@ -205,6 +209,7 @@
   function lensMeta(id) { return (state.meta.lenses && state.meta.lenses[id]) || null; }
 
   function setLens(id) {
+    if (id !== 'SITES' && !LENSES.some(function (l) { return l.id === id; })) return;
     state.lens = id;
     Array.prototype.forEach.call(document.querySelectorAll('.lens-btn'), function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-lens') === id ? 'true' : 'false');
@@ -212,7 +217,8 @@
     renderBrief(id);
     var sel = state.features.filter(function (f) { return f.properties.id === state.selectedId; })[0];
     if (sel && (id === 'SITES' ? !isSite(sel) : (isSite(sel) || !sel.properties.lens_scores[id]))) state.selectedId = null;
-    renderMap(); renderList(); renderCard();
+    renderMap(true); renderList(); renderCard();
+    publishState('lens');
   }
 
   function decoyIcon(color, big) {
@@ -232,7 +238,7 @@
     return L.circleMarker([lat, lon], { radius: r, fillColor: col, fillOpacity: 0.9, color: o.color, weight: o.weight, dashArray: o.dashArray });
   }
 
-  function renderMap() {
+  function renderMap(fit) {
     markerLayer.clearLayers(); markers = {};
     var feats = lensFeatures();
     feats.forEach(function (f) {
@@ -255,9 +261,12 @@
       m.addTo(markerLayer);
       markers[p.id] = m;
     });
-    if (feats.length) {
+    if (feats.length && fit !== false && !$('map').clientWidth) mapNeedsFit = true;
+    if (feats.length && fit !== false && $('map').clientWidth) {
+      if (EXPEDITION) map.setMinZoom($('map').clientWidth < 500 ? 0 : $('map').clientWidth < 700 ? 1 : 2);
       var b = L.latLngBounds(feats.map(function (f) { return [f.geometry.coordinates[1], f.geometry.coordinates[0]]; }));
-      map.fitBounds(b, { padding: [40, 40], maxZoom: 5 });
+      map.fitBounds(b, { padding: [40, 40], maxZoom: 5, animate: !EXPEDITION });
+      mapNeedsFit = false;
     }
   }
 
@@ -283,11 +292,11 @@
     var li = lensInfo(state.lens), feats = lensFeatures(), lm = lensMeta(state.lens);
     var host = $('list');
     if (state.lens === 'SITES') {
-      $('list-title').textContent = 'Showcase sites · selection rule in config/sites.yaml';
+      $('list-title').textContent = EXPEDITION ? 'Showcase sites' : 'Showcase sites · selection rule in config/sites.yaml';
       host.innerHTML = feats.length ? feats.map(siteRowHtml).join('') : '<li class="empty">No site table published yet.</li>';
       return;
     }
-    $('list-title').textContent = 'Ranked results · ' + li.id + ' ' + li.name + ', closest first';
+    $('list-title').textContent = EXPEDITION ? 'Results / ' + li.id + ' / closest first' : 'Ranked results · ' + li.id + ' ' + li.name + ', closest first';
     if (!feats.length) {
       var msg = (lm && lm.status) ? 'No engine results for this lens yet' + (lm.status !== 'no fidelity data yet' ? ' (' + lm.status + ')' : '') :
         'No candidates scored for this lens.';
@@ -307,16 +316,18 @@
   }
 
   function select(id, pan) {
+    if (!lensFeatures().some(function (f) { return f.properties.id === id; })) return;
     state.selectedId = id;
-    renderMap(); // refresh marker emphasis
+    renderMap(false); // refresh emphasis without resetting the user's map viewport
     var m = markers[id];
     if (m) {
       if (m.bringToFront) m.bringToFront();
-      if (pan) map.panTo(m.getLatLng());
+      if (pan) map.panTo(m.getLatLng(), { animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches });
     }
     renderList(); renderCard();
+    publishState('selection');
     var c = $('card');
-    if (window.matchMedia('(max-width: 1099px)').matches && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!EXPEDITION && window.matchMedia('(max-width: 1099px)').matches && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function listHtml(items) {
@@ -507,7 +518,7 @@
     if (sel) {
       h += '<h4>Descriptors (' + esc(state.lens) + ' vs ' + esc(sel.target) + ')</h4>';
       var d = sel.descriptors || {}, keys = Object.keys(d);
-      h += '<div id="radar" class="radar"><h5>Match per descriptor (1 = same as ' + esc(lensInfo(state.lens).body || 'target') + ' target)</h5>' + radarSvg(d) + '</div>';
+      if (!EXPEDITION) h += '<div id="radar" class="radar"><h5>Match per descriptor (1 = same as ' + esc(lensInfo(state.lens).body || 'target') + ' target)</h5>' + radarSvg(d) + '</div>';
       if (keys.length) {
         h += '<details class="fold"><summary>Descriptor table (' + keys.length + ')</summary><div class="tbl-wrap"><table><thead><tr><th>Descriptor</th><th>Earth</th><th>Target</th><th>z</th></tr></thead><tbody>';
         keys.forEach(function (k) {
@@ -545,6 +556,7 @@
   function words(v) { return String(v || '').replace(/_/g, ' '); }
   var HERO_SITE = 'site:E10K_453_921';
   function renderIntro() {
+    if (!$('lens-cards')) return;
     var lm = state.meta.lenses || {};
     var total = 0;
     LENSES.forEach(function (l) { if (lm[l.id] && typeof lm[l.id].n_scored === 'number') total += lm[l.id].n_scored; });
@@ -711,10 +723,20 @@
 
   // ---------- init ----------
   function init() {
+    if (!window.L) {
+      dataStatus = 'error';
+      $('error-banner').textContent = 'Map library could not load. Reload the page; the evidence report remains available.';
+      $('error-banner').hidden = false;
+      publishState('error');
+      return;
+    }
     var narrow = ($('map').clientWidth || 800) < 700; // zoom 1 (512 px world) fills a phone, zoom 2 a desktop
     map = L.map('map', { minZoom: narrow ? 1 : 2, maxBounds: [[-88, -200], [88, 200]], maxBoundsViscosity: 0.8 }).setView([20, 30], narrow ? 1 : 2);
     L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg', {
       maxNativeZoom: 8, maxZoom: 10, noWrap: true, bounds: [[-85.05, -180], [85.05, 180]], attribution: 'NASA GIBS / Blue Marble'
+    }).on('tileerror', function () {
+      var notice = $('tile-notice');
+      if (notice) notice.hidden = false;
     }).addTo(map);
     markerLayer = L.layerGroup().addTo(map);
     buildLegend();
@@ -746,6 +768,7 @@
     }).then(function (res) {
       state.features = (res.data.features || []).filter(function (f) { return f && f.properties && f.geometry; });
       state.meta = res.data.metadata || {};
+      dataStatus = 'ready';
       if (res.mock) $('mock-banner').hidden = false;
       if (state.meta.provisional) $('prov-banner').hidden = false;
       var first = LENSES.filter(function (l) {
@@ -754,10 +777,32 @@
       setLens(state.features.some(isSite) ? 'SITES' : (first ? first.id : LENSES[0].id));
       renderIntro(); renderTransfer();
     }).catch(function (err) {
+      dataStatus = 'error';
       var b = $('error-banner'); b.textContent = 'Could not load data: ' + err.message; b.hidden = false;
       buildLensTabs();
       setLens(LENSES[0].id);
+      publishState('error');
     });
   }
+  function snapshot() {
+    return JSON.parse(JSON.stringify({ status: dataStatus, lens: state.lens, selectedId: state.selectedId,
+      features: state.features, visible: lensFeatures(), metadata: state.meta, lenses: LENSES,
+      configs: lensConfigs, ledger: state.ledger, selected: state.features.filter(function (f) { return f.properties.id === state.selectedId; })[0] || null }));
+  }
+  function publishState(reason) {
+    if (EXPEDITION) document.dispatchEvent(new CustomEvent('similitude:change', { detail: { reason: reason } }));
+  }
+  window.SimilitudeExplorer = {
+    getState: snapshot, setLens: setLens, select: select,
+    clearSelection: function () { state.selectedId = null; renderMap(false); renderList(); renderCard(); publishState('clear'); },
+    resize: function () {
+      if (!map || !$('map').clientWidth) return;
+      map.setMinZoom($('map').clientWidth < 500 ? 0 : $('map').clientWidth < 700 ? 1 : 2);
+      map.invalidateSize({ pan: false });
+      if (mapNeedsFit) { renderMap(true); publishState('viewport'); }
+    },
+    getView: function () { return map ? { center: map.getCenter(), zoom: map.getZoom() } : null; },
+    markerElements: function () { return Object.keys(markers).map(function (id) { return { id: id, element: markers[id].getElement() }; }); }
+  };
   init();
 })();

@@ -1,221 +1,40 @@
 <!doctype html>
-<html lang="en" data-type="software" data-radius="soft">
+<html lang="en" data-type="software" data-expedition data-start-view="explorer">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIMILITUDE: Earth analog test sites for Moon and Mars mission tasks</title>
-<meta name="description" content="Earth analog test sites for Moon and Mars mission tasks, judged per mission lens with NASA data on both worlds: which test results transfer, which need a facility, which cannot be judged from orbit.">
-<meta name="page-type" content="software">
-<meta name="site-kind" content="software">
-<meta name="theme-color" content="#161c1a">
-<meta property="og:title" content="SIMILITUDE: Earth analog test sites for Moon and Mars mission tasks">
-<meta property="og:description" content="One formula on NASA data from both worlds, per mission lens, with an Analog Test Card for every site.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161c1a'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%239fc7b8'/%3E%3Ccircle cx='19' cy='13' r='9' fill='%23161c1a' opacity='.55'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMILITUDE — The proving-ground finder</title>
+<meta name="description" content="Find terrestrial analogs for Moon and Mars mission tasks. Explore the measured similarities, scientific evidence and limits of each comparison.">
+<meta name="page-type" content="software"><meta name="site-kind" content="software"><meta name="theme-color" content="#101719">
+<meta property="og:title" content="SIMILITUDE — To explore beyond Earth, we begin here."><meta property="og:description" content="One mission task. Two worlds. Evidence that you can inspect."><meta property="og:type" content="website"><meta property="og:image" content="media/expedition/earthrise.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="media/favicon.svg"><link rel="stylesheet" href="vendor/leaflet/leaflet.css"><link rel="stylesheet" href="expedition.css">
+<script src="vendor/leaflet/leaflet.js" defer></script><script src="similarities.js" defer></script><script src="expedition.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#finder">Skip to the site finder</a>
-
-<header class="topbar">
-  <div class="topbar-in wrap">
-    <a class="brand" href="./" aria-label="SIMILITUDE home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">SIMILITUDE</span>
-    </a>
-    <p class="brand-line">Earth analog test sites for Moon and Mars mission tasks</p>
-    <nav class="topnav" aria-label="Project">
-      <a class="nav-how" href="#problem">Problem</a>
-      <a class="nav-finder" href="#finder">Find a site</a>
-      <a class="nav-explorer" href="#explorer">Explorer</a>
-      <a class="hdr-link" href="#limits">Data &amp; limits</a>
-      <a class="nav-evidence" href="evidence.html">Evidence</a>
-      <a class="nav-report" href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Validation report</a>
-    </nav>
-  </div>
-</header>
-
-<div class="banners">
-  <div id="mock-banner" class="banner" role="status" hidden>Mock data: fake numbers for interface development only. Do not cite.</div>
-  <div id="prov-banner" class="banner prov" role="status" hidden>Provisional scores (diagonal metric): final engine pending.</div>
-  <div id="error-banner" class="banner error" role="alert" hidden></div>
-</div>
-
-<main id="main">
-<section class="hero" id="top" aria-labelledby="hero-title">
-  <div class="wrap shell hero-in">
-    <div class="hero-text" data-enter>
-      <p class="eyebrow">For Artemis surface-test engineers &middot; NASA Space Apps 2026</p>
-      <h1 id="hero-title" class="hero-title">Find an Earth test site that matches your Moon Base terrain</h1>
-      <p class="hero-lead">Rover mobility, EVA traverse and landing hazard-avoidance systems are rehearsed at a few famous analog sites. SIMILITUDE runs the same code on NASA's lunar south-pole elevation models and on Earth, tells you which sites really match an Artemis site, lists the ones outside our access screen, and says what a field test there can and will not certify.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#finder">Find a test site <span aria-hidden="true">&darr;</span></a>
-        <a class="btn btn-ghost" href="#problem">Why famous sites fall short</a>
-      </div>
-      <p id="hero-fact" class="hero-fact">Same formula on both worlds &middot; six PGDA 78 south-pole regions &middot; checked against NASA's own slope maps and a second Earth DEM</p>
-    </div>
-    <figure class="hero-visual" data-enter aria-label="The best open-country lead for Connecting Ridge, from the data">
-      <div class="app-frame">
-        <div class="af-bar"><span></span><span></span><span></span><b>Test-site lead</b></div>
-        <div id="hero-card" class="af-body">
-          <p class="af-site">Loading the leads&hellip;</p>
-        </div>
-      </div>
-    </figure>
-  </div>
+<a class="skip-link" href="#explorer">Skip to Explorer</a>
+<header class="exp-header"><a class="identity" href="#mission">SIMILITUDE<span>The proving-ground finder</span></a><nav aria-label="Main navigation"><a href="#choose" class="nav-mission">Choose a mission</a><a href="#explorer" class="nav-explorer">Open Explorer <span aria-hidden="true">&#8599;</span></a><button type="button" data-limits>Data &amp; limits</button></nav></header>
+<main>
+<section id="mission" class="mission-scene" aria-labelledby="mission-heading">
+<img class="mission-photo" src="media/expedition/earthrise.jpg" alt="Earth rising above the lunar horizon, photographed from Apollo 8 by William Anders in 1968" width="1900" height="1200" fetchpriority="high">
+<div class="scene-copy"><p class="overline">A terrestrial expedition / Moon &amp; Mars</p><h1 id="mission-heading" tabindex="-1">To explore beyond Earth,<br>we begin here.</h1><p class="scene-lead">Find Earth analogs for specific mission tasks. Compare the evidence. Understand where the analogy ends.</p><div class="actions"><a class="button primary" href="#choose">Begin the expedition <span aria-hidden="true">&#8594;</span></a><a class="button secondary" href="#explorer">Open Explorer</a></div></div>
+<div class="scene-foot"><p>A familiar landscape is not enough.<br>The right analog depends on what you need to test.</p><p>Earthrise / Apollo 8 / 1968<br>NASA &middot; William Anders <a href="media/expedition/credits.json">Image credits</a></p></div>
 </section>
-
-<section class="story" id="problem" aria-labelledby="problem-title">
-  <div class="wrap shell">
-    <p class="eyebrow">1 &middot; The problem</p>
-    <h2 id="problem-title" class="sec-title">The sites we rehearse on are too flat for the Moon Base</h2>
-    <div class="story-grid">
-      <div class="story-text">
-        <p class="story-lead">NASA's 2024 Civil Space Shortfall list includes <b>Autonomous Surface Mobility and Navigation</b> (ESDMD #0805) and <b>Lunar Precision Landing and Hazard Avoidance for Human Exploration</b> (ESDMD #1101). Both are rehearsed on Earth, on terrain chosen by fame and access.</p>
-        <dl class="big-stats">
-          <div><dt>Connecting Ridge, Artemis south pole</dt><dd><span data-key="cr_frac_gt8" data-fmt="pct0">76 %</span></dd><p>of the 4 km footprint is steeper than 8&deg;</p></div>
-          <div class="bad"><dt>Six classic analog field sites</dt><dd><span data-key="classic_frac_gt8_median" data-fmt="pct0">9 %</span></dd><p>median share steeper than 8&deg;, same formula</p></div>
-          <div><dt>SP Crater, San Francisco Volcanic Field</dt><dd><span data-key="sp_crater_frac_gt8" data-fmt="pct0">37 %</span></dd><p>the volcanic field where NASA rehearsed Artemis III moonwalks (JETT5, May 2024)</p></div>
-        </dl>
-        <p class="story-note">What it means for a test: about <b><span data-key="traverse_km_classic_median" data-fmt="km0">86 km</span></b> of traverse at the median classic site meets as much terrain steeper than 8&deg; as 10 km on the ridge (if the share along the path equals the areal share). Slopes are computed on a 30 m baseline on both worlds. NASA's limits (&lt;10&deg; for landing over 100 m, &lt;20&deg; for EVA over 2 km, NTRS 20250009323) are operational limits, so this compares Earth with the Moon, not with NASA's maps.</p>
-      </div>
-      <figure class="story-fig"><img src="figures/fig_mission_slopes.png" alt="Share of terrain steeper than 8 and 20 degrees: Connecting Ridge, two engine matches and six classic analog sites" loading="lazy" width="1650" height="630"></figure>
-    </div>
-  </div>
+<section id="choose" class="choose-scene page-width" aria-labelledby="choose-heading" hidden>
+<div class="section-heading"><div><p class="overline">02 / Mission intent</p><h1 id="choose-heading" tabindex="-1">What are we<br>preparing for?</h1></div><p>Choose a world, then a mission task.<br>The same task will stay with you on Earth.</p></div>
+<div class="mission-picker"><div class="planet-selector" role="group" aria-label="Target world"><button class="planet-choice" type="button" data-planet="moon" aria-pressed="true"><img src="media/expedition/moon.jpg" alt="The Moon's near side from Lunar Reconnaissance Orbiter camera data" width="600" height="600"><span><b>Moon</b><small>Terrain &amp; illumination</small><span class="planet-selected">Selected world</span></span></button><button class="planet-choice" type="button" data-planet="mars" aria-pressed="false"><img src="media/expedition/mars.jpg" alt="Global colour mosaic of Mars from Viking Orbiter images" width="800" height="800"><span><b>Mars</b><small>Minerals &amp; subsurface ice</small><span class="planet-selected">Selected world</span></span></button><p class="image-credit">Planet images provide context, not site-match evidence. <a href="media/expedition/credits.json">Sources &amp; processing</a></p></div>
+<div class="task-picker"><p class="overline">Choose a mission task</p><div id="mission-options" role="group" aria-label="Mission task choices"><p class="note">Loading mission definitions&hellip;</p></div><p id="task-scope" class="scope-note"></p><p id="task-status" class="scope-note" role="status" hidden></p><button type="button" id="find-analogs" class="button primary" disabled>Find Earth analogs <span aria-hidden="true">&#8594;</span></button><p class="note">Search the evaluated dataset. This is not a global census.</p><a href="#explorer" class="text-link">Or open the current Explorer</a></div></div>
 </section>
-
-<section class="story alt" id="finder" aria-labelledby="finder-title" tabindex="-1">
-  <div class="wrap shell">
-    <p class="eyebrow">2 &middot; Find a test site</p>
-    <h2 id="finder-title" class="sec-title">Pick your Artemis region: matching terrain outside our access screen</h2>
-    <p class="story-lead narrow">Each lead is a 4 km footprint that passes the same terrain test as the published results (all three test configurations), in a country outside our access screen (a planning assumption, not legal advice). The Routes column is the pre-registered traverse-planner test: a slope match is not always a route match. Open the coordinates and look at the ground before you plan a visit.</p>
-    <div class="finder-controls" role="group" aria-label="Lead filters">
-      <label>Artemis south-pole region
-        <select id="finder-region"></select>
-      </label>
-      <label class="check"><input type="checkbox" id="finder-stable" checked> Only usable leads (hold with a second Earth DEM, snow/ice at most 20 %)</label>
-    </div>
-    <p id="finder-summary" class="finder-summary" aria-live="polite"></p>
-    <div class="table-wrap">
-      <table class="leads" id="finder-table">
-        <thead><tr><th scope="col">Where</th><th scope="col">Steeper than 8&deg;</th><th scope="col">Steeper than 20&deg;</th><th scope="col">Routes (pre-registered planner test, two DEMs)</th><th scope="col">Area-share equivalent of 10 km at the target (not a route)</th><th scope="col">Second DEM</th><th scope="col">Snow / ice</th><th scope="col">Found by</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <p class="slope-key">Pictures: Sentinel-2 true colour and slope classes of the 4 km footprint (same 30 m DEM and formula as the test):
-      <span><i style="background:#6fbf8f"></i>under 8&deg;</span><span><i style="background:#e2a85c"></i>8&ndash;20&deg;</span><span><i style="background:#e57a68"></i>over 20&deg;</span></p>
-    <p id="finder-caveat" class="story-note"></p>
-  </div>
-</section>
-
-<section class="story" id="transfer" aria-labelledby="transfer-title">
-  <div class="wrap shell">
-    <p class="eyebrow">3 &middot; What a field test there can and cannot show</p>
-    <h2 id="transfer-title" class="sec-title">A terrain match reproduces the slopes, not the Moon</h2>
-    <div class="story-grid">
-      <div class="story-text">
-        <p class="story-lead">Protocol for a slope-traverse and touchdown-terrain rehearsal at a matching site: test rover mobility and path planning on slopes, EVA traverse planning and hazard-map products; measure traverse energy, slip and path length per km in the slope classes &lt;8&deg;, 8&ndash;20&deg; and &gt;20&deg;, and compare with predictions made on the lunar DEM.</p>
-        <ul class="transfer-list" id="transfer-list"></ul>
-        <p class="story-note">A card is an input to a project's own &ldquo;documented definition of relevant environment&rdquo; (NASA TRL definitions); it assigns no TRL. <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/test_protocols.md" target="_blank" rel="noopener">Full test protocols</a></p>
-      </div>
-      <figure class="story-fig"><img src="figures/fig_transfer_matrix.png" alt="Test-transfer matrix: which test variables come home valid, per mission lens" loading="lazy" width="1230" height="1056"></figure>
-    </div>
-  </div>
-</section>
-
-<section class="story alt" id="trust" aria-labelledby="trust-title">
-  <div class="wrap shell">
-    <p class="eyebrow">4 &middot; Can you trust the match?</p>
-    <h2 id="trust-title" class="sec-title">Checked against known answers before we show it</h2>
-    <div class="checks">
-      <div class="check-tile"><b><span data-key="nasa_slope_max_abs_diff_deg">0.0009</span>&deg;</b><h3>Same slopes as NASA</h3><p>largest difference between our slope code and NASA's PGDA 78 slope rasters on six south-pole sites</p></div>
-      <div class="check-tile"><b><span data-key="cross_dem_same_verdict">102</span> / <span data-key="cross_dem_n">109</span></b><h3>Stable across elevation models</h3><p>published terrain verdicts unchanged when recomputed from NASADEM or ArcticDEM instead of Copernicus</p></div>
-      <div class="check-tile"><b><span data-key="prevalence_connecting_ridge_pass">1</span> in <span data-key="prevalence_connecting_ridge_n" data-fmt="int">1,000</span></b><h3>Selective</h3><p>random bare-land cells pass for the ridge (<span data-key="prevalence_shackleton_rim_pass">9</span> for the steeper Shackleton wall): a match is rare</p></div>
-      <div class="check-tile"><b><span data-key="stability_classic_robust">0</span> / <span data-key="stability_classic_n">54</span></b><h3>Classic sites do not pass</h3><p>footprints in the 12 km blocks around six classic analog field sites</p></div>
-      <div class="check-tile"><b><span data-key="lunar_control_wall_same_pass">4</span> / <span data-key="lunar_control_wall_same_n">4</span></b><h3>Known truth on the Moon</h3><p>lunar wall footprints, scored like Earth cells, match their own region; ridge, rim and massif sites are not told apart (a terrain class, not a place)</p></div>
-      <div class="check-tile fail"><b><span data-key="m1_stop_rule_verdict">FAIL</span></b><h3>Mineral test</h3><p>failed its own pre-registered stop rule, so no Mars mineral site is offered</p></div>
-    </div>
-    <p class="story-note"><a href="evidence.html">Evidence page</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md" target="_blank" rel="noopener">Validation report</a> (every rule changed after seeing data is listed)</p>
-  </div>
-</section>
-
-<section class="lenses" id="lenses" aria-labelledby="lenses-title">
-  <div class="wrap shell">
-    <p class="eyebrow">5 &middot; Beyond terrain</p>
-    <h2 id="lenses-title" class="sec-title">Four mission tests, Moon and Mars</h2>
-    <div id="lens-cards" class="lens-cards"></div>
-  </div>
-</section>
-
-<section class="explorer" id="explorer" aria-labelledby="lens-title" tabindex="-1">
-<div class="lens-zone">
-  <div class="wrap shell">
-    <nav class="lens-bar" aria-label="Mission lens">
-      <div id="lens-tabs" class="lens-tabs" role="group" aria-label="Select a mission lens"></div>
-    </nav>
-    <div class="lens-brief">
-      <div class="lens-brief-text">
-        <p id="lens-eyebrow" class="eyebrow">Mission lens</p>
-        <h2 id="lens-title" class="lens-title">Explorer</h2>
-        <p id="lens-question" class="lens-question"></p>
-      </div>
-      <dl id="lens-stats" class="lens-stats" aria-label="Numbers for this lens"></dl>
-    </div>
-  </div>
-</div>
-
-<div id="workspace" class="workspace wrap shell" tabindex="-1">
-  <section class="map-panel" aria-label="Map of sites for this lens">
-    <div class="panel-head">
-      <h3 class="panel-title">Map</h3>
-      <p class="panel-note">Select a marker or a ranked result to open its card.</p>
-    </div>
-    <div id="map" role="application" aria-label="Interactive map"></div>
-    <div id="legend" class="legend" aria-label="Legend"></div>
-  </section>
-
-  <aside id="card" class="card detail" aria-label="Analog Test Card" aria-live="polite" tabindex="-1">
-    <p class="muted">Select a site on the map or in the list to open its Analog Test Card.</p>
-  </aside>
-
-  <section class="results" aria-labelledby="list-title">
-    <div class="panel-head">
-      <h3 id="list-title" class="panel-title">Ranked results</h3>
-    </div>
-    <ol id="list" class="cand-list"></ol>
-  </section>
-</div>
+<section id="explorer" class="explorer page-width" aria-labelledby="explorer-heading" hidden>
+<div class="explorer-heading"><div><p class="overline">03 / Search across Earth</p><h1 id="explorer-heading" tabindex="-1">A proving ground for your question.</h1></div><a href="#choose" class="text-link">Change mission <span aria-hidden="true">&#8599;</span></a></div>
+<nav id="lens-tabs" class="lens-tabs" role="group" aria-label="Explorer mission lens"></nav>
+<div class="lens-brief"><div><p id="lens-eyebrow" class="overline">Mission lens</p><h2 id="lens-title">Loading study data&hellip;</h2><p id="lens-question" class="lens-question"></p></div><dl id="lens-stats" class="lens-stats" aria-label="Counts from published data"></dl></div>
+<div class="banners"><p id="loading-banner" class="banner" role="status">Loading published candidates and evidence&hellip;</p><p id="mock-banner" class="banner warning" hidden>Mock data: fake development values. Do not cite these results.</p><p id="prov-banner" class="banner warning" hidden>Provisional scores. Final engine pending.</p><p id="error-banner" class="banner error" role="alert" hidden></p><p id="tile-notice" class="tile-notice" role="status" hidden>Some NASA basemap tiles could not load. Candidate locations and the result list remain available.</p></div>
+<div id="workspace" class="workspace" tabindex="-1"><section class="map-panel" aria-label="Earth candidate map"><div class="panel-label"><span>Earth / evaluated study locations</span><span id="map-task-label">Sites overview</span></div><div id="map" aria-label="Interactive Earth map"></div><details class="legend-disclosure"><summary>Read the map &amp; score legend</summary><div id="legend" class="legend"></div></details></section><section class="results" aria-labelledby="list-title"><div class="panel-label"><h3 id="list-title">Study results</h3></div><p class="result-help">Select a row or marker to inspect its evidence.</p><p id="score-help" class="result-help"></p><ol id="list" class="cand-list"><li class="empty">Results appear when the study records load.</li></ol></section></div>
+<div id="selection-guide" class="selection-guide"><span class="overline">04 / Discover the similarities</span><p>Choose a study location to compare its measured features with the mission target. Controls and decoys are validation examples, not qualified discoveries.</p><button type="button" class="button secondary" data-terrain-example disabled>Compare Moon &amp; Earth terrain ↗</button></div>
+<section id="comparison" class="comparison" aria-labelledby="comparison-heading" hidden><div class="selection-nav"><button type="button" class="text-button" id="back-results">&#8592; Back to candidates</button><span id="selected-class" class="selection-class"></span></div><div class="section-heading"><div><p class="overline">04 / Discover the similarities</p><h2 id="comparison-heading" tabindex="-1">What makes this place an analog?</h2><p id="selected-name" class="selected-name"></p></div><button type="button" id="open-dossier" class="button primary">View evidence &amp; limits <span aria-hidden="true">&#8595;</span></button></div><div id="comparison-content"></div></section>
+<section id="dossier" class="dossier" aria-labelledby="dossier-heading" hidden><div class="section-heading"><div><p class="overline">05 / Scientific evidence</p><h2 id="dossier-heading" tabindex="-1">Analog Test Card</h2><p id="dossier-subtitle" class="note"></p></div><button type="button" class="text-button" id="close-dossier">Back to comparison &#8593;</button></div><div id="transfer-limits" class="transfer-limits"></div><details class="dossier-record"><summary>Inspect the full study record, method &amp; sources</summary><article id="card" class="detail" aria-label="Analog Test Card" tabindex="-1"></article></details><p class="research-boundary">A recorded analog match supports a test question. It does not qualify hardware for lunar or Martian operations.</p></section>
 </section>
 </main>
-
-<footer class="site-footer">
-  <div class="wrap shell">
-    <details id="limits" class="fold limits-fold">
-      <summary>Data &amp; limits</summary>
-      <ul class="limits">
-        <li>EMIT covers only about &plusmn;52&deg; latitude (ISS orbit), so the spectral lens cannot see polar sites.</li>
-        <li>Earth's atmosphere hides the 1.4 and 1.9 &micro;m water bands where CRISM is most sensitive, so hydration parameters are excluded on both worlds.</li>
-        <li>MICA spectra are Mars I/F (numerator) and EMIT is surface reflectance; they are compared only through band-depth parameters and continuum-removed shapes.</li>
-        <li>X1 is semi-quantitative: a configuration match, and Earth ice sits near its melting point.</li>
-        <li>Sigma is relative to the variation among Mars or Moon target sites (the population) and is shown for reading; ranking uses the raw distance d.</li>
-        <li>Percentile is computed against a random null sample; its size n is printed on the card.</li>
-        <li>Attention = OpenAlex count of analog papers naming the place under the B8 query; a site is called hidden only when that count is known, at most 10, and no cell lies in a known-analog zone.</li>
-        <li>Verdicts TRANSFERS, NO-ANALOG and UNOBSERVED are read from the pipeline's verdict table, never computed in this page.</li>
-      </ul>
-      <p><a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Read the validation report</a></p>
-    </details>
-    <p class="data-line">Data: NASA EMIT, MRO CRISM (MICA), LRO LOLA and PGDA, MODIS, ASTER GED, SWIM; Copernicus DEM, ESA WorldCover, ERA5-Land, TerraClimate, OpenAlex. Basemap NASA GIBS Blue Marble. Code Apache-2.0.</p>
-    <p class="data-line"><a href="SIMILITUDE-slides.pdf">Demo slides (PDF)</a> &middot; <a href="evidence.html">Evidence</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Validation report</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog">Source code</a></p>
-    <p class="data-line">Use of Super Intelligence (SI): code, analysis checks and page text were drafted with SI assistants (Anthropic Claude, Google Gemini) under team review. Every number on this page is read from the pipeline's data files.</p>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
+<dialog id="limits-dialog" aria-labelledby="limits-heading"><div class="dialog-heading"><h2 id="limits-heading">Data &amp; limits</h2><button type="button" id="close-limits" class="button secondary">Close</button></div><div id="limits"><p>Scores describe the published study and its task-specific comparisons. They are not probabilities of mission success or calibrated confidence.</p><ul><li>L1 compares terrain at a 30 m baseline; metre-scale obstacles and soil strength are unobserved.</li><li>L2 ranks the terrain-shadow component separately from the Sun-geometry mismatch.</li><li>M1 failed its stop rule. Its controls and decoys remain visible for method inspection.</li><li>X1 is semi-quantitative; condition floors were set after viewing data.</li><li>Counts describe the evaluated sample. No result is a global statement that an Earth analog cannot exist.</li><li>Site groups are regional collections of cells; representative markers are not surveyed field routes.</li></ul><p><a href="evidence.html">Scientific evidence page</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Full validation report</a></p></div></dialog>
+<footer class="exp-footer page-width"><span>SIMILITUDE / NASA Space Apps 2026</span><nav aria-label="Supporting resources"><a href="campaign.html">Campaign builder</a><a href="evidence.html">Evidence report</a><a href="legacy-explorer.html">Legacy view</a><a href="https://github.com/Johnlrr/nasa-earth-analog">Source code</a><a href="media/expedition/credits.json">Image credits</a></nav><p>NASA and partner data; no NASA endorsement implied. Code Apache-2.0. SI-assisted development under team review.</p></footer>
+<noscript><p class="noscript">The interactive map requires JavaScript. Read the <a href="evidence.html">scientific evidence</a> and <a href="validation_report.md">validation report</a>.</p></noscript>
+</body></html>

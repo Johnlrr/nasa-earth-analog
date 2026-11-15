@@ -9,8 +9,9 @@ SIMILITUDE: which Earth test results transfer to the Moon Base and Mars
 https://johnlrr.github.io/nasa-earth-analog/SIMILITUDE-slides.pdf
 
 ## Link to Final Project (public, no login)
-https://johnlrr.github.io/nasa-earth-analog/ (web app) · source, data tables and validation report:
-https://github.com/Johnlrr/nasa-earth-analog
+https://johnlrr.github.io/nasa-earth-analog/ (web app) · test-site finder for Artemis regions
+(access screen, slope and route tests): https://johnlrr.github.io/nasa-earth-analog/test-sites.html · source, data
+tables and validation report: https://github.com/Johnlrr/nasa-earth-analog
 
 ## High-Level Project Summary
 Space agencies test Moon and Mars hardware at Earth "analog" sites, usually chosen because they

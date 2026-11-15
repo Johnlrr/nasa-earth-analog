@@ -1,0 +1,9 @@
+﻿{
+  "purpose": "Planetary context for the optional introduction. These images are not evidence of a selected Earth/target match.",
+  "usage": "NASA images and media guidance: https://www.nasa.gov/nasa-brand-center/images-and-media/ . No NASA endorsement implied.",
+  "images": [
+    {"file":"earthrise.jpg","title":"Earthrise","credit":"NASA / William Anders, Apollo 8, 24 December 1968","source_page":"https://science.nasa.gov/resource/image-earthrise/","download":"https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/August-2013_1920x1200.jpg?w=1900&fit=clip","presentation":"NASA web rendition; responsive CSS crop, no scientific measurements derived"},
+    {"file":"moon.jpg","title":"Lunar Near Side","credit":"NASA / Goddard Space Flight Center / Arizona State University, Lunar Reconnaissance Orbiter camera data","source_page":"https://science.nasa.gov/resource/lunar-near-side/","download":"https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/l/lro_nearside.jpg?w=600&fit=clip","presentation":"NASA web rendition; whole disk, contextual image"},
+    {"file":"mars.jpg","title":"Global Color Views of Mars, PIA00407","credit":"NASA / JPL / USGS, Viking Orbiter mosaic","source_page":"https://science.nasa.gov/photojournal/global-color-views-of-mars/","download":"https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia00/pia00407/PIA00407.jpg?w=800&fit=clip","presentation":"Processed colour mosaic from Viking images; whole disk, contextual image"}
+  ]
+}

@@ -401,3 +401,9 @@ Lý do: sau 2d, L1 vẫn không có kiểm tra nào dùng dữ liệu độc l�
 - 2026-11-15 · Codex · Theo yêu cầu trực tiếp, soạn đề xuất `PLAN_IMPACT_VALIDITY.md` về campaign planning cho kỹ sư, validation độc lập và website workflow; chưa thay phạm vi đã duyệt hoặc triển khai code. Ruff: PASS; pytest không collection được do Python hiện tại thiếu numpy.
 
 - 2026-11-15 · Codex · UI theo yêu cầu trực tiếp: Mission → Objectives → Compare → Campaign → Export; giữ explorer cũ; không đổi pipeline/kết quả khoa học. Node: 5/5; browser interaction: 15/15; ruff và static build PASS; pytest thiếu numpy; design gate còn quy tắc bố cục marketing, chi tiết tại docs/ui_campaign_plan.md.
+
+- 2026-11-15 · Codex · Theo anti-slop brief: giao diện hồ sơ kỹ thuật nền sáng, so sánh theo hàng, bỏ hiệu ứng và khung thẻ dư; giữ workflow/stack/exports. Node 5/5; browser 23/23; tương phản chữ >=4.5:1; ruff/build PASS. Review: docs/ui_anti_slop_review.md.
+
+- 2026-11-15 · Codex · Theo master prompt SIMILITUDE: triển khai intro/mission chooser ngắn và Explorer thống nhất trạng thái map/list/comparison/Test Card; giữ campaign.html + exports và legacy-explorer.html; không đổi dữ liệu/ngưỡng/xếp hạng. Node 9/9; browser Explorer 57/57 (cả reduced motion), campaign 23/23; Ruff, JS syntax và static build PASS; pytest thiếu numpy. Ảnh 1440/768/390 và báo cáo tại design/IMPLEMENTATION_REPORT.md; Taste bản cài không có --app, các quy tắc marketing không phù hợp được ghi riêng.
+
+- 2026-11-15 · Codex · Theo yêu cầu so sánh 2 địa hình: thêm ảnh target–Earth có nguồn, chọn footprint/target cụ thể trong site, bảng số đo có thanh trực quan + delta, bảng độ ẩm/nước trong đất/nhiệt độ/sức chịu tải còn thiếu, bảng môi trường hành tinh từ ledger; không đổi khoa học. Node 15/15; browser regression 57/57 + Similarities 24/24; Ruff, syntax và build PASS. Báo cáo: design/SIMILARITIES_REPORT.md.
