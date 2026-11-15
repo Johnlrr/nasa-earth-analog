@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMILITUDE | Guide</title>
+<meta name="description" content="How to use SIMILITUDE: pick a mission task, read the results, compare a site with its Moon or Mars target, find test sites open to NASA, check the evidence.">
+<link rel="icon" href="media/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="expedition.css">
+<style>
+.guide{max-width:1180px;margin:0 auto;padding:56px var(--gutter) 96px}
+.guide h1{font-size:clamp(36px,4vw,56px);line-height:1.05;margin:0 0 18px;font-weight:500}
+.guide .lead{font-size:18px;line-height:1.6;max-width:68ch;color:var(--ink);margin:0 0 28px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 56px;padding:0;list-style:none}
+.toc a{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;text-decoration:none}
+.toc a:hover{border-color:var(--accent);color:var(--accent)}
+.step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start;padding:44px 0;border-top:1px solid var(--line)}
+.step .num{font:13px var(--mono);color:var(--accent);margin:0 0 10px}
+.step h2{font-size:28px;line-height:1.2;margin:0 0 14px;font-weight:500}
+.step p{font-size:16px;line-height:1.65;margin:0 0 12px;max-width:60ch}
+.step ul{margin:0 0 14px;padding-left:20px;font-size:16px;line-height:1.6}
+.step li{margin:4px 0}
+.shot{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;text-decoration:none;position:relative}
+.shot img{display:block;width:100%;height:auto;transition:transform .25s}
+.shot:hover img{transform:scale(1.02)}
+.shot span{position:absolute;right:10px;bottom:10px;background:var(--accent);color:var(--accent-ink);font-size:13px;font-weight:600;padding:7px 12px;border-radius:3px}
+.key{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 36px;margin:0;padding:44px 0;border-top:1px solid var(--line)}
+.terms div{padding:10px 0;border-bottom:1px solid var(--line)}
+.terms dt{font-weight:600;margin:0 0 4px}.terms dd{margin:0;color:var(--muted);line-height:1.55}
+.guide h3{font-size:24px;font-weight:500;margin:0 0 8px}
+@media(max-width:860px){.step{grid-template-columns:1fr;gap:20px}.terms{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="exp-header"><a class="identity" href="./"><img class="logo" src="media/logo.svg" alt="" width="30" height="30">SIMILITUDE<span>The proving-ground finder</span></a><nav aria-label="Main navigation"><a href="./" class="nav-mission">Mission</a><a href="explorer.html" class="nav-explorer-link">Explorer</a><a href="test-sites.html" class="nav-finder">Test sites</a><a href="guide.html" class="nav-guide" aria-current="page">Guide</a></nav></header>
+<main class="guide">
+<p class="overline">Guide</p>
+<h1>How to use SIMILITUDE</h1>
+<p class="lead">SIMILITUDE answers one question for a test engineer: where on Earth can I rehearse this Moon or Mars task, and which results will come home valid? Seven short steps. Every picture opens the real page.</p>
+<ul class="toc">
+<li><a href="#s1">1 Start</a></li><li><a href="#s2">2 Pick a task</a></li><li><a href="#s3">3 Read the results</a></li><li><a href="#s4">4 Compare a site</a></li><li><a href="#s5">5 Read the terrain</a></li><li><a href="#s6">6 Test sites open to NASA</a></li><li><a href="#s7">7 Check the evidence</a></li><li><a href="#terms">Terms</a></li>
+</ul>
+
+<section class="step" id="s1"><div><p class="num">01</p><h2>Start with the problem</h2>
+<p>The first screen states the gap. 76 % of the Moon Base ridge (Connecting Ridge) is steeper than 8°. The six famous analog field sites have a median of 9 %, measured with the same formula.</p>
+<p>Press <b>Begin the expedition</b> to choose a task, or <b>Open Explorer</b> to go straight to the results.</p></div>
+<a class="shot" href="./"><img src="media/guide/01-mission.jpg" alt="The opening screen of the mission app" width="864" height="540" loading="lazy"><span>Open the app</span></a></section>
+
+<section class="step" id="s2"><div><p class="num">02</p><h2>Pick a world and a mission task</h2>
+<p>Each task is one test with its own target. The task stays with you on Earth.</p>
+<ul><li><b>L1 Touchdown &amp; Traverse</b> (Moon): slopes and roughness.</li><li><b>L2 Low-Sun Navigation</b> (Moon): long terrain shadows.</li><li><b>X1 Ice under Dry Overburden</b> (Mars): ground ice under dry soil. Semi-quantitative.</li><li><b>M1 Aqueous Minerals</b> (Mars): failed its own pre-registered stop rule, so no site is offered.</li></ul></div>
+<a class="shot" href="./#choose"><img src="media/guide/02-choose.jpg" alt="Choosing the Moon and the Touchdown and Traverse task" width="864" height="540" loading="lazy"><span>Choose a task</span></a></section>
+
+<section class="step" id="s3"><div><p class="num">03</p><h2>Read the results</h2>
+<p>The map and the list show the same 4 km Earth footprints. The list puts first what a NASA team can use.</p>
+<ul><li><b>Usable by a NASA team</b>: passes the test, little snow or ice, in a country open to NASA.</li><li><b>Matches, not usable</b>: passes the test, but fails the ice rule or lies in a closed country. The reason is shown.</li><li><b>Controls and decoys</b>: known sites that should pass or fail. They show the test works.</li></ul>
+<p>σ is the distance to the target. Lower is closer. It is not a confidence. Above the list, a link opens the test sites open to NASA.</p></div>
+<a class="shot" href="explorer.html?lens=L1"><img src="media/guide/03-results.jpg" alt="Map and ranked results for the Touchdown and Traverse task" width="864" height="540" loading="lazy"><span>Open the results</span></a></section>
+
+<section class="step" id="s4"><div><p class="num">04</p><h2>Compare a site with its target</h2>
+<p>Select a row. The headline gives the numbers an engineer needs first: the share of terrain steeper than 8° and 20°, here and at the target. These are the Artemis III landing and EVA slope values.</p>
+<p>Below: the closest match, the biggest difference and what is still unknown, then the two 4 km images side by side. The cards <b>Full measurement table</b> and <b>What no Earth site reproduces</b> open with one click.</p></div>
+<a class="shot" href="explorer.html?lens=L1"><img src="media/guide/04-compare.jpg" alt="Comparison headline with slope shares for an Earth site and its lunar target" width="864" height="540" loading="lazy"><span>Compare a site</span></a></section>
+
+<section class="step" id="s5"><div><p class="num">05</p><h2>Read the terrain</h2>
+<p>Both windows use the same 4 km scale. Colours follow the mission slope classes: <span class="key" style="background:#6fbf8f"></span>under 8°, <span class="key" style="background:#e2a85c"></span>8–20°, <span class="key" style="background:#e57a68"></span>over 20°.</p>
+<p>Contours adapt to the relief, about twelve per window. Dense lines mean steep ground. Move the A–A′ section to see a height profile, the way a rover would cross it. This is a display grid, not a hazard map. Shown for the Moon terrain tasks (L1, L2).</p></div>
+<a class="shot" href="explorer.html?lens=L1"><img src="media/guide/05-terrain.jpg" alt="Slope-class maps with contours for an Earth site and the lunar target" width="864" height="540" loading="lazy"><span>Read the terrain</span></a></section>
+
+<section class="step" id="s6"><div><p class="num">06</p><h2>Find test sites open to NASA</h2>
+<p>NASA cannot run a bilateral field campaign in China, so some matches cannot be used. This page re-ran the same terrain test in countries open to NASA.</p>
+<p>Pick an Artemis south-pole region. Each row is a 4 km footprint with its satellite picture, slope classes, a second elevation-model check, snow and ice, and the pre-registered route test. Coordinates open the map. These are leads, not verdicts: nobody has visited them yet.</p></div>
+<a class="shot" href="test-sites.html"><img src="media/guide/06-test-sites.jpg" alt="Test-site list with pictures, slope shares and second elevation-model checks" width="720" height="551" loading="lazy"><span>Open test sites</span></a></section>
+
+<section class="step" id="s7"><div><p class="num">07</p><h2>Check the evidence</h2>
+<p>Every number on the site comes from the pipeline tables. The evidence page shows the checks against known answers.</p>
+<ul><li>Our slope code matches NASA's own PGDA 78 slope maps to 0.0009°.</li><li>102 of 109 terrain verdicts hold with a second elevation model.</li><li>1 in 1,000 random cells passes for the ridge: a match is rare.</li><li>The mineral test failed, and we say so.</li></ul></div>
+<a class="shot" href="evidence.html"><img src="media/guide/07-evidence.jpg" alt="Evidence page with the checks against known answers" width="720" height="446" loading="lazy"><span>Open the evidence</span></a></section>
+
+<section id="terms"><h3>Terms in one line</h3>
+<dl class="terms">
+<div><dt>Footprint</dt><dd>A 4 km square on Earth, scored as one unit. Not a whole region.</dd></div>
+<div><dt>σ (sigma)</dt><dd>Distance to the target in the task's descriptors. Lower is closer. Not a confidence.</dd></div>
+<div><dt>Null sample</dt><dd>Random bare-land cells. A match must beat 90 % of them.</dd></div>
+<div><dt>TRANSFERS</dt><dd>Test it in the field. The site reproduces this variable.</dd></div>
+<div><dt>NO-ANALOG</dt><dd>No Earth site reproduces it. The card names the facility to use, such as an offload rig or a vacuum chamber.</dd></div>
+<div><dt>UNOBSERVED</dt><dd>Our data cannot say, for example boulders under 60 m. Measure it on site.</dd></div>
+<div><dt>Second DEM</dt><dd>The same test recomputed from an independent elevation model (NASADEM or ArcticDEM).</dd></div>
+<div><dt>Usable</dt><dd>Holds with the second DEM, snow and ice at most 20 %, and in a country open to NASA.</dd></div>
+</dl></section>
+</main>
+</body>
+</html>

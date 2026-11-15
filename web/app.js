@@ -182,12 +182,12 @@
       if (sites.length) {
         var two = sites.filter(function (f) { var p = f.properties; return (p.lenses_engine_confirmed.length + p.lenses_engine_semiquant.length) >= 2; }).length;
         var low = sites.filter(function (f) { return f.properties.hidden_status === 'yes'; }).length;
-        h = stat('Showcase sites', sites.length) + stat('Two or more lenses', two) + stat('Low attention', low);
+        h = stat('Field sites', sites.length) + stat('Sites passing 2+ tasks', two) + stat('Rarely studied (10 papers or fewer)', low);
       }
     } else if (lm && !lm.status) {
       var ranked = state.features.filter(function (f) { return !isSite(f) && f.properties.lens_scores && f.properties.lens_scores[id] && roleOf(f.properties) === 'hidden'; }).length;
-      h = (typeof lm.n_scored === 'number' ? stat('Cells scored', lm.n_scored) : '') +
-        (typeof lm.n_null === 'number' ? stat('Null sample', lm.n_null) : '') + stat('Ranked candidates', ranked);
+      h = (typeof lm.n_scored === 'number' ? stat('Earth cells tested', lm.n_scored) : '') +
+        (typeof lm.n_null === 'number' ? stat('Random cells for comparison', lm.n_null) : '') + stat('Passed the test', ranked);
     }
     $('lens-stats').innerHTML = h;
   }
@@ -313,7 +313,7 @@
     if (hidden.length) {
       h += '<li class="group-h">Usable by a NASA team</li>';
       h += ok.length ? ok.map(rowHtml).join('') : '<li class="empty">None in this lens list. See the test-site finder.</li>';
-      if (no.length) h += '<li class="group-h">Engine match, not usable</li>' + no.map(rowHtml).join('');
+      if (no.length) h += '<li class="group-h">Matches, not usable</li>' + no.map(rowHtml).join('');
     } else {
       h += '<li class="group-h">Engine matches (4 km cells)</li><li class="empty">' + (state.lens === 'M1' ? 'No mineral site is published. The test failed its own pre-registered stop rule (the Lake Salda control did not reach the required matched area), so we report the failure instead of a site. The controls and decoys below show how the test behaved.' : (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data')) + '</li>';
     }
@@ -424,7 +424,7 @@
     h += '<p class="meta">Site · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · ' + esc(p.n_cells) + ' cell(s) · span ' +
       esc(num(p.max_span_km, 0)) + ' km' + (p.max_span_km > 300 ? ' <span class="flag">a region, not one camp</span>' : '') +
       ' · <span class="note">' + esc(p.id) + '</span></p>';
-    h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'engine-confirmed') + ' ' +
+    h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'measured') + ' ' +
       chip(p.lenses_engine_semiquant, 'c-semi', 'semi-quantitative') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (downgraded at visual review)') + ' ' +
       chip(p.lenses_literature_only, 'c-lit', 'literature-only context') + '</p>';
     // the word "hidden" appears only on a site whose hidden_status is exactly "yes" (PR #5 request)
@@ -595,9 +595,9 @@
     // lens cards
     $('lens-cards').innerHTML = LENSES.map(function (l) {
       var m = lm[l.id] || {};
-      var stats = (typeof m.n_scored === 'number' ? stat('Cells scored', m.n_scored) : '') +
-        (typeof m.n_null === 'number' ? stat('Null sample', m.n_null) : '') +
-        (typeof m.n_hidden === 'number' ? stat('Candidates', m.n_hidden) : '');
+      var stats = (typeof m.n_scored === 'number' ? stat('Earth cells tested', m.n_scored) : '') +
+        (typeof m.n_null === 'number' ? stat('Random cells for comparison', m.n_null) : '') +
+        (typeof m.n_hidden === 'number' ? stat('Passed the test', m.n_hidden) : '');
       var note = m.no_hidden_found ? '<p class="lc-note">No Earth cell passed the gates and thresholds. That is reported as a result.</p>' : '';
       return '<article class="lens-card"><p class="lc-head"><span class="lb-code">' + esc(l.id) + '</span><span class="lc-body">' + esc(l.body) + '</span></p>' +
         '<h3>' + esc(l.name) + '</h3><p class="lc-q">' + esc(l.question) + '</p>' +
@@ -693,7 +693,7 @@
       h = '<p class="af-site">Connecting Ridge</p><p class="af-sub">' + n + ' open-country lead(s); none holds with a second DEM yet</p>' +
         '<ul class="af-rows"><li><span class="v-unk-t">RESULT</span><span>no stable Earth match outside our access screen in the scored sample</span></li></ul>';
     }
-    h += '<a class="btn btn-primary af-open" href="#finder">See all leads <span aria-hidden="true">&rarr;</span></a>';
+
     $('hero-card').innerHTML = h;
   }
   function renderTransfer() {
