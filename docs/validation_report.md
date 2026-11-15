@@ -672,6 +672,241 @@ Pass = robust set (all three configurations), before the ice filter and the visu
 Screened cells (rank + seed) in the robust set of at least one ridge, rim or massif site. Only the Connecting Ridge and Shackleton rows are verdicts; the other four sites use a medoid reference and are exploratory.
 <!-- END:region_matches -->
 
+## 7d. Does a slope match reproduce the ridge's traverse outcomes? (V1, pre-registered)
+
+Registered in `config/prereg_route_v1.yaml` (commit `4e9ceff`, pushed 15/11 before the run); the
+planner and run script were committed in `6ab5bd5` before any Earth footprint was run. Only the
+lunar target was looked at while choosing the grade limits. Script: `scripts/route_validity.py`;
+per-footprint results: `data/derived/route_validity.parquet`; summary: `route_validity.json`.
+
+**Method.** 4 km footprint on 30 m cells (Moon: PGDA 78 Site01 5 m DEM aggregated, frac_gt8 =
+0.7581, as published). 8-connected graph, an edge passable if its along-edge
+grade ≤ 6°, 8° or 10°, cost = length; 24 sources (seed 20261115), destinations 1.0–2.5 km away.
+Outcomes: reach at 6° and 8°, median detour at 8° and 10°, median ascent per km at 10°. Distance
+D_route = mean |difference| / MAD over the ridge's 8 lunar neighbours; a
+footprint reproduces the ridge if D_route ≤ τ = 0.797 (median of the neighbours; same logic as
+the L1 rank rule).
+
+| Group | Reproduce the ridge's routes |
+|---|---|
+| Lunar neighbours of the ridge | 4 / 8 (by construction about half) |
+| L1 ridge matches (GLO-30) | 3 / 9 |
+| L1 ridge matches (second DEM) | 3 / 9 (the same three cells) |
+| Random bare land | 151 / 994 (6 skipped, > 5 % no data) |
+| Classic analog footprints (6 sites × 9) | 27 / 54 |
+
+- **H1 (primary) fails:** matches vs random land, one-sided Fisher p = 0.14766.
+- **H1b fails:** matches vs classic footprints, p = 0.90225.
+- **H2 passes:** in random land the L1 distance to the ridge predicts D_route (Spearman ρ =
+  0.377, n = 994).
+- Why (diagnosis after the run, not a test): the ridge's own neighbourhood spans easy and hard
+  routes, so τ is wide; most L1 matches are *harder* than the ridge (median ascent
+  40 m/km
+  vs 26 on the ridge; twice its share above 20°), while classic
+  footprints are easier but fall inside the neighbourhood's spread.
+
+**Decision (as registered).** L1 TRANSFERS now reads "slope distribution similar"; the traverse
+result is a separate field. Classic sites keep NO slope match but half of their footprints
+reproduce the ridge's simulated routes, so they still serve route-planning rehearsal. The test is
+a planner on 30 m cells, not a rover; rocks, small craters and soil strength are not in it.
+
+### Ridge matches: slope, routes and the low-Sun calendar (I1, exploratory, Deviations 32)
+
+The L2 sun model (same geometry and 7° threshold as `low_sun_hours`) read as a calendar: window
+days have every daylight minute with the Sun ≤ 7°. Shadow = terrain-shadow fraction at 2° from
+the same DEM chip (ridge 0.51; its lunar neighbours 0.51–0.67).
+Script `scripts/build_lighting_windows.py`.
+
+| Cell | Country | D_route | Routes (GLO-30) | Routes (2nd DEM) | L1 on 2nd DEM | Window days / yr | Longest run | Shadow 2° |
+|---|---|---|---|---|---|---|---|---|
+| `E10K_729_-319` | Greenland | 0.35 | yes | yes | no | 36 | 19 Sep–06 Oct | 0.59 |
+| `E10K_660_-632` | Canada | 0.59 | yes | yes | yes | 71 | 13 Nov–22 Jan | 0.75 |
+| `E10K_-355_-671` | Argentina | 0.65 | yes | yes | yes | 0 | — | 0.59 |
+| `E10K_453_921` | China | 1.03 | no | no | yes | 0 | — | 0.68 |
+| `E10K_726_-686` | Canada | 1.13 | no | no | yes | 36 | 23 Sep–10 Oct | 0.64 |
+| `E10K_691_-680` | Canada | 1.19 | no | no | yes | 51 | 19 Jan–13 Feb | 0.71 |
+| `E10K_699_-750` | Canada | 1.30 | no | no | yes | 45 | 28 Jan–19 Feb | 0.73 |
+| `E10K_-304_-654` | Argentina | 1.30 | no | no | no | 0 | — | 0.69 |
+| `E10K_-334_-677` | Chile | 1.37 | no | no | yes | 0 | — | 0.69 |
+
+Two cells pass slope (both DEMs) and routes (both DEMs), lie in countries outside the access
+screen and outside known analog areas: `E10K_-355_-671` (Argentina; the one random cell of 1,000
+that passed L1) and `E10K_660_-632` (Baffin Island). Baffin's 71-day window falls in the snow
+season and its terrain shadow exceeds the ridge's range; the sun model has no refraction and no
+horizon. The Chile lead (inside the Atacama exclusion buffer) and Da Qaidam fail the route test.
+
+### Does the Baffin match hold at rover scale? (exploratory, Deviations 34)
+
+Rule committed before the first run (`c4f7be5`, `scripts/multiscale_check.py`): the lead holds at
+a scale if its shares above 8° and 20° both lie within the range of the ridge and its lunar
+neighbours at that scale. Earth: ArcticDEM v4 2 m mosaic averaged to 5 m; Moon: PGDA 78 5 m.
+
+| Scale | Ridge > 8° (neighbours) | Baffin > 8° | Ridge > 20° (neighbours) | Baffin > 20° | Holds |
+|---|---|---|---|---|---|
+| 5 m | 0.76 (0.50–0.87) | 0.65 | 0.096 (0.011–0.243) | 0.137 | yes |
+| 10 m | 0.76 (0.49–0.87) | 0.65 | 0.084 (0.009–0.233) | 0.133 | yes |
+| 30 m | 0.76 (0.46–0.87) | 0.65 | 0.057 (0.007–0.219) | 0.120 | yes |
+
+Routes at 10 m (same planner): reach at 6° 0.50 vs 0.57 on the ridge,
+at 8° 0.91 vs 0.95; detour at 8° 1.36 vs 1.31;
+ascent 44 vs 25 m per km. The slope match holds down to 5 m; the
+Baffin footprint climbs more than the ridge at every scale. Argentina has no open DEM finer than
+30 m in this pipeline.
+
+### Campaign coverage for Connecting Ridge (exploratory, Deviations 35)
+
+Composed from the tables above by `scripts/build_campaign.py`; nothing is recomputed. A row is
+covered by a campaign if at least one of its sites covers it; that is a union over sites, not a
+joint test environment. Figure: `docs/figures/fig_campaign_coverage.png`.
+
+| Site | Slope (two DEMs) | Routes (two DEMs) | All-day low Sun | Shadow at 2° in ridge range | Slope at 5 m | Rows at this site |
+|---|---|---|---|---|---|---|
+| Argentina lead | yes | yes | no | yes | not checked | 3 |
+| Baffin Island lead | yes | yes | yes | no | yes | 4 |
+| Haughton (classic site) | no | no (4/9) | yes | no | not checked | 1 |
+
+Two leads together: 5 of 5 field rows; the best classic site
+alone: 1 (2 under the V1 threshold, where Haughton reproduced routes in 9/9 footprints; the
+routes column uses the V2 threshold, as `config/prereg_v2_mars.yaml` requires once V2 H1 passes). Baffin covers 4 together, but only
+inside its winter window. Rocks and craters under 60 m stay unobserved (site survey); the
+8 Transfer Ledger rows (gravity, vacuum, thermal, dust, radiation…) go to the named facilities.
+Haughton's route match is "at least half of its 9 footprints" (4/9 under V2); Haughton and Argentina were not
+checked at 5 m, which counts as not covered.
+
+### Artemis atlas: the route test and the low-Sun calendar for every region (exploratory, Deviations 36)
+
+The V1 rule applied per PGDA 78 region (reference: the published footprint or the medoid of
+`scripts/l1_regions.py`; τ from that region's own lunar neighbours) to every open-country lead of
+the access screen. Connecting Ridge is read from the registered run. Script
+`scripts/artemis_atlas.py`; table `data/derived/artemis_atlas.parquet`. "All tests" = slope on two
+DEMs, routes on two DEMs, open country, outside known analog areas, snow/ice ≤ 20 %.
+
+| Region | Open-country leads | Slope, two DEMs | Routes, two DEMs | All tests | … with a low-Sun window | Countries |
+|---|---|---|---|---|---|---|
+| Connecting Ridge | 8 | 6 | 3 | 2 | 1 | Argentina, Canada |
+| Shackleton inner wall | 127 | 117 | 0 | 0 | 0 | — |
+| Nobile Rim 1 | 0 | 0 | 0 | 0 | 0 | — |
+| Peak near Shackleton | 3 | 0 | 1 | 0 | 0 | — |
+| de Gerlache rim | 2 | 0 | 0 | 0 | 0 | — |
+| Malapert massif | 1 | 0 | 0 | 0 | 0 | — |
+
+Only Connecting Ridge has a field site that passes every terrain test. For the Shackleton inner
+wall, the slope rule passes many steep mountains (9 of 1,000 random cells) but none of them
+reproduces the wall's routes: the route test is selective where the slope rule is not. Regions
+without a lead are facility-only for terrain rehearsal in this sample.
+
+## 7e. A tighter route threshold (V2) and the same lens on Mars (pre-registered, `config/prereg_v2_mars.yaml`, commit `67920dd`)
+
+Both rules were committed and pushed before any Earth footprint was compared with them. While
+writing them we looked only at the lunar Site01 DEM and at the Mars CTX DTM. Earth planner outcomes
+were not recomputed; they come from the V1 run (`route_validity.parquet`). Script
+`scripts/v2_mars.py`.
+
+### V2: the V1 test with 124 lunar neighbours instead of 8
+
+V1 took the scale and threshold from the 8 lunar population footprints of the ridge. V2 uses every
+4 km window of the Site01 DEM on a 1 km grid whose centre is at least 4 km from the reference, so no
+window shares a pixel with the reference (124 windows). Everything else is unchanged.
+
+| | V1 (8 neighbours) | V2 (124 neighbours) |
+|---|---|---|
+| τ (D units) | 0.797 | 1.1608 |
+| Slope matches that reproduce routes | 3/9 | 3/9 |
+| Random bare land | 151/994 (15.2%) | 95/994 (9.6%) |
+| Classic-site footprints | 27/54 | 17/54 |
+| H1 (matches > random), one-sided Fisher p | 0.14766 (fail) | 0.04916 (pass) |
+| H1b (matches > classic) p | 0.90225 (fail) | 0.59495 (fail) |
+| H2 Spearman ρ (L1 distance vs route distance, random land) | 0.377 (pass) | 0.359 (pass) |
+
+Per-outcome acceptance half-widths under V2 (scale × τ): reach_6 0.341, reach_8 0.0489, detour_8 0.2917, detour_10 0.0686, climb_10 9.4363.
+The same three leads reproduce routes on both DEMs under V1 and V2 (E10K_729_-319, E10K_-355_-671, E10K_660_-632).
+With the larger neighbourhood the threshold is tighter for four of the five outcomes (looser for
+climb), random land drops from 15 % to 10 %, and H1 passes, narrowly. This is the second
+registered look at H1; counting both looks (Bonferroni), p = 0.098, so H1 passes at the nominal
+α only and we do not call it confirmed. Classic sites are still not
+beaten: 17 of 54 classic footprints reproduce the ridge's routes, and
+so do 3 of the 9 slope matches. Under the registered rule the cards keep both fields (slope match,
+route match) and the routes field now uses V2. Reading: an L1 slope match is a better-than-random
+pointer to traverse-like terrain, not a better pointer than the classic sites. V1 stays published
+as the first registered result.
+
+### Mars terrain lens: Perseverance's Jezero delta front
+
+Target: a 4 km footprint centred 18.4532 N, 77.4022 E on the USGS Mars 2020 TRN CTX DTM (20 m,
+aggregated to 30 m). frac_gt8 = 0.1243, slope p50 = 3.3041°,
+reach at 6° = 0.987, climb at 10° = 22.7481 m/km. Scales and the
+two thresholds come from 185 windows of the same DTM (2 km grid, centre ≥ 4 km
+from the target). A footprint matches if both its slope distance (5 slope descriptors) and its
+route distance (5 planner outcomes) are at most the median of the Mars neighbours
+(τ_slope = 1.1475, τ_route = 4.7897).
+
+| Group | Match | Share |
+|---|---|---|
+| Classic Mars analog sites (5 × 9 footprints) | 17/45 | 38% |
+| Random bare land | 159/994 | 16% |
+| Moon ridge slope matches (reported only) | 0/9 | 0 % |
+
+Per site: Atacama, Yungay 4/9, HI-SEAS, Mauna Loa 9/9, Haughton impact structure, Devon Island 3/9, MDRS Hanksville, Utah 1/9, McMurdo Wright Valley 0/9. HM1 (classic Mars sites > random
+land), one-sided Fisher p = 0.00051: **pass**. Random-land
+matches: 159, of which 132 are in open countries (25 countries;
+China 27 left out); the full list is in `data/derived/mars_m1.json`.
+
+Reading. The Jezero delta front is gentle terrain (12 % of cells above 8°), so it is common on
+Earth: one random bare-land cell in six matches it at 30 m, mostly hyper-arid plains and low
+escarpments of the Sahara and Arabia. The test therefore says the lens ranks known Mars analogs
+above random land, not that matches are rare. HI-SEAS matches in all 9 footprints, Atacama in 4,
+the MDRS badlands in 1 (too rough at 30 m), the Wright Valley in none (too steep). None of the
+Moon-ridge slope matches is a Jezero match: the two targets pick different terrain. Not claimed:
+rocks, soil, mineralogy, dust; 30 m terrain and a planner simulation only.
+
+## 7f. Ground truth from a real rover (pre-registered, `config/prereg_rover_r1.yaml`)
+
+Registered and run on the night of 15/11 on a side branch while the submission branch was frozen (the registration header says so), then brought into the submission before the deadline; the two registration commits are `62ce675` and `59ff157` here (`8798764`, `dabc895` on branch `post-submission`). Rover data: NASA/JPL MMGIS Perseverance traverse and waypoints (public,
+copied to `data/external/m20/`, last drive sol 2022). Before anything was computed
+along the track we checked only the alignment: all 708 waypoints fall inside the Jezero CTX DTM
+and the DTM elevation differs from the rover's by a median 1.1 m. Script `scripts/rover_r1.py`.
+
+### R1 and R2: does the planner's detour (or terrain roughness) predict how the rover drove? No.
+
+| Test (registered, commit `62ce675`) | n | Spearman ρ | one-sided p | Verdict |
+|---|---|---|---|---|
+| R1: planner detour (10°, 30 m) vs Perseverance's detour, 1 km legs | 20 legs | -0.353 | 0.936797 | **fail** |
+| R2: share of terrain > 8° (1 km square) vs drive rate | 383 drives | -0.033 | 0.262161 | **fail** |
+
+Sensitivity (reported, not tested): leg1000_limit8 ρ = -0.194 (n = 20); leg1000_limit6 ρ = -0.089 (n = 20); leg500_limit10 ρ = -0.223 (n = 53); leg2000_limit10 ρ = -0.536 (n = 7).
+Median actual detour 1.702, median planner detour 1.07.
+The legs that span hundreds of sols (science campaigns that go back and forth) have detours of 4–5,
+while on the crater-rim climb, where the planner predicts the largest detours, the rover drove
+fairly directly. Rover paths are set by science and by metre-scale hazards that 30 m cells do not
+see, as stated in the registration. Under the decision rule, route outcomes stay described as "a
+planner simulation on 30 m cells"; no card claims they predict how a rover will drive.
+
+### R1b: does our 30 m slope from orbit match the tilt the rover measured? Yes.
+
+Registered as an addendum (commit `59ff157`) after R1 and R2 had failed and before any slope was
+read at a waypoint. It asks a narrower question, whether the measurement behind every L1 verdict is
+right on the ground, and does not rescue R1.
+
+| | n | Spearman ρ | Verdict |
+|---|---|---|---|
+| 30 m slope (formula of `slope_stats`) vs rover tilt at each waypoint | 708 | 0.802 (p < 1e-8) | **pass** |
+| … at 20 m, no aggregation (sensitivity) | 708 | 0.794 | reported |
+| … one value per rover site (sensitivity, removes clustering) | 91 | 0.909 | reported |
+
+Median rover tilt 7.03°, median 30 m slope 5.7°:
+the orbital slope ranks the terrain the way the rover felt it, and reads it about 1° gentler
+(30 m smooths metre-scale tilt). This is the first check of SIMILITUDE's slope against a
+measurement made on the ground of another world.
+
+### Mars lens with square ground cells (correction, Deviations 40)
+
+The CTX DTM is equirectangular with standard parallel 0, so at 18.4° N its cells are about 5 %
+too wide in ground metres; the first Mars run (§7e) used them as square. Rerun with x resampled
+by cos(latitude): target frac_gt8 0.1309 (first run 0.124); classic Mars
+footprints 19/45, random land 187/994,
+HM1 p = 0.00037 (**pass**, as in the first run). Per site:
+Atacama, Yungay 5/9, HI-SEAS, Mauna Loa 9/9, Haughton impact structure, Devon Island 3/9, MDRS Hanksville, Utah 2/9, McMurdo Wright Valley 0/9. Output `data/derived/mars_m1_square.json`.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -709,6 +944,17 @@ evidence of order; where git cannot prove the order, the row says so.
 | 28 | Six-region reading of L1, leave-one-out on the Moon, 800 more random bare-land cells (`scripts/l1_regions.py`, `scripts/null_expand.py`) | PLAN 2e, 15/11 afternoon | L1 had no known-truth check; the null sample of 200 gave a prevalence CI of 0.01–2.8 % | Post hoc. The four regions without a published reference use their medoid footprint and are exploratory (never in `verdicts.parquet`). The extra cells were drawn by the pre-registered rule with a new seed before any was scored; the first 200 are unchanged. The published robust sets are reproduced exactly by the generalised code before it is used |
 | 29 | Cross-DEM check with NASADEM / ArcticDEM (`scripts/cross_dem.py`) | PLAN 2e, 15/11 afternoon | The Earth side rests on one DEM whose effective resolution differs from the lunar one | Post hoc robustness check on the ridge cells, the controls and the wall cells, plus the 3 × 3 footprint blocks around the two ridge matches and the six classic sites (`scripts/site_stability.py`, exploratory). Verdicts are not changed by it; a cell whose verdict flips is flagged as marginal in §1, on its card and on the slides |
 | 30 | Mars ice-access reading (modelled permafrost table of the X1 cells beside the Mars Life Explorer numbers; ice content not observed), rank-threshold sensitivity table, `web/evidence.html` | PLAN 2e, 15/11 afternoon | Read the Mars lens beside a published NASA document as the Moon lens is; show what the n/2 rule does at n/3 and 2n/3 | Post hoc readings of descriptors and ranks that already exist (consistency checks). A mission concept study is not a requirement. No threshold or verdict changed |
+| 31 | Open-country site finder: access screen (China incl. areas administered by China, Russia, comprehensively sanctioned states left out), 160 more cells scored by the unchanged L1 rule, second DEM and ice rule on the leads (`scripts/access/access_screen.py`) | 15/11 afternoon, `674f129` | The published ridge matches are in China or marginal | Leads only, exploratory; never in verdicts. The screen is a planning assumption, not a legal opinion. Shackleton-wall leads are not findings: the rule passes 9 of 1,000 random cells |
+| 32 | Low-Sun calendar of the ridge matches (I1) and terrain shadow at the leads | 15/11 evening, this section §7d | L2 over a year hides seasonal windows | Exploratory; L2 verdicts unchanged |
+| 33 | V1 implementation details fixed before the Earth run (commit `6ab5bd5`): the lunar population footprint centred on the reference (`connecting_ridge_pop_004`) is the reference and is left out of the neighbours; a zero MAD would fall back to the standard deviation (did not occur) | 15/11 evening | Not stated in the registration | τ and scales |
+| 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
+| 35 | Campaign coverage matrix (union of published per-site results; Haughton as the best classic site for routes) | 15/11 evening | Turn per-site results into the engineer's question | Exploratory; no verdict changed |
+| 36 | Artemis atlas: V1 rule applied to the leads of the other five regions (reference and τ per region) | 15/11 evening | One registered region does not answer "which Moon Base region can be rehearsed on Earth" | Exploratory; leads only |
+| 37 | V2 route threshold from 124 non-overlapping Site01 windows (registered `67920dd` before the rerun); campaign routes column switched to V2 under that registration | 15/11 night | 8 neighbours gave an unstable scale and τ | V2 H1 passes at nominal α (p = 0.049; 0.098 Bonferroni over the two looks); H1b still fails; V1 kept beside it |
+| 38 | Mars terrain lens on the Jezero delta front (CTX DTM), classic Mars sites vs random land (registered `67920dd`) | 15/11 night | The challenge asks for Mars as well as the Moon; the Mars lenses so far covered minerals and ice only | HM1 passes (p = 0.0005); matches are common (16 % of random land) |
+| 39 | R1/R2: planner detour and terrain roughness vs Perseverance's actual detour and drive rate (registered `62ce675`) | 15/11 night | Ground truth for the route outcomes | Both fail; route outcomes stay "planner simulation", no rover claim |
+| 40 | Mars lens rerun with square ground cells (the equirectangular CTX grid is ~5 % wide in x at 18.4° N) | 15/11 night | Geometry error found while building R1 | HM1 still passes (p = 0.0004); slides, kit and web now quote the square-cell numbers, the first run is kept in §7e |
+| 41 | R1b addendum: 30 m orbital slope vs the rover's measured tilt at 708 waypoints (registered `59ff157` after R1/R2 failed) | 15/11 night | Check the measurement behind L1 on the ground | Passes, ρ = 0.80 (0.91 per site) |
 
 ## 9. Limitations and not done
 

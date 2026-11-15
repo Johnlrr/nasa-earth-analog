@@ -1,0 +1,60 @@
+# Pre-registration V1 — does an L1 terrain match reproduce traverse-planning outcomes?
+# Written 2026-11-15 ~20:55 +07, BEFORE any Earth footprint was run through the planner.
+# Only the lunar target (Site01 / Connecting Ridge) and run time on one unscored Earth chip were
+# looked at while choosing the limits below. Commit this file before running scripts/route_validity.py;
+# the commit hash is the registration timestamp. Any change after that commit is a Deviation.
+
+question: >
+  L1 compares slope/roughness distributions. A rover or EVA traverse planner uses the spatial
+  arrangement of slopes (connectivity, detours). Do Earth footprints that pass L1 for Connecting
+  Ridge also reproduce the ridge's simulated traverse outcomes, better than random bare land and
+  better than the classic analog sites?
+
+planner:
+  grid: 4 km footprint, 30 m cells (Earth: centre 133x133 of the cached Copernicus chip;
+        Moon: PGDA 78 Site01 5 m DEM, centre 4 km, aggregate_to_baseline to 30 m; check frac_gt8 = 0.758)
+  graph: 8-connected; an edge is passable if its along-edge grade <= S; edge cost = metric length
+  grade_limits_deg: [6, 8, 10]   # chosen on the lunar target only: reach 0.55 / 0.84 / ~1.0
+  sources: 24 random cells, numpy default_rng(seed=20261115), same seed for every footprint
+  destinations: all cells with straight-line distance 1000-2500 m from the source
+  nodata: footprints with > 5 % NaN are skipped and counted (not imputed)
+
+outcomes:   # vector o(f), one value per footprint
+  - reach_6        # share of source-destination pairs connected at S = 6
+  - reach_8
+  - detour_8       # median (path length / straight distance) over connected pairs, S = 8
+  - detour_10
+  - climb_10       # median cumulative ascent per km along least-cost routes, S = 10
+
+distance:
+  D_route(f) = mean_k |o_k(f) - o_k(ridge)| / scale_k
+  scale_k: median absolute deviation of o_k over the lunar native footprints of Site01
+           (same 4 km grid as moon_terrain.py); never estimated from Earth cells
+  threshold_tau: median D_route of the lunar native footprints to the ridge
+                 (same "as close as half of the ridge's own neighbours" logic as the L1 rank rule)
+  reproduces(f): D_route(f) <= tau
+
+groups:   # frozen by cell_id in data/derived/route_groups.csv, written before the run
+  passers: every Earth cell with robust == True for connecting_ridge in l1_robust_set.parquet
+           or access_leads.parquet (second-DEM status recorded, not used to select)
+  null:    the 1,000 random bare-land cells (earth_L1 sample_role null + earth_L1_null2)
+  classic: the 54 footprints in the 12 km blocks around the six classic analog sites
+
+hypotheses:
+  H1_primary: share(reproduces | passers) > share(reproduces | null);
+              one-sided Fisher exact test, alpha = 0.05
+  H1b:        share(reproduces | passers) > share(reproduces | classic); one-sided Fisher, alpha = 0.05
+  H2:         Spearman(L1 distance to ridge, configuration i; D_route) over null cells >= 0.30
+  robustness: repeat H1 with the second-DEM chips (chips_alt) where they exist; report, do not select
+
+decision_rule:
+  H1 pass: cards may say "slope distribution AND simulated traverse outcomes match the ridge
+           (30 m planner simulation; not a hardware test)".
+  H1 fail: publish the failure; L1 TRANSFERS wording is narrowed to "slope distribution similar";
+           traverse outcome becomes a separate field on every card.
+  Either way: no threshold, limit, outcome or group may be changed after the run without a
+  Deviations row; per-cell results for every footprint are published.
+
+not_claimed: >
+  This is a simulation of a planner on 30 m terrain, not a rover or EVA field result. It does not
+  resolve rocks, small craters or soil strength.

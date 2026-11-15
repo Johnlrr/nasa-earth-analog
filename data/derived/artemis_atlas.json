@@ -1,0 +1,84 @@
+{
+  "status": "exploratory (Deviations 36); V1 rule per region",
+  "regions": [
+    {
+      "target_id": "connecting_ridge",
+      "n_leads": 8,
+      "n_slope_two_dems": 6,
+      "n_routes_two_dems": 3,
+      "n_all_tests": 2,
+      "n_all_tests_window": 1,
+      "countries_all_tests": [
+        "Argentina",
+        "Canada"
+      ]
+    },
+    {
+      "target_id": "shackleton_rim",
+      "n_leads": 127,
+      "reference": "shackleton_rim_ref",
+      "n_native": 8,
+      "tau": 1.9786,
+      "ref_reach_6": 0.017,
+      "n_slope_two_dems": 117,
+      "n_routes_two_dems": 0,
+      "n_all_tests": 0,
+      "n_all_tests_window": 0,
+      "countries_all_tests": []
+    },
+    {
+      "target_id": "nobile_rim_1",
+      "n_leads": 0,
+      "reference": "nobile_rim_1_pop_006",
+      "n_native": 8,
+      "tau": 1.9895,
+      "ref_reach_6": 0.133,
+      "n_slope_two_dems": 0,
+      "n_routes_two_dems": 0,
+      "n_all_tests": 0,
+      "n_all_tests_window": 0,
+      "countries_all_tests": []
+    },
+    {
+      "target_id": "peak_near_shackleton",
+      "n_leads": 3,
+      "reference": "peak_near_shackleton_pop_002",
+      "n_native": 8,
+      "tau": 5.4352,
+      "ref_reach_6": 0.784,
+      "n_slope_two_dems": 0,
+      "n_routes_two_dems": 1,
+      "n_all_tests": 0,
+      "n_all_tests_window": 0,
+      "countries_all_tests": []
+    },
+    {
+      "target_id": "de_gerlache_rim",
+      "n_leads": 2,
+      "reference": "de_gerlache_rim_pop_000",
+      "n_native": 8,
+      "tau": 0.905,
+      "ref_reach_6": 0.091,
+      "n_slope_two_dems": 0,
+      "n_routes_two_dems": 0,
+      "n_all_tests": 0,
+      "n_all_tests_window": 0,
+      "countries_all_tests": []
+    },
+    {
+      "target_id": "malapert_massif",
+      "n_leads": 1,
+      "reference": "malapert_massif_pop_002",
+      "n_native": 8,
+      "tau": 1.7502,
+      "ref_reach_6": 0.0,
+      "n_slope_two_dems": 0,
+      "n_routes_two_dems": 0,
+      "n_all_tests": 0,
+      "n_all_tests_window": 0,
+      "countries_all_tests": []
+    }
+  ],
+  "regions_with_lead_all_tests": 1,
+  "n_regions": 6
+}

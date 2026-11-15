@@ -1,0 +1,54 @@
+{
+  "prereg": "config/prereg_route_v1.yaml (commit 4e9ceff)",
+  "ridge_frac_gt8_30m": 0.7581,
+  "n_moon_native": 8,
+  "tau": 0.797,
+  "scale": {
+    "reach_6": 0.50581,
+    "reach_8": 0.08119,
+    "detour_8": 0.39497,
+    "detour_10": 0.20491,
+    "climb_10": 6.09202
+  },
+  "ridge_outcomes": {
+    "reach_6": 0.5346,
+    "reach_8": 0.9122,
+    "detour_8": 1.2896,
+    "detour_10": 1.1375,
+    "climb_10": 26.0731
+  },
+  "moon_native_reproduce": [
+    4,
+    8
+  ],
+  "passer": [
+    3,
+    9
+  ],
+  "null": [
+    151,
+    994
+  ],
+  "classic": [
+    27,
+    54
+  ],
+  "passer_second_dem": [
+    3,
+    9
+  ],
+  "skipped": {
+    "passer": 0,
+    "null": 6,
+    "classic": 0,
+    "passer_alt": 0
+  },
+  "H1_p": 0.14766,
+  "H1_pass": false,
+  "H1b_p": 0.90225,
+  "H1b_pass": false,
+  "H2_rho": 0.377,
+  "H2_n": 994,
+  "H2_pass": true,
+  "decision": "H1 fail: L1 TRANSFERS narrowed to 'slope distribution similar'"
+}

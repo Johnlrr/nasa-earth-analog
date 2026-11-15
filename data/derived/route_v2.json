@@ -1,0 +1,66 @@
+{
+  "prereg": "config/prereg_v2_mars.yaml (commit 67920dd)",
+  "n_moon_native": 124,
+  "n_moon_native_v1": 8,
+  "tau": 1.1608,
+  "tau_v1": 0.797,
+  "scale": {
+    "reach_6": 0.29379,
+    "reach_8": 0.04216,
+    "detour_8": 0.25133,
+    "detour_10": 0.0591,
+    "climb_10": 8.12933
+  },
+  "accept_halfwidth": {
+    "reach_6": 0.341,
+    "reach_8": 0.0489,
+    "detour_8": 0.2917,
+    "detour_10": 0.0686,
+    "climb_10": 9.4363
+  },
+  "passer": [
+    3,
+    9
+  ],
+  "null": [
+    95,
+    994
+  ],
+  "classic": [
+    17,
+    54
+  ],
+  "passer_second_dem": [
+    3,
+    9
+  ],
+  "passers_both_dems": [
+    "E10K_729_-319",
+    "E10K_-355_-671",
+    "E10K_660_-632"
+  ],
+  "H1_p": 0.04916,
+  "H1_pass": true,
+  "H1b_p": 0.59495,
+  "H1b_pass": false,
+  "H2_rho": 0.359,
+  "H2_n": 994,
+  "H2_pass": true,
+  "v1": {
+    "passer": [
+      3,
+      9
+    ],
+    "null": [
+      151,
+      994
+    ],
+    "classic": [
+      27,
+      54
+    ],
+    "H1_p": 0.14766,
+    "H1b_p": 0.90225,
+    "H2_rho": 0.377
+  }
+}

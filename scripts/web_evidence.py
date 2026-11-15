@@ -106,10 +106,33 @@ def build() -> str:
 <main class="ev">
 <p class="eyebrow">Famous is not faithful, per test</p>
 <h1>Can you trust the terrain verdicts, and what are they worth to a test team?</h1>
-<p class="lead">Every number on this page is generated from the pipeline tables. None of these
-checks changed a threshold or a verdict; all were run after the results were known and are
-listed in the Deviations table of the validation report (rows 25 to 30).</p>
+<p class="lead">Every number on this page is generated from the pipeline tables. Each claim
+below carries its level of evidence. The traverse test was registered before it was run and it
+failed for the group; a tighter threshold, registered before the rerun, passes it narrowly. We
+publish both as they came out. Every rule changed after seeing data is in
+the Deviations table of the validation report.</p>
 <div class="ev-tiles">{tile_html}</div>
+
+<h2>Evidence ladder: how far each claim goes</h2>
+<table>
+<tr><th>Claim</th><th>Level</th><th>Result</th></tr>
+<tr><td>Our slope code equals NASA's slope product</td><td>Computation checked against NASA</td><td>max difference {n(num, 'nasa_slope_max_abs_diff_deg', '{:.4f}')}°</td></tr>
+<tr><td>Terrain verdicts do not hang on one Earth DEM</td><td>Data robustness</td><td>{n(num, 'cross_dem_same_verdict')} of {n(num, 'cross_dem_n')} unchanged</td></tr>
+<tr><td>The ridge test is selective</td><td>Random null sample</td><td>{n(num, 'prevalence_connecting_ridge_pass')} of {n(num, 'prevalence_connecting_ridge_n', '{:,}')} random cells pass</td></tr>
+<tr><td>Mineral analog exists</td><td>Pre-registered stop rule</td><td><b>{n(num, 'm1_stop_rule_verdict')}</b>: nothing published</td></tr>
+<tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>{n(num, 'v1_h1_verdict')}</b> for the group: {n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} vs {n(num, 'v1_null_share', '{:.0f} %', 100)} of random land</td></tr>
+<tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>{n(num, 'v2_h1_verdict')}</b> (nominal; {n(num, 'v2_h1_p_bonferroni', '{:.3f}')} over two looks): {n(num, 'v2_passer_reproduce')} of {n(num, 'v2_passer_n')} vs {n(num, 'v2_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'v2_h1_p', '{:.3f}')}); classic sites {n(num, 'v2_classic_share', '{:.0f} %', 100)}, not beaten</td></tr>
+<tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>{n(num, 'mars_verdict')}</b>: {n(num, 'mars_classic_share', '{:.0f} %', 100)} vs {n(num, 'mars_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'mars_p', '{:.4f}')})</td></tr>
+<tr><td>Our 30 m slope from orbit matches the tilt Perseverance measured</td><td>Pre-registered (R1b, rover waypoints)</td><td><b>{n(num, 'r1b_verdict')}</b>: Spearman {n(num, 'r1b_rho', '{:.2f}')} at {n(num, 'r1b_n')} waypoints ({n(num, 'r1b_rho_site', '{:.2f}')} over {n(num, 'r1b_n_site')} sites)</td></tr>
+<tr><td>The 30 m planner predicts how the rover detoured</td><td>Pre-registered (R1, rover traverse)</td><td><b>{n(num, 'r1_verdict')}</b>: Spearman {n(num, 'r1_rho', '{:.2f}')}; routes stay a planner simulation</td></tr>
+<tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>{n(num, 'v1_h2_verdict')}</b>: Spearman {n(num, 'v1_h2_rho', '{:.2f}')}</td></tr>
+<tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
+<tr><td>Baffin slope match holds at rover scale</td><td>Exploratory, rule committed before the run</td><td>within the ridge neighbourhood at 5, 10 and 30 m (ArcticDEM 2 m vs LOLA 5 m)</td></tr>
+<tr><td>Baffin low-Sun window</td><td>Exploratory, geometric sun model</td><td>{n(num, 'i1_baffin_window_days')} days, {n(num, 'i1_baffin_window_from')}–{n(num, 'i1_baffin_window_to')}</td></tr>
+<tr><td>Two leads cover all field rows orbit can judge</td><td>Exploratory composition</td><td>{n(num, 'camp_two_leads')} of {n(num, 'camp_n_field')} (best classic site {n(num, 'camp_best_classic_alone')})</td></tr>
+<tr><td>Which Artemis regions can be rehearsed in the field</td><td>Exploratory, V1 rule per region</td><td>{n(num, 'atlas_regions_with_lead')} of {n(num, 'atlas_n_regions')} (Shackleton wall: {n(num, 'atlas_shackleton_slope_two_dems')} slope leads, {n(num, 'atlas_shackleton_routes_two_dems')} route matches)</td></tr>
+<tr><td>Hardware performance at any site</td><td>Field test</td><td>none done; a card assigns no TRL</td></tr>
+</table>
 
 <h2>1. Read beside NASA's Artemis III requirements</h2>
 <blockquote>"{e(req['artemis3_landing_slope']['quote'])}" · "{e(req['artemis3_eva_slope']['quote'])}"
@@ -173,7 +196,61 @@ semi-quantitative.</p>
 environment". A site card is an input to that definition; it assigns no TRL, and no hardware
 was tested here.</p>
 
-<h2>4. Known truth</h2>
+<h2>4. Our own method, tested before we ran it</h2>
+<p>Registered in <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/config/prereg_route_v1.yaml">config/prereg_route_v1.yaml</a>
+before any Earth footprint went through the planner. A slope-limited planner (grade limits 6°, 8°, 10°, 30 m cells,
+same seed on both worlds) measures how often points 1–2.5 km apart connect, how far routes detour and how much
+they climb. A footprint reproduces the ridge if it is as close as half of the ridge's own lunar neighbours.</p>
+<table>
+<tr><th>Group</th><th>Reproduce the ridge's routes</th></tr>
+<tr><td>Slope matches for the ridge</td><td>{n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} (the same three on the second DEM)</td></tr>
+<tr><td>Random bare land</td><td>{n(num, 'v1_null_reproduce')} of {n(num, 'v1_null_n', '{:,}')}</td></tr>
+<tr><td>Classic analog footprints</td><td>{n(num, 'v1_classic_reproduce')} of {n(num, 'v1_classic_n')}</td></tr>
+</table>
+<p>The primary hypothesis fails (p = {n(num, 'v1_h1_p', '{:.2f}')}). Slope matches climb more than the
+ridge ({n(num, 'v1_passer_climb_10_median', '{:.0f}')} vs {n(num, 'v1_ridge_climb_10', '{:.0f}')} m per km);
+classic sites are flatter but half of their footprints fall inside the spread of the ridge's own
+neighbourhood. So a card now reports slope match and route match separately, and classic sites
+keep their value for route-planning rehearsal. Two open-country footprints outside known analog
+areas pass both on two DEMs: Argentina ({n(num, 'i1_argentina_lat', '{:.2f}')}, {n(num, 'i1_argentina_lon', '{:.2f}')}),
+the one random cell of 1,000 that passed, and Baffin Island ({n(num, 'i1_baffin_lat', '{:.2f}')}, {n(num, 'i1_baffin_lon', '{:.2f}')}),
+where from {n(num, 'i1_baffin_window_from')} to {n(num, 'i1_baffin_window_to')} every daylight minute
+has the Sun below 7° (snow season; more terrain shadow than the ridge). This is a planner on 30 m cells, not a rover.</p>
+<p><b>V2, registered before the rerun</b> (<a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/config/prereg_v2_mars.yaml">config/prereg_v2_mars.yaml</a>):
+V1 took its threshold from only 8 lunar neighbours. With {n(num, 'v2_n_moon_native')} non-overlapping 4 km windows of the same
+lunar DEM, random land drops to {n(num, 'v2_null_reproduce')} of {n(num, 'v2_null_n', '{:,}')}, classic footprints to
+{n(num, 'v2_classic_reproduce')} of {n(num, 'v2_classic_n')}, and the same three slope matches pass: H1
+{n(num, 'v2_h1_verdict')} at the nominal level (p = {n(num, 'v2_h1_p', '{:.3f}')}; {n(num, 'v2_h1_p_bonferroni', '{:.3f}')} after correcting for the two registered looks, so not confirmed), but classic sites are still not beaten
+(p = {n(num, 'v2_h1b_p', '{:.2f}')}). A slope match is a better-than-random pointer to traverse-like terrain, not a better one than the classic sites.</p>
+
+<h2>4b. The same lens on Mars: Perseverance's Jezero delta front</h2>
+<p>Same registration. Target: a 4 km footprint of the Jezero western delta front on the USGS Mars 2020 CTX DTM
+(20 m, read at 30 m), {n(num, 'mars_target_frac_gt8', '{:.0f} %', 100)} of it steeper than 8°. Slope and route
+thresholds come from {n(num, 'mars_n_neighbours')} windows of the same Mars DEM. Classic Mars analog footprints match in
+{n(num, 'mars_classic_match')} of {n(num, 'mars_classic_n')} cases (HI-SEAS {n(num, 'mars_site_hiseas')}, Atacama
+{n(num, 'mars_site_atacama')}, Haughton {n(num, 'mars_site_haughton')}, MDRS {n(num, 'mars_site_mdrs')}, Wright Valley
+{n(num, 'mars_site_mcmurdo')}), random bare land in {n(num, 'mars_null_match')} of {n(num, 'mars_null_n', '{:,}')}:
+{n(num, 'mars_verdict')} (p = {n(num, 'mars_p', '{:.4f}')}; square 20 m ground cells, Deviations 40). The delta front is gentle terrain, so matches are common
+(mostly hyper-arid plains in the Sahara and Arabia; {n(num, 'mars_open_matches')} in open countries). None of the Moon-ridge
+slope matches matches Jezero: the two targets pick different terrain.</p>
+
+<h2>4c. Checked on the ground of Mars: Perseverance's own tilt</h2>
+<p>Pre-registered (R1b, <code>config/prereg_rover_r1.yaml</code>). At each of the {n(num, 'r1b_n')} waypoints of
+Perseverance's traverse (NASA/JPL MMGIS, to sol 2022), our 30 m slope from the CTX DTM, computed with the same
+formula as every L1 verdict, ranks the terrain the way the rover's own tilt sensor did: Spearman
+{n(num, 'r1b_rho', '{:.2f}')} ({n(num, 'r1b_rho_site', '{:.2f}')} with one value per rover site, n = {n(num, 'r1b_n_site')}).
+<b>{n(num, 'r1b_verdict')}</b>. The route side did not hold: the planner's detour does not predict the rover's real
+detour (R1 {n(num, 'r1_verdict')}, Spearman {n(num, 'r1_rho', '{:.2f}')}) and terrain roughness does not predict drive
+rate (R2 {n(num, 'r2_verdict')}), so route outcomes stay labelled a planner simulation.</p>
+
+<h2>5. A campaign, not a site</h2>
+<p>Two leads together cover {n(num, 'camp_two_leads')} of {n(num, 'camp_n_field')} field rows that orbit can judge;
+Baffin covers {n(num, 'camp_baffin_joint')} at once, inside its winter window; the best classic site alone covers
+{n(num, 'camp_best_classic_alone')}. Rocks under 60 m need a survey; {n(num, 'camp_n_facility')} rows go to named
+facilities. Coverage across sites is a union, not a joint test environment (exploratory, Deviations 35).</p>
+{fig('fig_campaign_coverage.png', 'Campaign coverage matrix for Connecting Ridge', 'Blue: reproduced at the site. Light: not reproduced. Grey: unobserved from orbit. Orange: named facility.')}
+
+<h2>6. Known truth</h2>
 <ul>
 <li>On the Moon, footprints of the Shackleton inner wall pass their own region
 {n(num, 'lunar_control_wall_same_pass')} of {n(num, 'lunar_control_wall_same_n')}; footprints
