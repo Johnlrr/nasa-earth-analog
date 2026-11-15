@@ -42,6 +42,7 @@ data rebuild without downloading anything:
 .venv/bin/python scripts/mission_value.py --no-attention   # Artemis III slope readings, validity summary, test protocols
 .venv/bin/python scripts/report_tables.py    # refresh every table in docs/validation_report.md
 .venv/bin/python scripts/discovery/run_discovery.py   # web/data/candidates.geojson
+.venv/bin/python scripts/web_evidence.py    # web/evidence.html (checks and mission reading, numbers from tables)
 python -m http.server -d web 8000            # open http://localhost:8000
 ```
 
@@ -72,7 +73,7 @@ NASA and partner-agency data (all open):
 
 | Dataset | Used for | Reference |
 |---|---|---|
-| NASA PGDA Product 78 — LOLA 5 m south-pole DEMs and slopes (Artemis candidate regions) | Moon targets and population (L1, L2) | https://pgda.gsfc.nasa.gov/products/78 |
+| NASA PGDA Product 78 — LOLA 5 m DEMs and slope maps of lunar south-pole sites | Moon targets and population (L1, L2) | https://pgda.gsfc.nasa.gov/products/78 |
 | NASA EMIT L2A surface reflectance (via Google Earth Engine `NASA/EMIT/L2A/RFL`) | Earth spectra (M1) | doi:10.5067/EMIT/EMITL2ARFL.001 |
 | MRO CRISM MICA type spectra, PDS volume MROCR_8001; summary parameters of Viviano-Beck et al. 2014 | Mars targets (M1) | https://pds-geosciences.wustl.edu/missions/mro/crism.htm ; doi:10.1002/2014JE004627 |
 | SWIM — Subsurface Water Ice Mapping on Mars (Morgan et al. 2021) | Mars ice configuration (X1) | doi:10.1038/s41550-020-01290-z ; https://swim.psi.edu |
@@ -109,9 +110,10 @@ Engine, `export EE_PROJECT=<your project>`).
   beyond 10 km (L2), radar/GPR response of the overburden (X1), lava-tube ice caves.
 - **X1 is semi-quantitative**: reanalysis soil temperature and clear-sky MODIS; condition floors
   set after seeing data and calibrated on Beacon Valley.
-- **A terrain match is one 4 km footprint**, not a region: around each of the two Connecting
-  Ridge matches only 1 of 9 neighbouring footprints passes with both DEMs, and the Peary Land
-  cell itself leaves the robust set with a second DEM (marginal).
+- **A terrain match is one 4 km footprint**, not a region: of the 9 footprints of the 12 km
+  block around each Connecting Ridge match, 1 passes with both DEMs (at Da Qaidam the cell
+  itself and none of its neighbours; at Peary Land the footprint 4 km south, not the cell, which
+  leaves the robust set with a second DEM and is marginal).
 - **Counts are of the scored sample** (300 cells ranked from 196,008 bare-land cells by a coarse
   screen, plus seeds and controls), not a global census.
 - **Attention** is an OpenAlex title/abstract count; a count of 0 for an administrative place name

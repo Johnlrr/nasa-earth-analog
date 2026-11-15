@@ -274,7 +274,7 @@ def fig_transfer_matrix():
 
 
 def fig_region_matrix():
-    """Six PGDA 78 regions x Earth footprints: the binding native rank and the robust verdict."""
+    """Six PGDA 78 sites x Earth footprints: the binding native rank and the robust verdict."""
     s = pd.read_parquet(DERIVED / "l1_regions.parquet")
     crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
     crit = crit[crit["group"].ne("Moon target")]
@@ -305,7 +305,7 @@ def fig_region_matrix():
     ax.tick_params(length=0, colors=INK2, labelsize=8.5)
     for sp in ax.spines.values():
         sp.set_visible(False)
-    fig.suptitle("Which Artemis III candidate region does each Earth footprint stand in for?",
+    fig.suptitle("Which PGDA 78 south-pole site does each Earth footprint stand in for?",
                  x=0.01, ha="left", fontsize=11, color=INK)
     fig.text(0.01, 0.005, "Cell value: the lowest of the three native ranks, as a share of the "
              "lunar population (the rule needs 50 % in all three; ✓ = in the robust set).\n"

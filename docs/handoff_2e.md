@@ -42,6 +42,18 @@ phiên khác tiếp tục được nếu phiên này hết quota giữa chừng.
 - Slide 4 còn placeholder `@SAME@ of @NDEM@`: điền bằng khóa `cross_dem_same_verdict` /
   `cross_dem_n` sau khi cross-DEM xong.
 
+## 2c. Cập nhật 15:50
+
+- PR #8 (2e) đã mở; cổng 2 đang chạy (lời nhắc chuẩn). Commit: `e4142fd`, mốc 2 + merge main
+  `0ba6d39`.
+- Thêm `scripts/web_evidence.py` → `web/evidence.html` (trang "Evidence" sinh từ bảng), link
+  trong `web/index.html`, workflow Pages chép thêm `test_protocols.md` và `field_facility.md`.
+  **Chưa xem trên trình duyệt.**
+- Còn chạy nền: `cross_dem.py --n-wall 99`. Xong thì chạy lại chuỗi ở mục 6, sửa hai số
+  "40 of 42" trên slide 4 (dòng có `cross_dem_same_verdict = …`, test sẽ báo nếu lệch) rồi
+  `scripts/web_evidence.py`.
+- Mục 3 bên dưới: các bước 1–7 đã xong; còn bước 8 (cổng → sửa → merge).
+
 ## 3. Việc còn lại của chu kỳ 2e (theo thứ tự)
 
 1. Chờ `null_expand.py` xong → `PYTHONPATH=src .venv/bin/python scripts/l1_regions.py` (sinh

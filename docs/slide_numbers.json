@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T15:24",
+ "generated": "2026-11-15T15:31",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -729,8 +729,44 @@
    "value": 270,
    "source": "data/derived/l1_regions.json"
   },
-  "prevalence_ridge_vs_wall_p": {
-   "value": 0.0212,
+  "lunar_control_all_pass": {
+   "value": 110,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_all_n": {
+   "value": 302,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_no_wall_same_pass": {
+   "value": 12,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_no_wall_same_n": {
+   "value": 28,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_no_wall_other_pass": {
+   "value": 81,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_no_wall_other_n": {
+   "value": 225,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_ridge_vs_wall_ridge_only": {
+   "value": 0,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_ridge_vs_wall_wall_only": {
+   "value": 8,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_ridge_vs_wall_both": {
+   "value": 1,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_ridge_vs_wall_p_mcnemar_exact": {
+   "value": 0.0078,
    "source": "data/derived/l1_regions.json"
   },
   "prevalence_connecting_ridge_pass": {
@@ -754,15 +790,19 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_connecting_ridge_cells": {
-   "value": 196,
+   "value": 201,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_connecting_ridge_cells_lo": {
-   "value": 5,
+   "value": 10,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_connecting_ridge_cells_hi": {
-   "value": 1090,
+   "value": 1093,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_screened_pass": {
+   "value": 5,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_de_gerlache_rim_pass": {
@@ -786,15 +826,19 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_de_gerlache_rim_cells": {
-   "value": 196,
+   "value": 198,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_de_gerlache_rim_cells_lo": {
-   "value": 5,
+   "value": 7,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_de_gerlache_rim_cells_hi": {
    "value": 1090,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_screened_pass": {
+   "value": 2,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_malapert_massif_pass": {
@@ -826,7 +870,11 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_malapert_massif_cells_hi": {
-   "value": 722,
+   "value": 721,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_screened_pass": {
+   "value": 0,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_nobile_rim_1_pass": {
@@ -858,7 +906,11 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_nobile_rim_1_cells_hi": {
-   "value": 722,
+   "value": 721,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_screened_pass": {
+   "value": 0,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_peak_near_shackleton_pass": {
@@ -882,15 +934,19 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_peak_near_shackleton_cells": {
-   "value": 196,
+   "value": 198,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_peak_near_shackleton_cells_lo": {
-   "value": 5,
+   "value": 7,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_peak_near_shackleton_cells_hi": {
    "value": 1090,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_screened_pass": {
+   "value": 2,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_shackleton_rim_pass": {
@@ -914,15 +970,19 @@
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_shackleton_rim_cells": {
-   "value": 1764,
+   "value": 1860,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_shackleton_rim_cells_lo": {
-   "value": 808,
+   "value": 906,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "prevalence_shackleton_rim_cells_hi": {
-   "value": 3335,
+   "value": 3429,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_screened_pass": {
+   "value": 99,
    "source": "data/derived/l1_prevalence.parquet"
   },
   "lunar_control_wall_same_pass": {
@@ -942,11 +1002,11 @@
    "source": "data/derived/l1_lunar_control.parquet"
   },
   "cross_dem_same_verdict": {
-   "value": 40,
+   "value": 102,
    "source": "data/derived/cross_dem.parquet"
   },
   "cross_dem_n": {
-   "value": 42,
+   "value": 109,
    "source": "data/derived/cross_dem.parquet"
   },
   "cross_dem_da_qaidam_robust": {
@@ -1009,12 +1069,32 @@
    "value": 9,
    "source": "data/derived/site_stability.parquet"
   },
+  "stability_da_qaidam_cell_itself_robust_both_dems": {
+   "value": true,
+   "source": "data/derived/site_stability.parquet"
+  },
   "stability_peary_land_robust_both_dems": {
    "value": 1,
    "source": "data/derived/site_stability.parquet"
   },
   "stability_peary_land_n": {
    "value": 9,
+   "source": "data/derived/site_stability.parquet"
+  },
+  "stability_peary_land_cell_itself_robust_both_dems": {
+   "value": false,
+   "source": "data/derived/site_stability.parquet"
+  },
+  "traverse_km_block_da_qaidam": {
+   "value": 12.1599,
+   "source": "data/derived/site_stability.parquet"
+  },
+  "traverse_km_block_peary_land": {
+   "value": 13.3989,
+   "source": "data/derived/site_stability.parquet"
+  },
+  "traverse_km_block_classic_median": {
+   "value": 62.9702,
    "source": "data/derived/site_stability.parquet"
   },
   "traverse_km_classic_median": {

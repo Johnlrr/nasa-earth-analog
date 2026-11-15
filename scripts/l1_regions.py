@@ -189,9 +189,15 @@ def _ci(k: int, n: int) -> tuple[float, float]:
 
 def prevalence(ctx: dict, scored: pd.DataFrame, null2: pd.DataFrame | None,
                bare_land_cells: int) -> pd.DataFrame:
-    """Pass rate of random bare land per region: pre-registered null, extension, combined."""
+    """Pass rate of random bare land per region: pre-registered null, extension, combined.
+
+    The random cells were drawn from bare land minus the screened (rank) cells, so the estimate
+    is stratified: passing cells known in the screened stratum + rate x the unscreened rest.
+    """
     role = ctx["earth"].set_index("cell_id")["sample_role"]
     n1 = scored[scored["cell_id"].map(role).eq("null")]
+    rank = scored[scored["cell_id"].map(role).eq("rank")]
+    unscreened = bare_land_cells - int(rank["cell_id"].nunique())
     rows = []
     for site in ctx["refs"]:
         a = n1[n1["target_id"].eq(site)]
@@ -201,13 +207,15 @@ def prevalence(ctx: dict, scored: pd.DataFrame, null2: pd.DataFrame | None,
             b = null2[null2["target_id"].eq(site)]
             k2, m2 = int(b["robust"].sum()), len(b)
         lo, hi = _ci(k1 + k2, m1 + m2)
+        known = int(rank[rank["target_id"].eq(site)]["robust"].sum())
         rows.append({"target_id": site, "published": site in PUBLISHED,
+                     "screened_pass": known, "unscreened_cells": unscreened,
                      "null_pass": k1, "null_n": m1, "null2_pass": k2, "null2_n": m2,
                      "pass": k1 + k2, "n": m1 + m2, "rate": (k1 + k2) / (m1 + m2),
                      "ci_lo": lo, "ci_hi": hi,
-                     "cells": round((k1 + k2) / (m1 + m2) * bare_land_cells),
-                     "cells_lo": round(lo * bare_land_cells),
-                     "cells_hi": round(hi * bare_land_cells)})
+                     "cells": known + round((k1 + k2) / (m1 + m2) * unscreened),
+                     "cells_lo": known + round(lo * unscreened),
+                     "cells_hi": known + round(hi * unscreened)})
     return pd.DataFrame(rows)
 
 
@@ -235,19 +243,31 @@ def build() -> dict:
     same = ctrl[ctrl["reference_region"].eq(ctrl["candidate_region"])]
     other = ctrl[ctrl["reference_region"].ne(ctrl["candidate_region"])]
     cand = scored[scored["sample_role"].isin(["rank", "seed"])]
+    wall = "shackleton_rim"
+    nw_same, nw_other = (d[d["reference_region"].ne(wall)] for d in (same, other))
     summary = {
         "refs": ctx["refs"],
         "lunar_control": {"same_pass": int(same["n_pass"].sum()), "same_n": int(same["n"].sum()),
                           "other_pass": int(other["n_pass"].sum()),
-                          "other_n": int(other["n"].sum())},
+                          "other_n": int(other["n"].sum()),
+                          "all_pass": int(ctrl["n_pass"].sum()), "all_n": int(ctrl["n"].sum()),
+                          "no_wall_same_pass": int(nw_same["n_pass"].sum()),
+                          "no_wall_same_n": int(nw_same["n"].sum()),
+                          "no_wall_other_pass": int(nw_other["n_pass"].sum()),
+                          "no_wall_other_n": int(nw_other["n"].sum())},
         "regions_rank_seed_robust": {s: int(d["robust"].sum())
                                      for s, d in cand.groupby("target_id")},
         "prevalence": prev.to_dict("records"),
     }
-    cr, sh = (prev[prev["target_id"].eq(s)].iloc[0] for s in PUBLISHED)
-    table = [[int(cr["pass"]), int(cr["n"] - cr["pass"])], [int(sh["pass"]),
-                                                             int(sh["n"] - sh["pass"])]]
-    summary["ridge_vs_wall_p_fisher"] = float(stats.fisher_exact(table)[1])
+    # the two rates are measured on the same random cells: exact McNemar on discordant cells
+    allc = pd.concat([scored, null2], ignore_index=True) if null2 is not None else scored
+    rnd = allc[allc["sample_role"].isin(["null", "null2"]) & allc["target_id"].isin(PUBLISHED)]
+    pv = rnd.pivot(index="cell_id", columns="target_id", values="robust").astype(bool)
+    b = int((pv["connecting_ridge"] & ~pv[wall]).sum())
+    c = int((~pv["connecting_ridge"] & pv[wall]).sum())
+    summary["ridge_vs_wall"] = {
+        "ridge_only": b, "wall_only": c, "both": int((pv["connecting_ridge"] & pv[wall]).sum()),
+        "p_mcnemar_exact": float(stats.binomtest(min(b, c), b + c, 0.5).pvalue) if b + c else 1.0}
     return {"scored": pd.concat([scored, null2], ignore_index=True) if null2 is not None
             else scored, "control": ctrl, "prevalence": prev, "summary": summary}
 

@@ -244,8 +244,8 @@ def _robustness_lines(cell_id: str) -> list[str]:
         g = pd.read_parquet(p)
         g = g[g["cell_id"].eq(cell_id) & g["robust"]]
         if len(g):
-            out.append(f"- **PGDA 78 regions matched by cell {cell_id} (exploratory beyond "
-                       f"the two published targets):** {len(g)} of 6 — "
+            out.append(f"- **PGDA 78 south-pole sites matched by cell {cell_id} (exploratory "
+                       f"beyond the two published targets):** {len(g)} of 6 — "
                        + ", ".join(sorted(x.replace("_", " ") for x in g["target_id"])) + ".")
     return out
 
@@ -312,10 +312,11 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
             out.append(f"- **Artemis III slope reading, cell {cid}:** {k['frac_gt8']:.0%} of the "
                        f"footprint is steeper than 8° (Connecting Ridge reference "
                        f"{ref['frac_gt8']:.0%}), {k['frac_gt20']:.1%} is steeper than 20° "
-                       f"(reference {ref['frac_gt20']:.1%}). A traverse of about "
-                       f"{k['km_for_10km_of_target']:.0f} km here meets as much terrain steeper "
-                       f"than 8° as 10 km on the target (if the share along the path equals "
-                       f"the areal share). {CFG['criteria_caveat']}")
+                       f"(reference {ref['frac_gt20']:.1%}). Inside this 4 km footprint a "
+                       f"traverse of about {k['km_for_10km_of_target']:.0f} km meets as much "
+                       f"terrain steeper than 8° as 10 km on the target (if the share along "
+                       f"the path equals the areal share; the neighbouring footprints differ). "
+                       f"{CFG['criteria_caveat']}")
         for cid in [x for x in c["cells"].split(",") if x in kept.index]:
             out += _robustness_lines(cid)
         n_fac = len(c["facility"])

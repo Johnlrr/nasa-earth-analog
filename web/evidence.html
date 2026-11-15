@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMILITUDE: evidence and mission reading</title>
+<meta name="description" content="Checks against known truth and the reading of the results beside published NASA Artemis III requirements.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.ev { max-width: 1040px; margin: 0 auto; padding: 32px var(--gutter) 72px; }
+.ev h1 { font-size: var(--fs-title); letter-spacing: var(--track-title); margin: 8px 0 12px; }
+.ev h2 { font-size: var(--fs-xl); margin: 44px 0 10px; }
+.ev p, .ev li { color: var(--text); line-height: var(--lh); }
+.ev .lead { font-size: var(--fs-l); color: var(--muted); max-width: 62ch; }
+.ev-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 24px 0; }
+.ev-tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-m); padding: 16px; }
+.ev-tile p { margin: 0; font-size: var(--fs-s); color: var(--muted); }
+.ev-tile .ev-num { font-family: var(--font-mono); font-size: var(--fs-xl); color: var(--accent); margin-bottom: 6px; }
+.ev-fig { margin: 18px 0 8px; background: #fcfcfb; border-radius: var(--radius-m); padding: 10px; overflow-x: auto; }
+.ev-fig img { display: block; width: 100%; min-width: 560px; height: auto; }
+.ev-fig figcaption { color: #5c5b55; font-size: var(--fs-xs); padding: 6px 4px 2px; }
+.ev blockquote { margin: 12px 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: var(--radius-s); }
+.ev .note { color: var(--muted); font-size: var(--fs-s); }
+.ev a { color: var(--accent); }
+.ev table { border-collapse: collapse; width: 100%; font-size: var(--fs-s); margin: 10px 0; }
+.ev th, .ev td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ev th { color: var(--muted); font-weight: 500; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in wrap">
+    <a class="brand" href="./" aria-label="SIMILITUDE home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">SIMILITUDE</span>
+    </a>
+    <p class="brand-line">Evidence and mission reading</p>
+    <nav class="topnav" aria-label="Project">
+      <a href="./#explorer">Explorer</a>
+      <a href="validation_report.md">Validation report</a>
+      <a href="test_protocols.md">Test protocols</a>
+    </nav>
+  </div>
+</header>
+<main class="ev">
+<p class="eyebrow">Famous is not faithful, per test</p>
+<h1>Can you trust the terrain verdicts, and what are they worth to a test team?</h1>
+<p class="lead">Every number on this page is generated from the pipeline tables. None of these
+checks changed a threshold or a verdict; all were run after the results were known and are
+listed as deviations in the validation report.</p>
+<div class="ev-tiles"><div class="ev-tile"><p class="ev-num">76 % vs 9 %</p><p>of terrain steeper than 8°: the Connecting Ridge footprint against the median of six classic analog field sites, same formula on both worlds</p></div><div class="ev-tile"><p class="ev-num">1 vs 9 of 1,000</p><p>random bare-land cells pass the terrain test for the ridge and for the steep Shackleton inner wall (exact McNemar p = 0.008)</p></div><div class="ev-tile"><p class="ev-num">102 of 109</p><p>terrain verdicts unchanged when recomputed from a second, independent Earth DEM (NASADEM / ArcticDEM)</p></div><div class="ev-tile"><p class="ev-num">0.0009°</p><p>largest difference between our slope formula and NASA&#x27;s PGDA 78 slope rasters on six south-pole sites</p></div></div>
+
+<h2>1. Read beside NASA's Artemis III requirements</h2>
+<blockquote>"Surface slope for landing (100m): &lt;10 deg" · "Surface slope limit for EVA (2km): &lt;20 deg"
+<br><span class="note">Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 —
+<a href="https://ntrs.nasa.gov/citations/20250009323">NASA NTRS</a></span></blockquote>
+<p>With one formula on both worlds, 76 % of the Connecting
+Ridge footprint is steeper than 8°. In the 4 km footprints of 6 classic
+analog field sites the median is 9 %, a factor
+8.6 lower; in the 12 km blocks around them,
+0 of 54 footprints pass the
+terrain test for the ridge. About 10 km of traverse at
+Da Qaidam meets as much terrain steeper than 8° as 10 km on the ridge; at the median classic
+site it takes about 86 km; over the whole 12 km
+blocks, 12 km against
+63 km (if the share along the path equals
+the areal share; a consistency check, since the engine selects on this share).</p>
+<figure class="ev-fig"><img src="figures/fig_mission_slopes.png" alt="Shares of terrain steeper than 8 and 20 degrees for Connecting Ridge, two engine matches and six classic sites" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='../docs/figures/fig_mission_slopes.png';}"><figcaption>Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA&#x27;s maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site&#x27;s coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.</figcaption></figure>
+
+<h2>2. One Earth footprint for three south-pole sites of PGDA 78</h2>
+<p>The Da Qaidam cell is in the robust set of 3 of the 6
+PGDA 78 south-pole sites (Connecting Ridge; de Gerlache rim and the peak near Shackleton are exploratory
+readings with a medoid reference) and stays there with NASA's NASADEM. It is a known Mars analog
+region: 71 analog papers in a Mars context,
+1 in a Moon context. The Peary Land cell passes the
+Moon terrain test and the Mars ice test at one camp, but it is marginal: with a second DEM its
+rank in the strictest configuration is 19 where
+the rule needs 24.5.</p>
+<figure class="ev-fig"><img src="figures/fig_region_matrix.png" alt="Six PGDA 78 south-pole sites against two engine matches and six classic analog sites" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='../docs/figures/fig_region_matrix.png';}"><figcaption>A match is a 4 km footprint, not a region: of the 9 footprints of the 12 km block around each engine match, 1 passes with both DEMs (at Da Qaidam the cell itself; at Peary Land the footprint 4 km south, not the cell).</figcaption></figure>
+
+<h2>3. What a field test can and cannot bring home</h2>
+<p>By this engine's measure a terrain site reproduces 1 of
+7 test variables; 5 need a named
+facility and 1 is unobserved. No Earth site reproduces the
+polar Sun: the best one has the Sun below 7° for
+28 % of daylight, the lunar target
+for 100 %.</p>
+<figure class="ev-fig"><img src="figures/fig_transfer_matrix.png" alt="Lens by test variable matrix with three states" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='../docs/figures/fig_transfer_matrix.png';}"><figcaption>The mineral lens failed its pre-registered stop rule: no site is published and no verdict is shown.</figcaption></figure>
+<table>
+<tr><th>Terrain protocol</th><th></th></tr>
+<tr><td>Systems to test</td><td>crewed/uncrewed rover mobility and path planning on slopes, EVA traverse planning, hazard-map products for landing-site selection</td></tr>
+<tr><td>What to measure</td><td>traverse energy, slip and path length per km against the slope classes &lt;8, 8-20 and &gt;20 deg; compare with predictions made on the lunar DEM</td></tr>
+<tr><td>Reproduced at a matching site</td><td>slope and multi-scale roughness statistics at 30-480 m baselines (verdict variable slope_roughness)</td></tr>
+<tr><td>Not reproduced</td><td>wheel-soil traction and sinkage (gravity, regolith), dust, vacuum, thermal: facility rows of the card</td></tr>
+</table>
+<p class="note">NASA's TRL definitions ask each project for a "documented definition of relevant
+environment". A site card is an input to that definition; it assigns no TRL, and no hardware
+was tested here.</p>
+
+<h2>4. Known truth</h2>
+<ul>
+<li>On the Moon, footprints of the Shackleton inner wall pass their own region
+4 of 4; footprints
+of the other sites, 13 of
+45. Ridge, rim and massif sites are not told apart
+(12 of 28 same
+site, 81 of 225
+other sites, base rate 110 of 302):
+the test recognises a terrain class, not a named place.</li>
+<li>Ice lens (semi-quantitative): 2 of 2
+polar-desert controls pass, one of them the calibration site;
+2 of 2 wet-permafrost decoys are rejected.</li>
+<li>Mineral lens: 3 of 4 pre-registered checks
+pass; the stop rule is FAIL, so no mineral analog is published.</li>
+</ul>
+<p class="note">Counts of matching cells come from a 307-cell sample screened towards Connecting
+Ridge, not from a census: about 201 bare-land
+cells (95 % CI 10–
+1,093) would pass the terrain test for the
+ridge, before the ice filter and the visual review. Full tables and the list of every rule
+changed after seeing data: <a href="validation_report.md">validation report</a>.</p>
+</main>
+</body>
+</html>

@@ -11,7 +11,13 @@
   "same_pass": 16,
   "same_n": 32,
   "other_pass": 94,
-  "other_n": 270
+  "other_n": 270,
+  "all_pass": 110,
+  "all_n": 302,
+  "no_wall_same_pass": 12,
+  "no_wall_same_n": 28,
+  "no_wall_other_pass": 81,
+  "no_wall_other_n": 225
  },
  "regions_rank_seed_robust": {
   "connecting_ridge": 5,
@@ -25,6 +31,8 @@
   {
    "target_id": "connecting_ridge",
    "published": true,
+   "screened_pass": 5,
+   "unscreened_cells": 195708,
    "null_pass": 1,
    "null_n": 200,
    "null2_pass": 0,
@@ -34,13 +42,15 @@
    "rate": 0.001,
    "ci_lo": 2.5317487491294062e-05,
    "ci_hi": 0.0055589242798266825,
-   "cells": 196,
-   "cells_lo": 5,
-   "cells_hi": 1090
+   "cells": 201,
+   "cells_lo": 10,
+   "cells_hi": 1093
   },
   {
    "target_id": "de_gerlache_rim",
    "published": false,
+   "screened_pass": 2,
+   "unscreened_cells": 195708,
    "null_pass": 1,
    "null_n": 200,
    "null2_pass": 0,
@@ -50,13 +60,15 @@
    "rate": 0.001,
    "ci_lo": 2.5317487491294062e-05,
    "ci_hi": 0.0055589242798266825,
-   "cells": 196,
-   "cells_lo": 5,
+   "cells": 198,
+   "cells_lo": 7,
    "cells_hi": 1090
   },
   {
    "target_id": "malapert_massif",
    "published": false,
+   "screened_pass": 0,
+   "unscreened_cells": 195708,
    "null_pass": 0,
    "null_n": 200,
    "null2_pass": 0,
@@ -68,11 +80,13 @@
    "ci_hi": 0.003682083896865671,
    "cells": 0,
    "cells_lo": 0,
-   "cells_hi": 722
+   "cells_hi": 721
   },
   {
    "target_id": "nobile_rim_1",
    "published": false,
+   "screened_pass": 0,
+   "unscreened_cells": 195708,
    "null_pass": 0,
    "null_n": 200,
    "null2_pass": 0,
@@ -84,11 +98,13 @@
    "ci_hi": 0.003682083896865671,
    "cells": 0,
    "cells_lo": 0,
-   "cells_hi": 722
+   "cells_hi": 721
   },
   {
    "target_id": "peak_near_shackleton",
    "published": false,
+   "screened_pass": 2,
+   "unscreened_cells": 195708,
    "null_pass": 1,
    "null_n": 200,
    "null2_pass": 0,
@@ -98,13 +114,15 @@
    "rate": 0.001,
    "ci_lo": 2.5317487491294062e-05,
    "ci_hi": 0.0055589242798266825,
-   "cells": 196,
-   "cells_lo": 5,
+   "cells": 198,
+   "cells_lo": 7,
    "cells_hi": 1090
   },
   {
    "target_id": "shackleton_rim",
    "published": true,
+   "screened_pass": 99,
+   "unscreened_cells": 195708,
    "null_pass": 4,
    "null_n": 200,
    "null2_pass": 5,
@@ -114,12 +132,17 @@
    "rate": 0.009,
    "ci_lo": 0.004123395660342473,
    "ci_hi": 0.017015783069894548,
-   "cells": 1764,
-   "cells_lo": 808,
-   "cells_hi": 3335
+   "cells": 1860,
+   "cells_lo": 906,
+   "cells_hi": 3429
   }
  ],
- "ridge_vs_wall_p_fisher": 0.02117752939684125,
+ "ridge_vs_wall": {
+  "ridge_only": 0,
+  "wall_only": 8,
+  "both": 1,
+  "p_mcnemar_exact": 0.0078125
+ },
  "nasa_slope_max_abs_diff_deg": 0.0009230915118472183,
  "nasa_frac_max_abs_diff": 3.749999999999587e-05
 }

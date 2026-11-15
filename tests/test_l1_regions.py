@@ -31,7 +31,7 @@ def test_published_regions_keep_their_reference_and_others_use_a_population_foot
 
 def test_committed_tables_match_a_rebuild(built):
     saved = json.loads((DERIVED / "l1_regions.json").read_text(encoding="utf-8"))
-    for k in ("refs", "lunar_control", "regions_rank_seed_robust", "ridge_vs_wall_p_fisher"):
+    for k in ("refs", "lunar_control", "regions_rank_seed_robust", "ridge_vs_wall"):
         assert json.loads(json.dumps(built["summary"][k])) == saved[k], k
     pd.testing.assert_frame_equal(pd.read_parquet(DERIVED / "l1_lunar_control.parquet"),
                                   built["control"])
@@ -101,3 +101,17 @@ def test_site_stability_blocks_are_complete_and_neighbours_stay_out_of_verdicts(
     regions = pd.read_parquet(DERIVED / "l1_regions.parquet")
     exploratory = set(regions["target_id"]) - set(lr.PUBLISHED)
     assert not (set(v["target_id"].dropna()) & exploratory)
+
+
+def test_evidence_page_is_the_generated_one_and_its_figures_exist():
+    import web_evidence as we
+
+    page = io.REPO_ROOT / "web" / "evidence.html"
+    if not page.exists():
+        pytest.skip("web/evidence.html not built")
+    text = page.read_text(encoding="utf-8")
+    assert text == we.build()
+    for name in re.findall(r'src="figures/([^"]+)"', text):
+        assert (io.REPO_ROOT / "docs" / "figures" / name).exists(), name
+    for banned in ("meets the requirement", "credited towards TRL", "false-positive"):
+        assert banned not in text

@@ -2,7 +2,9 @@
 
 For each usable Connecting Ridge cell, the 3 x 3 block of 4 km footprints centred on it (the
 cell and its eight neighbours, 4 km apart) is scored with the unchanged rule, once from
-Copernicus GLO-30 and once from the second DEM (NASADEM / ArcticDEM). Exploratory local
+Copernicus GLO-30 and once from the second DEM (NASADEM / ArcticDEM). The same block is scored
+around the six classic control sites (first DEM only): is any footprint next to the famous one a
+match? Exploratory local
 sensitivity (Deviations 29): neighbours are NOT candidates and never enter verdicts.parquet.
 
 Output: data/derived/site_stability.parquet

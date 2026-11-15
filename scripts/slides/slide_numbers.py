@@ -221,9 +221,11 @@ def main() -> None:
         put("nasa_share_max_abs_diff_points", 100 * rg["nasa_frac_max_abs_diff"], src)
         for k, val in rg["lunar_control"].items():
             put(f"lunar_control_{k}", val, src)
-        put("prevalence_ridge_vs_wall_p", rg["ridge_vs_wall_p_fisher"], src)
+        for k, val in rg["ridge_vs_wall"].items():
+            put(f"prevalence_ridge_vs_wall_{k}", val, src)
         for r in rg["prevalence"]:
-            for k in ("pass", "n", "rate", "ci_lo", "ci_hi", "cells", "cells_lo", "cells_hi"):
+            for k in ("pass", "n", "rate", "ci_lo", "ci_hi", "cells", "cells_lo", "cells_hi",
+                      "screened_pass"):
                 put(f"prevalence_{r['target_id']}_{k}", r[k],
                     "data/derived/l1_prevalence.parquet")
         lc = pd.read_parquet(D / "l1_lunar_control.parquet")
@@ -271,6 +273,15 @@ def main() -> None:
             slug = next((v for k, v in slugs.items() if k in str(site)), site)
             put(f"stability_{slug}_robust_both_dems", int(d.sum()), src)
             put(f"stability_{slug}_n", int(len(d)), src)
+            put(f"stability_{slug}_cell_itself_robust_both_dems",
+                bool(d.xs((0, 0), level=("dx", "dy")).iloc[0]), src)
+        g30 = ss[ss.dem.eq("GLO-30")].groupby(["group", "site"]).frac_gt8.mean()
+        ref8 = float(crit[crit.group.eq("Moon target")].frac_gt8.iloc[0])
+        for site, v in g30["Engine match"].items():
+            slug = next((val for k, val in slugs.items() if k in str(site)), site)
+            put(f"traverse_km_block_{slug}", 10 * ref8 / float(v), src)
+        put("traverse_km_block_classic_median", 10 * ref8 / float(g30["Classic analog"].median()),
+            src)
         cl = crit[crit.group.eq("Classic analog")]
         put("traverse_km_classic_median", float(cl.km_for_10km_of_target.median()),
             "data/derived/mission_criteria.parquet")

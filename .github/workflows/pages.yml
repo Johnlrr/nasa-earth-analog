@@ -27,6 +27,8 @@ jobs:
           mkdir -p _site
           cp -r web/. _site/
           if [ -f docs/validation_report.md ]; then cp docs/validation_report.md _site/; fi
+          if [ -f docs/test_protocols.md ]; then cp docs/test_protocols.md _site/; fi
+          if [ -f docs/field_facility.md ]; then cp docs/field_facility.md _site/; fi
           if [ -d docs/figures ]; then cp -r docs/figures _site/figures; fi
       - uses: actions/upload-pages-artifact@v3
         with:

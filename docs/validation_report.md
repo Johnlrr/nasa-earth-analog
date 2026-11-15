@@ -49,11 +49,11 @@ matching, and a single verdict source. **Every table below is written by
 
 <!-- BEGIN:checks_headline -->
 - **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our formula at 5 m differs from NASA's slope rasters by at most 0.0009° on the median slope and 0.004 points on the 8° and 20° shares.
-- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 40 of 42 verdicts are unchanged (ridge cells, classic controls, a sample of wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). A verdict that changes with the DEM is marginal and is reported as such.
-- **Six regions, not two (exploratory).** Da Qaidam is in the robust set of 3 of the 6 PGDA 78 regions (Connecting Ridge, de Gerlache rim, peak near Shackleton); Peary Land is in the robust set of 1 of the 6 PGDA 78 regions (Connecting Ridge).
-- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the 6 classic sites, 0 of 54 footprints are in the robust set for Connecting Ridge. Around the two engine matches, 1 of 9 at Da Qaidam and 1 of 9 at Peary Land are robust with both DEMs: the coordinates matter, the region name does not.
-- **Known truth on the Moon.** Scored like Earth cells, footprints of the same region pass in 16 of 32 cases and footprints of other regions in 94 of 270; for the Shackleton inner wall, 4 of 4 against 13 of 45. The test separates the steep wall from ridge terrain; it does not tell the ridge and rim regions apart: it recognises a terrain class, not a named place.
-- **Unbiased prevalence.** In 1000 random bare-land cells, 1 pass for Connecting Ridge (0.10 %, 95 % CI 0.00 %–0.56 %) and 9 for the Shackleton inner wall (0.90 %, 0.41 %–1.70 %); Fisher exact p = 0.021.
+- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 102 of 109 verdicts are unchanged (ridge cells, classic controls, wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). A verdict that changes with the DEM is marginal and is reported as such.
+- **Six PGDA 78 south-pole sites, not two (exploratory).** Da Qaidam is in the robust set of 3 of the 6 sites (Connecting Ridge, de Gerlache rim, peak near Shackleton); Peary Land is in the robust set of 1 of the 6 sites (Connecting Ridge).
+- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the 6 classic sites, 0 of 54 footprints are in the robust set for Connecting Ridge. In the block around each engine match, 1 of the 9 footprints at Da Qaidam and 1 of the 9 footprints at Peary Land is robust with both DEMs (at Da Qaidam the cell itself and none of its eight neighbours; at Peary Land the footprint 4 km south, not the cell): the coordinates matter, the region name does not.
+- **Known truth on the Moon.** Scored like Earth cells, footprints of the Shackleton inner wall pass their own reference in 4 of 4 cases and footprints of the other sites in 13 of 45: the test separates the steep wall. It does not separate the ridge, rim and massif sites from one another: same site 12 of 28, other sites 81 of 225, against 110 of 302 for any lunar footprint (each configuration passes about half of the lunar population by construction). The Connecting Ridge reference even ranks footprints of de Gerlache rim and of the peak near Shackleton above its own. The test recognises a terrain class, not a named place.
+- **Prevalence from a random sample.** In 1000 random cells of the unscreened bare land, 1 pass for Connecting Ridge (0.10 %, 95 % CI 0.00 %–0.56 %) and 9 for the Shackleton inner wall (0.90 %, 0.41 %–1.70 %). On the same cells: 8 pass for the wall only, 0 for the ridge only, 1 for both (exact McNemar p = 0.0078). With the 5 passing cells already known among the screened ones, about 201 bare-land cells (95 % CI 10–1,093) would pass for Connecting Ridge.
 <!-- END:checks_headline -->
 
 ### By lens
@@ -468,7 +468,7 @@ the cells cluster into few sites.
 | Classic analog | Barringer (Meteor) Crater, Arizona | CTRL_meteor_crater_arizona | 1.2 | 8 % | 3.9 % | 97 | no | yes |
 | Classic analog | Mistastin (relocated) | CTRL_Mistastin_reloc | 1 | 4 % | 0.1 % | 205 | no | no |
 
-Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). The traverse column assumes that the share of steep terrain along a path equals the areal share of the footprint. Caveat: Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
+Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). The traverse column is computed inside the 4 km footprint and assumes that the share of steep terrain along a path equals its areal share; it restates the 8° share, which the engine selects on, and the neighbouring footprints differ (§7c). Caveat: Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 <!-- END:mission_criteria -->
 
 ### Test-transfer matrix
@@ -541,8 +541,8 @@ Central 4 km footprint of each PGDA 78 site; NASA raster = `SiteNN_final_adj_5mp
 | control | shackleton_rim | 7 | 0 | 0 | 7 |
 | ridge match | connecting_ridge | 5 | 5 | 4 | 4 |
 | ridge match | shackleton_rim | 5 | 2 | 2 | 5 |
-| wall match | connecting_ridge | 30 | 0 | 0 | 30 |
-| wall match | shackleton_rim | 30 | 30 | 29 | 29 |
+| wall match | connecting_ridge | 97 | 0 | 0 | 97 |
+| wall match | shackleton_rim | 97 | 97 | 91 | 91 |
 
 | cells | site | cell | second DEM | > 8°, GLO-30 | > 8°, second DEM | native rank (i)/(ii)/(iii), second DEM | robust, GLO-30 | robust, second DEM |
 |---|---|---|---|---|---|---|---|---|
@@ -559,7 +559,7 @@ Central 4 km footprint of each PGDA 78 site; NASA raster = `SiteNN_final_adj_5mp
 | ridge match | nan | E10K_726_-686 | ArcticDEM | 85.2 % | 85.0 % | 49/34/44 of 49 | yes | yes |
 | ridge match | nan | E10K_699_-750 | ArcticDEM | 79.5 % | 79.2 % | 44/29/44 of 49 | yes | yes |
 
-Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same code, baselines and rule. "Wall match" = a seeded sample of the cells kept for the Shackleton inner wall. Three of the five ridge cells are ice-excluded (§7) and are listed only for the DEM comparison.
+Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same code, baselines and rule. "Wall match" = the cells kept for the Shackleton inner wall that are not also ridge cells. Three of the five ridge cells are ice-excluded (§7) and are listed only for the DEM comparison.
 <!-- END:cross_dem -->
 
 ### Is a match one footprint or an area?
@@ -581,6 +581,18 @@ Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N,
 The 3 × 3 block of 4 km footprints centred on each site (12 km across), scored against Connecting Ridge with the unchanged rule. Da Qaidam: 1 of 9 footprints are robust with both DEMs (the cell itself). Peary Land: 1 of 9 footprints are robust with both DEMs (the footprint 4 km south). Neighbouring footprints are not candidates; a neighbour that passes was found by looking at nine, so it is a lead, not a result.
 <!-- END:site_stability -->
 
+### Sensitivity to the rank threshold
+
+<!-- BEGIN:threshold_sensitivity -->
+| threshold | ridge: screened cells | ridge: random cells | wall: screened cells | wall: random cells | Da Qaidam | Peary Land | classic sites passing (ridge) |
+|---|---|---|---|---|---|---|---|
+| n/3 | 11/307 | 2/1000 | 126/307 | 16/1000 | pass | pass | 0/6 |
+| n/2 (published rule) | 5/307 | 1/1000 | 99/307 | 9/1000 | pass | pass | 0/6 |
+| 2n/3 | 4/307 | 1/1000 | 66/307 | 6/1000 | pass | fail | 0/6 |
+
+A cell must reach the threshold in all three configurations. Counts before the ice filter and the visual review; first DEM (Copernicus GLO-30).
+<!-- END:threshold_sensitivity -->
+
 ### Leave-one-out on the Moon
 
 <!-- BEGIN:lunar_control -->
@@ -593,28 +605,28 @@ The 3 × 3 block of 4 km footprints centred on each site (12 km across), scored 
 | peak near Shackleton | 6/9 | 4/9 | 1/9 | 3/9 | 3/6 | 0/9 |
 | Shackleton inner wall | 3/9 | 3/9 | 5/9 | 2/9 | 0/9 | 4/4 |
 
-Leave-one-out on the Moon: each population footprint is scored like an Earth cell against each region's reference and must pass all three configurations. Same region: 16 of 32 pass; other regions: 94 of 270. Footprints of one region are 3–4 km apart, so they are not independent.
+Leave-one-out on the Moon: each population footprint is scored like an Earth cell against each site's reference and must pass all three configurations. By construction each configuration passes about half of the lunar population, so the base rate for all three is 110 of 302. Same site: 16 of 32; other sites: 94 of 270; without the Shackleton inner wall as reference: 12 of 28 against 81 of 225. Only the wall row carries information. The four medoid references were chosen as the footprint closest to their siblings, which favours their same-site rate; footprints of one site are 3–4 km apart and not independent.
 <!-- END:lunar_control -->
 
 ### All six PGDA 78 regions: prevalence in random bare land and matches in the screened sample
 
 <!-- BEGIN:region_prevalence -->
-| region | pre-registered null | extension (same rule, new seed) | combined | pass rate (95 % CI) | bare-land cells (95 % CI) | screened cells kept (rank + seed) |
-|---|---|---|---|---|---|---|
-| Connecting Ridge | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 196 (5–1,090) | 5 |
-| de Gerlache rim (medoid reference, exploratory) | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 196 (5–1,090) | 2 |
-| Malapert massif (medoid reference, exploratory) | 0/200 | 0/800 | 0/1000 | 0.00 % (0.00 %–0.37 %) | 0 (0–722) | 0 |
-| Nobile rim 1 (medoid reference, exploratory) | 0/200 | 0/800 | 0/1000 | 0.00 % (0.00 %–0.37 %) | 0 (0–722) | 0 |
-| peak near Shackleton (medoid reference, exploratory) | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 196 (5–1,090) | 2 |
-| Shackleton inner wall | 4/200 | 5/800 | 9/1000 | 0.90 % (0.41 %–1.70 %) | 1,764 (808–3,335) | 99 |
+| PGDA 78 site | pre-registered null | extension (same rule, new seed) | combined | pass rate (95 % CI) | passing cells already known among the screened ones | bare-land cells, stratified estimate (95 % CI) | screened cells kept (rank + seed) |
+|---|---|---|---|---|---|---|---|
+| Connecting Ridge | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 5 | 201 (10–1,093) | 5 |
+| de Gerlache rim (medoid reference, exploratory) | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 2 | 198 (7–1,090) | 2 |
+| Malapert massif (medoid reference, exploratory) | 0/200 | 0/800 | 0/1000 | 0.00 % (0.00 %–0.37 %) | 0 | 0 (0–721) | 0 |
+| Nobile rim 1 (medoid reference, exploratory) | 0/200 | 0/800 | 0/1000 | 0.00 % (0.00 %–0.37 %) | 0 | 0 (0–721) | 0 |
+| peak near Shackleton (medoid reference, exploratory) | 1/200 | 0/800 | 1/1000 | 0.10 % (0.00 %–0.56 %) | 2 | 198 (7–1,090) | 2 |
+| Shackleton inner wall | 4/200 | 5/800 | 9/1000 | 0.90 % (0.41 %–1.70 %) | 99 | 1,860 (906–3,429) | 99 |
 
-Pass = robust set (all three configurations), before the ice filter and the visual review. Connecting Ridge against the Shackleton inner wall on the combined random sample: Fisher exact p = 0.021. The last column comes from the sample screened towards Connecting Ridge and is not a prevalence.
+Pass = robust set (all three configurations), before the ice filter and the visual review. The random cells were drawn from bare land without the 300 screened cells, so the estimate is stratified: passing cells known among the screened ones + pass rate × the unscreened rest. Connecting Ridge against the Shackleton inner wall on the same random cells: 8 pass for the wall only, 0 for the ridge only, 1 for both; exact McNemar p = 0.0078. The last column comes from the sample screened towards Connecting Ridge and is not a prevalence.
 <!-- END:region_prevalence -->
 
 ![Six PGDA 78 regions against the two engine matches and six classic analog field sites](figures/fig_region_matrix.png)
 
 <!-- BEGIN:region_matches -->
-| site | cell | lat | lon | regions matched (of 6) | regions | ice filter (A13) |
+| site | cell | lat | lon | PGDA 78 sites matched (of 6) | sites | ice filter (A13) |
 |---|---|---|---|---|---|---|
 | Qikiqtaaluk Region, Nunavut (Canada) | E10K_726_-686 | 81 | -71.2 | 4 | Connecting Ridge, de Gerlache rim, peak near Shackleton, Shackleton inner wall | excluded: perennial ice |
 | Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | 38 | 95.7 | 3 | Connecting Ridge, de Gerlache rim, peak near Shackleton | ok |
@@ -622,7 +634,7 @@ Pass = robust set (all three configurations), before the ice filter and the visu
 | Qikiqtaaluk Region, Nunavut (Canada) | E10K_691_-680 | 69.9 | -70.6 | 1 | Connecting Ridge | excluded: perennial ice |
 | Peary Land, North Greenland | E10K_729_-319 | 82.6 | -33.1 | 1 | Connecting Ridge | flag: some ice |
 
-Screened cells (rank + seed) in the robust set of at least one ridge, rim or massif region. Only the Connecting Ridge and Shackleton rows are verdicts; the other four regions use a medoid reference and are exploratory.
+Screened cells (rank + seed) in the robust set of at least one ridge, rim or massif site. Only the Connecting Ridge and Shackleton rows are verdicts; the other four sites use a medoid reference and are exploratory.
 <!-- END:region_matches -->
 
 ## 8. Deviations from pre-registration

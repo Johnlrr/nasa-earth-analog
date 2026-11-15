@@ -347,8 +347,10 @@ def t_mission_criteria() -> str:
             f"Requirements: \"{req['artemis3_landing_slope']['quote']}\" and "
             f"\"{req['artemis3_eva_slope']['quote']}\" — "
             f"{req['artemis3_landing_slope']['document']} "
-            f"({req['artemis3_landing_slope']['source']}). The traverse column assumes that "
-            f"the share of steep terrain along a path equals the areal share of the footprint. "
+            f"({req['artemis3_landing_slope']['source']}). The traverse column is computed "
+            f"inside the 4 km footprint and assumes that the share of steep terrain along a "
+            f"path equals its areal share; it restates the 8° share, which the engine selects "
+            f"on, and the neighbouring footprints differ (§7c). "
             f"Caveat: {cav}")
 
 
@@ -422,10 +424,12 @@ def _stability_line() -> str:
     per = both.groupby(level=0).sum()
     return (f"- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the "
             f"{cl['site'].nunique()} classic sites, {int(cl['robust'].sum())} of {len(cl)} "
-            f"footprints are in the robust set for Connecting Ridge. Around the two engine "
-            f"matches, " + " and ".join(f"{int(k)} of 9 at {site.split(',')[0]}"
-                                        for site, k in per.items())
-            + " are robust with both DEMs: the coordinates matter, the region name does not.")
+            f"footprints are in the robust set for Connecting Ridge. In the block around each "
+            f"engine match, " + " and ".join(f"{int(k)} of the 9 footprints at "
+                                             f"{site.split(',')[0]}" for site, k in per.items())
+            + " is robust with both DEMs (at Da Qaidam the cell itself and none of its eight "
+            "neighbours; at Peary Land the footprint 4 km south, not the cell): the coordinates "
+            "matter, the region name does not.")
 
 
 def t_checks_headline() -> str:
@@ -459,31 +463,41 @@ def t_checks_headline() -> str:
     w_other = wall[wall["candidate_region"].ne("shackleton_rim")]
     p = pd.read_parquet(DERIVED / "l1_prevalence.parquet").set_index("target_id")
     cr, sh = p.loc["connecting_ridge"], p.loc["shackleton_rim"]
+    rv = r["ridge_vs_wall"]
     return "\n".join([
         f"- **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our "
         f"formula at 5 m differs from NASA's slope rasters by at most "
         f"{r['nasa_slope_max_abs_diff_deg']:.4f}° on the median slope and "
         f"{100 * r['nasa_frac_max_abs_diff']:.3f} points on the 8° and 20° shares.",
         f"- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, "
-        f"{same} of {len(pub)} verdicts are unchanged (ridge cells, classic controls, a sample "
-        "of wall cells). " + "; ".join(dem_line(i) for i in usable) + ". A verdict that "
+        f"{same} of {len(pub)} verdicts are unchanged (ridge cells, classic controls, wall "
+        "cells). " + "; ".join(dem_line(i) for i in usable) + ". A verdict that "
         "changes with the DEM is marginal and is reported as such.",
-        "- **Six regions, not two (exploratory).** " + "; ".join(
-            f"{names.get(i, i)} is in the robust set of {len(v)} of the 6 PGDA 78 regions "
+        "- **Six PGDA 78 south-pole sites, not two (exploratory).** " + "; ".join(
+            f"{names.get(i, i)} is in the robust set of {len(v)} of the 6 sites "
             f"({', '.join(_label(x) for x in v)})" for i, v in n_reg.items()) + ".",
         _stability_line(),
-        f"- **Known truth on the Moon.** Scored like Earth cells, footprints of the same "
-        f"region pass in {lc['same_pass']} of {lc['same_n']} cases and footprints of other "
-        f"regions in {lc['other_pass']} of {lc['other_n']}; for the Shackleton inner wall, "
-        f"{int(w_same['n_pass'])} of {int(w_same['n'])} against "
-        f"{int(w_other['n_pass'].sum())} of {int(w_other['n'].sum())}. The test separates the "
-        f"steep wall from ridge terrain; it does not tell the ridge and rim regions apart: it "
-        f"recognises a terrain class, not a named place.",
-        f"- **Unbiased prevalence.** In {int(cr['n'])} random bare-land cells, "
-        f"{int(cr['pass'])} pass for Connecting Ridge ({_pct(cr['rate'], 2)}, 95 % CI "
-        f"{_pct(cr['ci_lo'], 2)}–{_pct(cr['ci_hi'], 2)}) and {int(sh['pass'])} for the "
-        f"Shackleton inner wall ({_pct(sh['rate'], 2)}, {_pct(sh['ci_lo'], 2)}–"
-        f"{_pct(sh['ci_hi'], 2)}); Fisher exact p = {r['ridge_vs_wall_p_fisher']:.2g}.",
+        f"- **Known truth on the Moon.** Scored like Earth cells, footprints of the Shackleton "
+        f"inner wall pass their own reference in {int(w_same['n_pass'])} of "
+        f"{int(w_same['n'])} cases and footprints of the other sites in "
+        f"{int(w_other['n_pass'].sum())} of {int(w_other['n'].sum())}: the test separates the "
+        f"steep wall. It does not separate the ridge, rim and massif sites from one another: "
+        f"same site {lc['no_wall_same_pass']} of {lc['no_wall_same_n']}, other sites "
+        f"{lc['no_wall_other_pass']} of {lc['no_wall_other_n']}, against "
+        f"{lc['all_pass']} of {lc['all_n']} for any lunar footprint (each configuration passes "
+        f"about half of the lunar population by construction). The Connecting Ridge reference "
+        f"even ranks footprints of de Gerlache rim and of the peak near Shackleton above its "
+        f"own. The test recognises a terrain class, not a named place.",
+        f"- **Prevalence from a random sample.** In {int(cr['n'])} random cells of the "
+        f"unscreened bare land, {int(cr['pass'])} pass for Connecting Ridge "
+        f"({_pct(cr['rate'], 2)}, 95 % CI {_pct(cr['ci_lo'], 2)}–{_pct(cr['ci_hi'], 2)}) and "
+        f"{int(sh['pass'])} for the Shackleton inner wall ({_pct(sh['rate'], 2)}, "
+        f"{_pct(sh['ci_lo'], 2)}–{_pct(sh['ci_hi'], 2)}). On the same cells: "
+        f"{rv['wall_only']} pass for the wall only, {rv['ridge_only']} for the ridge only, "
+        f"{rv['both']} for both (exact McNemar p = {rv['p_mcnemar_exact']:.2g}). With the "
+        f"{int(cr['screened_pass'])} passing cells already known among the screened ones, "
+        f"about {int(cr['cells']):,} bare-land cells (95 % CI {int(cr['cells_lo']):,}–"
+        f"{int(cr['cells_hi']):,}) would pass for Connecting Ridge.",
     ])
 
 
@@ -540,8 +554,8 @@ def t_cross_dem() -> str:
     return (md_table(g) + "\n\n" + md_table(cells.sort_values(["cells", "site"]))
             + "\n\nSecond DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and "
             "60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same "
-            "code, baselines and rule. \"Wall match\" = a seeded sample of the cells kept for "
-            "the Shackleton inner wall. Three of the five ridge cells are ice-excluded (§7) "
+            "code, baselines and rule. \"Wall match\" = the cells kept for the Shackleton "
+            "inner wall that are not also ridge cells. Three of the five ridge cells are ice-excluded (§7) "
             "and are listed only for the DEM comparison.")
 
 
@@ -574,6 +588,41 @@ def t_site_stability() -> str:
             "by looking at nine, so it is a lead, not a result.")
 
 
+def t_threshold_sensitivity() -> str:
+    """The published rule is native rank >= n/2; what happens at n/3 and 2n/3?"""
+    s = pd.read_parquet(DERIVED / "l1_regions.parquet")
+    s = s[s["target_id"].isin(["connecting_ridge", "shackleton_rim"])].copy()
+    crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    kept = crit[crit["group"].eq("Engine match")]
+    classic = set(crit[crit["group"].eq("Classic analog")]["id"])
+    earth = pd.read_parquet(DERIVED / "earth_L1.parquet").drop_duplicates("cell_id")
+    ctrl = s[s["cell_id"].isin(classic)]
+    rows = []
+    for label, f in (("n/3", 1 / 3), ("n/2 (published rule)", 1 / 2), ("2n/3", 2 / 3)):
+        ok = ((s["nr_i"] >= f * s["n_i"]) & (s["nr_ii"] >= f * s["n_ii"])
+              & (s["nr_iii"] >= f * s["n_iii"]))
+        row = {"threshold": label}
+        for t, name in (("connecting_ridge", "ridge"), ("shackleton_rim", "wall")):
+            d = s[s["target_id"].eq(t)]
+            o = ok[d.index]
+            scr = d["sample_role"].isin(["rank", "seed"])
+            rnd = d["sample_role"].isin(["null", "null2"])
+            row[f"{name}: screened cells"] = f"{int(o[scr].sum())}/{int(scr.sum())}"
+            row[f"{name}: random cells"] = f"{int(o[rnd].sum())}/{int(rnd.sum())}"
+        cr = s[s["target_id"].eq("connecting_ridge")].set_index("cell_id")
+        okr = ok[s["target_id"].eq("connecting_ridge")]
+        okr.index = cr.index
+        for k in kept.itertuples():
+            row[str(k.name).split(",")[0]] = "pass" if bool(okr[k.id]) else "fail"
+        c = ctrl[ctrl["target_id"].eq("connecting_ridge")]
+        row["classic sites passing (ridge)"] = f"{int(ok[c.index].sum())}/{len(c)}"
+        rows.append(row)
+    del earth
+    return (md_table(pd.DataFrame(rows)) + "\n\nA cell must reach the threshold in all three "
+            "configurations. Counts before the ice filter and the visual review; first DEM "
+            "(Copernicus GLO-30).")
+
+
 def t_lunar_control() -> str:
     c = pd.read_parquet(DERIVED / "l1_lunar_control.parquet")
     c["txt"] = c["n_pass"].astype(str) + "/" + c["n"].astype(str)
@@ -583,17 +632,23 @@ def t_lunar_control() -> str:
     p = p.reset_index().rename(columns={"index": "reference region ↓ / footprints of →"})
     r = _reg()["lunar_control"]
     return (md_table(p) + f"\n\nLeave-one-out on the Moon: each population footprint is "
-            f"scored like an Earth cell against each region's reference and must pass all "
-            f"three configurations. Same region: {r['same_pass']} of {r['same_n']} pass; other "
-            f"regions: {r['other_pass']} of {r['other_n']}. Footprints of one region are "
-            f"3–4 km apart, so they are not independent.")
+            f"scored like an Earth cell against each site's reference and must pass all "
+            f"three configurations. By construction each configuration passes about half of "
+            f"the lunar population, so the base rate for all three is {r['all_pass']} of "
+            f"{r['all_n']}. Same site: {r['same_pass']} of {r['same_n']}; other sites: "
+            f"{r['other_pass']} of {r['other_n']}; without the Shackleton inner wall as "
+            f"reference: {r['no_wall_same_pass']} of {r['no_wall_same_n']} against "
+            f"{r['no_wall_other_pass']} of {r['no_wall_other_n']}. Only the wall row carries "
+            f"information. The four medoid references were chosen as the footprint closest to "
+            f"their siblings, which favours their same-site rate; footprints of one site are "
+            f"3–4 km apart and not independent.")
 
 
 def t_region_prevalence() -> str:
     p = pd.read_parquet(DERIVED / "l1_prevalence.parquet")
     r = _reg()
     out = pd.DataFrame({
-        "region": [_label(x) + ("" if pub else " (medoid reference, exploratory)")
+        "PGDA 78 site": [_label(x) + ("" if pub else " (medoid reference, exploratory)")
                    for x, pub in zip(p["target_id"], p["published"], strict=True)],
         "pre-registered null": p["null_pass"].astype(str) + "/" + p["null_n"].astype(str),
         "extension (same rule, new seed)": p["null2_pass"].astype(str) + "/"
@@ -601,15 +656,20 @@ def t_region_prevalence() -> str:
         "combined": p["pass"].astype(str) + "/" + p["n"].astype(str),
         "pass rate (95 % CI)": [f"{_pct(a, 2)} ({_pct(b, 2)}–{_pct(c, 2)})" for a, b, c in
                                 zip(p["rate"], p["ci_lo"], p["ci_hi"], strict=True)],
-        "bare-land cells (95 % CI)": [f"{a:,} ({b:,}–{c:,})" for a, b, c in
+        "passing cells already known among the screened ones": p["screened_pass"],
+        "bare-land cells, stratified estimate (95 % CI)": [f"{a:,} ({b:,}–{c:,})" for a, b, c in
                                       zip(p["cells"], p["cells_lo"], p["cells_hi"],
                                           strict=True)],
         "screened cells kept (rank + seed)": [r["regions_rank_seed_robust"][x]
                                               for x in p["target_id"]]})
+    rv = r["ridge_vs_wall"]
     return (md_table(out) + "\n\nPass = robust set (all three configurations), before the ice "
-            "filter and the visual review. Connecting Ridge against the Shackleton inner wall "
-            f"on the combined random sample: Fisher exact p = "
-            f"{r['ridge_vs_wall_p_fisher']:.2g}. The last column comes from the sample "
+            "filter and the visual review. The random cells were drawn from bare land without "
+            "the 300 screened cells, so the estimate is stratified: passing cells known among "
+            "the screened ones + pass rate × the unscreened rest. Connecting Ridge against the "
+            f"Shackleton inner wall on the same random cells: {rv['wall_only']} pass for the "
+            f"wall only, {rv['ridge_only']} for the ridge only, {rv['both']} for both; exact "
+            f"McNemar p = {rv['p_mcnemar_exact']:.2g}. The last column comes from the sample "
             "screened towards Connecting Ridge and is not a prevalence.")
 
 
@@ -627,11 +687,11 @@ def t_region_matches() -> str:
     g["ice filter"] = [prof["ice_check"].get(c, "not assessed") for c in g["cell_id"]]
     g = g.sort_values(["n", "cell_id"], ascending=[False, True])
     out = g[["site", "cell_id", "lat", "lon", "n", "regions", "ice filter"]]
-    out.columns = ["site", "cell", "lat", "lon", "regions matched (of 6)", "regions",
+    out.columns = ["site", "cell", "lat", "lon", "PGDA 78 sites matched (of 6)", "sites",
                    "ice filter (A13)"]
     return (md_table(out) + "\n\nScreened cells (rank + seed) in the robust set of at least "
-            "one ridge, rim or massif region. Only the Connecting Ridge and Shackleton rows "
-            "are verdicts; the other four regions use a medoid reference and are exploratory.")
+            "one ridge, rim or massif site. Only the Connecting Ridge and Shackleton rows "
+            "are verdicts; the other four sites use a medoid reference and are exploratory.")
 
 
 
@@ -644,6 +704,7 @@ TABLES = {"verdicts": t_verdicts, "ledger": t_ledger, "terrain_controls": t_terr
           "task_attention": t_task_attention,
           "checks_headline": t_checks_headline, "nasa_slope": t_nasa_slope,
           "cross_dem": t_cross_dem, "site_stability": t_site_stability,
+          "threshold_sensitivity": t_threshold_sensitivity,
           "lunar_control": t_lunar_control, "region_prevalence": t_region_prevalence,
           "region_matches": t_region_matches}
 
