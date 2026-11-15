@@ -8,7 +8,7 @@
     { id: 'X1', name: 'Ice under Dry Overburden', body: 'Mars', question: '' }
   ];
   var LENSES = FALLBACK_LENSES.slice();
-  var BAND_COLORS = { good: '#2b9348', ok: '#9ac93a', warn: '#f08c00', bad: '#d62828' };
+  var BAND_COLORS = { good: '#6fbf8f', ok: '#c3cf78', warn: '#e2a85c', bad: '#e57a68' };
 
   var state = { features: [], lens: 'L1', selectedId: null, meta: {}, ledger: null };
   var map, markerLayer, markers = {};
@@ -135,11 +135,12 @@
   // ---------- UI ----------
   function buildLensTabs() {
     var host = $('lens-tabs');
-    var siteBtn = '<button type="button" class="lens-btn" data-lens="SITES" aria-pressed="false" aria-label="Showcase sites">Sites<small>showcase</small></button>';
+    var siteBtn = '<button type="button" class="lens-btn" data-lens="SITES" aria-pressed="false" aria-label="Showcase sites, Earth">' +
+      '<span class="lb-code">ALL</span><span class="lb-name">Showcase sites</span><small>Earth, across lenses</small></button>';
     host.innerHTML = siteBtn + LENSES.map(function (l) {
       return '<button type="button" class="lens-btn" data-lens="' + esc(l.id) + '" aria-pressed="false" aria-label="Lens ' +
-        esc(l.id) + ': ' + esc(l.name) + ', ' + esc(l.body) + '">' + esc(l.id) + ' ' + esc(l.name) +
-        '<small>' + esc(l.body) + '</small></button>';
+        esc(l.id) + ': ' + esc(l.name) + ', ' + esc(l.body) + '"><span class="lb-code">' + esc(l.id) + '</span>' +
+        '<span class="lb-name">' + esc(l.name) + '</span><small>' + esc(l.body) + '</small></button>';
     }).join('');
   }
   function buildLegend() {
@@ -149,16 +150,40 @@
     ].map(function (i) {
       return '<span class="item"><span class="swatch" style="background:' + i[1] + '"></span>' + esc(i[0]) + '</span>';
     }).join('');
-    var roles = '<span class="item"><span class="swatch" style="background:#ccc"></span><b>engine-qualified cell</b> (filled)</span>' +
+    var roles = '<span class="item"><span class="swatch" style="background:#e3e2da"></span><b>engine-qualified cell</b> (filled)</span>' +
       '<span class="item"><span class="swatch ring"></span><b>control</b> (ring: known good site)</span>' +
       '<span class="item"><span class="swatch diamond"></span><b>decoy</b> (diamond: looks similar, should fail)</span>';
-    var ev = '<span class="item"><span class="swatch" style="background:#ccc;border-style:solid"></span>engine-confirmed (solid)</span>' +
-      '<span class="item"><span class="swatch" style="background:#ccc;border-style:dashed"></span>engine-semiquant (dashed)</span>' +
-      '<span class="item"><span class="swatch" style="background:#ccc;border-color:#868e96"></span>literature-only / hypothesis (grey)</span>';
-    $('legend').innerHTML = '<div class="lg-row">' + items + '<span class="item">σ small = good analog; "> X σ" = capped</span></div>' +
-      '<div class="lg-row">' + roles + '<span class="item"><span class="swatch sq"></span><b>site</b> (square, Sites tab)</span></div><div class="lg-row">' + ev + '</div>';
+    var ev = '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:solid;border-color:#0d1210"></span>engine-confirmed (solid)</span>' +
+      '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:dashed;border-color:#0d1210"></span>engine-semiquant (dashed)</span>' +
+      '<span class="item"><span class="swatch" style="background:#8e948d;border-color:#8e948d"></span>literature-only / hypothesis (grey)</span>';
+    $('legend').innerHTML = '<div class="lg-row"><span class="lg-h">Score</span>' + items + '<span class="item">small σ = closer to the target; "&gt; X σ" = capped</span></div>' +
+      '<div class="lg-row"><span class="lg-h">Marker</span>' + roles + '<span class="item"><span class="swatch sq"></span><b>site</b> (square)</span></div>' +
+      '<div class="lg-row"><span class="lg-h">Evidence</span>' + ev + '</div>';
   }
 
+  function stat(label, value) {
+    return '<div><dt>' + esc(label) + '</dt><dd>' + esc(value) + '</dd></div>';
+  }
+  function renderBrief(id) {
+    var li = lensInfo(id), lm = lensMeta(id);
+    $('lens-eyebrow').textContent = id === 'SITES' ? 'Earth · showcase sites' : 'Mission lens ' + id + ' · ' + (li.body || '');
+    $('lens-title').textContent = li.name || id;
+    $('lens-question').textContent = li.question || '';
+    var h = '';
+    if (id === 'SITES') {
+      var sites = siteFeatures();
+      if (sites.length) {
+        var two = sites.filter(function (f) { var p = f.properties; return (p.lenses_engine_confirmed.length + p.lenses_engine_semiquant.length) >= 2; }).length;
+        var low = sites.filter(function (f) { return f.properties.hidden_status === 'yes'; }).length;
+        h = stat('Showcase sites', sites.length) + stat('Two or more engine lenses', two) + stat('Low attention', low);
+      }
+    } else if (lm && !lm.status) {
+      var ranked = state.features.filter(function (f) { return !isSite(f) && f.properties.lens_scores && f.properties.lens_scores[id] && roleOf(f.properties) === 'hidden'; }).length;
+      h = (typeof lm.n_scored === 'number' ? stat('Cells scored', lm.n_scored) : '') +
+        (typeof lm.n_null === 'number' ? stat('Null sample', lm.n_null) : '') + stat('Ranked candidates', ranked);
+    }
+    $('lens-stats').innerHTML = h;
+  }
   function siteFeatures() {
     return state.features.filter(isSite).sort(function (a, b) {
       return String(a.properties.showcase).localeCompare(String(b.properties.showcase)) ||
@@ -181,7 +206,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('.lens-btn'), function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-lens') === id ? 'true' : 'false');
     });
-    $('lens-question').textContent = lensInfo(id).question || '';
+    renderBrief(id);
     var sel = state.features.filter(function (f) { return f.properties.id === state.selectedId; })[0];
     if (sel && (id === 'SITES' ? !isSite(sel) : (isSite(sel) || !sel.properties.lens_scores[id]))) state.selectedId = null;
     renderMap(); renderList(); renderCard();
@@ -255,11 +280,11 @@
     var li = lensInfo(state.lens), feats = lensFeatures(), lm = lensMeta(state.lens);
     var host = $('list');
     if (state.lens === 'SITES') {
-      $('list-title').textContent = 'Showcase sites (selection rule in config/sites.yaml, not hand-picked)';
+      $('list-title').textContent = 'Showcase sites · selection rule in config/sites.yaml';
       host.innerHTML = feats.length ? feats.map(siteRowHtml).join('') : '<li class="empty">No site table published yet.</li>';
       return;
     }
-    $('list-title').textContent = 'Cells for ' + li.id + ' ' + li.name + ' (' + li.body + '), best first';
+    $('list-title').textContent = 'Ranked results · ' + li.id + ' ' + li.name + ', closest first';
     if (!feats.length) {
       var msg = (lm && lm.status) ? 'No engine results for this lens yet' + (lm.status !== 'no fidelity data yet' ? ' (' + lm.status + ')' : '') :
         'No candidates scored for this lens.';
@@ -288,7 +313,7 @@
     }
     renderList(); renderCard();
     var c = $('card');
-    if (window.matchMedia('(max-width: 899px)').matches && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.matchMedia('(max-width: 1099px)').matches && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function listHtml(items) {
@@ -313,7 +338,7 @@
         (u ? '<br><a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">Source</a>' : '') + '</div>';
     }).join('');
     if (gaps.length) {
-      h += '<h4>NASA gaps</h4><ul>' + gaps.map(function (g) {
+      h += '<h5>NASA gaps</h5><ul>' + gaps.map(function (g) {
         return '<li><span class="note">' + esc(g.id) + '</span> ' + esc(g.name) + '</li>';
       }).join('') + '</ul>';
     }
@@ -327,7 +352,7 @@
     if (!v.length) {
       return '<p class="note">Verdicts (TRANSFERS / NO-ANALOG / UNOBSERVED) appear here once the verdict table is published.</p>';
     }
-    var h = '<div class="verdicts"><h3>Test verdicts</h3><ul>';
+    var h = '<div class="verdicts"><h4>Test verdicts</h4><ul>';
     v.forEach(function (r) {
       var cls = r.state === 'TRANSFERS' ? 'v-ok' : (r.state === 'NO-ANALOG' ? 'v-no' : 'v-unk');
       h += '<li class="' + cls + '"><span class="v-state">' + esc(VERDICT_LABEL[r.state] || r.state) + '</span> ' +
@@ -372,7 +397,7 @@
     return (list || []).map(function (l) { return '<span class="chip ' + cls + '" title="' + esc(label) + '">' + esc(l) + ' · ' + esc(label) + '</span>'; }).join(' ');
   }
   function siteCardHtml(p) {
-    var h = '<h2>' + esc(p.name) + '</h2>';
+    var h = '<h3>' + esc(p.name) + '</h3>';
     h += '<p class="meta">Site · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · ' + esc(p.n_cells) + ' cell(s) · span ' +
       esc(num(p.max_span_km, 0)) + ' km' + (p.max_span_km > 300 ? ' <span class="flag">a region, not one camp</span>' : '') +
       ' · <span class="note">' + esc(p.id) + '</span></p>';
@@ -389,14 +414,14 @@
     h += '<p><strong>Attention:</strong> ' + (typeof p.attention_n === 'number' ? esc(p.attention_n) + ' OpenAlex works' : 'not known') + '</p>';
     if (p.hidden_status === 'yes') h += '<p class="note">Low count of works naming this site in a Mars/Moon analog context; not proof that the site is unknown (validation report, Deviations 21).</p>';
     if (p.note) h += '<p class="note">' + esc(p.note) + '</p>';
-    h += '<h3>Comes home valid (Field)</h3>' + rowsHtml(p.field, 'r-field');
-    h += '<h3>Needs a facility</h3>' + rowsHtml(p.facility, 'r-fac');
-    h += '<h3>Not certified (unobserved)</h3>' + rowsHtml(p.unobserved, 'r-unobs');
+    h += '<h4>Comes home valid (Field)</h4>' + rowsHtml(p.field, 'r-field');
+    h += '<h4>Needs a facility</h4>' + rowsHtml(p.facility, 'r-fac');
+    h += '<h4>Not certified (unobserved)</h4>' + rowsHtml(p.unobserved, 'r-unobs');
     var snow = p.l2_snow_free_frac || {};
     var sk = Object.keys(snow);
     if (sk.length) h += '<p class="note">L2 cells snow-free fraction (MODIS 2023): ' + sk.map(function (k) { return esc(k) + ' ' + esc(num(snow[k], 2)); }).join(', ') + '</p>';
     if (p.multilens && p.multilens.length) {
-      h += '<h3>Other lenses nearby (≤ 150 km)</h3><ul class="rows">' + p.multilens.map(function (m) {
+      h += '<h4>Other lenses nearby (≤ 150 km)</h4><ul class="rows">' + p.multilens.map(function (m) {
         return '<li>' + esc(m.partner_lens) + ' ' + esc(m.partner_label) + ' · ' + esc(num(m.distance_km, 0)) + ' km · ' + esc(m.partner_state) +
           (m.edge_of_radius ? ' <span class="note">(edge of radius)</span>' : '') + '</li>';
       }).join('') + '</ul>';
@@ -408,13 +433,33 @@
     return h;
   }
 
+  function emptyCardHtml() {
+    var feats = lensFeatures();
+    var ranked = feats.filter(function (x) { return isSite(x) || roleOf(x.properties) === 'hidden'; });
+    var top = ranked[0] || feats[0];
+    var h = '<div class="empty-state"><p class="eyebrow">Analog Test Card</p>' +
+      '<h3>Select a site to read its verdicts</h3>' +
+      '<ol><li>Pick a marker on the map or a row in the ranked results.</li>' +
+      '<li>Read each test: does the result come home valid from this place?</li>' +
+      '<li>Check what still needs a facility, and what orbit cannot certify.</li></ol>' +
+      '<dl class="state-key">' +
+      '<div><dt class="v-ok-t">TRANSFERS</dt><dd>the field test is valid for the target</dd></div>' +
+      '<div><dt class="v-no-t">NO-ANALOG</dt><dd>no Earth site matches; use a facility</dd></div>' +
+      '<div><dt class="v-unk-t">UNOBSERVED</dt><dd>not measurable from orbit; check in situ</dd></div></dl>';
+    if (top) {
+      h += '<button type="button" class="start-btn" data-open="' + esc(top.properties.id) + '">' + (ranked.length ? 'Open the top result' : 'Open the first row (no ranked candidate)') +
+        '<span class="arrow" aria-hidden="true">&rarr;</span><small>' + esc(top.properties.name) + '</small></button>';
+    }
+    return h + '</div>';
+  }
+
   function renderCard() {
     var host = $('card');
     var f = state.features.filter(function (x) { return x.properties.id === state.selectedId; })[0];
-    if (!f) { host.innerHTML = '<p class="muted">Select a site on the map or in the list to open its Analog Test Card.</p>'; return; }
+    if (!f) { host.innerHTML = emptyCardHtml(); return; }
     if (isSite(f)) { host.innerHTML = siteCardHtml(f.properties); return; }
     var p = f.properties, h = '', role = roleOf(p);
-    h += '<h2>' + esc(p.process_title) + '</h2>';
+    h += '<h3>' + esc(p.process_title) + '</h3>';
     h += '<p class="meta"><strong>' + esc(p.name) + '</strong>' + (p.country ? ' · ' + esc(p.country) : '') +
       ' · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · footprint ' + esc(p.footprint_km) + ' km · ' +
       '<span class="tag ' + role + '">' + esc(roleLabel(role)) + '</span> <span class="note">' + esc(p.id) + '</span></p>';
@@ -433,7 +478,7 @@
     h += verdictHtml(p);
     h += evidenceScaleHtml(p.lens_scores[state.lens]);
 
-    h += '<h3>Fidelity per lens</h3><div class="tbl-wrap"><table><thead><tr><th>Lens</th><th>Target</th><th>σ</th><th>Percentile</th><th>d</th><th>Mode</th><th>Limiting factor</th><th>No analog</th></tr></thead><tbody>';
+    h += '<h4>Fidelity per lens</h4><div class="tbl-wrap"><table><thead><tr><th>Lens</th><th>Target</th><th>σ</th><th>Percentile</th><th>d</th><th>Mode</th><th>Limiting factor</th><th>No analog</th></tr></thead><tbody>';
     var nullNote = false;
     Object.keys(p.lens_scores).forEach(function (lid) {
       var s = p.lens_scores[lid];
@@ -453,9 +498,9 @@
 
     var sel = p.lens_scores[state.lens];
     if (sel) {
-      h += '<h3>Descriptors (' + esc(state.lens) + ' vs ' + esc(sel.target) + ')</h3>';
+      h += '<h4>Descriptors (' + esc(state.lens) + ' vs ' + esc(sel.target) + ')</h4>';
       var d = sel.descriptors || {}, keys = Object.keys(d);
-      h += '<div id="radar" class="radar"><h4>Match per descriptor (1 = same as ' + esc(lensInfo(state.lens).body || 'target') + ' target)</h4>' + radarSvg(d) + '</div>';
+      h += '<div id="radar" class="radar"><h5>Match per descriptor (1 = same as ' + esc(lensInfo(state.lens).body || 'target') + ' target)</h5>' + radarSvg(d) + '</div>';
       if (keys.length) {
         h += '<details class="fold"><summary>Descriptor table (' + keys.length + ')</summary><div class="tbl-wrap"><table><thead><tr><th>Descriptor</th><th>Earth</th><th>Target</th><th>z</th></tr></thead><tbody>';
         keys.forEach(function (k) {
@@ -466,34 +511,83 @@
       }
     } else h += '<div id="radar"></div>';
 
-    h += '<h3>Test here</h3>' + listHtml((p.test_here || []).map(function (t) {
+    h += '<h4>Test here</h4>' + listHtml((p.test_here || []).map(function (t) {
       return esc(t.tech) + (t.lens ? ' <span class="note">[' + esc(t.lens) + ']</span>' : '') +
         '<br><span class="note">NASA gap: ' + (t.nasa_gap ? esc(t.nasa_gap) : '—') + '</span>';
     }));
-    h += '<h3>Cannot test here</h3>' + listHtml((p.cannot_test || []).map(esc));
+    h += '<h4>Cannot test here</h4>' + listHtml((p.cannot_test || []).map(esc));
     h += ledgerHtml(state.lens);
 
     var a = p.attention || {};
-    h += '<h3>Attention</h3><p>' + (a.n_pubs === null || a.n_pubs === undefined ? '—' : esc(a.n_pubs)) + ' publications<br>' +
+    h += '<h4>Attention</h4><p>' + (a.n_pubs === null || a.n_pubs === undefined ? '—' : esc(a.n_pubs)) + ' publications<br>' +
       '<span class="note">Query: <code>' + esc(a.query) + '</code><br>Source: ' + esc(a.source) + ' · ' + esc(a.date) + '</span></p>';
 
     var ac = p.access || {};
-    h += '<h3>Access</h3><p>Travel time: ' + (ac.travel_time_h === null || ac.travel_time_h === undefined ? '—' : esc(ac.travel_time_h) + ' h') +
+    h += '<h4>Access</h4><p>Travel time: ' + (ac.travel_time_h === null || ac.travel_time_h === undefined ? '—' : esc(ac.travel_time_h) + ' h') +
       ' · Protected area: ' + (ac.protected_area === null || ac.protected_area === undefined ? '—' : (ac.protected_area ? 'yes' : 'no')) +
       (ac.note ? '<br><span class="note">' + esc(ac.note) + '</span>' : '') + '</p>';
 
-    h += '<h3>Evidence</h3><p><span class="badge ' + esc(p.evidence_status) + '">' + esc(p.evidence_status) + '</span> ' + esc(p.evidence_note || '') + '</p>';
+    h += '<h4>Evidence</h4><p><span class="badge ' + esc(p.evidence_status) + '">' + esc(p.evidence_status) + '</span> ' + esc(p.evidence_note || '') + '</p>';
     if (p.in_exclusion_buffer) h += '<p class="flag">In exclusion buffer.</p>';
     else h += '<p class="note">In exclusion buffer: no</p>';
-    h += '<h3>Data sources</h3>' + listHtml((p.data_sources || []).map(esc));
+    h += '<h4>Data sources</h4>' + listHtml((p.data_sources || []).map(esc));
     host.innerHTML = h;
   }
 
+  // ---------- intro (hero card, lens cards, fact line): every number read from the data ----------
+  function words(v) { return String(v || '').replace(/_/g, ' '); }
+  function renderIntro() {
+    var lm = state.meta.lenses || {};
+    var total = 0;
+    LENSES.forEach(function (l) { if (lm[l.id] && typeof lm[l.id].n_scored === 'number') total += lm[l.id].n_scored; });
+    var sites = siteFeatures();
+    if (total) {
+      $('hero-fact').textContent = total.toLocaleString('en-US') + ' Earth cells scored · ' + LENSES.length + ' mission lenses' +
+        (sites.length ? ' · ' + sites.length + ' showcase field sites' : '') + ' · a random null sample for every lens';
+    }
+    // hero: the showcase site with the most engine lenses (ties: the one with cross-lens evidence)
+    var best = sites.slice().sort(function (a, b) {
+      var pa = a.properties, pb = b.properties;
+      var na = pa.lenses_engine_confirmed.length + pa.lenses_engine_semiquant.length;
+      var nb = pb.lenses_engine_confirmed.length + pb.lenses_engine_semiquant.length;
+      return (nb - na) || ((pb.multilens || []).length - (pa.multilens || []).length);
+    })[0];
+    if (best) {
+      var p = best.properties;
+      var lensTxt = p.lenses_engine_confirmed.map(function (x) { return x + ' engine'; })
+        .concat(p.lenses_engine_semiquant.map(function (x) { return x + ' semi-quantitative'; })).join(' · ');
+      var field = (p.field || []).filter(function (r) { return r.target_label; }).slice(0, 2);
+      var fac = (p.facility || [])[0], un = (p.unobserved || [])[0];
+      var h = '<p class="af-site">' + esc(p.name) + '</p><p class="af-sub">Field site · ' + esc(lensTxt) + '</p><ul class="af-rows">';
+      field.forEach(function (r) {
+        h += '<li><span class="v-ok-t">TRANSFERS</span><span>' + esc(r.lens) + ' · ' + esc(words(r.variable)) + ' vs ' + esc(r.target_label) + '</span></li>';
+      });
+      if (fac) h += '<li><span class="v-no-t">NO-ANALOG</span><span>' + esc(fac.lens) + ' · ' + esc(words(fac.variable)) + ' → ' + esc(fac.facility) + '</span></li>';
+      if (un) h += '<li><span class="v-unk-t">UNOBSERVED</span><span>' + esc(un.lens) + ' · ' + esc(un.variable) + '</span></li>';
+      h += '</ul><button type="button" class="btn btn-primary af-open" data-open-site="' + esc(p.id) + '">Open this card <span aria-hidden="true">&rarr;</span></button>';
+      $('hero-card').innerHTML = h;
+    }
+    // lens cards
+    $('lens-cards').innerHTML = LENSES.map(function (l) {
+      var m = lm[l.id] || {};
+      var stats = (typeof m.n_scored === 'number' ? stat('Cells scored', m.n_scored) : '') +
+        (typeof m.n_null === 'number' ? stat('Null sample', m.n_null) : '') +
+        (typeof m.n_hidden === 'number' ? stat('Candidates', m.n_hidden) : '');
+      var note = m.no_hidden_found ? '<p class="lc-note">No Earth cell passed the gates and thresholds. That is reported as a result.</p>' : '';
+      return '<article class="lens-card"><p class="lc-head"><span class="lb-code">' + esc(l.id) + '</span><span class="lc-body">' + esc(l.body) + '</span></p>' +
+        '<h3>' + esc(l.name) + '</h3><p class="lc-q">' + esc(l.question) + '</p>' +
+        (stats ? '<dl class="lc-stats">' + stats + '</dl>' : '') + note +
+        '<button type="button" class="btn btn-ghost lc-go" data-goto-lens="' + esc(l.id) + '">Open ' + esc(l.id) + ' in the explorer <span aria-hidden="true">&rarr;</span></button></article>';
+    }).join('');
+  }
+  function goExplorer() { var e = $('explorer'); if (e && e.scrollIntoView) e.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
   // ---------- init ----------
   function init() {
-    map = L.map('map', { worldCopyJump: true, minZoom: 1 }).setView([20, 30], 2);
+    var narrow = ($('map').clientWidth || 800) < 700; // zoom 1 (512 px world) fills a phone, zoom 2 a desktop
+    map = L.map('map', { minZoom: narrow ? 1 : 2, maxBounds: [[-88, -200], [88, 200]], maxBoundsViscosity: 0.8 }).setView([20, 30], narrow ? 1 : 2);
     L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg', {
-      maxNativeZoom: 8, maxZoom: 10, attribution: 'NASA GIBS / Blue Marble'
+      maxNativeZoom: 8, maxZoom: 10, noWrap: true, bounds: [[-85.05, -180], [85.05, 180]], attribution: 'NASA GIBS / Blue Marble'
     }).addTo(map);
     markerLayer = L.layerGroup().addTo(map);
     buildLegend();
@@ -502,6 +596,16 @@
     $('lens-tabs').addEventListener('click', function (e) {
       var b = e.target.closest('button[data-lens]');
       if (b) setLens(b.getAttribute('data-lens'));
+    });
+    $('card').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-open]');
+      if (b) select(b.getAttribute('data-open'), true);
+    });
+    document.addEventListener('click', function (e) {
+      var g = e.target.closest('button[data-goto-lens]');
+      if (g) { setLens(g.getAttribute('data-goto-lens')); goExplorer(); return; }
+      var o = e.target.closest('button[data-open-site]');
+      if (o) { setLens('SITES'); select(o.getAttribute('data-open-site'), true); if (!window.matchMedia('(max-width: 1099px)').matches) goExplorer(); }
     });
     $('list').addEventListener('click', function (e) {
       var b = e.target.closest('button[data-id]');
@@ -520,6 +624,7 @@
         return state.features.some(function (f) { return f.properties.lens_scores && f.properties.lens_scores[l.id]; });
       })[0];
       setLens(state.features.some(isSite) ? 'SITES' : (first ? first.id : LENSES[0].id));
+      renderIntro();
     }).catch(function (err) {
       var b = $('error-banner'); b.textContent = 'Could not load data: ' + err.message; b.hidden = false;
       buildLensTabs();
