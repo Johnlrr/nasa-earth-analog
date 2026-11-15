@@ -753,6 +753,25 @@ ascent 44 vs 25 m per km. The slope match holds down to 5 m; the
 Baffin footprint climbs more than the ridge at every scale. Argentina has no open DEM finer than
 30 m in this pipeline.
 
+### Campaign coverage for Connecting Ridge (exploratory, Deviations 35)
+
+Composed from the tables above by `scripts/build_campaign.py`; nothing is recomputed. A row is
+covered by a campaign if at least one of its sites covers it; that is a union over sites, not a
+joint test environment. Figure: `docs/figures/fig_campaign_coverage.png`.
+
+| Site | Slope (two DEMs) | Routes (two DEMs) | All-day low Sun | Shadow at 2° in ridge range | Slope at 5 m | Rows at this site |
+|---|---|---|---|---|---|---|
+| Argentina lead | yes | yes | no | yes | not checked | 3 |
+| Baffin Island lead | yes | yes | yes | no | yes | 4 |
+| Haughton (classic site) | no | yes | yes | no | not checked | 2 |
+
+Two leads together: 5 of 5 field rows; the best classic site
+alone: 2. Baffin covers 4 together, but only
+inside its winter window. Rocks and craters under 60 m stay unobserved (site survey); the
+8 Transfer Ledger rows (gravity, vacuum, thermal, dust, radiation…) go to the named facilities.
+Haughton's route match is "at least half of its 9 footprints"; Haughton and Argentina were not
+checked at 5 m, which counts as not covered.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -794,6 +813,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 32 | Low-Sun calendar of the ridge matches (I1) and terrain shadow at the leads | 15/11 evening, this section §7d | L2 over a year hides seasonal windows | Exploratory; L2 verdicts unchanged |
 | 33 | V1 implementation details fixed before the Earth run (commit `6ab5bd5`): the lunar population footprint centred on the reference (`connecting_ridge_pop_004`) is the reference and is left out of the neighbours; a zero MAD would fall back to the standard deviation (did not occur) | 15/11 evening | Not stated in the registration | τ and scales |
 | 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
+| 35 | Campaign coverage matrix (union of published per-site results; Haughton as the best classic site for routes) | 15/11 evening | Turn per-site results into the engineer's question | Exploratory; no verdict changed |
 
 ## 9. Limitations and not done
 

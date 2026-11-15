@@ -1,0 +1,120 @@
+{
+  "status": "exploratory (Deviations 35): composed from published tables, not a new test",
+  "target": "connecting_ridge",
+  "field_variables": [
+    "Slope distribution (30 m, two DEMs)",
+    "Simulated routes (planner, two DEMs)",
+    "All-day low Sun (\u2264 7\u00b0)",
+    "Terrain shadow at 2\u00b0 in ridge range",
+    "Slope distribution at 5 m"
+  ],
+  "ridge_shadow_range": [
+    0.514,
+    0.665
+  ],
+  "sites": [
+    {
+      "id": "E10K_-355_-671",
+      "name": "Argentina lead",
+      "lat": -28.79114532470703,
+      "lon": -69.6253890991211,
+      "kind": "lead",
+      "slope": true,
+      "routes": true,
+      "low_sun": false,
+      "window_days": 0,
+      "window": null,
+      "shadow": true,
+      "shadow_e2": 0.5855510486743174,
+      "slope_5m": null
+    },
+    {
+      "id": "E10K_660_-632",
+      "name": "Baffin Island lead",
+      "lat": 63.84696578979492,
+      "lon": -65.57559204101562,
+      "kind": "lead",
+      "slope": true,
+      "routes": true,
+      "low_sun": true,
+      "window_days": 71,
+      "window": "13 Nov\u201322 Jan",
+      "shadow": false,
+      "shadow_e2": 0.7494170105715416,
+      "slope_5m": true
+    },
+    {
+      "id": "CTRL_haughton_devon",
+      "name": "Haughton (classic site)",
+      "kind": "classic",
+      "lat": 75.38,
+      "lon": -89.68,
+      "slope": false,
+      "routes": true,
+      "routes_footprints": "9/9",
+      "low_sun": true,
+      "window_days": 40,
+      "window": null,
+      "shadow": false,
+      "shadow_e2": 0.4492869862626491,
+      "slope_5m": null
+    }
+  ],
+  "per_site_joint": {
+    "Argentina lead": 3,
+    "Baffin Island lead": 4,
+    "Haughton (classic site)": 2
+  },
+  "campaign_two_leads": 5,
+  "campaign_with_haughton": 5,
+  "best_classic_alone": 2,
+  "n_field": 5,
+  "unobserved": [
+    "rocks and craters under 60 m (site survey)"
+  ],
+  "facility_rows": [
+    {
+      "variable": "gravity",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+    },
+    {
+      "variable": "angle_of_repose",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+    },
+    {
+      "variable": "atmospheric_pressure",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+    },
+    {
+      "variable": "day_night_cycle",
+      "facility": "Thermal-vacuum cycling of hardware"
+    },
+    {
+      "variable": "radiation_dose",
+      "facility": "Accelerator or isotope-source irradiation of components"
+    },
+    {
+      "variable": "temperature",
+      "facility": "Cryogenic test bench for ice-regolith drilling and mobility"
+    },
+    {
+      "variable": "diffuse_skylight",
+      "facility": "Add artificial single-source lighting with black enclosures, or night tests"
+    },
+    {
+      "variable": "regolith_dust",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+    }
+  ],
+  "n_facility": 8,
+  "nasa_shortfalls": [
+    {
+      "id": "ESDMD #0805",
+      "name": "Autonomous Surface Mobility and Navigation"
+    },
+    {
+      "id": "ESDMD #1101",
+      "name": "Lunar Precision Landing and Hazard Avoidance for Human Exploration"
+    }
+  ]
+}

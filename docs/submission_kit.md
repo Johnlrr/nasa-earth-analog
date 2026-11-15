@@ -95,13 +95,20 @@ not findings. Leads are exploratory: found after the published results, not visi
 access screen leaves out China (Wolf Amendment), Russia and countries under comprehensive US
 sanctions; it is an assumption for planning, not a legal opinion.
 
-**What a mission team gets.** A test protocol per site (systems to test, what to measure, what
+**What a mission team gets.** A campaign, not a site. For Connecting Ridge, the two leads together
+cover **5 of 5** field rows that orbit can judge (slope, simulated routes, all-day low Sun, terrain
+shadow, slope at 5 m) [`camp_two_leads` = 5, `camp_n_field` = 5]; Baffin covers 4 of them at once,
+in its winter window; the best classic site alone covers **2** [`camp_best_classic_alone` = 2].
+Rocks under 60 m need a site survey and **8** rows go to named facilities [`camp_n_facility` = 8].
+The rows map to NASA's Civil Space Shortfalls "Autonomous Surface Mobility and Navigation"
+(ESDMD #0805) and "Lunar Precision Landing and Hazard Avoidance" (ESDMD #1101).
+Beside that, a test protocol per site (systems to test, what to measure, what
 the site does not reproduce), read beside published NASA numbers: Artemis III "Surface slope for
 landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" (NASA NTRS
 20250009323); Mars Life Explorer "land within a vertical meter of Martian mid-latitude ice, drill
-for samples to a 2-meter depth". By our measure a terrain site reproduces **1 of 7** test
-variables [`coverage_L1_transfers` = 1, `coverage_L1_total` = 7]; the card names the facility for
-the others. A card is an input to a project's own "documented definition of relevant
+for samples to a 2-meter depth". On the original per-lens card a terrain site reproduces **1 of 7**
+rows [`coverage_L1_transfers` = 1, `coverage_L1_total` = 7]; the campaign view adds simulated
+routes, low-Sun windows and 5 m slopes, and names the facility for the rest. A card is an input to a project's own "documented definition of relevant
 environment"; it assigns no TRL.
 
 **Limits we state ourselves.**

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T21:09",
+ "generated": "2026-11-15T21:15",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1536,6 +1536,30 @@
   "ms_ridge_climb_10m": {
    "value": 24.9451,
    "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "camp_n_field": {
+   "value": 5,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "camp_two_leads": {
+   "value": 5,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "camp_best_classic_alone": {
+   "value": 2,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "camp_baffin_joint": {
+   "value": 4,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "camp_n_facility": {
+   "value": 8,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "camp_haughton_window_days": {
+   "value": 40,
+   "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
   }
  }
 }

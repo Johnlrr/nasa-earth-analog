@@ -407,6 +407,19 @@ def main() -> None:
         put("ms_baffin_climb_10m", b["routes"]["10"]["climb_10"], src)
         put("ms_ridge_climb_10m", ms["moon"]["routes"]["10"]["climb_10"], src)
 
+    # campaign coverage for Connecting Ridge (exploratory, Deviations 35)
+    cp_path = D / "campaign_connecting_ridge.json"
+    if cp_path.exists():
+        cp = json.loads(cp_path.read_text(encoding="utf-8"))
+        src = "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+        put("camp_n_field", cp["n_field"], src)
+        put("camp_two_leads", cp["campaign_two_leads"], src)
+        put("camp_best_classic_alone", cp["best_classic_alone"], src)
+        put("camp_baffin_joint", cp["per_site_joint"]["Baffin Island lead"], src)
+        put("camp_n_facility", cp["n_facility"], src)
+        put("camp_haughton_window_days",
+            next(x["window_days"] for x in cp["sites"] if x["kind"] == "classic"), src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

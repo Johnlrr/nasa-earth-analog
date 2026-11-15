@@ -284,21 +284,19 @@ SLIDES = r"""
 
 <section class="slide" id="s7">
   <p class="eyebrow">6 · What a test team gets</p>
-  <h1>A test protocol per site: which rows of your test matrix come home valid</h1>
+  <h1>A campaign, not a site: which test rows each site covers</h1>
   <div class="row grow">
-    <div class="fig" style="width:760px"><img src="../docs/figures/fig_transfer_matrix.png" alt="Test-transfer matrix"></div>
+    <div class="fig" style="width:800px;align-self:flex-start"><img src="../docs/figures/fig_campaign_coverage.png" alt="Campaign coverage matrix for Connecting Ridge"></div>
     <div class="col grow">
       <ul class="pts">
-        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints outside our access screen, with satellite and slope-class pictures, a second-DEM check and the traverse test.</li>
-        <li>A terrain site reproduces <b>{{coverage_L1_transfers}} of {{coverage_L1_total}}</b> test variables; {{coverage_L1_facility}} need a named facility
-          (offload rig for 0.165 g, thermal-vacuum chamber…), {{coverage_L1_unobserved}} is unobserved.</li>
-        <li><b>Mars ice, beside NASA's Mars Life Explorer study</b> (drill to 2 m): at {{x1_mission_within_2m}} of {{x1_mission_cells}} ice-lens cells the modelled permafrost
-          table is within 2 m, at {{x1_mission_within_1m}} within 1 m ({{x1_mission_no_thaw}} have no modelled thaw; semi-quantitative).</li>
-        <li>A card is an input to a project's own “documented definition of relevant environment”; it assigns no TRL.</li>
+        <li><b>Two leads cover {{camp_two_leads}} of {{camp_n_field}}</b> field rows (slope, routes, low Sun, shadow, 5 m slope); Baffin alone {{camp_baffin_joint}} together,
+          in its winter window. The best classic site alone covers {{camp_best_classic_alone}}. {{camp_n_facility}} rows go to named facilities (offload rig for 0.165 g, thermal-vacuum…); rocks need a survey.</li>
+        <li>Rows map to NASA's Civil Space Shortfalls: <b>autonomous surface mobility and navigation</b> (ESDMD #0805) and <b>precision landing and hazard avoidance</b> (#1101).</li>
+        <li><b>Mars ice, beside NASA's Mars Life Explorer study</b> (drill to 2 m): modelled permafrost table within 2 m at {{x1_mission_within_2m}} of {{x1_mission_cells}} ice-lens cells (semi-quantitative).</li>
       </ul>
       <div class="row" style="margin-top:auto;gap:28px;align-items:center">
         <div class="qr" id="qr" data-url="__SITE_URL__"></div>
-        <div class="links">__SITE_URL__<br><span class="small">Code, data, report (Apache-2.0):<br>__REPO_URL__</span></div>
+        <div class="links">__SITE_URL__<br><span class="small">Site finder for six Artemis regions · no TRL assigned<br>Code, data, report (Apache-2.0): __REPO_URL__</span></div>
       </div>
     </div>
   </div>
