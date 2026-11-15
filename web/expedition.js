@@ -82,6 +82,8 @@
     const owner = p.id+':'+current.lens;
     if (owner !== comparisonOwner) { comparisonContextKey = null; comparisonOwner = owner; }
     $('comparison-content').innerHTML = window.SimilitudeSimilarities.render({feature:f,features:current.features,lens:current.lens,key:comparisonContextKey,ledger:current.ledger,lenses:current.lenses,rowsFor:comparisonRows,labelFor:descriptorLabel,unitFor:descriptorUnit});
+    const terrainContext=window.SimilitudeSimilarities.context(f,current.features,current.lens,comparisonContextKey);
+    if(terrainContext)window.SimilitudeTerrain?.mount($('comparison-content').querySelector('.terrain-lab'),terrainContext);
     const insightHeading=$('comparison-content').querySelector('.discovery>h3');
     $('comparison-heading').textContent=insightHeading?.textContent||'Inspect the recorded evidence';
     insightHeading?.remove();
