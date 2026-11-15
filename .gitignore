@@ -21,3 +21,11 @@ data/raw/
 
 # Tier-1 CSV is large (44 MB); the committed copy is tier1_terrain.parquet
 data/derived/tier1_terrain.csv
+
+# Local-only files (15/11, Linh): OPeNDAP config pointing to the user's cookie jar / netrc,
+# design-check output (Chrome profiles, screenshots; must never reach web/ on Pages),
+# local backups and run logs
+.dodsrc
+.taste-skill/
+*.local.bak.json
+data/derived/*.log

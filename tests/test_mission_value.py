@@ -1,6 +1,7 @@
 """PLAN 2d: mission criteria, validity summary and coverage are readings of existing tables."""
 
 import json
+import math
 import sys
 
 import pandas as pd
@@ -86,10 +87,33 @@ def built():
     return mv.build(attention_enabled=False)
 
 
+# Clopper-Pearson bounds come from scipy's brentq root search (default xtol = 2e-12), so a rebuild
+# on another platform / scipy build differs in the 12th decimal. 1e-11 (5 x xtol) absorbs that; one
+# extra or missing cell moves a bound by >= 1e-4, so any real change still fails. Everything that is
+# not a float (counts, labels, keys) must match exactly.
+FLOAT_ABS_TOL = 1e-11
+
+
+def _same(a, b, path="value"):
+    if isinstance(a, float) or isinstance(b, float):
+        assert isinstance(a, (int, float)) and isinstance(b, (int, float)), path
+        assert math.isclose(a, b, rel_tol=0.0, abs_tol=FLOAT_ABS_TOL), (path, a, b)
+    elif isinstance(a, dict):
+        assert isinstance(b, dict) and a.keys() == b.keys(), path
+        for k in a:
+            _same(a[k], b[k], f"{path}.{k}")
+    elif isinstance(a, list):
+        assert isinstance(b, list) and len(a) == len(b), path
+        for i, (x, y) in enumerate(zip(a, b, strict=True)):
+            _same(x, y, f"{path}[{i}]")
+    else:
+        assert a == b, (path, a, b)
+
+
 def test_committed_mission_value_matches_a_rebuild(built):
     saved = json.loads((DERIVED / "mission_value.json").read_text(encoding="utf-8"))
     saved.pop("generated")
-    assert json.loads(json.dumps(built["value"])) == saved
+    _same(json.loads(json.dumps(built["value"])), saved)
     crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
     pd.testing.assert_frame_equal(crit, built["criteria"])
 

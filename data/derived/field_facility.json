@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15 15:24",
+ "generated": "2026-11-15 16:05",
  "contract": "config/sites.yaml",
  "cluster_km": 150.0,
  "target_labels": {
@@ -36,7 +36,7 @@
    "lenses_literature_only": "",
    "lenses_hypothesis": "",
    "hidden_status": "no: attention above threshold",
-   "note": "Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain. Not presented as hidden.",
+   "note": "Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain, a lunar use that the literature query rarely finds. Its literature count is above the threshold, so it is a known site, not a low-attention one. The terrain cell stays in the robust set with a second DEM (NASADEM) and also matches de Gerlache rim and the peak near Shackleton (exploratory; validation report 7c).",
    "l2_snow_free_frac": {},
    "field": [
     {

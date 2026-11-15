@@ -397,3 +397,7 @@ Lý do: sau 2d, L1 vẫn không có kiểm tra nào dùng dữ liệu độc l�
 - 2026-11-14 · Sonnet 4.6 · A0 xong: pyproject.toml, Makefile, LICENSE, .gitignore, README.md, src/similitude/__init__.py, src/similitude/descriptors/__init__.py, tests/test_smoke.py, placeholder .gitkeep · pytest: 1 passed · ruff: All checks passed
 
 ### Nhật ký — Linh (B)
+
+- 2026-11-15 · Codex · Theo yêu cầu trực tiếp, soạn đề xuất `PLAN_IMPACT_VALIDITY.md` về campaign planning cho kỹ sư, validation độc lập và website workflow; chưa thay phạm vi đã duyệt hoặc triển khai code. Ruff: PASS; pytest không collection được do Python hiện tại thiếu numpy.
+
+- 2026-11-15 · Codex · UI theo yêu cầu trực tiếp: Mission → Objectives → Compare → Campaign → Export; giữ explorer cũ; không đổi pipeline/kết quả khoa học. Node: 5/5; browser interaction: 15/15; ruff và static build PASS; pytest thiếu numpy; design gate còn quy tắc bố cục marketing, chi tiết tại docs/ui_campaign_plan.md.
