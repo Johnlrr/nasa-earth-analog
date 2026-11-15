@@ -380,7 +380,10 @@ def render_md(cards: list[dict], scarcity: pd.DataFrame, generated: str) -> str:
                 f"`{c['site_id']}` · {c['lat']:.2f}, {c['lon']:.2f} · {c['n_cells']} member "
                 f"cell(s){span} · ice ok/flag {c['n_ice_ok']}/{c['n_ice_flag']} · in "
                 f"known-analog buffer {c['n_in_exclusion']} · Attention {att} · hidden: "
-                f"{c['hidden_status']} · showcase rule {c['showcase']}", "",
+                f"{c['hidden_status']}"
+                + (" (low Attention under the B8 query on the site name; not proof the site is "
+                   "unknown — Deviations 21)" if c["hidden_status"] == "yes" else "")
+                + f" · showcase rule {c['showcase']}", "",
                 f"Engine-confirmed: **{c['lenses_engine_confirmed'] or '—'}**"
                 + (f" · engine-semiquant: **{c['lenses_engine_semiquant']}**"
                    if c["lenses_engine_semiquant"] else "")

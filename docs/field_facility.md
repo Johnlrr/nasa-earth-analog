@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-15 08:58 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 09:09 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 
@@ -174,7 +174,7 @@ L2 cells, snow-free fraction of the year (MODIS; seasonal snow is the risk that 
 
 ## Zanda (Tsamda) and Gar, Ngari, western Tibet
 
-`site:E10K_379_778` · 31.77, 80.28 · 5 member cell(s) · span 206 km · ice ok/flag 5/0 · in known-analog buffer 0 · Attention 1 · hidden: yes · showcase rule c
+`site:E10K_379_778` · 31.77, 80.28 · 5 member cell(s) · span 206 km · ice ok/flag 5/0 · in known-analog buffer 0 · Attention 1 · hidden: yes (low Attention under the B8 query on the site name; not proof the site is unknown — Deviations 21) · showcase rule c
 
 Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_379_778,E10K_383_771,E10K_385_776,E10K_394_764,E10K_394_774
 

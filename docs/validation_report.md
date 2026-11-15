@@ -417,9 +417,10 @@ evidence of order; where git cannot prove the order, the row says so.
 | 18 | Site names set by hand; site Attention = max(site-name query, member cells) | 2c | Cell-level names are county names (Attention 0 for 93/99 cells) | Hidden status |
 | 19 | Ice-flagged cells kept as site members, ice-excluded cells dropped | 2c (A13 thresholds were committed before results) | Same thresholds as A13/X1 | Site membership |
 | 20 | 2c implemented before its gate-1 review | 2c log | Time; gate 1 round 1 returned REVISE, fixed | §7 |
-| 21 | Site Attention queried after Data Freeze (OpenAlex daily budget) | after 07:00 15/11 | Free budget exhausted on 14/11 | Hidden status of sites (shown as unknown until then) |
+| 21 | Site Attention and the last 9 cell Attention counts queried after Data Freeze, by hand at about 09:00 15/11 (the scheduled 07:05 run did not start) | 15/11 ≈ 09:00 | Free OpenAlex budget exhausted on 14/11 | Hidden status of sites. Only the 7 named sites (`config/sites.yaml`) have a site query; the 24 unnamed sites stay `unknown` (a district-name cell count says nothing). Zanda/Gar is the only `yes`: query `("Zanda" OR "Tsamda" OR "Ngari") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)` → 1 work (OpenAlex, 15/11); read as "low Attention under the B8 query", not as proof that the site is unknown |
 | 22 | B10 visual-review downgrades cap a site's lens at `hypothesis` | 2c gate round 2 | Hard rule: no `hypothesis` on slides | Gêrzê L2, other downgraded L2 cells; Gêrzê leaves the showcase |
 | 23 | X1 seed list (incl. Peary Land) committed with the first X1 scores | 16:02, `b76b21f` | Contract and results pushed together | X1 seeds are not provably pre-registered |
+| 24 | M1 noise floor (B14b) computed on all 69 null footprints (490,734 pixels), not on the floor-setting half of the null that PLAN B14a/B14b specified | B13 null run, 14/11 | Implementation used the whole pool | Floors are fitted on the same null pixels later used to judge false matches, so the false-match check is not independent; M1 failed its stop rule regardless |
 
 ## 9. Limitations and not done
 

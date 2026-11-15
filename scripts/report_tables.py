@@ -84,7 +84,9 @@ def t_terrain_controls() -> str:
     out.columns = ["lens", "target", "control / seed", "expected", "native rank",
                    "rank basis", "null percentile"]
     vc = pd.read_parquet(DERIVED / "validation_controls.parquet")
-    met = vc.dropna(subset=["expectation_met"]) if "expectation_met" in vc else vc.iloc[:0]
+    if "expectation_met" not in vc:
+        raise KeyError("validation_controls.parquet has no expectation_met column")
+    met = vc.dropna(subset=["expectation_met"])
     return (md_table(out) + f"\n\nPre-registered control expectations "
             f"(`config/controls.yaml`, all lenses, `validation_controls.parquet`): "
             f"{int(met['expectation_met'].astype(bool).sum())} of {len(met)} "
