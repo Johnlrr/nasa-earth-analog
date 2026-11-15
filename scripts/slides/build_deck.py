@@ -57,13 +57,23 @@ def fill(text: str, numbers: dict) -> tuple[str, set[str]]:
 
 CSS = """
 @page { size: 1920px 1080px; margin: 0; }
+@font-face { font-family: Chivo; src: url('../web/media/chivo-400.ttf') format('truetype'); font-weight: 400; font-display: block; }
+@font-face { font-family: Chivo; src: url('../web/media/chivo-500.ttf') format('truetype'); font-weight: 500 800; font-display: block; }
+@font-face { font-family: 'Chivo Mono'; src: url('../web/media/chivo-mono-400.ttf') format('truetype'); font-weight: 400 600; font-display: block; }
 :root {
-  --bg: #f7f6f1; --panel: #ffffff; --ink: #161c1a; --muted: #565c56; --line: #dcdbd3;
-  --accent: #2e6b58; --t: #2a7bd5; --n: #e2662f; --u: #a9a8a0; --soft: #eceae2;
+  --bg: #0b1014; --panel: #141c21; --ink: #f1eee6; --muted: #a9b3b3; --line: #2b373b;
+  --accent: #e8bb82; --t: #4f9de0; --n: #e8734a; --u: #6f7c7e; --soft: #182228;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: #888; }
-body { font-family: "Host Grotesk", "Segoe UI", system-ui, sans-serif; color: var(--ink); }
+body { font-family: Chivo, "Segoe UI", system-ui, sans-serif; color: var(--ink); }
+.slide { background: radial-gradient(1200px 700px at 85% 0%, rgba(232,187,130,.07), transparent 60%), var(--bg); }
+.mono, .eyebrow, .v, .foot, .links, .box h3 { font-family: 'Chivo Mono', monospace !important; }
+#s1 { background: linear-gradient(90deg, rgba(11,16,20,.97) 0%, rgba(11,16,20,.9) 42%, rgba(11,16,20,.25) 78%, rgba(11,16,20,.1) 100%),
+  url('../web/media/expedition/earthrise.jpg') right center / cover no-repeat; }
+#s1 .tile { background: rgba(20,28,33,.86); backdrop-filter: blur(2px); }
+#s7 > p.small { font-size: 15px; line-height: 1.35; margin-top: 8px !important; }
+.credit { position: absolute; right: 40px; bottom: 26px; font: 15px 'Chivo Mono', monospace; color: rgba(241,238,230,.7); }
 .slide {
   width: 1920px; height: 1080px; position: relative; overflow: hidden; background: var(--bg);
   padding: 84px 104px 72px; display: flex; flex-direction: column; page-break-after: always;
@@ -73,7 +83,7 @@ body { font-family: "Host Grotesk", "Segoe UI", system-ui, sans-serif; color: va
 .eyebrow { font: 500 22px/1.2 "JetBrains Mono", monospace; letter-spacing: .1em; text-transform: uppercase;
   color: var(--accent); margin: 0 0 18px; }
 h1 { font-size: 64px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 28px; max-width: 1500px; }
-h1.cover { font-size: 150px; letter-spacing: -0.045em; margin-bottom: 26px; }
+h1.cover { font-size: 156px; letter-spacing: -0.04em; margin-bottom: 26px; font-weight: 700; }
 .lead { font-size: 34px; line-height: 1.4; color: var(--ink); margin: 0; max-width: 1300px; }
 .muted { color: var(--muted); }
 .num { font: 600 76px/1 "Host Grotesk", sans-serif; letter-spacing: -0.03em; }
@@ -83,7 +93,7 @@ h1.cover { font-size: 150px; letter-spacing: -0.045em; margin-bottom: 26px; }
 .row { display: flex; gap: 48px; align-items: stretch; }
 .col { display: flex; flex-direction: column; }
 .grow { flex: 1; min-width: 0; }
-.fig { background: #fcfcfa; border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex;
+.fig { background: #f4f2ec; border: 1px solid #3a474b; border-radius: 10px; padding: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.45); display: flex;
   align-items: center; justify-content: center; }
 .fig img { max-width: 100%; max-height: 100%; display: block; }
 .stat { border-left: 6px solid var(--accent); padding: 4px 0 4px 26px; margin: 0 0 30px; }
@@ -94,14 +104,14 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
   background: var(--accent); }
 .verdicts { display: flex; gap: 14px; flex-wrap: wrap; }
 .v { font: 600 24px/1 "JetBrains Mono", monospace; letter-spacing: .04em; padding: 12px 16px; border-radius: 8px; color: #fff; }
-.v.t { background: var(--t); } .v.n { background: var(--n); } .v.u { background: var(--u); color: var(--ink); }
+.v.t { background: var(--t); } .v.n { background: var(--n); } .v.u { background: var(--u); color: #f1eee6; }
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; }
 .tile .num { font-size: 58px; }
 #s4 .tiles { gap: 16px; } #s4 .tile { padding: 18px 22px; } #s4 .tile .num { font-size: 46px; }
 .tile h3 { margin: 12px 0 6px; font-size: 25px; line-height: 1.25; font-weight: 600; }
 .tile p { margin: 0; font-size: 21px; line-height: 1.38; color: var(--muted); }
-.tile.fail { border: 2px solid var(--n); background: #fff6f1; }
+.tile.fail { border: 2px solid var(--n); background: #24150f; }
 .tile.fail .num { color: var(--n); }
 .flow { display: grid; grid-template-columns: 1fr 70px 1.1fr 70px 1fr; align-items: center; gap: 0; }
 .box { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px 32px; min-height: 270px; }
@@ -110,13 +120,13 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 .arrow { text-align: center; font-size: 46px; color: var(--accent); }
 .lenses { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 26px; }
 .lens { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px 26px; }
-.lens b { font: 600 20px/1 "JetBrains Mono", monospace; background: var(--ink); color: #fff; padding: 6px 8px; border-radius: 5px; }
+.lens b { font: 600 20px/1 "JetBrains Mono", monospace; background: var(--accent); color: #10171a; padding: 6px 8px; border-radius: 5px; }
 .lens h4 { margin: 16px 0 8px; font-size: 28px; }
 .lens p { margin: 0; font-size: 22px; line-height: 1.33; color: var(--muted); }
 .lens.off { background: var(--soft); }
 .funnel { display: flex; gap: 10px; align-items: stretch; margin: 0 0 28px; }
 .funnel div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; flex: 1; }
-.funnel div:last-child { background: var(--accent); border-color: var(--accent); color: #fff; }
+.funnel div:last-child { background: var(--accent); border-color: var(--accent); color: #10171a; }
 .funnel b { display: block; font-size: 40px; letter-spacing: -0.02em; }
 .funnel span { font-size: 19px; line-height: 1.3; }
 .quote { font-size: 24px; line-height: 1.4; border-left: 4px solid var(--line); padding-left: 20px; color: var(--muted); margin: 0; }
@@ -128,27 +138,22 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 
 SLIDES = r"""
 <section class="slide" id="s1">
-  <p class="eyebrow">NASA Space Apps Challenge 2026 · Moon Base and Mars analog sites</p>
-  <h1 class="cover">Famous ≠ faithful.</h1>
-  <p class="lead" style="font-size:40px;max-width:1560px"><b>SIMILITUDE</b> helps Artemis test engineers pick an Earth field site the way a wind-tunnel engineer checks a model:
-    not “does it look like the Moon?” but <b>which test results transfer</b>, and we test our own answer against a pre-registered traverse simulation.</p>
-  <div class="row" style="margin-top:60px;gap:28px">
-    <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:24px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
-    <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:24px">median at six famous analog field sites, same formula</p></div>
-    <div class="tile" style="flex:1"><span class="num">{{v1_passer_reproduce}} / {{v1_passer_n}}</span><p style="font-size:24px">slope matches also reproduce the ridge's simulated traverse outcomes (pre-registered test)</p></div>
-  </div>
-  <div style="margin-top:34px" class="verdicts">
-    <span class="v t">TRANSFERS · test it in the field</span>
-    <span class="v n">NO-ANALOG · use a named facility</span>
-    <span class="v u">UNOBSERVED · we cannot say</span>
+  <p class="eyebrow">NASA Space Apps Challenge 2026 · Ho Chi Minh City · Team AuroraTree</p>
+  <h1 class="cover" style="margin-bottom:8px">SIMILITUDE</h1>
+  <p style="font-size:44px;line-height:1.15;font-weight:600;margin:0 0 6px;max-width:1500px">The proving-ground finder for the Moon Base and Mars</p>
+  <p class="mono" style="font-size:22px;color:var(--accent);margin:0 0 34px">Challenge · Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
+  <p class="lead" style="font-size:31px;max-width:1450px;color:var(--ink)">Famous ≠ faithful. We help Artemis test engineers pick an Earth field site by asking the wind-tunnel question:
+    not “does it look like the Moon?” but <b>which test results transfer</b>, checked against a pre-registered traverse simulation.</p>
+  <div class="row" style="margin-top:40px;gap:28px;max-width:1500px">
+    <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:23px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
+    <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:23px">median at six famous analog field sites, same formula</p></div>
+    <div class="tile" style="flex:1"><span class="num">{{v1_passer_reproduce}} / {{v1_passer_n}}</span><p style="font-size:23px">slope matches also reproduce the ridge's simulated traverse outcomes</p></div>
   </div>
   <div class="row" style="margin-top:auto;align-items:flex-end">
-    <div class="grow">
-      <p class="small" style="margin:0">Challenge: Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
-      <p class="small" style="margin:6px 0 0">__TEAM_LINE__</p>
-    </div>
-    <div class="links" style="text-align:right">__SITE_URL__</div>
+    <div class="grow"></div>
+    <div class="links" style="text-align:right;margin-bottom:34px">__SITE_URL__</div>
   </div>
+  <span class="credit">Earthrise · NASA / Apollo 8 / William Anders, 1968</span>
 </section>
 
 <section class="slide" id="s2">
