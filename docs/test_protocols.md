@@ -1,6 +1,6 @@
 # Test protocols for the showcase sites (PLAN 2d)
 
-Generated 2026-11-15 14:29 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
+Generated 2026-11-15 14:50 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
 
 ## What a card is, in NASA's terms
 
@@ -44,7 +44,7 @@ NASA's TRL definitions make a *"Documented definition of relevant environment"* 
 - **Reproduced at a TRANSFERS site:** ice configuration: permafrost, ice-bearing ground that never thaws from above, dry overburden (verdict variable ice_configuration; semi-quantitative)
 - **Measure:** depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling
 - **Not reproduced (facility or unobserved):** Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden; the 24.6 h day-night cycle is not reproduced at the polar sites in the midnight-sun field season
-- **Test-matrix coverage:** 2 variable(s) transfer, 6 are not reproduced on Earth, 1 unobserved (of 9; best state over the lens' targets)
+- **Test-matrix coverage:** 2 variable(s) transfer, 6 are not reproduced on Earth, 1 unobserved (of 9; best state over the lens' targets; one of the transferring variables is the day length, a planet-level row: one variable fewer at the polar sites that pass)
 
 ### M1 — Aqueous-mineral instrument rehearsal
 

@@ -260,7 +260,8 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                     if not p["requirement"] else
                     f"{n['TRANSFERS']} variable(s) transfer, {n['NO-ANALOG']} are not "
                     f"reproduced on Earth, {n['UNOBSERVED']} unobserved (of {sum(n.values())}; "
-                    "best state over the lens' targets)"), ""]
+                    "best state over the lens' targets"
+                    + (f"; {p['coverage_note']}" if p.get("coverage_note") else "") + ")"), ""]
     out += ["## Protocol per showcase site", ""]
     kept = crit[crit["group"].eq("Engine match")].set_index("id")
     ref = crit[crit["group"].eq("Moon target")].iloc[0]

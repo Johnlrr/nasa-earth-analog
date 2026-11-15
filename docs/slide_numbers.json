@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T14:29",
+ "generated": "2026-11-15T14:50",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -364,6 +364,18 @@
   "l1_chips": {
    "value": 515,
    "source": "data/derived/earth_L1.parquet"
+  },
+  "l1_cr_pass_config_i": {
+   "value": 119,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "l1_cr_pass_config_ii": {
+   "value": 5,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "l1_cr_pass_config_iii": {
+   "value": 75,
+   "source": "data/derived/l1_robust_set.parquet"
   },
   "cr_slope_p50": {
    "value": 12.3842,

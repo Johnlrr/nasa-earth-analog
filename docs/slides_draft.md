@@ -60,8 +60,9 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
 ## Slide 4 — Can you trust it? Controls, decoys and a failed test we report
 - **Terrain test is selective:** random bare land passes it for Connecting Ridge in **1 of 200**
   cells [`null_connecting_ridge_robust` / `null_connecting_ridge_n`]; **0 of 6** classic sites
-  pass [`classic_robust`]. A cell must pass three test configurations; the strictest one cuts
-  the screened cells from 119 to 5 (report §3).
+  pass [`classic_robust`]. A cell must pass three test configurations: of the 307 scored cells,
+  **119**, **5** and **75** pass each one and **5** pass all three [`l1_cr_pass_config_i`,
+  `l1_cr_pass_config_ii`, `l1_cr_pass_config_iii`, `funnel_robust_rank_seed`].
 - **Ice test:** **2 of 2** polar-desert controls pass (one is the calibration site), **2 of 2**
   wet-permafrost decoys are rejected [`x1_positive_pass`, `x1_decoy_rejected`]; our own
   Pamir–Changtang hypothesis is rejected, **0 of 6** [`x1_pamir_changtang_pass` /
@@ -88,7 +89,8 @@ Visual: `docs/figures/fig_m1_stop_rule.png` beside a four-row control table.
   `match_da_qaidam_frac_gt20`, `match_peary_land_frac_gt8`, `match_peary_land_frac_gt20`,
   `cr_frac_gt8`, `cr_frac_gt20`] (a consistency check: the engine selects on these).
 - **Two in our sample, not on Earth:** the random sample says about **980** bare-land cells
-  (95 % CI 25–5,398) would pass [`null_connecting_ridge_extrapolated_cells`,
+  (95 % CI 25–5,398) would pass the terrain test, before the ice filter and the visual review
+  [`null_connecting_ridge_extrapolated_cells`,
   `null_connecting_ridge_extrapolated_lo`, `null_connecting_ridge_extrapolated_hi`].
   Within the 307 scored cells, **93** usable cells match the steep Shackleton inner wall and
   **2** the ridge [`scarcity_L1_shackleton_rim_n_usable`,

@@ -151,6 +151,12 @@ def main() -> None:
     put("l1_chips", int(pd.read_parquet(D / "earth_L1.parquet").shape[0]),
         "data/derived/earth_L1.parquet")
 
+    rb = pd.read_parquet(D / "l1_robust_set.parquet")
+    rb = rb[rb.target_id.eq("connecting_ridge") & rb.sample_role.isin(["rank", "seed"])]
+    for k in ("i", "ii", "iii"):
+        put(f"l1_cr_pass_config_{k}", int(rb[f"in_{k}"].sum()),
+            "data/derived/l1_robust_set.parquet")
+
     # ---- PLAN 2d: mission criteria, validity, coverage (scripts/mission_value.py) ----
     mvp = D / "mission_value.json"
     if mvp.exists():
