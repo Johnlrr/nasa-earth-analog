@@ -17,7 +17,8 @@ numbers match. We apply the same idea to planets:
   thermal-vacuum chamber, CO₂ chamber…), **Unobserved** (what this engine cannot tell).
 
 Main results and every rule changed after seeing data: [`docs/validation_report.md`](docs/validation_report.md).
-Site cards: [`docs/field_facility.md`](docs/field_facility.md). Web map: `web/` (static, GitHub Pages).
+Site cards: [`docs/field_facility.md`](docs/field_facility.md). Test protocols per site, read against
+published NASA requirements: [`docs/test_protocols.md`](docs/test_protocols.md). Web map: `web/` (static, GitHub Pages).
 
 ## Quick start
 
@@ -37,6 +38,7 @@ data rebuild without downloading anything:
 .venv/bin/python scripts/l1_robust.py        # A12 robust terrain set
 .venv/bin/python scripts/build_verdicts.py   # single verdict source: data/derived/verdicts.parquet
 .venv/bin/python scripts/sites.py --no-attention   # sites, scarcity, multi-lens, field/facility cards
+.venv/bin/python scripts/mission_value.py --no-attention   # Artemis III slope readings, validity summary, test protocols
 .venv/bin/python scripts/report_tables.py    # refresh every table in docs/validation_report.md
 .venv/bin/python scripts/discovery/run_discovery.py   # web/data/candidates.geojson
 python -m http.server -d web 8000            # open http://localhost:8000
@@ -78,6 +80,7 @@ NASA and partner-agency data (all open):
 | MODIS MOD10A1 v061 snow cover | snow-free fraction (L2) | doi:10.5067/MODIS/MOD10A1.061 |
 | ASTER GED AG100 v003 | mafic index (M1 coarse tier) | doi:10.5067/Community/ASTER_GED/AG100.003 |
 | NASA planetary fact sheets; Chang'e-4 LND and MSL RAD dose papers | Transfer Ledger | URLs/DOIs per row in `ledger/*.yaml` |
+| NASA Artemis Human Landing System Overview (Space Apps 2025) and HLS Update (2024); Mars Life Explorer mission concept study; NASA TRL definitions | mission requirements the results are read against (`config/mission.yaml`) | https://ntrs.nasa.gov/citations/20250009323 ; https://ntrs.nasa.gov/citations/20240009596 ; https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf ; https://www.nasa.gov/wp-content/uploads/2017/12/458490main_trl_definitions.pdf |
 | Copernicus DEM GLO-30 (ESA) | Earth terrain (L1, L2) | doi:10.5270/ESA-c5d3d65 |
 | ESA WorldCover v200 | bare-land mask, water, perennial ice (A13) | doi:10.5281/zenodo.7254221 |
 | Copernicus Sentinel-2 L2A (`COPERNICUS/S2_SR_HARMONIZED`) | visual review contact sheets | Copernicus Sentinel data 2022–2024 |

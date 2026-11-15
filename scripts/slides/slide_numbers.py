@@ -151,6 +151,67 @@ def main() -> None:
     put("l1_chips", int(pd.read_parquet(D / "earth_L1.parquet").shape[0]),
         "data/derived/earth_L1.parquet")
 
+    rb = pd.read_parquet(D / "l1_robust_set.parquet")
+    rb = rb[rb.target_id.eq("connecting_ridge") & rb.sample_role.isin(["rank", "seed"])]
+    for k in ("i", "ii", "iii"):
+        put(f"l1_cr_pass_config_{k}", int(rb[f"in_{k}"].sum()),
+            "data/derived/l1_robust_set.parquet")
+
+    # ---- PLAN 2d: mission criteria, validity, coverage (scripts/mission_value.py) ----
+    mvp = D / "mission_value.json"
+    if mvp.exists():
+        mv = json.loads(mvp.read_text(encoding="utf-8"))
+        src = "data/derived/mission_value.json"
+        for k, val in mv["l1_reference"].items():
+            put(f"cr_{k}", val, src)
+        for k, val in mv["l1_classic_controls"].items():
+            put(f"classic_{k}", val, src)
+        put("classic_under_sampling_factor", mv["l1_under_sampling"], src)
+        for r in mv["l1_null"]:
+            put(f"null_{r['target_id']}_robust", r["robust_null"], src)
+            put(f"null_{r['target_id']}_n", r["n_null"], src)
+            for k in ("extrapolated_cells", "extrapolated_lo", "extrapolated_hi"):
+                put(f"null_{r['target_id']}_{k}", r[k], src)
+        red = mv["rediscovery"]
+        for k in ("rank_in_zone", "rank_n", "rank_rate", "base_rate", "matched_rate",
+                  "matched_enrichment"):
+            put(f"rediscovery_{k}", red[k], src)
+        for r in red["targets"]:
+            for k in ("robust_in_zone", "robust_n", "sites", "sites_with_zone_cell"):
+                put(f"rediscovery_{r['target_id']}_{k}", r[k], src)
+        put("x1_positive_pass", len(mv["x1_controls"]["positive_pass"]), src)
+        put("x1_positive_n", mv["x1_controls"]["positive_n"], src)
+        put("x1_decoy_rejected", len(mv["x1_controls"]["decoy_rejected"]), src)
+        put("x1_decoy_n", mv["x1_controls"]["decoy_n"], src)
+        for k in ("seed_devon_island", "seed_changtang_north", "seed_peary_land"):
+            put(f"x1_{k}_passes", bool(mv["x1_controls"]["seed_pass"][k]), src)
+        put("m1_checks_passed", mv["m1_checks"]["passed"], src)
+        put("m1_checks_n", mv["m1_checks"]["n"], src)
+        for lens, c in mv["coverage"].items():
+            put(f"coverage_{lens}_transfers", c["TRANSFERS"], src)
+            put(f"coverage_{lens}_facility", c["NO-ANALOG"], src)
+            put(f"coverage_{lens}_unobserved", c["UNOBSERVED"], src)
+            put(f"coverage_{lens}_total", sum(c.values()), src)
+        for k, val in mv["funnel"].items():
+            put(f"funnel_{k}", val, src)
+        crit = pd.read_parquet(D / "mission_criteria.parquet")
+        src = "data/derived/mission_criteria.parquet"
+        for r in crit[crit.group.eq("Engine match")].itertuples():
+            slug = next((v for k, v in slugs.items() if k in str(r.name)), r.id)
+            put(f"match_{slug}_frac_gt8", r.frac_gt8, src)
+            put(f"match_{slug}_frac_gt20", r.frac_gt20, src)
+        gz = st[st.name.astype(str).str.contains("Changtang")]
+        if len(gz) and pd.notna(gz.attention_n.iloc[0]):
+            put("site_gerze_attention", int(gz.attention_n.iloc[0]), "data/derived/sites.parquet")
+            put("site_gerze_lenses_engine_confirmed", str(gz.lenses_engine_confirmed.iloc[0]),
+                "data/derived/sites.parquet")
+        ta = pd.read_parquet(D / "task_attention.parquet")
+        for r in ta.itertuples():
+            slug = next((v for k, v in slugs.items() if k in str(r.name)), None)
+            if slug:
+                put(f"task_attention_{slug}_{r.context}", int(r.n_pubs),
+                    "data/derived/task_attention.parquet (OpenAlex)")
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

@@ -1,0 +1,144 @@
+{
+ "generated": "2026-11-15 14:50",
+ "l1_null": [
+  {
+   "target_id": "connecting_ridge",
+   "n_null": 200,
+   "robust_null": 1,
+   "null_rate": 0.005,
+   "null_ci_lo": 0.00012658102786701839,
+   "null_ci_hi": 0.02754189845720563,
+   "n_rank": 300,
+   "robust_rank": 5,
+   "n_control": 5,
+   "robust_control": 0,
+   "bare_land_cells": 196008,
+   "extrapolated_cells": 980,
+   "extrapolated_lo": 25,
+   "extrapolated_hi": 5398
+  },
+  {
+   "target_id": "shackleton_rim",
+   "n_null": 200,
+   "robust_null": 4,
+   "null_rate": 0.02,
+   "null_ci_lo": 0.005475565879556451,
+   "null_ci_hi": 0.05041360908989628,
+   "n_rank": 300,
+   "robust_rank": 99,
+   "n_control": 5,
+   "robust_control": 0,
+   "bare_land_cells": 196008,
+   "extrapolated_cells": 3920,
+   "extrapolated_lo": 1073,
+   "extrapolated_hi": 9881
+  }
+ ],
+ "l1_classic_controls": {
+  "n": 6,
+  "n_scored": 6,
+  "robust": 0,
+  "in_range_frac_gt20": 4,
+  "in_range_frac_gt8": 0,
+  "frac_gt8_max": 0.36949035812672176,
+  "frac_gt8_median": 0.08861340679522497
+ },
+ "l1_reference": {
+  "slope_p50": 12.384205548805703,
+  "frac_gt8": 0.7584366391184573,
+  "frac_gt20": 0.05779384756657484
+ },
+ "l1_under_sampling": 8.558937823834198,
+ "rediscovery": {
+  "base_in_zone": 2777,
+  "base_n": 196008,
+  "base_rate": 0.014167789069833884,
+  "rank_in_zone": 68,
+  "rank_n": 300,
+  "rank_rate": 0.22666666666666666,
+  "targets": [
+   {
+    "target_id": "connecting_ridge",
+    "robust_in_zone": 0,
+    "robust_n": 5,
+    "other_in_zone": 68,
+    "other_n": 295,
+    "sites": 2,
+    "sites_with_zone_cell": 0
+   },
+   {
+    "target_id": "shackleton_rim",
+    "robust_in_zone": 39,
+    "robust_n": 99,
+    "other_in_zone": 29,
+    "other_n": 201,
+    "sites": 27,
+    "sites_with_zone_cell": 1
+   }
+  ],
+  "rank_enrichment": 15.998732445084624,
+  "matched_n": 686,
+  "matched_in_zone": 113,
+  "matched_rate": 0.16472303206997085,
+  "matched_enrichment": 1.3760471976401178
+ },
+ "x1_controls": {
+  "positive_pass": [
+   "ctl_axel_heiberg_eureka",
+   "ctl_beacon_valley"
+  ],
+  "positive_n": 2,
+  "decoy_rejected": [
+   "ctl_west_siberia_lowland",
+   "ctl_yakutsk_lowland"
+  ],
+  "decoy_n": 2,
+  "seed_pass": {
+   "seed_east_pamir_murghab": false,
+   "seed_karakul_structure": false,
+   "seed_west_kunlun_aksai_chin": false,
+   "seed_changtang_north": false,
+   "seed_qiangtang_east": false,
+   "seed_kunlun_pass": false,
+   "seed_mongolian_altai_south": false,
+   "seed_peary_land": true,
+   "seed_devon_island": true,
+   "seed_svalbard_adventdalen": false,
+   "seed_puna_high": false,
+   "seed_tianshan_central": false
+  }
+ },
+ "m1_checks": {
+  "passed": 3,
+  "n": 4,
+  "verdict": "FAIL"
+ },
+ "coverage": {
+  "L1": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 5,
+   "UNOBSERVED": 1
+  },
+  "L2": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 7,
+   "UNOBSERVED": 1
+  },
+  "M1": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 6,
+   "UNOBSERVED": 2
+  },
+  "X1": {
+   "TRANSFERS": 2,
+   "NO-ANALOG": 6,
+   "UNOBSERVED": 1
+  }
+ },
+ "funnel": {
+  "bare_land_cells": 196008,
+  "screened": 300,
+  "robust_rank_seed": 5,
+  "usable": 2
+ }
+}

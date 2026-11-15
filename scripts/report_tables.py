@@ -209,10 +209,196 @@ def t_sites() -> str:
                        "hidden_status", "showcase"]])
 
 
+# ============================================================================================
+# PLAN 2d: validity summary and mission value (scripts/mission_value.py outputs)
+# ============================================================================================
+def _mv() -> dict:
+    return json.loads((DERIVED / "mission_value.json").read_text(encoding="utf-8"))
+
+
+def _mission() -> dict:
+    return io.load_yaml(io.CONFIG_DIR / "mission.yaml")
+
+
+def _pct(x: float, nd: int = 0) -> str:
+    return f"{100 * x:.{nd}f} %"
+
+
+def t_mission_headline() -> str:
+    """Headline sentences of PLAN 2d, every number read from mission_value.json."""
+    m, req = _mv(), _mission()["requirements"]
+    crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    kept = crit[crit["group"].eq("Engine match")]
+    cl, ref, red = m["l1_classic_controls"], m["l1_reference"], m["rediscovery"]
+    null = {r["target_id"]: r for r in m["l1_null"]}
+    sh = next(r for r in red["targets"] if r["target_id"] == "shackleton_rim")
+    cr = next(r for r in red["targets"] if r["target_id"] == "connecting_ridge")
+    x1, cov, ncr = m["x1_controls"], m["coverage"], null["connecting_ridge"]
+    q_land, q_eva = req["artemis3_landing_slope"]["quote"], req["artemis3_eva_slope"]["quote"]
+    both = int((kept["in_range_frac_gt8"] & kept["in_range_frac_gt20"]).sum())
+    return "\n".join([
+        f"- **Read beside NASA's Artemis III requirements** (\"{q_land}\"; \"{q_eva}\"): "
+        f"{_pct(ref['frac_gt8'])} of the Connecting Ridge reference footprint is steeper than "
+        f"8° (the contour NASA draws on its landing-slope map) and {_pct(ref['frac_gt20'], 1)} "
+        f"is steeper than 20°. {both} of the {len(kept)} usable Earth cells the engine keeps for "
+        f"it lie inside the range of the {int(crit['n_target_footprints'].iloc[0])} Connecting "
+        f"Ridge footprints on both shares; of the 4 km footprints of {cl['n']} classic analog "
+        f"field sites (the L1 controls), {cl['in_range_frac_gt8']} do on the 8° share (median "
+        f"{_pct(cl['frac_gt8_median'], 1)}, a factor {m['l1_under_sampling']:.1f} below the "
+        f"target; maximum {_pct(cl['frac_gt8_max'])}) and {cl['in_range_frac_gt20']} do on the "
+        f"20° share, which therefore does not discriminate. A consistency check, not an "
+        f"independent test: both shares are descriptors the engine selects on, and they compare "
+        f"Earth with Moon, not with NASA's maps (§7b).",
+        f"- **How selective the L1 test is.** Random bare land (null sample) enters the robust "
+        f"set for Connecting Ridge in {ncr['robust_null']} of {ncr['n_null']} cells and for the "
+        f"Shackleton inner wall in {null['shackleton_rim']['robust_null']} of "
+        f"{null['shackleton_rim']['n_null']}; {cl['robust']} of the {cl['n_scored']} classic "
+        f"controls enter it. A null cell that passes is not an error: it is terrain that "
+        f"matches. Extrapolated to the {ncr['bare_land_cells']:,} bare-land cells, about "
+        f"{ncr['extrapolated_cells']:,} cells (95 % CI {ncr['extrapolated_lo']:,}–"
+        f"{ncr['extrapolated_hi']:,}) would pass for Connecting Ridge, so \"2 usable cells\" "
+        f"describes our 307-cell sample, not the Earth.",
+        f"- **Sanity check against known-analog zones.** {red['rank_in_zone']} of the "
+        f"{red['rank_n']} cells the terrain screen picked lie in known-analog zones "
+        f"({_pct(red['rank_rate'])}), against {_pct(red['base_rate'], 1)} of all bare land but "
+        f"{_pct(red['matched_rate'])} of bare land with the same coarse slope and relief "
+        f"({red['matched_enrichment']:.1f}-fold): most of the excess is steep dry terrain "
+        f"itself. By site, {sh['sites_with_zone_cell']} of the {sh['sites']} Shackleton-wall "
+        f"sites (the largest, Atacama–Puna) and {cr['sites_with_zone_cell']} of the "
+        f"{cr['sites']} Connecting Ridge sites hold a cell in a zone of our list "
+        f"(`config/exclusion_zones.yaml`, which does not list Qaidam).",
+        f"- **X1 controls on the current checklist:** {len(x1['positive_pass'])} of "
+        f"{x1['positive_n']} positive controls pass (Beacon Valley is the calibration site, "
+        f"Axel Heiberg is independent) and {len(x1['decoy_rejected'])} of {x1['decoy_n']} wet "
+        f"lowland decoys are rejected. M1: {m['m1_checks']['passed']} of {m['m1_checks']['n']} "
+        f"pre-registered checks pass, so the stop rule is {m['m1_checks']['verdict']}.",
+        f"- **Test-matrix coverage (best state over a lens' targets):** by this engine's "
+        f"measure a field site reproduces {cov['L1']['TRANSFERS']} of "
+        f"{sum(cov['L1'].values())} L1 test variables, {cov['L2']['TRANSFERS']} of "
+        f"{sum(cov['L2'].values())} for L2 and {cov['X1']['TRANSFERS']} of "
+        f"{sum(cov['X1'].values())} for X1 (one of them the day length, which the polar X1 "
+        f"sites do not reproduce in the midnight-sun season); every other row names the "
+        f"facility that replaces "
+        f"the field site, or is marked unobserved (`docs/test_protocols.md`). M1 publishes no "
+        f"site.",
+    ])
+
+
+def t_validity() -> str:
+    m = _mv()
+    null = {r["target_id"]: r for r in m["l1_null"]}
+    cl, x1, m1 = m["l1_classic_controls"], m["x1_controls"], m["m1_checks"]
+
+    def nul(t):
+        r = null[t]
+        return (f"{r['robust_null']}/{r['n_null']} = {_pct(r['null_rate'], 1)} "
+                f"(95 % CI {_pct(r['null_ci_lo'], 2)}–{_pct(r['null_ci_hi'], 1)}; about "
+                f"{r['extrapolated_cells']:,} of {r['bare_land_cells']:,} bare-land cells, "
+                f"CI {r['extrapolated_lo']:,}–{r['extrapolated_hi']:,})")
+    rows = [
+        {"lens": "L1", "check": "random bare land (null) in the robust set, Connecting Ridge",
+         "result": nul("connecting_ridge"),
+         "reading": "pass rate of random bare land = unbiased prevalence estimate"},
+        {"lens": "L1", "check": "random bare land (null) in the robust set, Shackleton wall",
+         "result": nul("shackleton_rim"),
+         "reading": "pass rate of random bare land = unbiased prevalence estimate"},
+        {"lens": "L1", "check": "screened cells (rank) in the robust set",
+         "result": "; ".join(f"{t}: {null[t]['robust_rank']}/{null[t]['n_rank']}" for t in null),
+         "reading": "the coarse screen was aimed at Connecting Ridge"},
+        {"lens": "L1", "check": "classic analog field sites (L1 controls) in the robust set",
+         "result": f"{cl['robust']}/{cl['n_scored']}",
+         "reading": "pre-registered 'high' for Haughton is a miss (§3); no accepted "
+                    "Connecting Ridge analog exists to serve as a positive control"},
+        {"lens": "L2", "check": "Sun geometry of the lunar south pole",
+         "result": "NO-ANALOG at every Earth site", "reading": "as pre-registered (A7)"},
+        {"lens": "M1", "check": "pre-registered pixel checks (B14a)",
+         "result": f"{m1['passed']}/{m1['n']} → stop rule {m1['verdict']}",
+         "reading": "nothing published for M1"},
+        {"lens": "X1", "check": "positive controls passing all 3 conditions",
+         "result": f"{len(x1['positive_pass'])}/{x1['positive_n']} "
+                   f"({', '.join(x1['positive_pass'])})",
+         "reading": "Beacon Valley is calibration; Axel Heiberg is independent"},
+        {"lens": "X1", "check": "wet-lowland decoys rejected",
+         "result": f"{len(x1['decoy_rejected'])}/{x1['decoy_n']}",
+         "reading": "semi-quantitative, floors set after seeing data (Deviations 3); seed "
+                    "list not provably pre-registered (Deviations 23)"},
+    ]
+    return md_table(pd.DataFrame(rows))
+
+
+def t_mission_criteria() -> str:
+    c = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    req, cav = _mission()["requirements"], _mission()["criteria_caveat"]
+    out = pd.DataFrame({
+        "group": c["group"], "site": c["name"].fillna(c["id"]), "cell": c["id"],
+        "median slope °": c["slope_p50"].round(1),
+        "steeper than 8° (30 m baseline)": [_pct(x) for x in c["frac_gt8"]],
+        "steeper than 20° (30 m baseline)": [_pct(x, 1) for x in c["frac_gt20"]],
+        "8° share inside target range": c["in_range_frac_gt8"].map({True: "yes", False: "no"}),
+        "20° share inside target range": c["in_range_frac_gt20"].map({True: "yes",
+                                                                       False: "no"})})
+    r = c.iloc[0]
+    return (md_table(out) + f"\n\nTarget range = minimum to maximum over the "
+            f"{int(r['n_target_footprints'])} Connecting Ridge footprints (PGDA 78 Site01): "
+            f"8° share {_pct(r['range_lo_frac_gt8'])}–{_pct(r['range_hi_frac_gt8'])}, 20° share "
+            f"{_pct(r['range_lo_frac_gt20'], 1)}–{_pct(r['range_hi_frac_gt20'], 1)}. "
+            f"Requirements: \"{req['artemis3_landing_slope']['quote']}\" and "
+            f"\"{req['artemis3_eva_slope']['quote']}\" — "
+            f"{req['artemis3_landing_slope']['document']} "
+            f"({req['artemis3_landing_slope']['source']}). Caveat: {cav}")
+
+
+def t_coverage() -> str:
+    import sys
+
+    sys.path.insert(0, str(io.REPO_ROOT / "scripts"))
+    import mission_value as mv
+
+    cov = mv.coverage(pd.read_parquet(DERIVED / "verdicts.parquet"))
+    g = cov.groupby(["lens_id", "state"])["variable"].agg("; ".join).unstack(fill_value="—")
+    g = g.reindex(columns=mv.STATE_ORDER, fill_value="—").reset_index()
+    g.columns = ["lens", "TRANSFERS (field)", "NO-ANALOG (facility)", "UNOBSERVED"]
+    return (md_table(g) + "\n\nOne state per lens and variable: the best state over the lens' "
+            "targets (L1 slope–roughness and L2 shadow casting transfer for both targets; M1 "
+            "aqueous minerals are NO-ANALOG for the two analog targets and UNOBSERVED for the "
+            "other two; M1's only TRANSFERS row is the day–night cycle from the ledger, and M1 "
+            "publishes no site). The day–night cycle is a planet-level ledger row (a Mars sol "
+            "is 24.6 h): the X1 sites that pass are polar and do not reproduce it in the "
+            "midnight-sun field season, so at those sites X1 reproduces 1 variable, not 2. "
+            "The null extrapolation of §1 refers to cells passing the robust set, before the "
+            "ice filter and the visual review.")
+
+
+def t_task_attention() -> str:
+    t = pd.read_parquet(DERIVED / "task_attention.parquet")
+    s = pd.read_parquet(DERIVED / "sites.parquet")
+    p = t.pivot(index="key", columns="context", values="n_pubs")
+    s = s[s["query"].notna()].copy()
+    s["anchor"] = [next((k for k in p.index if k in cells.split(",")), None)
+                   for cells in s["cells"]]
+    out = pd.DataFrame({
+        "site": s["name"],
+        "B8 context (Mars OR Moon OR lunar OR planetary), site name": s["attention_site_name"],
+        "Moon context": s["anchor"].map(p["moon"]), "Mars context": s["anchor"].map(p["mars"]),
+        "site Attention used for hidden_status (max with member cells)": s["attention_n"],
+        "hidden_status": s["hidden_status"]}).sort_values("site")
+    return (md_table(out) + "\n\nContexts (both subsets of the B8 context): Moon = "
+            "`(analog OR analogue) AND (Moon OR lunar)`, Mars = `(analog OR analogue) AND "
+            "(Mars)`, on the same site-name query (OpenAlex title/abstract search, "
+            f"{t['date'].max()}; the B8 counts may be a day older). The last count column is "
+            "the maximum of the site-name count and the member cells' counts (for Peary Land "
+            "the cell name is \"Greenland\"). Supplementary: `hidden_status` is not recomputed "
+            "from the task counts.")
+
+
+
 TABLES = {"verdicts": t_verdicts, "ledger": t_ledger, "terrain_controls": t_terrain_controls,
           "l1_robust": t_l1_robust, "relocations": t_relocations, "m1": t_m1, "x1": t_x1,
           "bridge": t_bridge, "scarcity": t_scarcity, "site_sensitivity": t_site_sensitivity,
-          "multilens": t_multilens, "sites": t_sites}
+          "multilens": t_multilens, "sites": t_sites,
+          "mission_headline": t_mission_headline, "validity": t_validity,
+          "mission_criteria": t_mission_criteria, "coverage": t_coverage,
+          "task_attention": t_task_attention}
 
 
 def fill(text: str, tables: dict) -> str:

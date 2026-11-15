@@ -1,0 +1,80 @@
+# Mission requirements and test protocols (PLAN 2d, post hoc presentation layer).
+# Every requirement below was read in the primary NASA document on 2026-11-15; `quote` is
+# verbatim. Nothing here changes a threshold or a verdict: scripts/mission_value.py only reads
+# descriptors and verdicts that already exist and sets them beside these published numbers.
+
+requirements:
+  artemis3_landing_slope:
+    quote: "Surface slope for landing (100m): <10 deg"
+    detail: "Slopes for landing must be less than 10 deg ... White contours show regions of continuous 8 deg slope"
+    document: "Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21"
+    source: "https://ntrs.nasa.gov/citations/20250009323"
+    source_2: "https://ntrs.nasa.gov/citations/20240009596"
+    descriptor: frac_gt8
+    reading: "share of the 4 km footprint steeper than the 8 deg contour of NASA's landing-slope map"
+  artemis3_eva_slope:
+    quote: "Surface slope limit for EVA (2km): <20 deg"
+    detail: "Slopes for Extravehicular Activity (EVA) must be less than 20 deg ... No EVAs can occur in black areas"
+    document: "same two NASA documents, slides 21 and 24 (2025) / 19 and 22 (2024)"
+    source: "https://ntrs.nasa.gov/citations/20250009323"
+    descriptor: frac_gt20
+    reading: "share of the 4 km footprint that is no-EVA terrain under Artemis III requirement 3"
+  artemis3_lighting:
+    quote: "Artemis III will require the surface to be lit for the duration of the surface stay"
+    detail: "Key Artemis III Landing Requirements, item 5: Lighting (a. Surface Lighting, b. Approach lighting)"
+    document: "Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 26"
+    source: "https://ntrs.nasa.gov/citations/20250009323"
+  mars_ice_access:
+    quote: "land within a vertical meter of Martian mid-latitude ice, drill for samples to a 2-meter depth"
+    detail: "mid-latitude terrain with ice within 2 m of the surface ... Much of 45°N (e.g. Arcadia Planitia) contains ice within <1 m depth ... materials of high interest to future human landed missions"
+    document: "Mars Life Explorer, Planetary Mission Concept Study for the 2023-2032 Decadal Survey (JPL, 2021), executive summary and section 1"
+    source: "https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf"
+  trl_relevant_environment:
+    quote: "Component and/or breadboard validation in relevant environment"
+    detail: "TRL 4 exit criteria: 'Documented definition of relevant environment'. TRL 6: 'built and operated in a relevant environment to demonstrate operations under critical environmental conditions'"
+    document: "NASA Technology Readiness Level Definitions (table reproduced from NPR 7123.1)"
+    source: "https://www.nasa.gov/wp-content/uploads/2017/12/458490main_trl_definitions.pdf"
+
+# Caveat printed with every mission-criterion table. The NASA slides give "(100m)" and "(2km)"
+# next to the limits; they do not state the baseline on which slope is computed, so our shares
+# cannot be compared with NASA's maps. They compare Earth with Moon only. The limits are
+# operational limits, not similarity targets. Copernicus GLO-30 and PGDA 78 resampled to 30 m do
+# not have the same effective resolution.
+criteria_caveat: "Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test."
+
+# One protocol per lens: which test variables a field campaign at a TRANSFERS site reproduces by
+# this engine's measure, and which it does not. `shortfalls` are ids already cited in ledger/*.yaml (nasa_gaps).
+protocols:
+  L1:
+    name: "Slope traverse and touchdown-terrain rehearsal"
+    systems: "crewed/uncrewed rover mobility and path planning on slopes, EVA traverse planning, hazard-map products for landing-site selection"
+    requirement: [artemis3_landing_slope, artemis3_eva_slope]
+    shortfalls: ["ESDMD #0805", "ESDMD #1101"]
+    field_credit: "slope and multi-scale roughness statistics at 30-480 m baselines (verdict variable slope_roughness)"
+    measure: "traverse energy, slip and path length per km against the slope classes <8, 8-20 and >20 deg; compare with predictions made on the lunar DEM"
+    not_credited: "wheel-soil traction and sinkage (gravity, regolith), dust, vacuum, thermal: facility rows of the card"
+  L2:
+    name: "Low-Sun shadow navigation rehearsal"
+    systems: "optical navigation and hazard detection cameras, traverse timing around long terrain shadows"
+    requirement: [artemis3_lighting]
+    shortfalls: ["ESDMD #0805", "ESDMD #0301"]
+    field_credit: "terrain shadow casting at Sun elevations of 2, 5 and 7 deg (verdict variable shadow_casting)"
+    measure: "navigation solution error and hazard-detection rate inside and at the edge of terrain shadows at the three Sun elevations"
+    not_credited: "the Sun geometry itself (grazing Sun for all of daylight, 360 deg azimuth): NO-ANALOG at every Earth site; black sky without diffuse light"
+  X1:
+    name: "Ice-access drilling rehearsal under dry overburden"
+    systems: "1-2 m class ice-access drills and sample handling, site characterisation before drilling"
+    requirement: [mars_ice_access]
+    shortfalls: []
+    field_credit: "ice configuration: permafrost, ice-bearing ground that never thaws from above, dry overburden (verdict variable ice_configuration; semi-quantitative)"
+    measure: "depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling"
+    not_credited: "Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden; the 24.6 h day-night cycle is not reproduced at the polar sites in the midnight-sun field season"
+    coverage_note: "one of the transferring variables is the day length, a planet-level row: one variable fewer at the polar sites that pass"
+  M1:
+    name: "Aqueous-mineral instrument rehearsal"
+    systems: "none: no site is published for this lens"
+    requirement: []
+    shortfalls: []
+    field_credit: "none: M1 failed its pre-registered stop rule, no M1 site is published"
+    measure: "-"
+    not_credited: "all rows"
