@@ -64,7 +64,7 @@ controls, bridge bias) → the commands above. The spectral lens (M1) runs from
 | `ledger/` | Transfer Ledger: Moon/Mars vs Earth physics with a source for every number |
 | `scripts/` | pipeline steps (see above) |
 | `data/derived/` | committed result tables (parquet / json) |
-| `docs/` | validation report, field/facility cards, G1 review, compliance notes |
+| `docs/` | validation report, field/facility cards, G1 review, NASA shortfall map |
 | `web/` | static map and Test Cards |
 
 ## Data
@@ -128,8 +128,7 @@ and diffs, and search the literature. All data processing runs on NASA and partn
 open code in this repository. Every scientific threshold, control site and expectation is recorded
 in `PLAN.md` / `config/` with its reason and whether it was fixed before or after seeing results
 (see the Deviations table in `docs/validation_report.md`). The team directed, checked and edited
-all work. No AI-generated images, voices or videos are used in the demo. Details and the
-compliance checklist: [`docs/compliance.md`](docs/compliance.md).
+all work. No AI-generated images, voices or videos are used in the demo.
 
 ## License
 

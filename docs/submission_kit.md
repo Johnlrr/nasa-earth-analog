@@ -4,16 +4,15 @@ Every number carries its key in `docs/slide_numbers.json` in square brackets (ke
 then "= value"); a test fails if a value drifts (`tests/test_mission_value.py`). The paste-ready
 copy without keys is generated: `python scripts/slides/project_page.py` → `docs/project_page.md`.
 Form fields and rules below were read on the official Project Submission Guide (15/11/2026,
-https://www.spaceappschallenge.org/resources/project-submission-guide/); quotes are in
-`docs/compliance.md`.
+https://www.spaceappschallenge.org/resources/project-submission-guide/).
 
 **Only the team can fill or decide (marked ⟨TEAM⟩ below):**
 1. Team name (cover slide: `python scripts/slides/build_deck.py --team "<name>"` then
    `node scripts/slides/render_deck.mjs`).
-2. The originality statement in "Use of SI": who came up with the core idea. The official guide
-   says SI "should not be used to (come up with your idea of how to solve the challenge)"; read
-   `docs/compliance.md` §2 and decide before submitting.
-3. Signatures in `docs/compliance.md`; Category field (form drop-down); "Submit for Judging".
+2. The "Use of SI" answer: the form question is for data collection only and is not seen by the
+   judges; the SI indicators judges see are the statements on the web footer, slide 7, README and
+   this page.
+3. Category field (form drop-down); "Submit for Judging".
 
 ---
 
@@ -170,7 +169,7 @@ OpenAlex API, Leaflet with NASA GIBS for the web map, GitHub Actions and Pages. 
 Apache-2.0.
 
 ## Use of Super Intelligence (SI)
-Factual draft; the team must check it against the official rule (`docs/compliance.md`) before use.
+Factual statement of where and how SI tools were used (official rule: SI use is permitted and must be indicated in descriptive text and metadata).
 
 Yes. We used SI assistants (Anthropic Claude models through Claude Code; Google Gemini models
 through the Antigravity IDE) throughout: to draft and review planning documents, to write and

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIMILITUDE: Artemis III regions</title>
+<meta name="description" content="For the Artemis III candidate regions that NASA maps at 5 m, the Earth sites in open countries that match each region's slopes and simulated traverses, and a campaign that covers terrain and low-Sun tests.">
+<meta name="theme-color" content="#161c1a">
+<link rel="icon" href="media/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.exp-header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 48px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:1100}
+.identity{display:flex;gap:20px;align-items:center;font-size:19px;font-weight:500;letter-spacing:.04em;text-decoration:none;white-space:nowrap;color:var(--text)}
+.identity span{font-size:12px;letter-spacing:0;color:var(--muted);font-weight:400;border-left:1px solid var(--line);padding-left:20px}
+.exp-header nav{display:flex;gap:24px;align-items:center}.exp-header nav a{font-size:13px;text-decoration:none;color:var(--text)}
+.exp-header nav a[aria-current=page]{color:var(--accent)}
+.identity .logo{display:block;width:30px;height:30px;margin-right:-8px;border-radius:7px}
+@media(max-width:760px){.exp-header{padding:0 16px;gap:12px}.exp-header nav{gap:14px}.exp-header nav .nav-mission{display:none}.identity span{display:none}}
+body{background:var(--bg);color:var(--text);font-family:var(--font-text);margin:0}
+.a3 h1{font-size:var(--fs-title);letter-spacing:var(--track-title);line-height:1.1;margin:40px 0 12px;font-weight:500}
+.a3 .lead{font-size:var(--fs-l);color:var(--muted);max-width:820px;margin:0 0 18px}
+.a3 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+.a3 .fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px}
+.a3 .fact b{display:block;font-size:28px;font-weight:500;color:var(--accent)}
+.a3 .fact span{font-size:var(--fs-s);color:var(--muted)}
+.a3 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 14px}
+.a3 .tabs button{font:inherit;font-size:var(--fs-s);background:var(--surface);color:var(--text);border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;cursor:pointer}
+.a3 .tabs button[aria-selected=true]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.a3 .region{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:22px 24px;margin-bottom:22px}
+.a3 .region h2{margin:0 0 6px;font-weight:500;font-size:var(--fs-xl)}
+.a3 .meta{color:var(--muted);font-size:var(--fs-s);margin:0 0 14px}
+.a3 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:12px 0}
+.a3 .box{background:var(--raised);border-radius:var(--radius-m);padding:12px 14px}
+.a3 .box h3{margin:0 0 6px;font:500 var(--fs-xs)/1.2 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.a3 .box p{margin:4px 0;font-size:var(--fs-m)}
+.a3 .ok{color:var(--good)}.a3 .warn{color:var(--warn)}.a3 .bad{color:var(--bad)}
+.a3 .tablewrap{overflow-x:auto}
+.a3 table{border-collapse:collapse;width:100%;font-size:var(--fs-s)}
+.a3 th,.a3 td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.a3 th{color:var(--muted);font-weight:500}
+.a3 .note{font-size:var(--fs-s);color:var(--muted);max-width:900px}
+.a3 ul.plain{padding-left:18px;font-size:var(--fs-s);color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="exp-header"><a class="identity" href="./"><img class="logo" src="media/logo.svg" alt="" width="30" height="30">SIMILITUDE<span>The proving-ground finder</span></a><nav aria-label="Main navigation"><a href="./" class="nav-mission">Mission</a><a href="explorer.html" class="nav-explorer-link">Explorer</a><a href="test-sites.html" class="nav-finder">Test sites</a><a href="artemis3.html" class="nav-artemis" aria-current="page">Artemis III</a><a href="guide.html" class="nav-guide">Guide</a></nav></header>
+
+<main id="main" class="a3">
+<div class="wrap shell">
+  <p class="eyebrow">Artemis III candidate regions &middot; registered and run 15 Nov 2026</p>
+  <h1>Where on Earth to rehearse each Artemis III region</h1>
+  <p class="lead">NASA has named nine candidate landing regions for Artemis III. Five of them are mapped by NASA's 5 m lunar elevation models under the same name. For each of the five, SIMILITUDE lists the Earth sites in open countries whose slopes and simulated traverses match the region, and the smallest campaign that covers terrain and low-Sun tests.</p>
+  <div class="facts" id="facts" aria-live="polite"></div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="regions"></div>
+
+  <section class="region" aria-labelledby="notrun-h">
+    <h2 id="notrun-h">The other four regions</h2>
+    <p class="meta">NASA publishes a map of the nine regions, not their centres, so no coordinate is guessed. These regions have no NASA 5 m elevation model under their own name:</p>
+    <ul class="plain" id="notrun"></ul>
+  </section>
+
+  <section class="region" aria-labelledby="mars-h">
+    <h2 id="mars-h">And a crewed landing on Mars</h2>
+    <div id="mars"></div>
+  </section>
+
+  <p class="note">How it is tested: for each region the reference is the most typical 4 km window of NASA's PGDA Product 78 elevation model; thresholds come from the region's own other windows (the rule pre-registered for the route test, V2). An Earth footprint matches when both its slope distribution and its simulated traverses (30 m planner) fall within the region's thresholds, on Copernicus GLO-30 only; a second elevation model is not checked here. Random land = 1,000 pre-registered random bare-land cells. Low-Sun days come from a geometric Sun model (every daylight minute below 7&deg;). Terrain shadow and 5 m slopes are not checked for these regions. Pre-registration: <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/config/prereg_artemis3.yaml">config/prereg_artemis3.yaml</a>; results: <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">validation report &sect;7g&ndash;7h</a>.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap shell">
+    <p class="data-line">Data: NASA PGDA Product 78 (LRO LOLA, Barker et al. 2021), HiRISE DTM (NASA/JPL/University of Arizona), Copernicus DEM GLO-30, ERA5-Land, MODIS, TerraClimate, ESA WorldCover. Region names: NASA (28 Oct 2024). Code Apache-2.0.</p>
+    <p class="data-line"><a href="evidence.html">Evidence</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Validation report</a> &middot; <a href="https://github.com/Johnlrr/nasa-earth-analog">Source code</a></p>
+    <p class="data-line">Use of Super Intelligence (SI): code, analysis checks and page text were drafted with SI assistants (Anthropic Claude, Google Gemini) under team review. Every number on this page is read from <code>data/artemis3.json</code>, written by <code>scripts/web_artemis3.py</code> from the pipeline outputs.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  const pct = (x, d = 0) => (100 * x).toFixed(d) + ' %';
+  const ll = (la, lo) => `${Math.abs(la).toFixed(2)}&deg;${la >= 0 ? 'N' : 'S'}, ${Math.abs(lo).toFixed(2)}&deg;${lo >= 0 ? 'E' : 'W'}`;
+  const NICE = {mons_mouton: 'Mons Mouton', de_gerlache_rim_2: 'de Gerlache Rim 2', peak_near_cabeus_b: 'Peak near Cabeus B', slater_plain: 'Slater Plain'};
+
+  function card(r) {
+    const c = r.campaign;
+    const sites = c.sites.map(s => `<p><b>${esc(s.country)}</b> (${ll(s.lat, s.lon)}): terrain${s.window > 0 ? `, low Sun ${s.window} days a year` : ''}; ${pct(s.frac_gt20, 1)} of the footprint above 20&deg;</p>`).join('');
+    const miss = c.uncovered.length ? `<p class="warn">Not covered by a matching site: ${c.uncovered.map(u => u === 'low_sun' ? 'low Sun (needs a second, high-latitude site or a lighting facility)' : esc(u)).join(', ')}.</p>` : '';
+    const rows = r.open_matches.map(m => `<tr><td>${esc(m.country)}</td><td>${ll(m.lat, m.lon)}</td><td>${m.D_slope.toFixed(2)}</td><td>${m.D_route.toFixed(2)}</td><td>${pct(m.frac_gt8)}</td><td>${pct(m.frac_gt20, 1)}</td><td>${m.low_sun_window_days || '&ndash;'}</td></tr>`).join('');
+    return `<section class="region" role="tabpanel" id="p-${esc(r.id)}" aria-labelledby="t-${esc(r.id)}" hidden>
+      <h2>${esc(r.name)}</h2>
+      <p class="meta">NASA PGDA 78 model ${esc(r.pgda)} &middot; reference window ${ll(r.ref.lat, r.ref.lon)} &middot; ${pct(r.ref.frac_gt8)} steeper than 8&deg;, ${pct(r.ref.frac_gt20, 1)} steeper than 20&deg; (30 m) &middot; thresholds from ${r.n_neighbours} lunar windows &middot; our slope vs NASA's slope product: ${r.nasa_slope_diff.toFixed(2)}&deg; (median, 5 m)</p>
+      <div class="row">
+        <div class="box"><h3>Earth sites in open countries</h3><p><b class="ok">${r.open_matches.length}</b> footprints match slopes and simulated traverses</p></div>
+        <div class="box"><h3>Selective</h3><p>${r.null[0]} of ${r.null[1]} random land cells match (${pct(r.null[0] / r.null[1], 1)})</p></div>
+        <div class="box"><h3>Classic analog sites</h3><p><b class="bad">${r.classic[0]} of ${r.classic[1]}</b> footprints around six classic sites match; the registered classic-versus-random comparison therefore fails</p></div>
+      </div>
+      <div class="box"><h3>Smallest campaign &middot; ${c.field_rows_covered} of ${c.field_rows_total} field rows (terrain, low Sun)</h3>${sites}${miss}<p class="meta" style="margin-top:8px">Facilities for the rest: ${Object.entries(c.facilities).map(([k, v]) => `${esc(k)} &rarr; ${esc(v)}`).join(' &middot; ')}</p></div>
+      <h3 class="panel-title" style="margin-top:16px">All matches (distance to the region; lower is closer, threshold = typical lunar variation)</h3>
+      <div class="tablewrap"><table><thead><tr><th>Country</th><th>Centre</th><th>Slope distance</th><th>Route distance</th><th>&gt; 8&deg;</th><th>&gt; 20&deg;</th><th>Low-Sun days</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </section>`;
+  }
+
+  function select(id) {
+    document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.id === id)));
+    document.querySelectorAll('#regions .region').forEach(p => { p.hidden = p.id !== 'p-' + id; });
+  }
+
+  fetch('data/artemis3.json').then(r => r.json()).then(d => {
+    const R = d.regions;
+    const withSites = R.filter(r => r.open_matches.length > 0).length;
+    const classicHits = R.reduce((a, r) => a + r.classic[0], 0);
+    const full = R.filter(r => r.campaign.field_rows_covered === r.campaign.field_rows_total).length;
+    document.getElementById('facts').innerHTML =
+      `<div class="fact"><b>${withSites} of ${R.length}</b><span>mapped regions have Earth test sites in open countries</span></div>` +
+      (classicHits === 0 ? `<div class="fact"><b>0 of ${R[0].classic[1]}</b><span>classic analog footprints match any of these regions</span></div>` : `<div class="fact"><b>${classicHits}</b><span>classic-footprint matches over the ${R.length} regions</span></div>`) +
+      `<div class="fact"><b>${full} of ${R.length}</b><span>regions covered for terrain and low Sun by one site</span></div>` +
+      `<div class="fact"><b>${R.length} of 9</b><span>Artemis III regions mapped by NASA at 5 m under their own name</span></div>`;
+    document.getElementById('tabs').innerHTML = R.map(r => `<button type="button" role="tab" id="t-${esc(r.id)}" data-id="${esc(r.id)}" aria-controls="p-${esc(r.id)}">${esc(r.name)}</button>`).join('');
+    document.getElementById('regions').innerHTML = R.map(card).join('');
+    document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+    select(R[0].id);
+    document.getElementById('notrun').innerHTML = Object.entries(d.not_run).map(([k, v]) => `<li><b>${esc(NICE[k] || k)}</b>: ${esc(v)}</li>`).join('');
+    const m = d.mars_base;
+    document.getElementById('mars').innerHTML =
+      `<p class="meta">Target: ${esc(m.target.name)} (HiRISE DTM ${esc(m.target.dtm.replace('.IMG', ''))}), in the Arcadia Planitia plains where water ice lies centimetres below the surface. Exploratory: the elevation strip gives only ${m.n_neighbours} comparison windows.</p>` +
+      `<p>The site is very flat (median slope ${m.target.slope_p50.toFixed(1)}&deg;). Its terrain is matched by ${m.null_terrain[0]} of ${m.null_terrain[1]} random land cells, all hyper-arid plains, and by ${m.classic_terrain[0]} of ${m.classic_terrain[1]} classic Mars analog footprints. None of the matching plains has ground ice (${m.null_terrain_and_x1} pass the ice test), so rehearsing a base there takes two sites: a flat dry plain for landing and traverse, and a polar desert for ice work.</p>`;
+  }).catch(e => {
+    document.getElementById('regions').innerHTML = '<p class="bad">Could not load data/artemis3.json.</p>';
+    console.error(e);
+  });
+})();
+</script>
+</body>
+</html>

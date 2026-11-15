@@ -141,7 +141,7 @@ OpenAlex API, Leaflet with NASA GIBS for the web map, GitHub Actions and Pages. 
 Apache-2.0.
 
 ## Use of Super Intelligence (SI)
-Factual draft; the team must check it against the official rule (`docs/compliance.md`) before use.
+Factual statement of where and how SI tools were used (official rule: SI use is permitted and must be indicated in descriptive text and metadata).
 
 Yes. We used SI assistants (Anthropic Claude models through Claude Code; Google Gemini models
 through the Antigravity IDE) throughout: to draft and review planning documents, to write and
