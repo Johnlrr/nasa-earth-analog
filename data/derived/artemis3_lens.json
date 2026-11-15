@@ -1,0 +1,844 @@
+{
+  "prereg": "config/prereg_artemis3.yaml (commit 1e18662)",
+  "sanity_site01_route_tau": 1.1608,
+  "v2_tau": 1.1608,
+  "regions": {
+    "haworth": {
+      "name": "Haworth",
+      "pgda": "Haworth",
+      "n_windows": 676,
+      "n_neighbours": 643,
+      "reference": {
+        "lat": -86.824,
+        "lon": -31.1984,
+        "slope_p50": 9.1019,
+        "slope_p90": 13.9052,
+        "frac_gt8": 0.6468,
+        "frac_gt15": 0.066,
+        "frac_gt20": 0.0042,
+        "nan_frac": 0.0,
+        "reach_6": 0.9823,
+        "reach_8": 0.9998,
+        "detour_8": 1.1074,
+        "detour_10": 1.0741,
+        "climb_10": 32.2067
+      },
+      "tau": {
+        "slope": 0.7176,
+        "route": 0.8438
+      },
+      "nasa_check": {
+        "slope_p50_ours_5m": 7.0032,
+        "slope_p50_nasa": 7.0224,
+        "abs_diff_p50": 0.0192
+      },
+      "null": [
+        4,
+        994
+      ],
+      "null_share": 0.004,
+      "null_ci": [
+        0.0011,
+        0.0103
+      ],
+      "classic": [
+        0,
+        54
+      ],
+      "classic_p": 1.0,
+      "classic_p_bonferroni": 1.0,
+      "classic_per_site": {
+        "Barringer (Meteor) Crater, Arizona": [
+          0,
+          9
+        ],
+        "Haughton impact structure, Devon Island": [
+          0,
+          9
+        ],
+        "Kilauea lava fields, Hawaii": [
+          0,
+          9
+        ],
+        "Lava Beds National Monument, California": [
+          0,
+          9
+        ],
+        "Mistastin (relocated)": [
+          0,
+          9
+        ],
+        "SP Crater / Black Point lava flow, Arizona": [
+          0,
+          9
+        ]
+      },
+      "selective": true,
+      "earth_site_available": true,
+      "n_open_matches": 2,
+      "open_matches": [
+        {
+          "cell_id": "E10K_698_-762",
+          "country": "Canada",
+          "lat": 71.8198,
+          "lon": -79.0749,
+          "D_slope": 0.696,
+          "D_route": 0.107,
+          "frac_gt8": 0.285,
+          "frac_gt20": 0.004,
+          "low_sun_window_days": 46
+        },
+        {
+          "cell_id": "E10K_240_412",
+          "country": "Saudi Arabia",
+          "lat": 19.117,
+          "lon": 42.8344,
+          "D_slope": 0.494,
+          "D_route": 0.282,
+          "frac_gt8": 0.35,
+          "frac_gt20": 0.005,
+          "low_sun_window_days": 0
+        }
+      ]
+    },
+    "malapert_massif": {
+      "name": "Malapert Massif",
+      "pgda": "Site23",
+      "n_windows": 324,
+      "n_neighbours": 279,
+      "reference": {
+        "lat": -86.0408,
+        "lon": -2.3859,
+        "slope_p50": 18.1663,
+        "slope_p90": 21.7805,
+        "frac_gt8": 0.9499,
+        "frac_gt15": 0.7391,
+        "frac_gt20": 0.3175,
+        "nan_frac": 0.0,
+        "reach_6": 0.1062,
+        "reach_8": 0.4748,
+        "detour_8": 2.2112,
+        "detour_10": 2.0762,
+        "climb_10": 45.4001
+      },
+      "tau": {
+        "slope": 0.8134,
+        "route": 1.1049
+      },
+      "nasa_check": {
+        "slope_p50_ours_5m": 10.7926,
+        "slope_p50_nasa": 10.7926,
+        "abs_diff_p50": 0.0001
+      },
+      "null": [
+        10,
+        994
+      ],
+      "null_share": 0.0101,
+      "null_ci": [
+        0.0048,
+        0.0184
+      ],
+      "classic": [
+        0,
+        54
+      ],
+      "classic_p": 1.0,
+      "classic_p_bonferroni": 1.0,
+      "classic_per_site": {
+        "Barringer (Meteor) Crater, Arizona": [
+          0,
+          9
+        ],
+        "Haughton impact structure, Devon Island": [
+          0,
+          9
+        ],
+        "Kilauea lava fields, Hawaii": [
+          0,
+          9
+        ],
+        "Lava Beds National Monument, California": [
+          0,
+          9
+        ],
+        "Mistastin (relocated)": [
+          0,
+          9
+        ],
+        "SP Crater / Black Point lava flow, Arizona": [
+          0,
+          9
+        ]
+      },
+      "selective": true,
+      "earth_site_available": true,
+      "n_open_matches": 9,
+      "open_matches": [
+        {
+          "cell_id": "E10K_349_518",
+          "country": "Iran",
+          "lat": 28.3468,
+          "lon": 53.8416,
+          "D_slope": 0.398,
+          "D_route": 0.368,
+          "frac_gt8": 0.933,
+          "frac_gt20": 0.219,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_329_576",
+          "country": "Iran",
+          "lat": 26.5869,
+          "lon": 59.8643,
+          "D_slope": 0.466,
+          "D_route": 0.479,
+          "frac_gt8": 0.902,
+          "frac_gt20": 0.342,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_381_500",
+          "country": "Iran",
+          "lat": 31.2238,
+          "lon": 51.9724,
+          "D_slope": 0.485,
+          "D_route": 0.569,
+          "frac_gt8": 0.939,
+          "frac_gt20": 0.487,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-354_-686",
+          "country": "Chile",
+          "lat": -28.7021,
+          "lon": -71.183,
+          "D_slope": 0.327,
+          "D_route": 0.575,
+          "frac_gt8": 0.918,
+          "frac_gt20": 0.378,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-272_-659",
+          "country": "Chile",
+          "lat": -21.6201,
+          "lon": -68.3793,
+          "D_slope": 0.575,
+          "D_route": 0.627,
+          "frac_gt8": 0.966,
+          "frac_gt20": 0.502,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-352_-671",
+          "country": "Argentina",
+          "lat": -28.5243,
+          "lon": -69.6254,
+          "D_slope": 0.792,
+          "D_route": 0.675,
+          "frac_gt8": 0.894,
+          "frac_gt20": 0.501,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-371_-677",
+          "country": "Chile",
+          "lat": -30.2257,
+          "lon": -70.2484,
+          "D_slope": 0.783,
+          "D_route": 0.686,
+          "frac_gt8": 0.96,
+          "frac_gt20": 0.609,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_200_499",
+          "country": "Yemen",
+          "lat": 15.8345,
+          "lon": 51.8686,
+          "D_slope": 0.764,
+          "D_route": 0.705,
+          "frac_gt8": 0.918,
+          "frac_gt20": 0.579,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_426_561",
+          "country": "Iran",
+          "lat": 35.4218,
+          "lon": 58.3067,
+          "D_slope": 0.565,
+          "D_route": 0.724,
+          "frac_gt8": 0.902,
+          "frac_gt20": 0.406,
+          "low_sun_window_days": 0
+        }
+      ]
+    },
+    "nobile_rim_1": {
+      "name": "Nobile Rim 1",
+      "pgda": "Site06",
+      "n_windows": 289,
+      "n_neighbours": 263,
+      "reference": {
+        "lat": -85.5387,
+        "lon": 34.1597,
+        "slope_p50": 17.5839,
+        "slope_p90": 21.5471,
+        "frac_gt8": 0.9326,
+        "frac_gt15": 0.6808,
+        "frac_gt20": 0.2461,
+        "nan_frac": 0.0,
+        "reach_6": 0.0526,
+        "reach_8": 0.332,
+        "detour_8": 1.6705,
+        "detour_10": 1.9622,
+        "climb_10": 35.2938
+      },
+      "tau": {
+        "slope": 1.0384,
+        "route": 1.2514
+      },
+      "nasa_check": {
+        "slope_p50_ours_5m": 14.9139,
+        "slope_p50_nasa": 14.9137,
+        "abs_diff_p50": 0.0002
+      },
+      "null": [
+        30,
+        994
+      ],
+      "null_share": 0.0302,
+      "null_ci": [
+        0.0205,
+        0.0428
+      ],
+      "classic": [
+        0,
+        54
+      ],
+      "classic_p": 1.0,
+      "classic_p_bonferroni": 1.0,
+      "classic_per_site": {
+        "Barringer (Meteor) Crater, Arizona": [
+          0,
+          9
+        ],
+        "Haughton impact structure, Devon Island": [
+          0,
+          9
+        ],
+        "Kilauea lava fields, Hawaii": [
+          0,
+          9
+        ],
+        "Lava Beds National Monument, California": [
+          0,
+          9
+        ],
+        "Mistastin (relocated)": [
+          0,
+          9
+        ],
+        "SP Crater / Black Point lava flow, Arizona": [
+          0,
+          9
+        ]
+      },
+      "selective": true,
+      "earth_site_available": true,
+      "n_open_matches": 23,
+      "open_matches": [
+        {
+          "cell_id": "E10K_-371_-677",
+          "country": "Chile",
+          "lat": -30.2257,
+          "lon": -70.2484,
+          "D_slope": 0.797,
+          "D_route": 0.208,
+          "frac_gt8": 0.96,
+          "frac_gt20": 0.609,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-352_-671",
+          "country": "Argentina",
+          "lat": -28.5243,
+          "lon": -69.6254,
+          "D_slope": 0.66,
+          "D_route": 0.344,
+          "frac_gt8": 0.894,
+          "frac_gt20": 0.501,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_251_353",
+          "country": "Sudan",
+          "lat": 20.0303,
+          "lon": 36.7078,
+          "D_slope": 0.985,
+          "D_route": 0.351,
+          "frac_gt8": 0.818,
+          "frac_gt20": 0.536,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_200_499",
+          "country": "Yemen",
+          "lat": 15.8345,
+          "lon": 51.8686,
+          "D_slope": 0.666,
+          "D_route": 0.491,
+          "frac_gt8": 0.918,
+          "frac_gt20": 0.579,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_179_397",
+          "country": "Eritrea",
+          "lat": 14.1323,
+          "lon": 41.2768,
+          "D_slope": 0.943,
+          "D_route": 0.529,
+          "frac_gt8": 0.779,
+          "frac_gt20": 0.423,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-272_-659",
+          "country": "Chile",
+          "lat": -21.6201,
+          "lon": -68.3793,
+          "D_slope": 0.627,
+          "D_route": 0.55,
+          "frac_gt8": 0.966,
+          "frac_gt20": 0.502,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_411_750",
+          "country": "India",
+          "lat": 34.0003,
+          "lon": 77.9327,
+          "D_slope": 1.005,
+          "D_route": 0.611,
+          "frac_gt8": 0.958,
+          "frac_gt20": 0.724,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_180_445",
+          "country": "Yemen",
+          "lat": 14.2131,
+          "lon": 46.2612,
+          "D_slope": 0.85,
+          "D_route": 0.635,
+          "frac_gt8": 0.818,
+          "frac_gt20": 0.356,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_318_614",
+          "country": "Pakistan",
+          "lat": 25.6302,
+          "lon": 63.8103,
+          "D_slope": 0.967,
+          "D_route": 0.645,
+          "frac_gt8": 0.854,
+          "frac_gt20": 0.547,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_346_567",
+          "country": "Iran",
+          "lat": 28.0811,
+          "lon": 58.9298,
+          "D_slope": 0.943,
+          "D_route": 0.649,
+          "frac_gt8": 0.851,
+          "frac_gt20": 0.431,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_329_576",
+          "country": "Iran",
+          "lat": 26.5869,
+          "lon": 59.8643,
+          "D_slope": 0.364,
+          "D_route": 0.678,
+          "frac_gt8": 0.902,
+          "frac_gt20": 0.342,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_381_500",
+          "country": "Iran",
+          "lat": 31.2238,
+          "lon": 51.9724,
+          "D_slope": 0.45,
+          "D_route": 0.682,
+          "frac_gt8": 0.939,
+          "frac_gt20": 0.487,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_724_-783",
+          "country": "Canada",
+          "lat": 80.0624,
+          "lon": -81.2556,
+          "D_slope": 0.943,
+          "D_route": 0.694,
+          "frac_gt8": 0.828,
+          "frac_gt20": 0.482,
+          "low_sun_window_days": 36
+        },
+        {
+          "cell_id": "E10K_173_439",
+          "country": "Yemen",
+          "lat": 13.6483,
+          "lon": 45.6381,
+          "D_slope": 1.032,
+          "D_route": 0.754,
+          "frac_gt8": 0.867,
+          "frac_gt20": 0.596,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-354_-686",
+          "country": "Chile",
+          "lat": -28.7021,
+          "lon": -71.183,
+          "D_slope": 0.247,
+          "D_route": 0.775,
+          "frac_gt8": 0.918,
+          "frac_gt20": 0.378,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_447_691",
+          "country": "Tajikistan",
+          "lat": 37.4541,
+          "lon": 71.8061,
+          "D_slope": 1.005,
+          "D_route": 0.813,
+          "frac_gt8": 0.956,
+          "frac_gt20": 0.688,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_349_518",
+          "country": "Iran",
+          "lat": 28.3468,
+          "lon": 53.8416,
+          "D_slope": 0.239,
+          "D_route": 0.84,
+          "frac_gt8": 0.933,
+          "frac_gt20": 0.219,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_426_561",
+          "country": "Iran",
+          "lat": 35.4218,
+          "lon": 58.3067,
+          "D_slope": 0.45,
+          "D_route": 0.88,
+          "frac_gt8": 0.902,
+          "frac_gt20": 0.406,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_144_481",
+          "country": "Somalia",
+          "lat": 11.3215,
+          "lon": 49.9994,
+          "D_slope": 0.765,
+          "D_route": 0.884,
+          "frac_gt8": 0.927,
+          "frac_gt20": 0.619,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_326_574",
+          "country": "Iran",
+          "lat": 26.3252,
+          "lon": 59.6567,
+          "D_slope": 0.899,
+          "D_route": 0.936,
+          "frac_gt8": 0.793,
+          "frac_gt20": 0.283,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-395_-676",
+          "country": "Argentina",
+          "lat": -32.4167,
+          "lon": -70.1446,
+          "D_slope": 0.908,
+          "D_route": 0.966,
+          "frac_gt8": 0.923,
+          "frac_gt20": 0.637,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_452_719",
+          "country": "Tajikistan",
+          "lat": 37.9459,
+          "lon": 74.7136,
+          "D_slope": 0.977,
+          "D_route": 1.079,
+          "frac_gt8": 0.791,
+          "frac_gt20": 0.484,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_353_635",
+          "country": "Pakistan",
+          "lat": 28.7021,
+          "lon": 65.991,
+          "D_slope": 0.741,
+          "D_route": 1.11,
+          "frac_gt8": 0.831,
+          "frac_gt20": 0.28,
+          "low_sun_window_days": 0
+        }
+      ]
+    },
+    "nobile_rim_2": {
+      "name": "Nobile Rim 2",
+      "pgda": "DM2",
+      "n_windows": 289,
+      "n_neighbours": 244,
+      "reference": {
+        "lat": -83.9878,
+        "lon": 59.3593,
+        "slope_p50": 10.5714,
+        "slope_p90": 17.4729,
+        "frac_gt8": 0.6825,
+        "frac_gt15": 0.2589,
+        "frac_gt20": 0.0134,
+        "nan_frac": 0.0,
+        "reach_6": 0.6795,
+        "reach_8": 0.998,
+        "detour_8": 1.2517,
+        "detour_10": 1.0873,
+        "climb_10": 22.9589
+      },
+      "tau": {
+        "slope": 0.7557,
+        "route": 0.9045
+      },
+      "nasa_check": {
+        "slope_p50_ours_5m": 6.5594,
+        "slope_p50_nasa": 6.5595,
+        "abs_diff_p50": 0.0
+      },
+      "null": [
+        8,
+        994
+      ],
+      "null_share": 0.008,
+      "null_ci": [
+        0.0035,
+        0.0158
+      ],
+      "classic": [
+        0,
+        54
+      ],
+      "classic_p": 1.0,
+      "classic_p_bonferroni": 1.0,
+      "classic_per_site": {
+        "Barringer (Meteor) Crater, Arizona": [
+          0,
+          9
+        ],
+        "Haughton impact structure, Devon Island": [
+          0,
+          9
+        ],
+        "Kilauea lava fields, Hawaii": [
+          0,
+          9
+        ],
+        "Lava Beds National Monument, California": [
+          0,
+          9
+        ],
+        "Mistastin (relocated)": [
+          0,
+          9
+        ],
+        "SP Crater / Black Point lava flow, Arizona": [
+          0,
+          9
+        ]
+      },
+      "selective": true,
+      "earth_site_available": true,
+      "n_open_matches": 6,
+      "open_matches": [
+        {
+          "cell_id": "E10K_373_85",
+          "country": "Algeria",
+          "lat": 30.4969,
+          "lon": 8.8784,
+          "D_slope": 0.753,
+          "D_route": 0.535,
+          "frac_gt8": 0.438,
+          "frac_gt20": 0.079,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_513_990",
+          "country": "Mongolia",
+          "lat": 44.2407,
+          "lon": 102.8545,
+          "D_slope": 0.619,
+          "D_route": 0.613,
+          "frac_gt8": 0.47,
+          "frac_gt20": 0.066,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-376_-662",
+          "country": "Argentina",
+          "lat": -30.6781,
+          "lon": -68.6908,
+          "D_slope": 0.694,
+          "D_route": 0.771,
+          "frac_gt8": 0.394,
+          "frac_gt20": 0.008,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_328_560",
+          "country": "Iran",
+          "lat": 26.4996,
+          "lon": 58.2029,
+          "D_slope": 0.616,
+          "D_route": 0.804,
+          "frac_gt8": 0.552,
+          "frac_gt20": 0.091,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_-325_-661",
+          "country": "Chile",
+          "lat": -26.1511,
+          "lon": -68.587,
+          "D_slope": 0.375,
+          "D_route": 0.827,
+          "frac_gt8": 0.644,
+          "frac_gt20": 0.07,
+          "low_sun_window_days": 0
+        },
+        {
+          "cell_id": "E10K_551_888",
+          "country": "Mongolia",
+          "lat": 48.5153,
+          "lon": 92.2627,
+          "D_slope": 0.169,
+          "D_route": 0.828,
+          "frac_gt8": 0.694,
+          "frac_gt20": 0.04,
+          "low_sun_window_days": 0
+        }
+      ]
+    },
+    "mons_mouton_plateau": {
+      "name": "Mons Mouton Plateau",
+      "pgda": "Site20",
+      "n_windows": 169,
+      "n_neighbours": 129,
+      "reference": {
+        "lat": -85.4383,
+        "lon": 33.8049,
+        "slope_p50": 11.0976,
+        "slope_p90": 16.3277,
+        "frac_gt8": 0.715,
+        "frac_gt15": 0.1717,
+        "frac_gt20": 0.0079,
+        "nan_frac": 0.0,
+        "reach_6": 0.8405,
+        "reach_8": 0.9738,
+        "detour_8": 1.2583,
+        "detour_10": 1.1104,
+        "climb_10": 25.8307
+      },
+      "tau": {
+        "slope": 0.8931,
+        "route": 2.1154
+      },
+      "nasa_check": {
+        "slope_p50_ours_5m": 9.1838,
+        "slope_p50_nasa": 9.1842,
+        "abs_diff_p50": 0.0004
+      },
+      "null": [
+        2,
+        994
+      ],
+      "null_share": 0.002,
+      "null_ci": [
+        0.0002,
+        0.0072
+      ],
+      "classic": [
+        0,
+        54
+      ],
+      "classic_p": 1.0,
+      "classic_p_bonferroni": 1.0,
+      "classic_per_site": {
+        "Barringer (Meteor) Crater, Arizona": [
+          0,
+          9
+        ],
+        "Haughton impact structure, Devon Island": [
+          0,
+          9
+        ],
+        "Kilauea lava fields, Hawaii": [
+          0,
+          9
+        ],
+        "Lava Beds National Monument, California": [
+          0,
+          9
+        ],
+        "Mistastin (relocated)": [
+          0,
+          9
+        ],
+        "SP Crater / Black Point lava flow, Arizona": [
+          0,
+          9
+        ]
+      },
+      "selective": true,
+      "earth_site_available": true,
+      "n_open_matches": 1,
+      "open_matches": [
+        {
+          "cell_id": "E10K_551_888",
+          "country": "Mongolia",
+          "lat": 48.5153,
+          "lon": 92.2627,
+          "D_slope": 0.835,
+          "D_route": 1.926,
+          "frac_gt8": 0.694,
+          "frac_gt20": 0.04,
+          "low_sun_window_days": 0
+        }
+      ]
+    }
+  },
+  "not_run": {
+    "mons_mouton": "no separate PGDA 78 DEM",
+    "de_gerlache_rim_2": "two PGDA 78 DEMs named 'de Gerlache rim'; Rim 2 not identified",
+    "peak_near_cabeus_b": "no PGDA 78 DEM",
+    "slater_plain": "no PGDA 78 DEM"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "prereg": "config/prereg_mars_base.yaml (commit 30f201d)",
+  "target": {
+    "name": "Candidate landing site for SpaceX Starship near Arcadia Planitia",
+    "dtm": "DTEEC_060706_2195_060416_2195_A01.IMG",
+    "centre_lat": 39.086,
+    "standard_parallel": 35.0,
+    "x_factor": 0.9476,
+    "pixel_m": 1.0028,
+    "shape_5m": [
+      2017,
+      1293
+    ],
+    "slope_p50": 1.0106,
+    "slope_p90": 2.1833,
+    "frac_gt8": 0.0002,
+    "frac_gt15": 0.0,
+    "frac_gt20": 0.0,
+    "nan_frac": 0.0292,
+    "reach_6": 1.0,
+    "reach_8": 1.0,
+    "detour_8": 1.0618,
+    "detour_10": 1.0618,
+    "climb_10": 6.9475
+  },
+  "n_windows": 10,
+  "n_neighbours": 2,
+  "exploratory_thin_threshold": true,
+  "tau": {
+    "slope": 0.6706,
+    "route": 0.4183
+  },
+  "null_terrain": [
+    14,
+    994
+  ],
+  "null_terrain_share": 0.0141,
+  "null_terrain_ci": [
+    0.0077,
+    0.0235
+  ],
+  "jezero_null_share": 0.1881,
+  "selective": true,
+  "classic_terrain": [
+    0,
+    45
+  ],
+  "HB1_p": 1.0,
+  "HB1_pass": false,
+  "classic_per_site": {
+    "Atacama, Yungay": [
+      0,
+      9
+    ],
+    "HI-SEAS, Mauna Loa": [
+      0,
+      9
+    ],
+    "Haughton impact structure, Devon Island": [
+      0,
+      9
+    ],
+    "MDRS Hanksville, Utah": [
+      0,
+      9
+    ],
+    "McMurdo Wright Valley": [
+      0,
+      9
+    ]
+  },
+  "null_terrain_and_x1": 0,
+  "classic_terrain_and_x1": 0,
+  "base_site_available": false,
+  "x1_failed_conditions_among_null_terrain_matches": {
+    "permafrost": 11,
+    "permafrost, no_thaw_to_ice": 3
+  },
+  "terrain_countries": {
+    "Saudi Arabia": 3,
+    "China": 2,
+    "Algeria": 2,
+    "Chad": 1,
+    "Sudan": 1,
+    "Niger": 1,
+    "Turkmenistan": 1,
+    "Mauritania": 1,
+    "Egypt": 1,
+    "Mongolia": 1
+  },
+  "base_open": []
+}

@@ -907,6 +907,63 @@ footprints 19/45, random land 187/994,
 HM1 p = 0.00037 (**pass**, as in the first run). Per site:
 Atacama, Yungay 5/9, HI-SEAS, Mauna Loa 9/9, Haughton impact structure, Devon Island 3/9, MDRS Hanksville, Utah 2/9, McMurdo Wright Valley 0/9. Output `data/derived/mars_m1_square.json`.
 
+## 7g. The Artemis III candidate regions (after the submission, `config/prereg_artemis3.yaml`, commit `1e18662`)
+
+NASA's nine Artemis III candidate regions (news release 28 Oct 2024; NTRS 20250011660) come with a
+map but no numeric centres, so no coordinate was guessed: the five regions that NASA's PGDA
+Product 78 maps at 5 m under the same name were run (Mons Mouton is the IAU name of Leibnitz Beta).
+Not run: Mons Mouton (no separate DEM), de Gerlache Rim 2 (two PGDA DEMs carry that name), Peak
+near Cabeus B and Slater Plain (no PGDA DEM). Per region the reference is the medoid 4 km window;
+thresholds follow V2. Sanity check before any region was read: the same code on Site01 gives the
+V2 route τ (1.1608 vs 1.1608). Match = slope AND simulated routes
+within τ, GLO-30 only (a second DEM is not checked here). Script `scripts/artemis3_lens.py`,
+campaign cover `scripts/campaign_cover.py` (exploratory composition).
+
+| Region | PGDA DEM | Lunar neighbours | Our slope vs NASA (median, 5 m) | Random land matching | Classic-site footprints matching | Matches in open countries | Field rows a campaign covers (terrain, low Sun) |
+|---|---|---|---|---|---|---|---|
+| Haworth | Haworth | 643 | 0.0192° | 4/994 (0.4 %) | 0/54 | 2 (Canada, Saudi Arabia) | 2/2: Canada (71.82, -79.07; low Sun 46 d) |
+| Malapert Massif | Site23 | 279 | 0.0001° | 10/994 (1.0 %) | 0/54 | 9 (Argentina, Chile, Iran, Yemen) | 1/2: Iran (28.35, 53.84; low Sun 0 d) |
+| Nobile Rim 1 | Site06 | 263 | 0.0002° | 30/994 (3.0 %) | 0/54 | 23 (Argentina, Canada, Chile, Eritrea, India, Iran, Pakistan, Somalia, Sudan, Tajikistan, Yemen) | 2/2: Canada (80.06, -81.26; low Sun 36 d) |
+| Nobile Rim 2 | DM2 | 244 | 0.0000° | 8/994 (0.8 %) | 0/54 | 6 (Algeria, Argentina, Chile, Iran, Mongolia) | 1/2: Algeria (30.50, 8.88; low Sun 0 d) |
+| Mons Mouton Plateau | Site20 | 129 | 0.0004° | 2/994 (0.2 %) | 0/54 | 1 (Mongolia) | 1/2: Mongolia (48.52, 92.26; low Sun 0 d) |
+
+Every region has Earth test terrain outside China and Russia, and the test stays selective (0.2–3 %
+of random land). The footprints around six classic analog sites match **none** of the five
+regions (0 of 54 each), so the registered classic-versus-random comparison fails for every region
+(p = 1.0): classic sites are not where Artemis III terrain is found. The steep regions (Malapert
+Massif, Nobile Rim 1; 25–32 % of the reference above 20°) match terrain in the Andes (Argentina,
+Chile), Iran and Yemen among others; the gentler ones (Haworth, Nobile Rim 2, Mons Mouton Plateau;
+≤ 1.3 % above 20°) match terrain in Arctic Canada, Mongolia, Algeria and Saudi Arabia among others. Only
+Haworth and Nobile Rim 1 get a terrain match with a low-Sun window (Arctic Canada, 46 and 36 days);
+for the others the low-Sun row needs a second site or a facility.
+
+## 7h. A crewed-landing candidate on Mars: Arcadia Planitia (after the submission, `config/prereg_mars_base.yaml`, commit `30f201d`)
+
+Target: the HiRISE DTM the HiRISE team lists as a "candidate landing site for SpaceX Starship near
+Arcadia Planitia" (DTEEC_060706_2195_060416_2195_A01, 1 m, centre 39.09° N 189.8° E), in the
+mid-latitude plains where water ice lies centimetres to tens of centimetres down (Piqueux et al.
+2019; SWIM, Morgan et al. 2021). Registered and pushed before the DTM was opened. The DTM's
+standard parallel is 35°, so x was resampled by cos(39.09°)/cos(35°) = 0.948 to square ground
+cells. Script `scripts/mars_base_lens.py`; output `data/derived/mars_base_lens.json`.
+
+| | Result |
+|---|---|
+| Target terrain (30 m) | slope median 1.0°, 90th percentile 2.2°, share > 8° 0.0002: flatter than any Moon or Mars target so far |
+| 4 km windows / neighbours | 10 / 2: **exploratory** (registered rule: fewer than 30 neighbours) |
+| Random land matching the terrain | 14 of 994 (1.4 %, 95 % CI 0.8–2.4 %): selective (Jezero lens 19 %) |
+| Classic Mars analog footprints matching (HB1) | 0 of 45 (Haughton, MDRS, Atacama, Wright Valley, HI-SEAS 0/9 each): **fail** (p = 1.0) |
+| Terrain match AND X1 ice | 0: no random-land cell has both; **no base site** under the registered rule |
+
+The 14 terrain matches are hyper-arid plains (Saudi Arabia 3, Algeria 2, China 2, Chad, Sudan,
+Niger, Turkmenistan, Mauritania, Egypt, Mongolia); every one fails X1 on permafrost (mean annual
+ground temperature 8–30 °C), three also on freeze–thaw. The cells that pass X1 include the polar
+deserts of §6 (Axel Heiberg, Devon Island, Peary Land, Beacon Valley); none of them is among the 14
+terrain matches, and the polar classic footprints (Haughton on Devon Island, Wright Valley next to
+Beacon Valley) do not match the terrain. Reading (exploratory): in our sample the flat landing
+plain and the ground ice of an Arcadia-type base do not occur at the same Earth site, so rehearsing
+such a base takes two sites, a flat hyper-arid plain for landing and traverse tests and a polar
+desert for ice work; none of the 45 classic Mars analog footprints matches the plain.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -955,6 +1012,9 @@ evidence of order; where git cannot prove the order, the row says so.
 | 39 | R1/R2: planner detour and terrain roughness vs Perseverance's actual detour and drive rate (registered `62ce675`) | 15/11 night | Ground truth for the route outcomes | Both fail; route outcomes stay "planner simulation", no rover claim |
 | 40 | Mars lens rerun with square ground cells (the equirectangular CTX grid is ~5 % wide in x at 18.4° N) | 15/11 night | Geometry error found while building R1 | HM1 still passes (p = 0.0004); slides, kit and web now quote the square-cell numbers, the first run is kept in §7e |
 | 41 | R1b addendum: 30 m orbital slope vs the rover's measured tilt at 708 waypoints (registered `59ff157` after R1/R2 failed) | 15/11 night | Check the measurement behind L1 on the ground | Passes, ρ = 0.80 (0.91 per site) |
+| 42 | Artemis III lens (A3): only the five of nine NASA regions with a PGDA 78 DEM under the same name are run; reference = medoid window (registered `1e18662` before the run) | 15/11 night, after submission | NASA publishes no numeric region centres; no coordinate guessed | Exploratory coverage of Artemis III, see §7g |
+| 43 | Mars base lens (B) on a HiRISE strip: 2 neighbours instead of the usual ≥ 30, labelled exploratory as registered (`30f201d`) | 15/11 night, after submission | No CTX DTM is published for the Arcadia candidate | B results are exploratory |
+| 44 | Shortfall mapping moved from ESDMD numbers to NASA's 2026 Civil Space Shortfalls list (need IDs 1.05, 1.06, 3.02, 3.03, 16.01, 8.06, 8.07; `docs/shortfalls_map.md`) | 15/11 night | The 2026 list is NASA's current public list and cites the ESDMD numbers itself | Wording only |
 
 ## 9. Limitations and not done
 

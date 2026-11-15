@@ -1,0 +1,145 @@
+{
+  "haworth": {
+    "name": "Haworth",
+    "n_candidate_sites": 2,
+    "sites": [
+      {
+        "id": "E10K_698_-762",
+        "country": "Canada",
+        "lat": 71.8198,
+        "lon": -79.0749,
+        "window": 46,
+        "d": 0.107,
+        "frac_gt20": 0.004,
+        "rows": [
+          "low_sun",
+          "terrain"
+        ]
+      }
+    ],
+    "field_rows_covered": 2,
+    "field_rows_total": 2,
+    "uncovered": [],
+    "facilities": {
+      "partial gravity": "offload rig (1/6 g)",
+      "vacuum and thermal": "thermal-vacuum chamber",
+      "lunar dust": "regolith-simulant facility",
+      "rocks and craters < 60 m": "field survey at the chosen site"
+    }
+  },
+  "malapert_massif": {
+    "name": "Malapert Massif",
+    "n_candidate_sites": 9,
+    "sites": [
+      {
+        "id": "E10K_349_518",
+        "country": "Iran",
+        "lat": 28.3468,
+        "lon": 53.8416,
+        "window": 0,
+        "d": 0.368,
+        "frac_gt20": 0.219,
+        "rows": [
+          "terrain"
+        ]
+      }
+    ],
+    "field_rows_covered": 1,
+    "field_rows_total": 2,
+    "uncovered": [
+      "low_sun"
+    ],
+    "facilities": {
+      "partial gravity": "offload rig (1/6 g)",
+      "vacuum and thermal": "thermal-vacuum chamber",
+      "lunar dust": "regolith-simulant facility",
+      "rocks and craters < 60 m": "field survey at the chosen site"
+    }
+  },
+  "nobile_rim_1": {
+    "name": "Nobile Rim 1",
+    "n_candidate_sites": 23,
+    "sites": [
+      {
+        "id": "E10K_724_-783",
+        "country": "Canada",
+        "lat": 80.0624,
+        "lon": -81.2556,
+        "window": 36,
+        "d": 0.694,
+        "frac_gt20": 0.482,
+        "rows": [
+          "low_sun",
+          "terrain"
+        ]
+      }
+    ],
+    "field_rows_covered": 2,
+    "field_rows_total": 2,
+    "uncovered": [],
+    "facilities": {
+      "partial gravity": "offload rig (1/6 g)",
+      "vacuum and thermal": "thermal-vacuum chamber",
+      "lunar dust": "regolith-simulant facility",
+      "rocks and craters < 60 m": "field survey at the chosen site"
+    }
+  },
+  "nobile_rim_2": {
+    "name": "Nobile Rim 2",
+    "n_candidate_sites": 6,
+    "sites": [
+      {
+        "id": "E10K_373_85",
+        "country": "Algeria",
+        "lat": 30.4969,
+        "lon": 8.8784,
+        "window": 0,
+        "d": 0.535,
+        "frac_gt20": 0.079,
+        "rows": [
+          "terrain"
+        ]
+      }
+    ],
+    "field_rows_covered": 1,
+    "field_rows_total": 2,
+    "uncovered": [
+      "low_sun"
+    ],
+    "facilities": {
+      "partial gravity": "offload rig (1/6 g)",
+      "vacuum and thermal": "thermal-vacuum chamber",
+      "lunar dust": "regolith-simulant facility",
+      "rocks and craters < 60 m": "field survey at the chosen site"
+    }
+  },
+  "mons_mouton_plateau": {
+    "name": "Mons Mouton Plateau",
+    "n_candidate_sites": 1,
+    "sites": [
+      {
+        "id": "E10K_551_888",
+        "country": "Mongolia",
+        "lat": 48.5153,
+        "lon": 92.2627,
+        "window": 0,
+        "d": 1.926,
+        "frac_gt20": 0.04,
+        "rows": [
+          "terrain"
+        ]
+      }
+    ],
+    "field_rows_covered": 1,
+    "field_rows_total": 2,
+    "uncovered": [
+      "low_sun"
+    ],
+    "facilities": {
+      "partial gravity": "offload rig (1/6 g)",
+      "vacuum and thermal": "thermal-vacuum chamber",
+      "lunar dust": "regolith-simulant facility",
+      "rocks and craters < 60 m": "field survey at the chosen site"
+    }
+  }
+}
