@@ -433,7 +433,7 @@
     // and the test-transfer matrix figure; GitHub renders the Markdown, Pages serves the figure
     h += '<p class="proto-links"><a href="' + PROTOCOLS_URL + '#' + ghSlug(p.name) + '" target="_blank" rel="noopener">Test protocol for this site</a>' +
       ' · <a href="figures/fig_transfer_matrix.png" target="_blank" rel="noopener">Test-transfer matrix (figure)</a></p>';
-    h += '<h4>Comes home valid (Field)</h4>' + rowsHtml(p.field, 'r-field');
+    h += '<h4>Field test can reproduce</h4>' + rowsHtml(p.field, 'r-field');
     h += '<h4>Needs a facility</h4>' + rowsHtml(p.facility, 'r-fac');
     h += '<h4>Not observable from orbit (unobserved)</h4>' + rowsHtml(p.unobserved, 'r-unobs');
     var snow = p.l2_snow_free_frac || {};

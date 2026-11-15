@@ -94,7 +94,7 @@ the field), NO-ANALOG (no Earth site reproduces it; the card names the facility)
   [`v2_n_moon_native` = 124]. Slope matches **3 of 9**, random land **95 of 994**, classic
   footprints **17 of 54** [`v2_passer_reproduce` = 3, `v2_null_reproduce` = 95,
   `v2_classic_reproduce` = 17]; H1 passes at nominal α (p = 0.049 [`v2_h1_p` = 0.0492]; counting
-  both registered looks, Bonferroni p = 0.098 [`v2_h1_p_bonferroni` = 0.0984], so not confirmed),
+  both registered looks, Bonferroni p = 0.098 [`v2_h1_p_bonferroni` = 0.0983], so not confirmed),
   H1b fails (p = 0.59 [`v2_h1b_p` = 0.5949]).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from **185** Mars windows [`mars_n_neighbours` = 185]. Classic Mars
@@ -153,6 +153,9 @@ environment"; it assigns no TRL.
   soil strength are not in it.
 - The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
   the Mars delta-front match is common (19 % of random land), so Mars matches are terrain leads.
+- Every Connecting Ridge lead has more terrain above the 20° EVA slope limit than the ridge itself
+  (0.08–0.26 of the footprint vs **0.058** [`cr_frac_gt20` = 0.0578], 30 m), so EVA routes there
+  are harder than on the target.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for **28 %**
   of daylight, the lunar target for **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,
   `l2_moon_lowsun_frac_daylight` = 1.0]. The Baffin window is seasonal, from a geometric sun

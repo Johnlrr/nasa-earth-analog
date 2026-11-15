@@ -28,8 +28,8 @@
     const p = feature?.properties;
     if (!p) return 'No selection';
     if (p.feature_type === 'site') return 'Showcase site / regional group';
-    if (p.role === 'control') return 'Validation control / not a qualified discovery';
-    if (p.role === 'decoy') return 'Validation decoy / not a qualified discovery';
+    if (p.role === 'control') return 'Validation control / not a discovery';
+    if (p.role === 'decoy') return 'Validation decoy / not a discovery';
     return 'Engine match (4 km cell) / ' + (p.evidence_status || 'evidence status not published');
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {comparisonRows,descriptorUnit,classification,number};

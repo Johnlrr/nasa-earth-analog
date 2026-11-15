@@ -91,7 +91,7 @@ def main() -> None:
             lead["route_reproduces"] = bool(r.route_reproduces)
             lead["route_reproduces_second_dem"] = (None if pd.isna(r.route_reproduces_second_dem)
                                                    else bool(r.route_reproduces_second_dem))
-            lead["route_D"] = round(float(r.route_D), 3)
+            # route_D on the web is V2 from scripts/web_route_notes.py (run it after this)
             lead["window_days"] = int(r.window_days)
             lead["window_from"] = r.window_from if isinstance(r.window_from, str) else None
             lead["window_to"] = r.window_to if isinstance(r.window_to, str) else None

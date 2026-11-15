@@ -125,6 +125,9 @@ Limits we state ourselves.
   soil strength are not in it.
 - The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
   the Mars delta-front match is common (19 % of random land), so Mars matches are terrain leads.
+- Every Connecting Ridge lead has more terrain above the 20° EVA slope limit than the ridge itself
+  (0.08–0.26 of the footprint vs 0.058, 30 m), so EVA routes there
+  are harder than on the target.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 %
   of daylight, the lunar target for 100 %. The Baffin window is seasonal, from a geometric sun
   model (no refraction, no horizon), and exploratory.

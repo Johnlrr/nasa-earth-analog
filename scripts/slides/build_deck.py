@@ -270,7 +270,7 @@ SLIDES = r"""
         <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved. The traverse test is a planner simulation, not a rover.</li>
         <li><b>Gravity, vacuum, radiation, dust:</b> no Earth site reproduces them; each card names the facility instead.</li>
         <li><b>Ice lens is semi-quantitative</b> (reanalysis soil temperature, thresholds set after seeing data). <b>Mineral lens publishes nothing.</b></li>
-        <li><b>Slope match ≠ route match:</b> only {{v2_passer_reproduce}} of {{v2_passer_n}} slope matches also reproduce routes, so each card reports both. The route test passes against random land only narrowly (p = {{v2_h1_p}}) and does not beat classic sites ({{v2_classic_share:pct0}} of their footprints reproduce routes).</li>
+        <li><b>Slope match ≠ route match:</b> only {{v2_passer_reproduce}} of {{v2_passer_n}} slope matches also reproduce routes, so each card reports both. The route test passes against random land only narrowly (p = {{v2_h1_p}}; {{v2_h1_p_bonferroni}} over two looks) and does not beat classic sites ({{v2_classic_share:pct0}} of their footprints reproduce routes).</li>
         <li>Every rule changed after seeing data is listed in the validation report.</li>
       </ul>
     </div>
