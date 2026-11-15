@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-15 01:25 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 08:58 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 
@@ -15,7 +15,7 @@ Both columns of a comparison must use the same filter (e.g. *usable* vs *usable*
 
 ## Da Qaidam, northern Qaidam Basin margin (Qinghai)
 
-`site:E10K_453_921` · 38.64, 96.00 · 2 member cell(s) · span 143 km · ice ok/flag 2/0 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule a
+`site:E10K_453_921` · 38.64, 96.00 · 2 member cell(s) · span 143 km · ice ok/flag 2/0 · in known-analog buffer 0 · Attention 73 · hidden: no: attention above threshold · showcase rule a
 
 Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_465_927
 
@@ -40,7 +40,7 @@ Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_465_927
 
 ## Mauna Loa – Mauna Kea, Hawaiʻi
 
-`site:E10K_244_-1498` · 19.45, -155.50 · 1 member cell(s) · span 0 km · ice ok/flag 1/0 · in known-analog buffer 1 · Attention unknown · hidden: no: inside known-analog buffer · showcase rule a
+`site:E10K_244_-1498` · 19.45, -155.50 · 1 member cell(s) · span 0 km · ice ok/flag 1/0 · in known-analog buffer 1 · Attention 252 · hidden: no: inside known-analog buffer · showcase rule a
 
 Engine-confirmed: **L2**
 
@@ -68,7 +68,7 @@ L2 cells, snow-free fraction of the year (MODIS; seasonal snow is the risk that 
 
 ## Peary Land, North Greenland
 
-`site:E10K_729_-319` · 82.62, -33.07 · 1 member cell(s) · span 0 km · ice ok/flag 0/1 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule a,b
+`site:E10K_729_-319` · 82.62, -33.07 · 1 member cell(s) · span 0 km · ice ok/flag 0/1 · in known-analog buffer 0 · Attention 52 · hidden: no: attention above threshold · showcase rule a,b
 
 Engine-confirmed: **L1** · engine-semiquant: **X1**
 
@@ -101,7 +101,7 @@ Engine-confirmed: **L1** · engine-semiquant: **X1**
 
 ## Atacama – Puna altiplano (Chile, Argentina, Bolivia)
 
-`site:E10K_-228_-669` · -24.67, -67.94 · 54 member cell(s) · **spans 1108 km: a region, not one camp** · ice ok/flag 53/1 · in known-analog buffer 40 · Attention unknown · hidden: no: inside known-analog buffer · showcase rule b
+`site:E10K_-228_-669` · -24.67, -67.94 · 54 member cell(s) · **spans 1108 km: a region, not one camp** · ice ok/flag 53/1 · in known-analog buffer 40 · Attention 239 · hidden: no: inside known-analog buffer · showcase rule b
 
 Engine-confirmed: **L1,L2** · not yet visually reviewed (B10): E10K_-228_-669,E10K_-237_-663,E10K_-254_-662,E10K_-265_-663,E10K_-271_-653,E10K_-275_-644,E10K_-275_-651,E10K_-276_-648,E10K_-278_-653,E10K_-280_-643,E10K_-281_-655,E10K_-284_-646,E10K_-287_-645,E10K_-293_-644,E10K_-300_-679,E10K_-301_-664,E10K_-302_-653,E10K_-305_-634,E10K_-305_-641,E10K_-305_-645,E10K_-305_-656,E10K_-306_-675,E10K_-309_-641,E10K_-314_-649,E10K_-314_-654,E10K_-316_-661,E10K_-317_-650,E10K_-318_-653,E10K_-319_-643,E10K_-319_-663,E10K_-321_-646,E10K_-321_-652,E10K_-324_-648,E10K_-324_-666,E10K_-325_-642,E10K_-325_-654,E10K_-325_-663,E10K_-326_-657,E10K_-327_-645,E10K_-329_-641,E10K_-329_-660,E10K_-331_-646,E10K_-331_-664,E10K_-331_-676,E10K_-333_-657,E10K_-334_-650,E10K_-336_-664,E10K_-338_-656,E10K_-339_-667,E10K_-340_-660,E10K_-341_-657,E10K_-345_-657,E10K_-346_-664 · literature-only: M1
 
@@ -140,7 +140,7 @@ L2 cells, snow-free fraction of the year (MODIS; seasonal snow is the risk that 
 
 ## Jebel Akhdar, Hajar Mountains (Oman)
 
-`site:E10K_289_551` · 23.14, 57.27 · 1 member cell(s) · span 0 km · ice ok/flag 1/0 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule b
+`site:E10K_289_551` · 23.14, 57.27 · 1 member cell(s) · span 0 km · ice ok/flag 1/0 · in known-analog buffer 0 · Attention 26 · hidden: no: attention above threshold · showcase rule b
 
 Engine-confirmed: **L2** · literature-only: M1
 
@@ -174,7 +174,7 @@ L2 cells, snow-free fraction of the year (MODIS; seasonal snow is the risk that 
 
 ## Zanda (Tsamda) and Gar, Ngari, western Tibet
 
-`site:E10K_379_778` · 31.77, 80.28 · 5 member cell(s) · span 206 km · ice ok/flag 5/0 · in known-analog buffer 0 · Attention unknown · hidden: unknown: attention not known · showcase rule c
+`site:E10K_379_778` · 31.77, 80.28 · 5 member cell(s) · span 206 km · ice ok/flag 5/0 · in known-analog buffer 0 · Attention 1 · hidden: yes · showcase rule c
 
 Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_379_778,E10K_383_771,E10K_385_776,E10K_394_764,E10K_394_774
 

@@ -246,4 +246,6 @@ def test_site_features_copy_contract_columns_and_validate():
         assert p["feature_type"] == "site" and p["n_cells"] == len(p["member_cells"])
         assert "X1" not in p["lenses_engine_confirmed"]
         assert all(r.get("source") for r in p["facility"])
-        assert not p["hidden_status"].lower().startswith("yes")  # no site attention yet
+        if p["hidden_status"].lower().startswith("yes"):  # A17 site attention now known
+            assert p["attention_n"] is not None and p["attention_n"] <= disc.ATTENTION_MAX
+            assert p["n_in_exclusion"] == 0

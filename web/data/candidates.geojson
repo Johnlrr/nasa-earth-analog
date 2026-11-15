@@ -1,7 +1,7 @@
 {
  "type": "FeatureCollection",
  "metadata": {
-  "generated": "2026-11-15T01:29",
+  "generated": "2026-11-15T08:59",
   "provisional": false,
   "mock": false,
   "lenses": {
@@ -18,11 +18,11 @@
    "X1": {
     "n_scored": 125,
     "n_null": 54,
-    "n_hidden": 2,
+    "n_hidden": 5,
     "ranking": "d",
     "best_sigma": 2.071,
     "best_sigma_ranked": 2.071,
-    "n_attention_unknown": 3,
+    "n_attention_unknown": 0,
     "no_hidden_found": false
    },
    "L1": {
@@ -32,7 +32,7 @@
     "ranking": "d",
     "best_sigma": 0.0,
     "best_sigma_ranked": 0.0,
-    "n_attention_unknown": 2,
+    "n_attention_unknown": 0,
     "no_hidden_found": false
    },
    "L2": {
@@ -998,6 +998,384 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
+     -118.9232,
+     76.8248
+    ]
+   },
+   "properties": {
+    "id": "X1-rank_0040",
+    "name": "Inuvik Region, Northwest Territories (Canada)",
+    "country": "",
+    "lat": 76.8248,
+    "lon": -118.9232,
+    "footprint_km": 10.0,
+    "role": "hidden",
+    "process_title": "Where ground ice survives under a dry, cold overburden",
+    "lens_scores": {
+     "X1": {
+      "target": "arcadia_planitia",
+      "d": 4.772,
+      "sigma": 3.807,
+      "sigma_capped": false,
+      "percentile": 59.3,
+      "limiting_factor": "aridity_p_pet",
+      "no_analog": true,
+      "metric_mode": "diag",
+      "native_rank_basis": "not defined: only 5 target sites",
+      "descriptors": {
+       "permafrost_flag": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "ice_depth_ratio": {
+        "earth": 0.5296,
+        "target": 0.5,
+        "z": 0.02
+       },
+       "aridity_p_pet": {
+        "earth": 0.225,
+        "target": 0.0,
+        "z": 4.5
+       },
+       "ft_cycles_yr": {
+        "earth": 15.8696,
+        "target": 0.0,
+        "z": 1.59
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": 15.9,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "1 m ice drill, ground-penetrating radar and neutron spectrometer tests on shallow ground ice under dry overburden",
+      "nasa_gap": "ESDMD #0603 Water Recovery from Lunar Regolith/Ice",
+      "lens": "X1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 1,
+     "query": "(\"Mackenzie King Island\" OR \"Queen Elizabeth Islands\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-15"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-semiquant",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "ERA5-Land monthly (Copernicus C3S)",
+     "MODIS MOD11A1 / MOD13A2 (NASA LP DAAC)",
+     "TerraClimate",
+     "SWIM subsurface water-ice maps (Mars)",
+     "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
+    ],
+    "analog_role": "ice-configuration",
+    "verdicts": [
+     {
+      "lens": "X1",
+      "scope": "cell",
+      "test": "Ice under Dry Overburden",
+      "variable": "ice_configuration",
+      "state": "TRANSFERS",
+      "value": 3.0,
+      "reason": "all 3 conditions met (permafrost, no thaw to ice, dry overburden) (thresholds set after seeing data)",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "day_night_cycle",
+      "state": "TRANSFERS",
+      "value": 1.027,
+      "reason": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.38,
+      "reason": "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Slope-failure and avalanche behavior do not transfer 1:1 from Earth.",
+      "facility": "Parabolic-flight drum tests with the actual simulant"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0063,
+      "reason": "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them.",
+      "facility": "Mars-pressure CO2 chamber"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 102.0,
+      "reason": "Cumulative dose to crew and electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": 0.743,
+      "reason": "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites.",
+      "facility": "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "perchlorate",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils.",
+      "facility": "Dope simulant with perchlorate salts"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "Overburden dielectric properties (radar / GPR response)",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "no global Earth dataset matched to SWIM radar observables",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -91.8615,
+     80.6678
+    ]
+   },
+   "properties": {
+    "id": "X1-rank_0087",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "country": "",
+    "lat": 80.6678,
+    "lon": -91.8615,
+    "footprint_km": 10.0,
+    "role": "hidden",
+    "process_title": "Where ground ice survives under a dry, cold overburden",
+    "lens_scores": {
+     "X1": {
+      "target": "arcadia_planitia",
+      "d": 4.974,
+      "sigma": 4.026,
+      "sigma_capped": false,
+      "percentile": 55.6,
+      "limiting_factor": "aridity_p_pet",
+      "no_analog": true,
+      "metric_mode": "diag",
+      "native_rank_basis": "not defined: only 5 target sites",
+      "descriptors": {
+       "permafrost_flag": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "ice_depth_ratio": {
+        "earth": 0.6026,
+        "target": 0.5,
+        "z": 0.07
+       },
+       "aridity_p_pet": {
+        "earth": 0.247,
+        "target": 0.0,
+        "z": 4.94
+       },
+       "ft_cycles_yr": {
+        "earth": 5.7937,
+        "target": 0.0,
+        "z": 0.58
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": 5.8,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "1 m ice drill, ground-penetrating radar and neutron spectrometer tests on shallow ground ice under dry overburden",
+      "nasa_gap": "ESDMD #0603 Water Recovery from Lunar Regolith/Ice",
+      "lens": "X1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Qikiqtaaluk Region\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-15"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-semiquant",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "ERA5-Land monthly (Copernicus C3S)",
+     "MODIS MOD11A1 / MOD13A2 (NASA LP DAAC)",
+     "TerraClimate",
+     "SWIM subsurface water-ice maps (Mars)",
+     "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
+    ],
+    "analog_role": "ice-configuration",
+    "verdicts": [
+     {
+      "lens": "X1",
+      "scope": "cell",
+      "test": "Ice under Dry Overburden",
+      "variable": "ice_configuration",
+      "state": "TRANSFERS",
+      "value": 3.0,
+      "reason": "all 3 conditions met (permafrost, no thaw to ice, dry overburden) (thresholds set after seeing data)",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "day_night_cycle",
+      "state": "TRANSFERS",
+      "value": 1.027,
+      "reason": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.38,
+      "reason": "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Slope-failure and avalanche behavior do not transfer 1:1 from Earth.",
+      "facility": "Parabolic-flight drum tests with the actual simulant"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0063,
+      "reason": "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them.",
+      "facility": "Mars-pressure CO2 chamber"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 102.0,
+      "reason": "Cumulative dose to crew and electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": 0.743,
+      "reason": "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites.",
+      "facility": "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "perchlorate",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils.",
+      "facility": "Dope simulant with perchlorate salts"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "Overburden dielectric properties (radar / GPR response)",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "no global Earth dataset matched to SWIM radar observables",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
      -32.0,
      82.5
     ]
@@ -1071,6 +1449,195 @@
      "query": "(\"Peary Land\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
      "source": "OpenAlex",
      "date": "2026-11-14"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-semiquant",
+    "evidence_note": "Best Earth cell for this target is still > 2 sigma: reported as 'no natural analog' for the target, with this cell as Earth's best.",
+    "data_sources": [
+     "ERA5-Land monthly (Copernicus C3S)",
+     "MODIS MOD11A1 / MOD13A2 (NASA LP DAAC)",
+     "TerraClimate",
+     "SWIM subsurface water-ice maps (Mars)",
+     "Phoenix / MRO literature (DOIs in targets_X1.parquet)"
+    ],
+    "analog_role": "ice-configuration",
+    "verdicts": [
+     {
+      "lens": "X1",
+      "scope": "cell",
+      "test": "Ice under Dry Overburden",
+      "variable": "ice_configuration",
+      "state": "TRANSFERS",
+      "value": 3.0,
+      "reason": "all 3 conditions met (permafrost, no thaw to ice, dry overburden) (thresholds set after seeing data)",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "day_night_cycle",
+      "state": "TRANSFERS",
+      "value": 1.027,
+      "reason": "Day length is nearly Earth-like and transfers well; the colder, thin-air thermal cycling does not.",
+      "facility": null
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.38,
+      "reason": "Terrain geometry and mineral spectra transfer; wheel sinkage, traction and dust settling do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Slope-failure and avalanche behavior do not transfer 1:1 from Earth.",
+      "facility": "Parabolic-flight drum tests with the actual simulant"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0063,
+      "reason": "Convective heat transfer, dust lifting and ice stability differ strongly, so tests in Earth air misrepresent them.",
+      "facility": "Mars-pressure CO2 chamber"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 102.0,
+      "reason": "Cumulative dose to crew and electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "temperature",
+      "state": "NO-ANALOG",
+      "value": 0.743,
+      "reason": "Sub-freezing mean temperature means permafrost and perchlorate-brine behavior are not reproduced at typical Earth sites.",
+      "facility": "Cold-chamber tests; polar or high-altitude desert sites only as partial proxies"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "perchlorate",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Perchlorate chemistry (brine formation, oxidation of organics, toxicity) is not represented in typical Earth analog soils.",
+      "facility": "Dope simulant with perchlorate salts"
+     },
+     {
+      "lens": "X1",
+      "scope": "lens",
+      "test": "Ice under Dry Overburden",
+      "variable": "Overburden dielectric properties (radar / GPR response)",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "no global Earth dataset matched to SWIM radar observables",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -85.7301,
+     68.5929
+    ]
+   },
+   "properties": {
+    "id": "X1-rank_0058",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "country": "",
+    "lat": 68.5929,
+    "lon": -85.7301,
+    "footprint_km": 10.0,
+    "role": "hidden",
+    "process_title": "Where ground ice survives under a dry, cold overburden",
+    "lens_scores": {
+     "X1": {
+      "target": "arcadia_planitia",
+      "d": 8.693,
+      "sigma": 7.976,
+      "sigma_capped": false,
+      "percentile": 33.3,
+      "limiting_factor": "aridity_p_pet",
+      "no_analog": true,
+      "metric_mode": "diag",
+      "native_rank_basis": "not defined: only 5 target sites",
+      "descriptors": {
+       "permafrost_flag": {
+        "earth": 1.0,
+        "target": 1.0,
+        "z": 0.0
+       },
+       "ice_depth_ratio": {
+        "earth": 0.74,
+        "target": 0.5,
+        "z": 0.16
+       },
+       "aridity_p_pet": {
+        "earth": 0.4256,
+        "target": 0.0,
+        "z": 8.51
+       },
+       "ft_cycles_yr": {
+        "earth": 17.5904,
+        "target": 0.0,
+        "z": 1.76
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": 17.6,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "1 m ice drill, ground-penetrating radar and neutron spectrometer tests on shallow ground ice under dry overburden",
+      "nasa_gap": "ESDMD #0603 Water Recovery from Lunar Regolith/Ice",
+      "lens": "X1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 3.73 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 636 Pa vs Earth 101400 Pa",
+     "Length of day: 24.6597 h vs Earth 24.0 h",
+     "Surface radiation dose equivalent rate (GCR): 0.67 mSv/day vs Earth 0.0066 mSv/day",
+     "Surface temperature: 214 K vs Earth 288 K",
+     "Perchlorate content of soil"
+    ],
+    "attention": {
+     "n_pubs": 0,
+     "query": "(\"Qikiqtaaluk Region\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-15"
     },
     "access": {
      "travel_time_h": null,
@@ -1751,6 +2318,212 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
+     95.6895,
+     38.0446
+    ]
+   },
+   "properties": {
+    "id": "L1-E10K_453_921",
+    "name": "Da Qaidam, Qinghai (China)",
+    "country": "",
+    "lat": 38.0446,
+    "lon": 95.6895,
+    "footprint_km": 4.0,
+    "role": "hidden",
+    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
+    "lens_scores": {
+     "L1": {
+      "target": "connecting_ridge",
+      "d": 1.914,
+      "sigma": 0.027,
+      "sigma_capped": false,
+      "percentile": 98.0,
+      "limiting_factor": "rms_s16",
+      "no_analog": false,
+      "metric_mode": "diag",
+      "native_rank": 43,
+      "n_native": 49,
+      "native_rank_basis": "d",
+      "descriptors": {
+       "slope_p50": {
+        "earth": 10.4554,
+        "target": 12.3842,
+        "z": -0.27
+       },
+       "slope_p90": {
+        "earth": 16.6564,
+        "target": 19.2581,
+        "z": -0.45
+       },
+       "frac_gt8": {
+        "earth": 0.789,
+        "target": 0.7584,
+        "z": 0.18
+       },
+       "frac_gt15": {
+        "earth": 0.1466,
+        "target": 0.3681,
+        "z": -0.68
+       },
+       "frac_gt20": {
+        "earth": 0.0445,
+        "target": 0.0578,
+        "z": -0.04
+       },
+       "rms_s1": {
+        "earth": 4.049,
+        "target": 4.9278,
+        "z": -0.64
+       },
+       "rms_s2": {
+        "earth": 7.983,
+        "target": 9.7531,
+        "z": -0.64
+       },
+       "rms_s4": {
+        "earth": 15.4491,
+        "target": 19.1424,
+        "z": -0.66
+       },
+       "rms_s8": {
+        "earth": 29.1515,
+        "target": 37.1394,
+        "z": -0.73
+       },
+       "rms_s16": {
+        "earth": 52.8245,
+        "target": 70.3731,
+        "z": -0.83
+       },
+       "hurst": {
+        "earth": 0.928,
+        "target": 0.9601,
+        "z": -0.64
+       }
+      }
+     }
+    },
+    "process_rates": {
+     "freeze_thaw_cycles_per_yr": null,
+     "wind_exceedance_frac": null
+    },
+    "test_here": [
+     {
+      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
+      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
+      "lens": "L1"
+     },
+     {
+      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
+      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
+      "lens": "L1"
+     }
+    ],
+    "cannot_test": [
+     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
+     "Angle of repose of loose granular material (gravity dependence)",
+     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
+     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
+     "Regolith and dust material properties"
+    ],
+    "attention": {
+     "n_pubs": 1,
+     "query": "(\"Da Qaidam\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
+     "source": "OpenAlex",
+     "date": "2026-11-15"
+    },
+    "access": {
+     "travel_time_h": null,
+     "protected_area": null,
+     "note": "Accessibility not assessed (optional item, not done)."
+    },
+    "in_exclusion_buffer": false,
+    "evidence_status": "engine-confirmed",
+    "evidence_note": "S2 check (B17): bare, deeply incised mountain rock (Da Qaidam, Qinghai); white streaks are seasonal snow in the annual median (snow_free_frac 0.67), no ice cap, no settlement or mining visible.",
+    "data_sources": [
+     "Copernicus GLO-30 DEM",
+     "NASA PGDA Product 78 (LOLA south-pole DEM)"
+    ],
+    "analog_role": "terrain",
+    "verdicts": [
+     {
+      "lens": "L1",
+      "scope": "cell",
+      "test": "Touchdown & Traverse",
+      "variable": "slope_roughness",
+      "state": "TRANSFERS",
+      "value": 41.0,
+      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 43/36/41 of 49",
+      "facility": null
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "gravity",
+      "state": "NO-ANALOG",
+      "value": 0.165,
+      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
+      "facility": "Reduced-gravity offload rig, parabolic flight"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "angle_of_repose",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
+      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "atmospheric_pressure",
+      "state": "NO-ANALOG",
+      "value": 0.0,
+      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
+      "facility": "Thermal-vacuum chamber with regolith simulant"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "radiation_dose",
+      "state": "NO-ANALOG",
+      "value": 208.0,
+      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
+      "facility": "Accelerator or isotope-source irradiation of components"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "regolith_dust",
+      "state": "NO-ANALOG",
+      "value": null,
+      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
+      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
+     },
+     {
+      "lens": "L1",
+      "scope": "lens",
+      "test": "Touchdown & Traverse",
+      "variable": "Metre-scale boulders and craters < 60 m",
+      "state": "UNOBSERVED",
+      "value": null,
+      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
+      "facility": null
+     }
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
      -66.5102,
      -26.4996
     ]
@@ -2299,212 +3072,6 @@
       "state": "TRANSFERS",
       "value": 39.0,
       "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/35/42 of 49",
-      "facility": null
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "gravity",
-      "state": "NO-ANALOG",
-      "value": 0.165,
-      "reason": "Slope geometry transfers; wheel sinkage, traction and dust ballistics do not.",
-      "facility": "Reduced-gravity offload rig, parabolic flight"
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "angle_of_repose",
-      "state": "NO-ANALOG",
-      "value": null,
-      "reason": "Terrestrial slope stability and avalanche size do not transfer 1:1; reduced gravity gives larger avalanches (static up ~5 deg, dynamic down ~10 deg).",
-      "facility": "Parabolic-flight drum tests or gravity-offload slope tests with the actual simulant"
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "atmospheric_pressure",
-      "state": "NO-ANALOG",
-      "value": 0.0,
-      "reason": "No convective cooling, no gas drag on dust and no ice sublimation damping, so any test in air misses these effects.",
-      "facility": "Thermal-vacuum chamber with regolith simulant"
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "radiation_dose",
-      "state": "NO-ANALOG",
-      "value": 208.0,
-      "reason": "Cumulative dose and single-event effects on electronics cannot be reproduced by any field site.",
-      "facility": "Accelerator or isotope-source irradiation of components"
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "regolith_dust",
-      "state": "NO-ANALOG",
-      "value": null,
-      "reason": "Abrasion, adhesion and dust levitation do not transfer; Earth soil is a poor stand-in, so simulants are required.",
-      "facility": "Use lunar simulant under vacuum; do not claim wear or adhesion results from field soil"
-     },
-     {
-      "lens": "L1",
-      "scope": "lens",
-      "test": "Touchdown & Traverse",
-      "variable": "Metre-scale boulders and craters < 60 m",
-      "state": "UNOBSERVED",
-      "value": null,
-      "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)",
-      "facility": null
-     }
-    ]
-   }
-  },
-  {
-   "type": "Feature",
-   "geometry": {
-    "type": "Point",
-    "coordinates": [
-     80.6325,
-     31.5892
-    ]
-   },
-   "properties": {
-    "id": "L1-E10K_385_776",
-    "name": "Gar County, Xizang (China)",
-    "country": "",
-    "lat": 31.5892,
-    "lon": 80.6325,
-    "footprint_km": 4.0,
-    "role": "hidden",
-    "process_title": "Where slopes and roughness match the lunar south-pole landing zones",
-    "lens_scores": {
-     "L1": {
-      "target": "shackleton_rim",
-      "d": 4.385,
-      "sigma": 1.903,
-      "sigma_capped": false,
-      "percentile": 100.0,
-      "limiting_factor": "slope_p50",
-      "no_analog": false,
-      "metric_mode": "diag",
-      "native_rank": 39,
-      "n_native": 49,
-      "native_rank_basis": "d",
-      "descriptors": {
-       "slope_p50": {
-        "earth": 12.3673,
-        "target": 31.3601,
-        "z": -2.67
-       },
-       "slope_p90": {
-        "earth": 22.1062,
-        "target": 33.8216,
-        "z": -2.01
-       },
-       "frac_gt8": {
-        "earth": 0.782,
-        "target": 0.9611,
-        "z": -1.06
-       },
-       "frac_gt15": {
-        "earth": 0.3702,
-        "target": 0.9013,
-        "z": -1.64
-       },
-       "frac_gt20": {
-        "earth": 0.1686,
-        "target": 0.8782,
-        "z": -2.05
-       },
-       "rms_s1": {
-        "earth": 4.6921,
-        "target": 4.7319,
-        "z": -0.03
-       },
-       "rms_s2": {
-        "earth": 9.2089,
-        "target": 9.1664,
-        "z": 0.02
-       },
-       "rms_s4": {
-        "earth": 17.5129,
-        "target": 17.2954,
-        "z": 0.04
-       },
-       "rms_s8": {
-        "earth": 31.347,
-        "target": 31.1926,
-        "z": 0.01
-       },
-       "rms_s16": {
-        "earth": 51.2542,
-        "target": 50.7402,
-        "z": 0.02
-       },
-       "hurst": {
-        "earth": 0.8666,
-        "target": 0.8612,
-        "z": 0.11
-       }
-      }
-     }
-    },
-    "process_rates": {
-     "freeze_thaw_cycles_per_yr": null,
-     "wind_exceedance_frac": null
-    },
-    "test_here": [
-     {
-      "tech": "Rover / LTV traverse and EVA route tests over matched slope-roughness statistics",
-      "nasa_gap": "ESDMD #0805 Autonomous Surface Mobility and Navigation",
-      "lens": "L1"
-     },
-     {
-      "tech": "Landing hazard-detection sensor (lidar, camera) trials over real slope distributions",
-      "nasa_gap": "ESDMD #1101 Lunar Precision Landing and Hazard Avoidance",
-      "lens": "L1"
-     }
-    ],
-    "cannot_test": [
-     "Surface gravity: 1.62 m/s^2 vs Earth 9.82 m/s^2",
-     "Angle of repose of loose granular material (gravity dependence)",
-     "Surface pressure: 3e-10 Pa vs Earth 101400 Pa",
-     "Surface radiation dose equivalent rate: 1.369 mSv/day vs Earth 0.0066 mSv/day",
-     "Regolith and dust material properties"
-    ],
-    "attention": {
-     "n_pubs": 0,
-     "query": "(\"Gar County\") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)",
-     "source": "OpenAlex",
-     "date": "2026-11-14"
-    },
-    "access": {
-     "travel_time_h": null,
-     "protected_area": null,
-     "note": "Accessibility not assessed (optional item, not done)."
-    },
-    "in_exclusion_buffer": false,
-    "evidence_status": "engine-confirmed",
-    "evidence_note": "",
-    "data_sources": [
-     "Copernicus GLO-30 DEM",
-     "NASA PGDA Product 78 (LOLA south-pole DEM)"
-    ],
-    "analog_role": "terrain",
-    "verdicts": [
-     {
-      "lens": "L1",
-      "scope": "cell",
-      "test": "Touchdown & Traverse",
-      "variable": "slope_roughness",
-      "state": "TRANSFERS",
-      "value": 42.0,
-      "reason": "A12 robust set (intersection (i)&(ii)&(iii)); native rank i/ii/iii = 39/48/42 of 49",
       "facility": null
      },
      {
@@ -4933,8 +5500,8 @@
     "b10_unreviewed_cells": [
      "E10K_465_927"
     ],
-    "hidden_status": "unknown: attention not known",
-    "attention_n": null,
+    "hidden_status": "no: attention above threshold",
+    "attention_n": 73,
     "n_in_exclusion": 0,
     "n_ice_flag": 0,
     "showcase": "a",
@@ -5062,7 +5629,7 @@
     "lenses_literature_only": [],
     "b10_unreviewed_cells": [],
     "hidden_status": "no: inside known-analog buffer",
-    "attention_n": null,
+    "attention_n": 252,
     "n_in_exclusion": 1,
     "n_ice_flag": 0,
     "showcase": "a",
@@ -5204,8 +5771,8 @@
     "lenses_hypothesis": [],
     "lenses_literature_only": [],
     "b10_unreviewed_cells": [],
-    "hidden_status": "unknown: attention not known",
-    "attention_n": null,
+    "hidden_status": "no: attention above threshold",
+    "attention_n": 52,
     "n_in_exclusion": 0,
     "n_ice_flag": 1,
     "showcase": "a,b",
@@ -5546,7 +6113,7 @@
      "E10K_-346_-664"
     ],
     "hidden_status": "no: inside known-analog buffer",
-    "attention_n": null,
+    "attention_n": 239,
     "n_in_exclusion": 40,
     "n_ice_flag": 1,
     "showcase": "b",
@@ -5768,8 +6335,8 @@
      "M1"
     ],
     "b10_unreviewed_cells": [],
-    "hidden_status": "unknown: attention not known",
-    "attention_n": null,
+    "hidden_status": "no: attention above threshold",
+    "attention_n": 26,
     "n_in_exclusion": 0,
     "n_ice_flag": 0,
     "showcase": "b",
@@ -5952,8 +6519,8 @@
      "E10K_394_764",
      "E10K_394_774"
     ],
-    "hidden_status": "unknown: attention not known",
-    "attention_n": null,
+    "hidden_status": "yes",
+    "attention_n": 1,
     "n_in_exclusion": 0,
     "n_ice_flag": 0,
     "showcase": "c",

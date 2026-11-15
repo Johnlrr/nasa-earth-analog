@@ -329,9 +329,11 @@ lens counts only when a member cell (or an X1 partner cell within 150 km) has a 
 TRANSFERS verdict; X1 is always reported as engine-semiquant, never engine-confirmed. A lens whose
 cells were all downgraded by the B10 visual review
 is shown as `hypothesis`, never as a finding. A site with a cell inside a known-analog exclusion
-buffer is never called hidden; unknown Attention is never hidden either. Until site Attention is
-queried (after 07:00 15/11), every `hidden_status` is `unknown` and the word "hidden" must not be
-used on slides or the web. B10-downgraded cells do not trigger the showcase rule (a).
+buffer is never called hidden; unknown Attention is never hidden either. Site Attention was
+queried on 15/11 after the OpenAlex budget reset (A17; site attention = max of the site-name
+count and member-cell counts); `hidden_status` in the sites table below is the result. A site's
+"hidden" means only: low literature count for its names in the B8 query, outside known-analog
+buffers. B10-downgraded cells do not trigger the showcase rule (a).
 
 ![Engine-kept cells by lens on a world map, X1 cells as triangles, showcase sites labelled](figures/fig_sites_map.png)
 
@@ -378,12 +380,12 @@ Figures are drawn from the same tables by `scripts/figures_report.py`.
 <!-- BEGIN:sites -->
 | name | n_cells | max_span_km | lenses_engine_confirmed | lenses_engine_semiquant | lenses_hypothesis | n_b10_unreviewed | lenses_literature_only | n_ice_flag | n_in_exclusion | attention_n | hidden_status | showcase |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 54 | 1108 | L1,L2 |  |  | 53 | M1 | 1 | 40 | — | no: inside known-analog buffer | b |
-| Zanda (Tsamda) and Gar, Ngari, western Tibet | 5 | 206 | L1 |  |  | 5 |  | 0 | 0 | — | unknown: attention not known | c |
-| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 1 |  | 0 | 0 | — | unknown: attention not known | a |
-| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 0 |  | 0 | 1 | — | no: inside known-analog buffer | a |
-| Jebel Akhdar, Hajar Mountains (Oman) | 1 | 0 | L2 |  |  | 0 | M1 | 0 | 0 | — | unknown: attention not known | b |
-| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | — | unknown: attention not known | a,b |
+| Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 54 | 1108 | L1,L2 |  |  | 53 | M1 | 1 | 40 | 239 | no: inside known-analog buffer | b |
+| Zanda (Tsamda) and Gar, Ngari, western Tibet | 5 | 206 | L1 |  |  | 5 |  | 0 | 0 | 1 | yes | c |
+| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 1 |  | 0 | 0 | 73 | no: attention above threshold | a |
+| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 0 |  | 0 | 1 | 252 | no: inside known-analog buffer | a |
+| Jebel Akhdar, Hajar Mountains (Oman) | 1 | 0 | L2 |  |  | 0 | M1 | 0 | 0 | 26 | no: attention above threshold | b |
+| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | 52 | no: attention above threshold | a,b |
 <!-- END:sites -->
 
 ## 8. Deviations from pre-registration
