@@ -138,25 +138,19 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 
 SLIDES = r"""
 <section class="slide" id="s1">
-  <p class="eyebrow">NASA Space Apps Challenge 2026 · Moon Base and Mars analog sites</p>
-  <h1 class="cover">Famous ≠ faithful.</h1>
-  <p class="lead" style="font-size:40px;max-width:1560px"><b>SIMILITUDE</b> helps Artemis test engineers pick an Earth field site the way a wind-tunnel engineer checks a model:
-    not “does it look like the Moon?” but <b>which test results transfer</b>, and we test our own answer against a pre-registered traverse simulation.</p>
-  <div class="row" style="margin-top:60px;gap:28px">
-    <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:24px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
-    <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:24px">median at six famous analog field sites, same formula</p></div>
-    <div class="tile" style="flex:1"><span class="num">{{v1_passer_reproduce}} / {{v1_passer_n}}</span><p style="font-size:24px">slope matches also reproduce the ridge's simulated traverse outcomes (pre-registered test)</p></div>
-  </div>
-  <div style="margin-top:34px" class="verdicts">
-    <span class="v t">TRANSFERS · test it in the field</span>
-    <span class="v n">NO-ANALOG · use a named facility</span>
-    <span class="v u">UNOBSERVED · we cannot say</span>
+  <p class="eyebrow">NASA Space Apps Challenge 2026 · Ho Chi Minh City · Team AuroraTree</p>
+  <h1 class="cover" style="margin-bottom:8px">SIMILITUDE</h1>
+  <p style="font-size:44px;line-height:1.15;font-weight:600;margin:0 0 6px;max-width:1500px">The proving-ground finder for the Moon Base and Mars</p>
+  <p class="mono" style="font-size:22px;color:var(--accent);margin:0 0 34px">Challenge · Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
+  <p class="lead" style="font-size:31px;max-width:1450px;color:var(--ink)">Famous ≠ faithful. We help Artemis test engineers pick an Earth field site by asking the wind-tunnel question:
+    not “does it look like the Moon?” but <b>which test results transfer</b>, checked against a pre-registered traverse simulation.</p>
+  <div class="row" style="margin-top:40px;gap:28px;max-width:1500px">
+    <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:23px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
+    <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:23px">median at six famous analog field sites, same formula</p></div>
+    <div class="tile" style="flex:1"><span class="num">{{v1_passer_reproduce}} / {{v1_passer_n}}</span><p style="font-size:23px">slope matches also reproduce the ridge's simulated traverse outcomes</p></div>
   </div>
   <div class="row" style="margin-top:auto;align-items:flex-end">
-    <div class="grow">
-      <p class="small" style="margin:0">Challenge: Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</p>
-      <p class="small" style="margin:6px 0 0">__TEAM_LINE__</p>
-    </div>
+    <div class="grow"></div>
     <div class="links" style="text-align:right;margin-bottom:34px">__SITE_URL__</div>
   </div>
   <span class="credit">Earthrise · NASA / Apollo 8 / William Anders, 1968</span>

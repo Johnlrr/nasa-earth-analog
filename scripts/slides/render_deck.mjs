@@ -8,7 +8,7 @@ import { tmpdir } from 'node:os';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DECK = join(ROOT, 'slides', 'deck.html');
-const PDF = join(ROOT, 'slides', 'SIMILITUDE-slides.pdf');
+const PDF = process.env.DECK_PDF || join(ROOT, 'slides', 'SIMILITUDE-slides.pdf');
 const PREVIEW = join(ROOT, 'slides', 'preview');
 const CHROME = process.env.CHROME || [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
