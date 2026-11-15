@@ -47,3 +47,12 @@ test('copied CTX image pixels remain identical to the original project observati
   const b=fs.readFileSync(path.join(__dirname,'../data/raw/mars/ctx_chips/jezero_margin.png'));
   assert.ok(a.equals(b));
 });
+
+test('signature orders only observed standardized differences without changing source data',()=>{
+ const rows=[{key:'far',earth:1,target:3,z:-2},{key:'missing',earth:null,target:3,z:0},{key:'near',earth:1,target:1,z:.1}];
+ const before=JSON.stringify(rows);assert.deepEqual(s.signature(rows).map(r=>r.key),['near','far']);assert.equal(JSON.stringify(rows),before);
+});
+test('the discovery interpretation preserves evidence role and exposes feature-level inspection',()=>{
+ const f=data.features.find(f=>f.properties.id==='M1-ctl_lake_salda');const html=render(f,'M1');
+ assert.match(html,/Validation control; this is not a qualified discovery/);assert.match(html,/What aligns/);assert.match(html,/What differs/);assert.match(html,/What remains unknown/);assert.match(html,/signature-feature/);assert.match(html,/not a new pass\/fail threshold/);
+});
