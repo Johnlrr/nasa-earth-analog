@@ -82,6 +82,21 @@
     const owner = p.id+':'+current.lens;
     if (owner !== comparisonOwner) { comparisonContextKey = null; comparisonOwner = owner; }
     $('comparison-content').innerHTML = window.SimilitudeSimilarities.render({feature:f,features:current.features,lens:current.lens,key:comparisonContextKey,ledger:current.ledger,lenses:current.lenses,rowsFor:comparisonRows,labelFor:descriptorLabel,unitFor:descriptorUnit});
+    const insightHeading=$('comparison-content').querySelector('.discovery>h3');
+    $('comparison-heading').textContent=insightHeading?.textContent||'Inspect the recorded evidence';
+    insightHeading?.remove();
+    $('comparison-content').querySelector('.similarities-intro')?.remove();
+    $('comparison-content').querySelectorAll('.engineering-gaps,.environment-table').forEach(table=>{
+      const scroll=table.closest('.table-scroll'), prior=scroll.previousElementSibling;
+      const heading=prior.matches('.criteria-heading')?prior:prior.previousElementSibling;
+      if(!heading?.matches('.criteria-heading'))return;
+      const details=document.createElement('details');details.className='technical-evidence';
+      const summary=document.createElement('summary');summary.textContent=table.classList.contains('engineering-gaps')?'Unmeasured conditions / field measurements needed':'Planetary transfer limits / values, implications & sources';
+      heading.before(details);details.append(summary);
+      let node=heading;while(node){const next=node.nextSibling;details.append(node);if(node===scroll)break;node=next;}
+    });
+    const missionReading=$('comparison-content').querySelector('.mission-reading');
+    if(missionReading)$('comparison-content').append(missionReading);
     const facility = p.feature_type === 'site' ? (p.facility || []) : (p.verdicts || []).filter(r => r.state !== 'TRANSFERS' && (!r.lens || r.lens === current.lens));
     const unknown = p.unobserved || [];
     const texts = [...facility.map(r => ({name:r.variable,reason:r.reason,facility:r.facility})),...unknown.map(r => ({name:r.variable,reason:r.reason}))];
