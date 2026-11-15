@@ -209,7 +209,7 @@ def main() -> None:
     dr = pd.DataFrame(drows)
     dr.to_parquet(D / "rover_r1_drives.parquet", index=False)
     r2, p2, n2 = spearman(dr.frac_gt8.to_numpy(), dr.rate_m_per_h.to_numpy(), alternative="less")
-    res = {"prereg": "config/prereg_rover_r1.yaml (commit 8798764)",
+    res = {"prereg": "config/prereg_rover_r1.yaml (commit 62ce675)",
            "track_last_sol": int(t.sol.max()), "track_vertices": len(t),
            "R1": {"n_legs": n, "unreachable": int(np.isinf(primary.predicted_detour).sum()),
                   "skipped_nodata": int(primary.predicted_detour.isna().sum()),
@@ -222,7 +222,7 @@ def main() -> None:
            "R2": {"n_drives": n2, "rho": round(r2, 3), "p_one_sided": round(p2, 6),
                   "pass": bool(r2 < 0 and p2 < 0.05)}}
     res["R1b"] = r1b(dtm)
-    res["prereg_R1b"] = "config/prereg_rover_r1.yaml addendum (commit dabc895)"
+    res["prereg_R1b"] = "config/prereg_rover_r1.yaml addendum (commit 59ff157)"
     (D / "rover_r1.json").write_text(json.dumps(res, indent=2))
     print(json.dumps(res, indent=1))
 

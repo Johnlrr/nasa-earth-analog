@@ -98,6 +98,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; }
 .tile .num { font-size: 58px; }
+#s4 .tiles { gap: 16px; } #s4 .tile { padding: 18px 22px; } #s4 .tile .num { font-size: 46px; }
 .tile h3 { margin: 12px 0 6px; font-size: 25px; line-height: 1.25; font-weight: 600; }
 .tile p { margin: 0; font-size: 21px; line-height: 1.38; color: var(--muted); }
 .tile.fail { border: 2px solid var(--n); background: #fff6f1; }
@@ -199,8 +200,8 @@ SLIDES = r"""
 
 <section class="slide" id="s4">
   <p class="eyebrow">3 · Evidence</p>
-  <h1>Six checks against known truth, and our own tests, pass or fail</h1>
-  <div class="tiles">
+  <h1>Seven checks against known truth, pass or fail</h1>
+  <div class="tiles" style="grid-template-columns:repeat(4,1fr)">
     <div class="tile"><span class="num">{{nasa_slope_max_abs_diff_deg}}°</span><h3>Matches NASA's own product</h3>
       <p>largest difference between our slope code and NASA's PGDA 78 slope rasters, six south-pole sites</p></div>
     <div class="tile"><span class="num">{{prevalence_connecting_ridge_pass}} vs {{prevalence_shackleton_rim_pass}}</span><h3>Selective</h3>
@@ -213,6 +214,8 @@ SLIDES = r"""
       <p>Shackleton-wall footprints match their own reference ({{lunar_control_wall_other_pass}} / {{lunar_control_wall_other_n}} for other sites): it finds a terrain class, not a named place</p></div>
     <div class="tile"><span class="num">{{x1_positive_pass}} / {{x1_positive_n}} · {{x1_decoy_rejected}} / {{x1_decoy_n}}</span><h3>Ice test (semi-quantitative)</h3>
       <p>polar-desert controls pass, wet-permafrost decoys rejected; our own Pamir–Changtang guess: {{x1_pamir_changtang_pass}} / {{x1_pamir_changtang_total}}</p></div>
+    <div class="tile" style="border:2px solid var(--accent)"><span class="num">ρ = {{r1b_rho}}</span><h3>Checked on Mars by a rover</h3>
+      <p>our 30 m orbital slope vs the tilt Perseverance measured at {{r1b_n}} stops (pre-registered). Its detours: our planner fails (published)</p></div>
   </div>
   <div class="row" style="margin-top:22px;gap:22px">
   <div class="tile" style="flex:1;display:flex;gap:26px;align-items:center;border:2px solid var(--accent)">

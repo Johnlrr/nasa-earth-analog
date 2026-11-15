@@ -377,10 +377,13 @@ def main() -> None:
         put("v2_h1b_p", v2["H1b_p"], src)
         put("v2_h1b_verdict", "PASS" if v2["H1b_pass"] else "FAIL", src)
         put("v2_h2_rho", v2["H2_rho"], src)
-    m1_path = D / "mars_m1.json"
+    # square ground cells (Deviations 40) supersede the first M1 run when present
+    m1_path = D / "mars_m1_square.json"
+    if not m1_path.exists():
+        m1_path = D / "mars_m1.json"
     if m1_path.exists():
         m1 = json.loads(m1_path.read_text(encoding="utf-8"))
-        src = "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+        src = f"data/derived/{m1_path.name} (scripts/v2_mars.py, pre-registered M1)"
         put("mars_n_neighbours", m1["n_mars_neighbours"], src)
         put("mars_target_frac_gt8", m1["target"]["frac_gt8"], src)
         put("mars_classic_match", m1["classic_mars"][0], src)
@@ -397,6 +400,20 @@ def main() -> None:
         for site, (k, nn) in m1["per_site"].items():
             slug = site.split()[0].strip(",").lower().replace("-", "")
             put(f"mars_site_{slug}", f"{k}/{nn}", src)
+
+    # R1b: 30 m orbital slope vs Perseverance's measured tilt (config/prereg_rover_r1.yaml)
+    r1_path = D / "rover_r1.json"
+    if r1_path.exists():
+        r1 = json.loads(r1_path.read_text(encoding="utf-8"))
+        src = "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+        put("r1b_rho", r1["R1b"]["rho"], src)
+        put("r1b_n", r1["R1b"]["n_waypoints"], src)
+        put("r1b_rho_site", r1["R1b"]["sensitivity"]["per_site"]["rho"], src)
+        put("r1b_n_site", r1["R1b"]["sensitivity"]["per_site"]["n"], src)
+        put("r1b_verdict", "PASS" if r1["R1b"]["pass"] else "FAIL", src)
+        put("r1_rho", r1["R1"]["rho"], src)
+        put("r1_verdict", "PASS" if r1["R1"]["pass"] else "FAIL", src)
+        put("r2_verdict", "PASS" if r1["R2"]["pass"] else "FAIL", src)
 
     # I1: low-Sun windows of the ridge matches (exploratory, Deviations 32)
     lw_path = D / "lighting_windows.parquet"

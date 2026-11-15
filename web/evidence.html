@@ -64,7 +64,9 @@ the Deviations table of the validation report.</p>
 <tr><td>Mineral analog exists</td><td>Pre-registered stop rule</td><td><b>FAIL</b>: nothing published</td></tr>
 <tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>FAIL</b> for the group: 3 of 9 vs 15 % of random land</td></tr>
 <tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>PASS</b> (nominal; 0.098 over two looks): 3 of 9 vs 10 % of random land (p = 0.049); classic sites 31 %, not beaten</td></tr>
-<tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>PASS</b>: 38 % vs 16 % of random land (p = 0.0005)</td></tr>
+<tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>PASS</b>: 42 % vs 19 % of random land (p = 0.0004)</td></tr>
+<tr><td>Our 30 m slope from orbit matches the tilt Perseverance measured</td><td>Pre-registered (R1b, rover waypoints)</td><td><b>PASS</b>: Spearman 0.80 at 708 waypoints (0.91 over 91 sites)</td></tr>
+<tr><td>The 30 m planner predicts how the rover detoured</td><td>Pre-registered (R1, rover traverse)</td><td><b>FAIL</b>: Spearman -0.35; routes stay a planner simulation</td></tr>
 <tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>PASS</b>: Spearman 0.38</td></tr>
 <tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
 <tr><td>Baffin slope match holds at rover scale</td><td>Exploratory, rule committed before the run</td><td>within the ridge neighbourhood at 5, 10 and 30 m (ArcticDEM 2 m vs LOLA 5 m)</td></tr>
@@ -157,14 +159,23 @@ PASS at the nominal level (p = 0.049; 0.098 after correcting for the two registe
 
 <h2>4b. The same lens on Mars: Perseverance's Jezero delta front</h2>
 <p>Same registration. Target: a 4 km footprint of the Jezero western delta front on the USGS Mars 2020 CTX DTM
-(20 m, read at 30 m), 12 % of it steeper than 8°. Slope and route
+(20 m, read at 30 m), 13 % of it steeper than 8°. Slope and route
 thresholds come from 185 windows of the same Mars DEM. Classic Mars analog footprints match in
-17 of 45 cases (HI-SEAS 9/9, Atacama
-4/9, Haughton 3/9, MDRS 1/9, Wright Valley
-0/9), random bare land in 159 of 994:
-PASS (p = 0.0005). The delta front is gentle terrain, so matches are common
-(mostly hyper-arid plains in the Sahara and Arabia; 132 in open countries). None of the Moon-ridge
+19 of 45 cases (HI-SEAS 9/9, Atacama
+5/9, Haughton 3/9, MDRS 2/9, Wright Valley
+0/9), random bare land in 187 of 994:
+PASS (p = 0.0004; square 20 m ground cells, Deviations 40). The delta front is gentle terrain, so matches are common
+(mostly hyper-arid plains in the Sahara and Arabia; 158 in open countries). None of the Moon-ridge
 slope matches matches Jezero: the two targets pick different terrain.</p>
+
+<h2>4c. Checked on the ground of Mars: Perseverance's own tilt</h2>
+<p>Pre-registered (R1b, <code>config/prereg_rover_r1.yaml</code>). At each of the 708 waypoints of
+Perseverance's traverse (NASA/JPL MMGIS, to sol 2022), our 30 m slope from the CTX DTM, computed with the same
+formula as every L1 verdict, ranks the terrain the way the rover's own tilt sensor did: Spearman
+0.80 (0.91 with one value per rover site, n = 91).
+<b>PASS</b>. The route side did not hold: the planner's detour does not predict the rover's real
+detour (R1 FAIL, Spearman -0.35) and terrain roughness does not predict drive
+rate (R2 FAIL), so route outcomes stay labelled a planner simulation.</p>
 
 <h2>5. A campaign, not a site</h2>
 <p>Two leads together cover 5 of 5 field rows that orbit can judge;

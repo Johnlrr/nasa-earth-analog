@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T22:17",
+ "generated": "2026-11-15T22:35",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1471,75 +1471,107 @@
   },
   "mars_n_neighbours": {
    "value": 185,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_target_frac_gt8": {
-   "value": 0.1243,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 0.1309,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_classic_match": {
-   "value": 17,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 19,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_classic_n": {
    "value": 45,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_classic_share": {
-   "value": 0.3778,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 0.4222,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_null_match": {
-   "value": 159,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 187,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_null_n": {
    "value": 994,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_null_share": {
-   "value": 0.16,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 0.1881,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_moon_passer_match": {
    "value": 0,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_p": {
-   "value": 0.0005,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 0.0004,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_verdict": {
    "value": "PASS",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_open_matches": {
-   "value": 132,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 158,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_open_countries": {
-   "value": 25,
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": 30,
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_site_atacama": {
-   "value": "4/9",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": "5/9",
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_site_hiseas": {
    "value": "9/9",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_site_haughton": {
    "value": "3/9",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_site_mdrs": {
-   "value": "1/9",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "value": "2/9",
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
   },
   "mars_site_mcmurdo": {
    "value": "0/9",
-   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+   "source": "data/derived/mars_m1_square.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "r1b_rho": {
+   "value": 0.802,
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1b_n": {
+   "value": 708,
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1b_rho_site": {
+   "value": 0.909,
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1b_n_site": {
+   "value": 91,
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1b_verdict": {
+   "value": "PASS",
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1_rho": {
+   "value": -0.353,
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r1_verdict": {
+   "value": "FAIL",
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+  },
+  "r2_verdict": {
+   "value": "FAIL",
+   "source": "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
   },
   "i1_three_tests_n": {
    "value": 3,

@@ -49,8 +49,11 @@ elevation models: one in Argentina, the only one of 1,000 random cells to pass, 
 Baffin Island, Canada, where from 13 Nov to 22 Jan every daylight minute has the Sun below 7°
 (**71** days [`i1_baffin_window_days` = 71]), the polar low Sun no Earth site has over a year.
 The same code reads Mars: for Perseverance's Jezero delta front (CTX DTM), classic Mars analog
-footprints match in **38 %** of cases against **16 %** of random land [`mars_classic_share` =
-0.3778, `mars_null_share` = 0.16] (pre-registered, p = 0.0005 [`mars_p` = 0.0005]).
+footprints match in **42 %** of cases against **19 %** of random land [`mars_classic_share` =
+0.4222, `mars_null_share` = 0.1881] (pre-registered, p = 0.0004 [`mars_p` = 0.0004]). On the
+ground of Mars, our 30 m orbital slope ranks the terrain the way Perseverance's own tilt sensor did
+at **708** waypoints (Spearman **0.80** [`r1b_rho` = 0.802, `r1b_n` = 708], pre-registered); the
+planner's detours do not predict the rover's (fail, published).
 Our mineral test did not pass its own pre-registered rule, so we publish no mineral analog.
 
 ## Detailed Project Description
@@ -95,9 +98,15 @@ the field), NO-ANALOG (no Earth site reproduces it; the card names the facility)
   H1b fails (p = 0.59 [`v2_h1b_p` = 0.5949]).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from **185** Mars windows [`mars_n_neighbours` = 185]. Classic Mars
-  analog footprints **17 of 45**, random land **159 of 994** [`mars_classic_match` = 17,
-  `mars_null_match` = 159]; HI-SEAS 9/9, Atacama 4/9, MDRS 1/9, Wright Valley 0/9. The test
-  passes (p = 0.0005), but the delta front is gentle terrain, so one random cell in six matches.
+  analog footprints **19 of 45**, random land **187 of 994** [`mars_classic_match` = 19,
+  `mars_null_match` = 187]; HI-SEAS 9/9, Atacama 5/9, Haughton 3/9, MDRS 2/9, Wright Valley 0/9
+  (square 20 m ground cells; the first run used cells 5 % too wide, Deviations 40). The test
+  passes (p = 0.0004), but the delta front is gentle terrain, so about one random cell in five matches.
+- Ground truth from Perseverance (registered before any slope was read at a waypoint): our 30 m
+  slope vs the rover's measured tilt at **708** waypoints, Spearman **0.80** [`r1b_rho` = 0.802],
+  **0.91** with one value per rover site [`r1b_rho_site` = 0.909, `r1b_n_site` = 91]: pass. The
+  planner's detour vs the rover's real detour (Spearman −0.35 [`r1_rho` = -0.353]) and roughness vs
+  drive rate both fail, so route outcomes stay labelled a planner simulation.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
 
 **Site finder for test engineers.** Pick an Artemis south-pole region (six PGDA 78 regions) and
@@ -143,7 +152,7 @@ environment"; it assigns no TRL.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
 - The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
-  the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
+  the Mars delta-front match is common (19 % of random land), so Mars matches are terrain leads.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for **28 %**
   of daylight, the lunar target for **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,
   `l2_moon_lowsun_frac_daylight` = 1.0]. The Baffin window is seasonal, from a geometric sun
