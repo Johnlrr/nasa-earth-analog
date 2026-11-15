@@ -80,7 +80,9 @@
         "field": {"type": "array", "items": {"$ref": "#/$defs/card_row"}},
         "facility": {"type": "array",
                      "items": {"allOf": [{"$ref": "#/$defs/card_row"},
-                                         {"required": ["facility", "source"]}]}},
+                                         {"required": ["facility", "source"],
+                                          "properties": {"source": {"type": "string",
+                                                                    "minLength": 1}}}]}},
         "unobserved": {"type": "array", "items": {"$ref": "#/$defs/card_row"}},
         "multilens": {"type": "array", "items": {"type": "object"}},
         "data_sources": {"type": "array", "items": {"type": "string"}}

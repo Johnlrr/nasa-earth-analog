@@ -249,3 +249,13 @@ def test_site_features_copy_contract_columns_and_validate():
         if p["hidden_status"].lower().startswith("yes"):  # A17 site attention now known
             assert p["attention_n"] is not None and p["attention_n"] <= disc.ATTENTION_MAX
             assert p["n_in_exclusion"] == 0
+    # a facility row without a source must fail the schema (A20 contract)
+    import copy
+
+    bad = copy.deepcopy(next(f for f in feats if f["properties"]["facility"]))
+    bad["properties"]["facility"][0]["source"] = None
+    assert io.check_candidates({"type": "FeatureCollection", "features": [bad]}) != []
+
+
+def test_site_attention_threshold_has_one_source():
+    assert io.SITE_ATTENTION_MAX == disc.ATTENTION_MAX

@@ -126,7 +126,7 @@ def main() -> None:
         "data/derived/multilens.parquet")
     st = pd.read_parquet(D / "sites.parquet")
     put("sites_total", int(len(st)), "data/derived/sites.parquet")
-    put("sites_showcase", int((st.showcase.astype(str).str.len() > 0).sum()),
+    put("sites_showcase", int((st.showcase.fillna("").astype(str).str.len() > 0).sum()),
         "data/derived/sites.parquet")
     put("sites_attention_known", int(st.attention_n.notna().sum()), "data/derived/sites.parquet")
 
