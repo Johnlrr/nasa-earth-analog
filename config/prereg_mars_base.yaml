@@ -1,0 +1,43 @@
+# Pre-registration B: a Mars crewed-landing candidate with shallow ice as the target of the terrain
+# lens, combined with the X1 ice test on Earth.
+# Written 2026-11-15 ~23:25 +07 on branch post-submission, after the submission. Committed and pushed
+# BEFORE the DTM below is opened and before any Earth cell is compared with it.
+
+target:
+  name: "Candidate Landing Site for SpaceX Starship Near Arcadia Planitia"
+  dtm: "HiRISE DTEEC_060706_2195_060416_2195_A01 (1 m), https://www.uahirise.org/dtm/ESP_060706_2195"
+  centre_given_by_source: {lat: 39.09, lon_east: 189.8}
+  why: >
+    Arcadia Planitia has water ice a few centimetres to tens of centimetres below the surface
+    (Piqueux et al. 2019, GRL, doi:10.1029/2019GL083947; SWIM, Morgan et al. 2021, Nat. Astron.,
+    doi:10.1038/s41550-020-01290-z); the HiRISE team lists this DTM as a candidate landing site for
+    a crewed-capable lander. It is a crewed-base candidate area, unlike Jezero (robotic).
+  geometry: >
+    Read with GDAL (PDS3 label). If the projection is equirectangular with a standard parallel other
+    than the site latitude, x is resampled by cos(lat)/cos(standard parallel) to square ground cells
+    (Deviations 40 rule). The DTM is block-averaged to 5 m, then to the 30 m baseline.
+
+reference_and_thresholds: >
+  As config/prereg_artemis3.yaml: 4 km windows on a 1 km grid (NaN share <= 5 %), medoid reference
+  in the slope family, neighbours = windows with centre >= 4 km from the reference, robust scale and
+  tau = median neighbour distance, separately for slope and route families.
+  If fewer than 30 neighbours exist, every result below is labelled exploratory (thin threshold).
+
+earth_sample: >
+  The 1,000 random bare-land cells (route_validity.parquet, group null) and the 45 classic Mars
+  analog footprints of the M1 lens (Haughton, MDRS, Atacama, Wright Valley, HI-SEAS; v2_mars.py).
+
+match:
+  terrain: "D_slope <= tau_slope AND D_route <= tau_route (GLO-30)"
+  base: >
+    terrain match AND X1 candidate (scripts/gee/x1_checklist.evaluate on the tier_x1 composite:
+    MAAT <= -1 C, <= 20 freeze-thaw days/yr, P/PET <= 0.5, glacier ice share <= 0.2). X1 is
+    evaluated only on terrain matches; the base prevalence is counted over all cells.
+
+decision_rule:
+  selective: "terrain-match share of random land < 19 % (the Jezero lens, square cells); otherwise reported as not selective"
+  HB1_classic_vs_null_terrain: "one-sided Fisher, classic > null, pass if p < 0.05"
+  base_site_available: "at least one random-land cell passing terrain AND X1 in an open country (not China/Russia)"
+  failures: "published as they come"
+
+not_claimed: "No ground truth for ice at the Earth sites beyond the X1 climate test; no rover-scale hazards."
