@@ -30,7 +30,7 @@
     if (p.feature_type === 'site') return 'Showcase site / regional group';
     if (p.role === 'control') return 'Validation control / not a qualified discovery';
     if (p.role === 'decoy') return 'Validation decoy / not a qualified discovery';
-    return 'Engine-qualified cell / ' + (p.evidence_status || 'evidence status not published');
+    return 'Engine match (4 km cell) / ' + (p.evidence_status || 'evidence status not published');
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {comparisonRows,descriptorUnit,classification,number};
   if (typeof document === 'undefined') return;

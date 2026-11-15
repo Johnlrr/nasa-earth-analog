@@ -63,7 +63,7 @@ the Deviations table of the validation report.</p>
 <tr><td>The ridge test is selective</td><td>Random null sample</td><td>1 of 1,000 random cells pass</td></tr>
 <tr><td>Mineral analog exists</td><td>Pre-registered stop rule</td><td><b>FAIL</b>: nothing published</td></tr>
 <tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>FAIL</b> for the group: 3 of 9 vs 15 % of random land</td></tr>
-<tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>PASS</b>: 3 of 9 vs 10 % of random land (p = 0.049); classic sites 31 %, not beaten</td></tr>
+<tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>PASS</b> (nominal; 0.098 over two looks): 3 of 9 vs 10 % of random land (p = 0.049); classic sites 31 %, not beaten</td></tr>
 <tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>PASS</b>: 38 % vs 16 % of random land (p = 0.0005)</td></tr>
 <tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>PASS</b>: Spearman 0.38</td></tr>
 <tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
@@ -152,7 +152,7 @@ has the Sun below 7° (snow season; more terrain shadow than the ridge). This is
 V1 took its threshold from only 8 lunar neighbours. With 124 non-overlapping 4 km windows of the same
 lunar DEM, random land drops to 95 of 994, classic footprints to
 17 of 54, and the same three slope matches pass: H1
-PASS (p = 0.049), but classic sites are still not beaten
+PASS at the nominal level (p = 0.049; 0.098 after correcting for the two registered looks, so not confirmed), but classic sites are still not beaten
 (p = 0.59). A slope match is a better-than-random pointer to traverse-like terrain, not a better one than the classic sites.</p>
 
 <h2>4b. The same lens on Mars: Perseverance's Jezero delta front</h2>

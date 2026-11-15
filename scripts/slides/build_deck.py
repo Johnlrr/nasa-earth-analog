@@ -218,8 +218,8 @@ SLIDES = r"""
   <div class="tile" style="flex:1;display:flex;gap:26px;align-items:center;border:2px solid var(--accent)">
     <span class="num" style="font-size:44px;line-height:1.1">{{v1_h1_verdict}}<br>→ {{v2_h1_verdict}}</span>
     <p style="font-size:20px;color:var(--ink)"><b>Our method, tested by a 30 m traverse planner (pre-registered twice):</b> with 8 lunar neighbours the threshold was loose (p = {{v1_h1_p}}).
-      With {{v2_n_moon_native}} non-overlapping neighbours, registered before the rerun, slope matches reproduce the ridge's routes {{v2_passer_reproduce}}/{{v2_passer_n}} vs random land {{v2_null_share:pct0}} (p = {{v2_h1_p}}).
-      Classic sites {{v2_classic_share:pct0}}: not beaten (p = {{v2_h1b_p}}).</p>
+      With {{v2_n_moon_native}} non-overlapping neighbours, registered before the rerun, slope matches reproduce the ridge's routes {{v2_passer_reproduce}}/{{v2_passer_n}} vs random land {{v2_null_share:pct0}} (p = {{v2_h1_p}}; {{v2_h1_p_bonferroni}} over both looks).
+      Classic sites {{v2_classic_share:pct0}}: not beaten.</p>
   </div>
   <div class="tile fail" style="flex:1;display:flex;gap:26px;align-items:center">
     <span class="num">{{m1_stop_rule_verdict}}</span>

@@ -5,6 +5,12 @@ V2: the V1 test with scale and tau estimated from 124 non-overlapping 4 km windo
 M1: Jezero delta front (CTX DTM) as a target for the same slope and planner descriptors; null and
     passer outcomes from route_validity.parquet, classic Mars sites computed here.
 
+Mars DTM: USGS Mars 2020 TRN CTX DTM (Jezero), download once:
+  curl -L -o data/raw/mars/dtm/JEZ_ctx_B_soc_008_DTM_20m.tif https://planetarymaps.usgs.gov/mosaic/\
+mars2020_trn/CTX/JEZ_ctx_B_soc_008_DTM_MOLAtopography_DeltaGeoid_20m_Eqc_latTs0_lon0.tif
+Jezero is a robotic landing site, not a candidate for a crewed base; the lens shows that the
+method transfers to Mars, not where a Mars base should go.
+
 Outputs: data/derived/route_v2.json, route_v2.parquet, mars_m1.json, mars_m1.parquet
 Usage  : EE_PROJECT=<project> python scripts/v2_mars.py
 """

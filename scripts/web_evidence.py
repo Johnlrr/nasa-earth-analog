@@ -121,7 +121,7 @@ the Deviations table of the validation report.</p>
 <tr><td>The ridge test is selective</td><td>Random null sample</td><td>{n(num, 'prevalence_connecting_ridge_pass')} of {n(num, 'prevalence_connecting_ridge_n', '{:,}')} random cells pass</td></tr>
 <tr><td>Mineral analog exists</td><td>Pre-registered stop rule</td><td><b>{n(num, 'm1_stop_rule_verdict')}</b>: nothing published</td></tr>
 <tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>{n(num, 'v1_h1_verdict')}</b> for the group: {n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} vs {n(num, 'v1_null_share', '{:.0f} %', 100)} of random land</td></tr>
-<tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>{n(num, 'v2_h1_verdict')}</b>: {n(num, 'v2_passer_reproduce')} of {n(num, 'v2_passer_n')} vs {n(num, 'v2_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'v2_h1_p', '{:.3f}')}); classic sites {n(num, 'v2_classic_share', '{:.0f} %', 100)}, not beaten</td></tr>
+<tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>{n(num, 'v2_h1_verdict')}</b> (nominal; {n(num, 'v2_h1_p_bonferroni', '{:.3f}')} over two looks): {n(num, 'v2_passer_reproduce')} of {n(num, 'v2_passer_n')} vs {n(num, 'v2_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'v2_h1_p', '{:.3f}')}); classic sites {n(num, 'v2_classic_share', '{:.0f} %', 100)}, not beaten</td></tr>
 <tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>{n(num, 'mars_verdict')}</b>: {n(num, 'mars_classic_share', '{:.0f} %', 100)} vs {n(num, 'mars_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'mars_p', '{:.4f}')})</td></tr>
 <tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>{n(num, 'v1_h2_verdict')}</b>: Spearman {n(num, 'v1_h2_rho', '{:.2f}')}</td></tr>
 <tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
@@ -218,7 +218,7 @@ has the Sun below 7° (snow season; more terrain shadow than the ridge). This is
 V1 took its threshold from only 8 lunar neighbours. With {n(num, 'v2_n_moon_native')} non-overlapping 4 km windows of the same
 lunar DEM, random land drops to {n(num, 'v2_null_reproduce')} of {n(num, 'v2_null_n', '{:,}')}, classic footprints to
 {n(num, 'v2_classic_reproduce')} of {n(num, 'v2_classic_n')}, and the same three slope matches pass: H1
-{n(num, 'v2_h1_verdict')} (p = {n(num, 'v2_h1_p', '{:.3f}')}), but classic sites are still not beaten
+{n(num, 'v2_h1_verdict')} at the nominal level (p = {n(num, 'v2_h1_p', '{:.3f}')}; {n(num, 'v2_h1_p_bonferroni', '{:.3f}')} after correcting for the two registered looks, so not confirmed), but classic sites are still not beaten
 (p = {n(num, 'v2_h1b_p', '{:.2f}')}). A slope match is a better-than-random pointer to traverse-like terrain, not a better one than the classic sites.</p>
 
 <h2>4b. The same lens on Mars: Perseverance's Jezero delta front</h2>

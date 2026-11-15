@@ -74,6 +74,7 @@ NASA and partner-agency data (all open):
 | Dataset | Used for | Reference |
 |---|---|---|
 | NASA PGDA Product 78 — LOLA 5 m DEMs and slope maps of lunar south-pole sites | Moon targets and population (L1, L2) | https://pgda.gsfc.nasa.gov/products/78 |
+| USGS Mars 2020 TRN CTX DTM of Jezero (MRO CTX, 20 m; `JEZ_ctx_B_soc_008_DTM_MOLAtopography_DeltaGeoid_20m_Eqc_latTs0_lon0.tif`, save as `data/raw/mars/dtm/JEZ_ctx_B_soc_008_DTM_20m.tif`) | Mars terrain target and neighbours (V2/M1, `scripts/v2_mars.py`) | https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ |
 | NASA EMIT L2A surface reflectance (via Google Earth Engine `NASA/EMIT/L2A/RFL`) | Earth spectra (M1) | doi:10.5067/EMIT/EMITL2ARFL.001 |
 | MRO CRISM MICA type spectra, PDS volume MROCR_8001; summary parameters of Viviano-Beck et al. 2014 | Mars targets (M1) | https://pds-geosciences.wustl.edu/missions/mro/crism.htm ; doi:10.1002/2014JE004627 |
 | SWIM — Subsurface Water Ice Mapping on Mars (Morgan et al. 2021) | Mars ice configuration (X1) | doi:10.1038/s41550-020-01290-z ; https://swim.psi.edu |

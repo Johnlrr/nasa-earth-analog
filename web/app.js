@@ -28,10 +28,10 @@
   function lensInfo(id) { if (id === 'SITES') return SITES_TAB; return LENSES.filter(function (l) { return l.id === id; })[0] || { id: id, name: id, body: '', question: '' }; }
   function roleOf(p) { return p.role === 'control' || p.role === 'decoy' ? p.role : 'hidden'; }
   // B17: the word "hidden" is not shown until site-level attention exists (A17 after 07:00)
-  var ROLE_LABEL = { hidden: 'engine-qualified cell', control: 'control', decoy: 'decoy' };
+  var ROLE_LABEL = { hidden: 'engine match (4 km cell)', control: 'control', decoy: 'decoy' };
   function roleLabel(r) { return ROLE_LABEL[r] || r; }
   var SITES_TAB = { id: 'SITES', name: 'Showcase sites', body: 'Earth',
-    question: 'Engine-qualified 4 km cells grouped into field sites (150 km): which rows of your test matrix come home valid, which need a facility, which cannot be judged from orbit.' };
+    question: 'Engine matches (4 km cells) grouped into field sites (150 km): which rows of your test matrix a field test can reproduce, which need a facility, which cannot be judged from orbit.' };
   var PROTOCOLS_URL = 'https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/test_protocols.md';
   // GitHub heading anchor: lower case, drop punctuation (letters, digits, spaces, - and _ stay), spaces -> '-'
   function ghSlug(t) { return String(t || '').toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-'); }
@@ -157,7 +157,7 @@
     ].map(function (i) {
       return '<span class="item"><span class="swatch" style="background:' + i[1] + '"></span>' + esc(i[0]) + '</span>';
     }).join('');
-    var roles = '<span class="item"><span class="swatch" style="background:#e3e2da"></span><b>engine-qualified cell</b> (filled)</span>' +
+    var roles = '<span class="item"><span class="swatch" style="background:#e3e2da"></span><b>engine match (4 km cell)</b> (filled)</span>' +
       '<span class="item"><span class="swatch ring"></span><b>control</b> (ring: known good site)</span>' +
       '<span class="item"><span class="swatch diamond"></span><b>decoy</b> (diamond: looks similar, should fail)</span>';
     var ev = '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:solid;border-color:#0d1210"></span>engine-confirmed (solid)</span>' +
@@ -305,9 +305,9 @@
     }
     var hidden = feats.filter(function (f) { return roleOf(f.properties) === 'hidden'; });
     var valid = feats.filter(function (f) { return roleOf(f.properties) !== 'hidden'; });
-    var h = '<li class="group-h">Engine-qualified cells</li>';
+    var h = '<li class="group-h">Engine matches (4 km cells)</li>';
     if (hidden.length) h += hidden.map(rowHtml).join('');
-    else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No engine-qualified cell for this lens' : 'No engine-qualified cells in the current data') + '</li>';
+    else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data') + '</li>';
     if (lm && lm.n_attention_unknown) {
       h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "little studied".</li>';
     }
@@ -428,6 +428,7 @@
     h += '<p><strong>Attention:</strong> ' + (typeof p.attention_n === 'number' ? esc(p.attention_n) + ' OpenAlex works' : 'not known') + '</p>';
     if (p.hidden_status === 'yes') h += '<p class="note">Low count of works naming this site in a Mars/Moon analog context; not proof that the site is unknown (validation report, Deviations 21).</p>';
     if (p.note) h += '<p class="note">' + esc(p.note) + '</p>';
+    if (p.route_test) h += '<p class="note"><b>' + esc(p.route_test) + '</b></p>';
     // I3: the site's own test protocol (docs/test_protocols.md, one "### <site name>" section each)
     // and the test-transfer matrix figure; GitHub renders the Markdown, Pages serves the figure
     h += '<p class="proto-links"><a href="' + PROTOCOLS_URL + '#' + ghSlug(p.name) + '" target="_blank" rel="noopener">Test protocol for this site</a>' +
@@ -458,7 +459,7 @@
     var h = '<div class="empty-state"><p class="eyebrow">Analog Test Card</p>' +
       '<h3>Select a site to read its verdicts</h3>' +
       '<ol><li>Pick a marker on the map or a row in the ranked results.</li>' +
-      '<li>Read each test: does the result come home valid from this place?</li>' +
+      '<li>Read each test: can a field test here reproduce it, or does it need a facility?</li>' +
       '<li>Check what still needs a facility, and what orbit cannot show.</li></ol>' +
       '<dl class="state-key">' +
       '<div><dt class="v-ok-t">TRANSFERS</dt><dd>this variable matches the target (for slopes: distribution; routes reported separately)</dd></div>' +

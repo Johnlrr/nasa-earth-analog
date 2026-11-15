@@ -821,7 +821,9 @@ window shares a pixel with the reference (124 windows). Everything else is uncha
 Per-outcome acceptance half-widths under V2 (scale × τ): reach_6 0.341, reach_8 0.0489, detour_8 0.2917, detour_10 0.0686, climb_10 9.4363.
 The same three leads reproduce routes on both DEMs under V1 and V2 (E10K_729_-319, E10K_-355_-671, E10K_660_-632).
 With the larger neighbourhood the threshold is tighter for four of the five outcomes (looser for
-climb), random land drops from 15 % to 10 %, and H1 passes, narrowly. Classic sites are still not
+climb), random land drops from 15 % to 10 %, and H1 passes, narrowly. This is the second
+registered look at H1; counting both looks (Bonferroni), p = 0.098, so H1 passes at the nominal
+α only and we do not call it confirmed. Classic sites are still not
 beaten: 17 of 54 classic footprints reproduce the ridge's routes, and
 so do 3 of the 9 slope matches. Under the registered rule the cards keep both fields (slope match,
 route match) and the routes field now uses V2. Reading: an L1 slope match is a better-than-random
@@ -900,7 +902,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
 | 35 | Campaign coverage matrix (union of published per-site results; Haughton as the best classic site for routes) | 15/11 evening | Turn per-site results into the engineer's question | Exploratory; no verdict changed |
 | 36 | Artemis atlas: V1 rule applied to the leads of the other five regions (reference and τ per region) | 15/11 evening | One registered region does not answer "which Moon Base region can be rehearsed on Earth" | Exploratory; leads only |
-| 37 | V2 route threshold from 124 non-overlapping Site01 windows (registered `67920dd` before the rerun); campaign routes column switched to V2 under that registration | 15/11 night | 8 neighbours gave an unstable scale and τ | V2 H1 passes (p = 0.049); H1b still fails; V1 kept beside it |
+| 37 | V2 route threshold from 124 non-overlapping Site01 windows (registered `67920dd` before the rerun); campaign routes column switched to V2 under that registration | 15/11 night | 8 neighbours gave an unstable scale and τ | V2 H1 passes at nominal α (p = 0.049; 0.098 Bonferroni over the two looks); H1b still fails; V1 kept beside it |
 | 38 | Mars terrain lens on the Jezero delta front (CTX DTM), classic Mars sites vs random land (registered `67920dd`) | 15/11 night | The challenge asks for Mars as well as the Moon; the Mars lenses so far covered minerals and ice only | HM1 passes (p = 0.0005); matches are common (16 % of random land) |
 
 ## 9. Limitations and not done

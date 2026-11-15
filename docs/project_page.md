@@ -26,7 +26,7 @@ traverse planner ran on the ridge and on every Earth footprint. Only 3 of 9 slop
 reproduce the ridge's simulated routes, against
 15 % of random land: the test fails for the group, and we publish
 that. We then registered a tighter threshold from 124 lunar neighbours instead of 8 (V2): random
-land drops to 10 % and the test passes narrowly (p = 0.049), but classic footprints still do as well. So
+land drops to 10 % and the test passes narrowly (p = 0.049; 0.098 after correcting for the two looks), but classic footprints still do as well. So
 every card reports slope and traverse separately. Two
 footprints in countries open to NASA and outside known analog areas pass both tests on two
 elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
@@ -66,8 +66,9 @@ How we know it is not noise.
   matches reproduce the routes on the second DEM.
 - V2, registered before the rerun (`config/prereg_v2_mars.yaml`, commit 67920dd): the same test
   with scale and threshold from 124 non-overlapping lunar windows instead of 8. Slope matches 3 of 9, random land 95 of 994, classic
-  footprints 17 of 54; H1 passes (p = 0.049), H1b fails
-  (p = 0.59).
+  footprints 17 of 54; H1 passes at nominal α (p = 0.049; counting
+  both registered looks, Bonferroni p = 0.098, so not confirmed),
+  H1b fails (p = 0.59).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from 185 Mars windows. Classic Mars
   analog footprints 17 of 45, random land 159 of 994; HI-SEAS 9/9, Atacama 4/9, MDRS 1/9, Wright Valley 0/9. The test
@@ -113,7 +114,7 @@ Limits we state ourselves.
   lead (inside the Atacama analog area) fail the traverse test.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
-- The route test beats random land only narrowly (V2, p = 0.049) and does not beat classic sites;
+- The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
   the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 %
   of daylight, the lunar target for 100 %. The Baffin window is seasonal, from a geometric sun

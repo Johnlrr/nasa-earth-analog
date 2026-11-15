@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T22:03",
+ "generated": "2026-11-15T22:17",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1451,6 +1451,10 @@
   },
   "v2_h1_verdict": {
    "value": "PASS",
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h1_p_bonferroni": {
+   "value": 0.0983,
    "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
   },
   "v2_h1b_p": {

@@ -42,7 +42,7 @@ reproduce the ridge's simulated routes [`v1_passer_reproduce` = 3, `v1_passer_n`
 **15 %** of random land [`v1_null_share` = 0.152]: the test fails for the group, and we publish
 that. We then registered a tighter threshold from 124 lunar neighbours instead of 8 (V2): random
 land drops to **10 %** [`v2_null_share` = 0.0956] and the test passes narrowly (p = 0.049
-[`v2_h1_p` = 0.0492]), but classic footprints still do as well [`v2_classic_share` = 0.3148]. So
+[`v2_h1_p` = 0.0492]; 0.098 after correcting for the two looks), but classic footprints still do as well [`v2_classic_share` = 0.3148]. So
 every card reports slope and traverse separately. Two
 footprints in countries open to NASA and outside known analog areas pass both tests on two
 elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
@@ -90,8 +90,9 @@ the field), NO-ANALOG (no Earth site reproduces it; the card names the facility)
   with scale and threshold from **124** non-overlapping lunar windows instead of 8
   [`v2_n_moon_native` = 124]. Slope matches **3 of 9**, random land **95 of 994**, classic
   footprints **17 of 54** [`v2_passer_reproduce` = 3, `v2_null_reproduce` = 95,
-  `v2_classic_reproduce` = 17]; H1 passes (p = 0.049 [`v2_h1_p` = 0.0492]), H1b fails
-  (p = 0.59 [`v2_h1b_p` = 0.5949]).
+  `v2_classic_reproduce` = 17]; H1 passes at nominal α (p = 0.049 [`v2_h1_p` = 0.0492]; counting
+  both registered looks, Bonferroni p = 0.098 [`v2_h1_p_bonferroni` = 0.0984], so not confirmed),
+  H1b fails (p = 0.59 [`v2_h1b_p` = 0.5949]).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from **185** Mars windows [`mars_n_neighbours` = 185]. Classic Mars
   analog footprints **17 of 45**, random land **159 of 994** [`mars_classic_match` = 17,
@@ -141,7 +142,7 @@ environment"; it assigns no TRL.
   lead (inside the Atacama analog area) fail the traverse test.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
-- The route test beats random land only narrowly (V2, p = 0.049) and does not beat classic sites;
+- The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
   the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for **28 %**
   of daylight, the lunar target for **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,

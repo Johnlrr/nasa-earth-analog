@@ -372,6 +372,8 @@ def main() -> None:
         put("v2_classic_share", v2["classic"][0] / v2["classic"][1], src)
         put("v2_h1_p", v2["H1_p"], src)
         put("v2_h1_verdict", "PASS" if v2["H1_pass"] else "FAIL", src)
+        # two registered looks at H1 (V1, V2): Bonferroni-adjusted p for the second one
+        put("v2_h1_p_bonferroni", min(1.0, 2 * v2["H1_p"]), src)
         put("v2_h1b_p", v2["H1b_p"], src)
         put("v2_h1b_verdict", "PASS" if v2["H1b_pass"] else "FAIL", src)
         put("v2_h2_rho", v2["H2_rho"], src)
