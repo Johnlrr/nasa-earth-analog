@@ -1,0 +1,49 @@
+﻿<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Expedition browser checks</title><style>body{font:16px/1.6 system-ui;background:#101719;color:#f1eee6;margin:24px}li{margin:4px 0}.pass{color:#8bd6aa}.fail{color:#ff9d89}iframe{border:1px solid #344144;width:100%;height:700px}h1{font-size:24px}</style></head><body><h1>SIMILITUDE / live browser checks</h1><p id="status">Running…</p><ol id="checks"></ol><iframe id="app" title="Real Explorer under test" src="/web/explorer.html?lens=L1"></iframe><script>
+const wait=ms=>new Promise(r=>setTimeout(r,ms)),results=[];
+function check(ok,label){results.push({ok:!!ok,label});const li=document.createElement('li');li.className=ok?'pass':'fail';li.textContent=(ok?'PASS ':'FAIL ')+label;document.querySelector('#checks').append(li);if(!ok)throw Error(label);}
+async function until(fn){for(let i=0;i<150;i++){if(fn())return;await wait(50);}throw Error('Timed out waiting for browser state');}
+async function alternate(page,script){const f=document.createElement('iframe');f.title='Controlled network state';document.body.append(f);const ready=new Promise(r=>f.onload=r);f.srcdoc=page.replace('<head>','<head><base href="/web/">'+script);await ready;return f;}
+window.addEventListener('load',async()=>{try{
+const frame=document.querySelector('#app'),w=frame.contentWindow,d=w.document;
+await until(()=>d.documentElement.dataset.ready==='ready');const api=w.SimilitudeExplorer;
+check(api.getState().lens==='L1'&&!d.querySelector('#explorer').hidden&&d.querySelector('#mission').hidden,'Direct Explorer and canonical query lens load');
+check(d.querySelectorAll('[data-lens]').length===5,'All four lenses and Sites remain accessible');
+for(const lens of ['L1','L2','M1','X1','SITES']){
+ d.querySelector('[data-lens="'+lens+'"]').click();const s=api.getState();
+ check(s.lens===lens&&d.querySelector('[data-lens="'+lens+'"]').getAttribute('aria-pressed')==='true','Active lens agrees with engine: '+lens);
+ check(d.querySelectorAll('#list [data-id]').length===s.visible.length&&api.markerElements().length===s.visible.length,'Actual map/list features agree: '+lens);
+ if(lens==='M1')check(d.querySelector('#list').textContent.includes('No engine-qualified')&&s.visible.every(f=>['control','decoy'].includes(f.properties.role)),'M1 honestly separates zero discoveries from validation examples');
+ if(s.visible.length){const f=s.visible[0];d.querySelector('#list [data-id]').click();await wait(30);
+  check(api.getState().selectedId===f.properties.id&&d.querySelector('#selected-name').textContent===f.properties.name&&!d.querySelector('#comparison').hidden,'Row selection drives actual comparison: '+lens);
+  check(d.querySelector('#list [aria-current="true"]').dataset.id===api.getState().selectedId,'Selected list row uses actual feature: '+lens);
+  if(lens!=='SITES'){const entry=Object.entries(f.properties.lens_scores[lens].descriptors||{})[0];if(entry)check(d.querySelector('.comparison-table').textContent.includes(entry[0])&&d.querySelector('.comparison-table').textContent.includes(typeof entry[1].earth==='number'?entry[1].earth.toFixed(3):'Not available'),'Comparison renders original descriptor values: '+lens);}
+  if(lens==='M1')check(d.querySelector('#selected-class').textContent.includes('not a qualified discovery'),'Validation classification is visible next to comparison');
+ }
+}
+api.setLens('L1');api.select(api.getState().visible[0].properties.id,false);const selected=api.getState().selectedId,view=api.getView();
+d.querySelector('#open-dossier').click();await wait(70);
+check(!d.querySelector('#dossier').hidden&&d.querySelector('#transfer-limits').textContent.length>80,'Evidence opens with actual transfer limits visible');
+d.querySelector('.dossier-record').open=true;check(d.querySelector('#card').textContent.includes('Data sources')&&!d.querySelector('.radar-svg'),'Full original evidence record retained without decorative radar');
+d.querySelector('#close-dossier').click();await wait(80);check(d.querySelector('#dossier').hidden&&api.getState().selectedId===selected&&JSON.stringify(api.getView())===JSON.stringify(view),'Returning from evidence preserves selection and map viewport');
+d.querySelector('#back-results').click();await wait(80);check(d.querySelector('#comparison').hidden&&d.activeElement.dataset.id===selected,'Back to candidates restores result focus and keeps selection');
+const marker=api.markerElements().find(m=>m.id!==selected);marker.element.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter',bubbles:true}));await wait(40);check(api.getState().selectedId===marker.id,'Keyboard activation of a real map marker selects its feature');
+const row=d.querySelector('#list [data-id]');row.focus();check(api.markerElements().find(m=>m.id===row.dataset.id).element.classList.contains('linked-focus'),'List keyboard focus highlights the corresponding map marker');
+api.setLens('M1');check(api.getState().selectedId===null&&d.querySelector('#comparison').hidden&&d.querySelector('#dossier').hidden,'Incompatible lens clears stale selection from every panel');
+const nav=d.querySelector('.nav-mission');if(w.getComputedStyle(nav).display!=='none')nav.click();else w.location.hash='choose';await wait(60);d.querySelector('[data-planet="mars"]').click();d.querySelector('[data-task="X1"]').click();d.querySelector('#find-analogs').click();await wait(80);check(api.getState().lens==='X1'&&!d.querySelector('#explorer').hidden,'Mission chooser drives the same real Explorer state');
+check(!w.matchMedia('(prefers-reduced-motion: reduce)').matches||w.getComputedStyle(d.querySelector('#map')).animationName==='none','Reduced-motion preference suppresses cinematic transition');
+w.location.hash='choose';await wait(50);w.history.back();await wait(120);check(!d.querySelector('#explorer').hidden&&api.getState().lens==='X1','Browser Back returns without discarding active task');
+d.querySelector('[data-limits]').click();check(d.querySelector('#limits-dialog').open,'Data and limits opens as a native modal');d.querySelector('#close-limits').click();check(!d.querySelector('#limits-dialog').open,'Limits closes and returns control');
+for(const width of [1440,768,390,320]){frame.style.width=width+'px';await wait(80);check(d.documentElement.scrollWidth<=w.innerWidth,'No page overflow at '+width+' px');check(d.querySelector('#map').getBoundingClientRect().width>0,'Real map remains sized at '+width+' px');}
+frame.style.width='100%';w.location.hash='mission';await wait(60);for(const width of [768,390,320]){frame.style.width=width+'px';await wait(50);check(d.documentElement.scrollWidth<=w.innerWidth,'Intro fits '+width+' px');}frame.style.width='100%';
+await Promise.all([...d.images].map(im=>im.decode().catch(()=>{})));check([...d.images].every(im=>im.naturalWidth>0),'All locally attributed planetary images render');
+const page=await fetch('/web/explorer.html').then(r=>r.text());
+const failing=await alternate(page,'<script>window.fetch=()=>Promise.reject(new Error("QA controlled failure"));<'+ '/script>');await until(()=>failing.contentDocument.documentElement.dataset.ready==='error');check(!failing.contentDocument.querySelector('#error-banner').hidden&&failing.contentDocument.querySelector('#mock-banner').hidden,'Failing data is an error, never an unlabelled mock success');failing.remove();
+const emptyScript='<script>const original=window.fetch;window.fetch=(url,...args)=>String(url).includes("candidates.geojson")?Promise.resolve(new Response(JSON.stringify({type:"FeatureCollection",features:[]}))):original(url,...args);<'+ '/script>';
+const empty=await alternate(page,emptyScript);await until(()=>empty.contentDocument.documentElement.dataset.ready==='ready');check(empty.contentWindow.SimilitudeExplorer.getState().visible.length===0&&empty.contentDocument.querySelector('#list').textContent.includes('No candidates'),'An empty dataset shows an honest no-results state');empty.remove();
+const sample=JSON.parse(JSON.stringify(api.getState().features.find(f=>f.properties.lens_scores?.L1)));const key=Object.keys(sample.properties.lens_scores.L1.descriptors)[0];sample.properties.lens_scores.L1.descriptors[key].earth=null;
+const missingScript='<script>const original=window.fetch;window.fetch=(url,...args)=>String(url).includes("candidates.geojson")?new Promise(resolve=>setTimeout(()=>resolve(new Response(JSON.stringify({type:"FeatureCollection",features:'+JSON.stringify([sample])+'}))),900)):original(url,...args);<'+ '/script>';
+const missing=await alternate(page,missingScript);check(!missing.contentDocument.querySelector('#loading-banner').hidden,'Slow data presents a genuine loading state');await until(()=>missing.contentDocument.documentElement.dataset.ready==='ready');const ma=missing.contentWindow.SimilitudeExplorer;ma.setLens('L1');ma.select(sample.properties.id,false);check(missing.contentDocument.querySelector('.comparison-table tbody tr td:nth-child(2)').textContent==='Not available','Missing data displays Not available in the rendered comparison');missing.remove();
+check(!results.some(r=>!r.ok),'All interaction checks completed');
+}catch(error){if(!results.some(r=>!r.ok))check(false,error.stack||error.message);}finally{const failed=results.filter(r=>!r.ok).length;document.querySelector('#status').textContent=results.length+' checks / '+failed+' failed';document.documentElement.dataset.ready=failed?'failed':'passed';window.qaResults=results;}}
+);
+</script></body></html>

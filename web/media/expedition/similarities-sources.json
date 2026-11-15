@@ -1,0 +1,22 @@
+﻿{
+  "scope": "Images support visual inspection only. No image-based similarity, new score, humidity or soil-moisture estimate is derived from them.",
+  "reference_brief": ["design/reference-images/act-04-similarities.png", "design/reference-images/act-04-similarities-2.png"],
+  "earth": "The three existing B17 Earth review thumbnails and exact cell IDs are documented in ../provenance.json. A photograph is never assigned to an unrelated selected cell.",
+  "moon": "Connecting Ridge uses the existing PGDA 78 DEM hillshade documented in ../provenance.json. It is not a photograph or actual lunar illumination.",
+  "mars": {
+    "file": "jezero-margin-ctx.png",
+    "copied_from": "data/raw/mars/ctx_chips/jezero_margin.png",
+    "metadata": "data/raw/mars/ctx_chips/jezero_margin.json",
+    "target_id": "jezero_margin", "lat":18.5, "lon":77.38,
+    "size_km":5, "pixels":492, "m_per_px":10.16260162601626,
+    "source": "NASA MRO CTX / Caltech global mosaic beta01 / Mars Trek-OnMars",
+    "tile_template": "https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX/MapServer/tile/{z}/{row}/{col}",
+    "script": "scripts/targets/mica_ctx_chips.py",
+    "missing_pixel_fraction": 0.09580937272787363,
+    "presentation": "Original image pixels copied unchanged. Black mosaic gaps retained. CTX morphology does not measure mineral assemblages."
+  },
+  "numeric_data": "data/candidates.geojson descriptors, exact lens and target binding; no regional average or nearest-neighbour substitution.",
+  "environment": "data/ledger.json; planetary or literature reference values explicitly separated from local footprint measurements.",
+  "missing_measurements": "Humidity, soil moisture, local temperature and soil bearing strength are not reported as matched local values. X1 P/PET is labelled aridity, not humidity.",
+  "display_math": "Numeric bars share min(0, Earth, target)..max(0, Earth, target) within each row. Delta = Earth minus target in the descriptor's raw unit. Missing and non-finite values stay unavailable; no bars or deltas are imputed."
+}
