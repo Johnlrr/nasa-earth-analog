@@ -182,7 +182,7 @@
       if (sites.length) {
         var two = sites.filter(function (f) { var p = f.properties; return (p.lenses_engine_confirmed.length + p.lenses_engine_semiquant.length) >= 2; }).length;
         var low = sites.filter(function (f) { return f.properties.hidden_status === 'yes'; }).length;
-        h = stat('Field sites', sites.length) + stat('Sites passing 2+ tasks', two) + stat('Rarely studied (10 papers or fewer)', low);
+        h = stat('Earth field sites (150 km groups)', sites.length) + stat('Pass 2 or more mission tests', two) + stat('Little studied: 10 analog papers or fewer', low);
       }
     } else if (lm && !lm.status) {
       var ranked = state.features.filter(function (f) { return !isSite(f) && f.properties.lens_scores && f.properties.lens_scores[id] && roleOf(f.properties) === 'hidden'; }).length;
