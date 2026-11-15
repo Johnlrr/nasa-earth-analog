@@ -1,0 +1,61 @@
+# Pre-registration R1: does our 30 m planner's detour predict where a real rover detoured?
+# Written 2026-11-15 ~22:25 +07, after the hackathon submission was frozen (branch post-submission),
+# BEFORE any planner path was computed along the rover track. Looked at while writing: the file
+# structure of the public Perseverance traverse (MMGIS M20_traverse.json, M20_waypoints.json) and
+# the alignment check below. No detour, slope or rate along the track has been computed.
+# Commit hash = registration timestamp. Any change after it is a Deviation.
+
+question: >
+  SIMILITUDE scores terrain with a slope-limited planner on 30 m cells and reports route outcomes
+  (reach, detour, climb). Is the planner's detour a real property of terrain for a rover? Test it
+  where a rover actually drove: Perseverance in Jezero crater, on the same CTX DTM as the Mars lens.
+
+data:
+  track: NASA/JPL MMGIS M20_traverse.json (drive LineStrings with sol, length, SCLK_START/END),
+         downloaded 2026-11-15, last drive sol 2022; vertices in planetocentric lon/lat.
+  dtm:   USGS Mars 2020 TRN CTX DTM of Jezero (20 m, equirectangular, Mars 2000 sphere,
+         standard parallel 0).
+  alignment_check (done, the only thing computed): all 708 waypoints fall inside the DTM; DTM minus
+         waypoint geoid elevation: median -1.1 m, median absolute deviation 2.2 m, p90 5.9 m.
+
+geometry:
+  ground distance: great-circle on the Mars sphere (R = 3,396,190 m).
+  planner grid: the DTM window around a leg is resampled along x by cos(latitude of the window
+         centre) so cells are square in ground metres (the equirectangular grid is ~5 % too wide in
+         x at 18.4 N), then aggregated to 30 m with aggregate_to_baseline. Window = leg bounding box
+         plus 1 km margin on every side.
+
+legs:  # deterministic, no exclusions except DTM nodata
+  order: drive LineStrings sorted by SCLK_START; vertices concatenated; consecutive duplicate
+         vertices dropped.
+  cut:   walk the vertices; a leg ends at the first vertex whose straight ground distance from the
+         leg start is >= 1000 m; the next leg starts at that vertex. The final partial leg is dropped.
+  skip:  legs whose planner window has > 5 % nodata (counted).
+
+measures:
+  actual_detour:    rover path length along the leg / straight ground distance between its ends
+  predicted_detour: planner least-cost path length (8-connected, edge passable if along-edge grade
+                    <= 10 deg, cost = metric length) between the 30 m cells holding the two ends,
+                    / straight ground distance; unreachable = +inf (ranked highest)
+  sensitivity (reported, not tested): grade limits 8 deg and 6 deg; leg length 500 m and 2000 m.
+
+hypotheses:
+  R1_primary: Spearman(predicted_detour, actual_detour) over legs >= 0.30 AND one-sided p < 0.05.
+  R2_secondary: per drive LineString with length >= 20 m and SCLK_END > SCLK_START,
+                drive rate = length / (SCLK_END - SCLK_START); predictor = frac_gt8 of the 30 m
+                cells in a 1 km square around the drive midpoint; Spearman(frac_gt8, rate) < 0 with
+                one-sided p < 0.05 (rougher terrain, slower drive). Reported with its rho.
+
+decision_rule:
+  R1 pass: "the planner's detour tracks where Perseverance detoured (rho = x, n legs)"; the route
+           outcomes are described as rover-relevant, at 30 m, in Jezero.
+  R1 fail: publish the failure; route outcomes stay described as "a planner simulation on 30 m
+           cells", and the card text does not claim rover relevance.
+  Either way the per-leg table is published.
+
+known_confounds (stated before the run):
+  - Rover paths detour for science targets, not only for terrain; this biases R1 towards failure.
+  - Drive rate depends on drive mode (AutoNav vs directed) and imaging stops; R2 is secondary.
+  - Metre-scale rocks and sand are below 30 m; the planner cannot see them.
+
+not_claimed: one rover, one crater; no claim about the Moon from this test.
