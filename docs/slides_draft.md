@@ -69,14 +69,23 @@ Visual: bar chart of controls vs decoys, pass line.
   (Connecting Ridge terrain, via a rank cell found by the coarse screen, ice flag 0.15) + X1
   engine-semiquant (ice under dry overburden). The only engine–engine multi-lens site in the
   sample [`multilens_engine_engine_sites` = 1]. DESIGN's L2 hypothesis for Peary Land was **not**
-  confirmed (sun geometry is NO-ANALOG everywhere).
+  confirmed (sun geometry is NO-ANALOG everywhere). **Not "hidden"**: 52 analog papers
+  [`site_peary_land_attention` = 52] — its value is the two-lens camp, not novelty.
+- **Hidden = low Attention under the B8 query (≤ 10 papers), never inside a known-analog zone.**
+  Among the 6 showcase sites only **Zanda (Tsamda) and Gar, Ngari, western Tibet** qualifies:
+  **1** paper [`site_zanda_gar_attention` = 1], **5** cells over 206 km
+  [`site_zanda_gar_n_cells`, `site_zanda_gar_max_span_km`] matching the **Shackleton inner wall**
+  terrain (L1) — a region, not one camp. Across all named sites, **2** qualify
+  [`sites_hidden_yes` = 2]; the other is **Gêrzê, central Changtang** (L1 terrain, 0 papers) —
+  the same plateau the ice lens rejects below: a site can fail one test and pass another.
 - **Rejected by data:** Pamir–Changtang for X1 — **0 of 6** seeds pass
   [`x1_pamir_changtang_pass` / `x1_pamir_changtang_total`], **130–234** surface freeze–thaw
   days per year [`x1_tibet_ft_days_min`–`max`]; Mars ice never thaws.
-- Do **not** use the word "hidden": site-level literature attention is still unknown for all
-  showcase sites [`sites_attention_known` = 0] (A17 reruns after 07:00).
+- Attention is known for the **7** named sites [`sites_attention_known` = 7]; the 24 unnamed
+  sites stay "unknown" and are never called hidden.
 - M1 stays on slide 4 (stop rule FAIL); Jebel Akhdar's card leads with L2, M1 only as context.
-Visual: map of the **6** showcase sites [`sites_showcase`] (squares), Peary Land highlighted.
+Visual: map of the **6** showcase sites [`sites_showcase`] (squares), Peary Land and Zanda/Gar
+highlighted; Attention × verdict inset.
 
 ## Slide 6 — The product: Field / Facility card ("which rows of your test matrix come home valid")
 - One real card: **Peary Land** — *Comes home valid:* L1 slope–roughness vs Connecting Ridge

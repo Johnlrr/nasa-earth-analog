@@ -75,3 +75,11 @@ features:
   L2-E10K_244_-1498:
     action: keep
     note: "S2 check (B17): bare dark basalt lava flows (Mauna Loa, Hawaii); natural surface. Inside the Hawaii exclusion zone: never 'hidden'; snow_free_frac 0.62 printed on the card."
+  # ---- A13 extra cells flagged by Bao in PR #5 (15/11 ~09:25). Sheet:
+  # data/raw/review/contact_sheet_A13_extra.png (4 km footprint + 10 km context).
+  L1-E10K_660_-631:
+    action: keep
+    note: "S2 check: bare lichen-covered rock (Baffin Island, Nunavut) with snowbanks in gullies and small lakes inside the footprint; ice 0.047 (below the 0.05 flag)."
+  L1-E10K_-150_-743:
+    action: keep
+    note: "S2 check: footprint is natural coastal desert hills and dunes; the Lima urban edge is ~3 km west, outside the 4 km footprint (visible only in the 10 km context)."

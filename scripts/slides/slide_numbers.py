@@ -129,6 +129,21 @@ def main() -> None:
     put("sites_showcase", int((st.showcase.fillna("").astype(str).str.len() > 0).sum()),
         "data/derived/sites.parquet")
     put("sites_attention_known", int(st.attention_n.notna().sum()), "data/derived/sites.parquet")
+    put("sites_hidden_yes", int(st.hidden_status.astype(str).str.lower().eq("yes").sum()),
+        "data/derived/sites.parquet")
+    # per showcase site: attention, hidden status, cell count (slide 5 wording)
+    slugs = {"Zanda": "zanda_gar", "Peary": "peary_land", "Qaidam": "da_qaidam",
+             "Jebel Akhdar": "jebel_akhdar", "Mauna": "mauna_loa", "Atacama": "atacama_puna"}
+    show = st[st.showcase.fillna("").astype(str).str.len() > 0]
+    for _, r in show.iterrows():
+        slug = next((v for k, v in slugs.items() if k in str(r["name"])), None)
+        if slug is None:
+            continue
+        if pd.notna(r["attention_n"]):
+            put(f"site_{slug}_attention", int(r["attention_n"]), "data/derived/sites.parquet")
+        put(f"site_{slug}_hidden_status", str(r["hidden_status"]), "data/derived/sites.parquet")
+        put(f"site_{slug}_n_cells", int(r["n_cells"]), "data/derived/sites.parquet")
+        put(f"site_{slug}_max_span_km", float(r["max_span_km"]), "data/derived/sites.parquet")
 
     # ---- data volume (slide 7) ----
     put("emit_footprints_m1", int(pd.read_parquet(D / "earth_M1.parquet").shape[0]),

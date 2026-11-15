@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-15 09:09 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 09:22 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 
@@ -9,7 +9,7 @@ Both columns of a comparison must use the same filter (e.g. *usable* vs *usable*
 | Lens | Target | TRANSFERS cells | ice ok / flag / excluded | usable | usable outside known-analog buffers | sites | usable, not B10-downgraded (incl. unreviewed) | of which B10-unreviewed |
 |---|---|---|---|---|---|---|---|---|
 | L1 | Connecting Ridge (Site01) | 5 | 1 / 1 / 3 | 2 | 2 | 2 | 2 | 0 |
-| L1 | Shackleton inner wall (Site04 centre) | 99 | 90 / 3 / 6 | 93 | 54 | 27 | 93 | 90 |
+| L1 | Shackleton inner wall (Site04 centre) | 99 | 90 / 3 / 6 | 93 | 54 | 27 | 93 | 89 |
 | L2 | Connecting Ridge (Site01) | 3 | 2 / 0 / 1 | 2 | 1 | 2 | 1 | 0 |
 | L2 | Shackleton inner wall (Site04 centre) | 7 | 5 / 1 / 1 | 6 | 4 | 5 | 4 | 2 |
 

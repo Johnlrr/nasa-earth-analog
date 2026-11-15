@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T09:14",
+ "generated": "2026-11-15T09:23",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -186,7 +186,7 @@
    "source": "data/derived/target_scarcity.parquet"
   },
   "scarcity_L1_shackleton_rim_n_usable_b10_unreviewed": {
-   "value": 90,
+   "value": 89,
    "source": "data/derived/target_scarcity.parquet"
   },
   "scarcity_L1_shackleton_rim_n_sites_usable": {
@@ -255,6 +255,106 @@
   },
   "sites_attention_known": {
    "value": 7,
+   "source": "data/derived/sites.parquet"
+  },
+  "sites_hidden_yes": {
+   "value": 2,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_atacama_puna_attention": {
+   "value": 239,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_atacama_puna_hidden_status": {
+   "value": "no: inside known-analog buffer",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_atacama_puna_n_cells": {
+   "value": 54,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_atacama_puna_max_span_km": {
+   "value": 1108.0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_mauna_loa_attention": {
+   "value": 252,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_mauna_loa_hidden_status": {
+   "value": "no: inside known-analog buffer",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_mauna_loa_n_cells": {
+   "value": 1,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_mauna_loa_max_span_km": {
+   "value": 0.0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_jebel_akhdar_attention": {
+   "value": 26,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_jebel_akhdar_hidden_status": {
+   "value": "no: attention above threshold",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_jebel_akhdar_n_cells": {
+   "value": 1,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_jebel_akhdar_max_span_km": {
+   "value": 0.0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_zanda_gar_attention": {
+   "value": 1,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_zanda_gar_hidden_status": {
+   "value": "yes",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_zanda_gar_n_cells": {
+   "value": 5,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_zanda_gar_max_span_km": {
+   "value": 206.0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_da_qaidam_attention": {
+   "value": 73,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_da_qaidam_hidden_status": {
+   "value": "no: attention above threshold",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_da_qaidam_n_cells": {
+   "value": 2,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_da_qaidam_max_span_km": {
+   "value": 143.0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_peary_land_attention": {
+   "value": 52,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_peary_land_hidden_status": {
+   "value": "no: attention above threshold",
+   "source": "data/derived/sites.parquet"
+  },
+  "site_peary_land_n_cells": {
+   "value": 1,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_peary_land_max_span_km": {
+   "value": 0.0,
    "source": "data/derived/sites.parquet"
   },
   "emit_footprints_m1": {
