@@ -30,6 +30,9 @@
   function roleLabel(r) { return ROLE_LABEL[r] || r; }
   var SITES_TAB = { id: 'SITES', name: 'Showcase sites', body: 'Earth',
     question: 'Engine-qualified 4 km cells grouped into field sites (150 km): which rows of your test matrix come home valid, which need a facility, which are not certified.' };
+  var PROTOCOLS_URL = 'https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/test_protocols.md';
+  // GitHub heading anchor: lower case, drop punctuation (letters, digits, spaces, - and _ stay), spaces -> '-'
+  function ghSlug(t) { return String(t || '').toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-'); }
   function isSite(f) { return !!(f && f.properties && f.properties.feature_type === 'site'); }
   function safeUrl(u) { return /^https?:\/\//i.test(String(u || '')) ? String(u) : ''; }
 
@@ -414,6 +417,10 @@
     h += '<p><strong>Attention:</strong> ' + (typeof p.attention_n === 'number' ? esc(p.attention_n) + ' OpenAlex works' : 'not known') + '</p>';
     if (p.hidden_status === 'yes') h += '<p class="note">Low count of works naming this site in a Mars/Moon analog context; not proof that the site is unknown (validation report, Deviations 21).</p>';
     if (p.note) h += '<p class="note">' + esc(p.note) + '</p>';
+    // I3: the site's own test protocol (docs/test_protocols.md, one "### <site name>" section each)
+    // and the test-transfer matrix figure; GitHub renders the Markdown, Pages serves the figure
+    h += '<p class="proto-links"><a href="' + PROTOCOLS_URL + '#' + ghSlug(p.name) + '" target="_blank" rel="noopener">Test protocol for this site</a>' +
+      ' · <a href="figures/fig_transfer_matrix.png" target="_blank" rel="noopener">Test-transfer matrix (figure)</a></p>';
     h += '<h4>Comes home valid (Field)</h4>' + rowsHtml(p.field, 'r-field');
     h += '<h4>Needs a facility</h4>' + rowsHtml(p.facility, 'r-fac');
     h += '<h4>Not certified (unobserved)</h4>' + rowsHtml(p.unobserved, 'r-unobs');

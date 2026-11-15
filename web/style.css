@@ -469,3 +469,4 @@ td { font-variant-numeric: tabular-nums; }
 .topnav a { white-space: nowrap; }
 @media (max-width: 1199px) { .brand-line { display: none; } }
 @media (max-width: 400px) { .topnav .hdr-link { display: none; } .topbar-in { gap: 8px; } }
+.proto-links { margin: 14px 0 0; font-size: var(--fs-s); }

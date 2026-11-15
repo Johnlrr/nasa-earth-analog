@@ -98,8 +98,8 @@ def build() -> str:
     <p class="brand-line">Evidence and mission reading</p>
     <nav class="topnav" aria-label="Project">
       <a href="./#explorer">Explorer</a>
-      <a href="validation_report.md">Validation report</a>
-      <a href="test_protocols.md">Test protocols</a>
+      <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">Validation report</a>
+      <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/test_protocols.md">Test protocols</a>
     </nav>
   </div>
 </header>
@@ -194,7 +194,7 @@ Ridge, not from a census: about {n(num, 'prevalence_connecting_ridge_cells', '{:
 cells (95 % CI {n(num, 'prevalence_connecting_ridge_cells_lo', '{:,}')}–
 {n(num, 'prevalence_connecting_ridge_cells_hi', '{:,}')}) would pass the terrain test for the
 ridge, before the ice filter and the visual review. Full tables and the list of every rule
-changed after seeing data: <a href="validation_report.md">validation report</a>.</p>
+changed after seeing data: <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md">validation report</a>.</p>
 </main>
 </body>
 </html>
