@@ -1,60 +1,169 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-type="software" data-radius="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIMILITUDE - the proving-ground finder</title>
-<meta name="description" content="Earth analog test sites for Moon and Mars missions, scored per mission lens.">
+<title>SIMILITUDE: Earth analog test sites for Moon and Mars mission tasks</title>
+<meta name="description" content="Earth analog test sites for Moon and Mars mission tasks, judged per mission lens with NASA data on both worlds: which test results transfer, which need a facility, which are not certified.">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<meta name="theme-color" content="#161c1a">
+<meta property="og:title" content="SIMILITUDE: Earth analog test sites for Moon and Mars mission tasks">
+<meta property="og:description" content="One formula on NASA data from both worlds, per mission lens, with an Analog Test Card for every site.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161c1a'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%239fc7b8'/%3E%3Ccircle cx='19' cy='13' r='9' fill='%23161c1a' opacity='.55'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="site-header">
-  <h1>SIMILITUDE <span class="sub">the proving-ground finder</span></h1>
-  <p class="hook">Same formula, both worlds &mdash; per mission task &mdash; and we report exactly what cannot transfer. <a class="hdr-link" href="#limits">Data &amp; limits</a></p>
+<a class="skip-link" href="#explorer">Skip to the explorer</a>
+
+<header class="topbar">
+  <div class="topbar-in wrap">
+    <a class="brand" href="./" aria-label="SIMILITUDE home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">SIMILITUDE</span>
+    </a>
+    <p class="brand-line">Earth analog test sites for Moon and Mars mission tasks</p>
+    <nav class="topnav" aria-label="Project">
+      <a class="nav-how" href="#how">How it works</a>
+      <a class="nav-explorer" href="#explorer">Explorer</a>
+      <a class="hdr-link" href="#limits">Data &amp; limits</a>
+      <a class="nav-report" href="validation_report.md">Validation report</a>
+    </nav>
+  </div>
 </header>
 
-<div id="mock-banner" class="banner" role="status" hidden>MOCK DATA &mdash; fake numbers for UI development only. Do not cite.</div>
-<div id="prov-banner" class="banner prov" role="status" hidden>Provisional scores (diagonal metric) &mdash; final engine pending</div>
-<div id="error-banner" class="banner error" role="alert" hidden></div>
+<div class="banners">
+  <div id="mock-banner" class="banner" role="status" hidden>Mock data: fake numbers for interface development only. Do not cite.</div>
+  <div id="prov-banner" class="banner prov" role="status" hidden>Provisional scores (diagonal metric): final engine pending.</div>
+  <div id="error-banner" class="banner error" role="alert" hidden></div>
+</div>
 
-<nav class="lens-bar" aria-label="Mission lens">
-  <div id="lens-tabs" class="lens-tabs" role="group" aria-label="Select mission lens"></div>
-  <p id="lens-question" class="lens-question"></p>
-</nav>
+<main id="main">
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap shell hero-in">
+    <div class="hero-text" data-enter>
+      <p class="eyebrow">NASA Space Apps 2026 &middot; open data from both worlds</p>
+      <h1 id="hero-title" class="hero-title">Earth analog sites for Moon and Mars missions</h1>
+      <p class="hero-lead">Pick a mission task. SIMILITUDE scores places on Earth against its Moon or Mars target with NASA data from both worlds, then tells you which test results come home valid, which need a facility, and which orbit cannot certify.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#explorer">Open the explorer <span aria-hidden="true">&darr;</span></a>
+        <a class="btn btn-ghost" href="#how">How to read a site</a>
+      </div>
+      <p id="hero-fact" class="hero-fact">4 mission lenses &middot; one distance formula &middot; a random null sample for every lens</p>
+    </div>
+    <figure class="hero-visual" data-enter aria-label="A real Analog Test Card from the data, in short">
+      <div class="app-frame">
+        <div class="af-bar"><span></span><span></span><span></span><b>Analog Test Card</b></div>
+        <div id="hero-card" class="af-body">
+          <p class="af-site">Peary Land, North Greenland</p>
+          <p class="af-sub">Field site &middot; L1 engine &middot; X1 semi-quantitative</p>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
 
-<main class="layout">
-  <section class="map-wrap" aria-label="Map of candidate sites">
+<section class="how" id="how" aria-labelledby="how-title">
+  <div class="wrap shell">
+    <h2 id="how-title" class="sec-title">How to read a site in three steps</h2>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-visual" aria-hidden="true">
+          <span class="chip">L1</span><span class="chip">L2</span><span class="chip">M1</span><span class="chip">X1</span>
+        </div>
+        <h3>Choose a mission lens</h3>
+        <p>Each lens is one task, such as rover traverse on Moon slopes or drilling for ice under Martian soil, with its own target on the Moon or Mars.</p>
+      </li>
+      <li class="step">
+        <div class="step-visual scale" aria-hidden="true">
+          <span style="--c:var(--good)">&le; 1&sigma;</span><span style="--c:var(--ok)">&le; 2&sigma;</span><span style="--c:var(--warn)">&le; 3&sigma;</span><span style="--c:var(--bad)">&gt; 3&sigma;</span>
+        </div>
+        <h3>Read the map and the ranking</h3>
+        <p>Places are ranked by their distance to the target across the lens descriptors. A cell becomes a candidate only at the 90th percentile of a random null sample or better, after the lens gates.</p>
+      </li>
+      <li class="step">
+        <div class="step-visual states" aria-hidden="true">
+          <span class="v-ok-t">TRANSFERS</span><span class="v-no-t">NO-ANALOG</span><span class="v-unk-t">UNOBSERVED</span>
+        </div>
+        <h3>Open the Analog Test Card</h3>
+        <p>For every test: valid from the field, needs a facility such as a reduced-gravity rig, or cannot be certified from orbit.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="lenses" id="lenses" aria-labelledby="lenses-title">
+  <div class="wrap shell">
+    <h2 id="lenses-title" class="sec-title">Four mission lenses, one method</h2>
+    <div id="lens-cards" class="lens-cards"></div>
+  </div>
+</section>
+
+<section class="explorer" id="explorer" aria-labelledby="lens-title" tabindex="-1">
+<div class="lens-zone">
+  <div class="wrap shell">
+    <nav class="lens-bar" aria-label="Mission lens">
+      <div id="lens-tabs" class="lens-tabs" role="group" aria-label="Select a mission lens"></div>
+    </nav>
+    <div class="lens-brief">
+      <div class="lens-brief-text">
+        <p id="lens-eyebrow" class="eyebrow">Mission lens</p>
+        <h2 id="lens-title" class="lens-title">Explorer</h2>
+        <p id="lens-question" class="lens-question"></p>
+      </div>
+      <dl id="lens-stats" class="lens-stats" aria-label="Numbers for this lens"></dl>
+    </div>
+  </div>
+</div>
+
+<div id="workspace" class="workspace wrap shell" tabindex="-1">
+  <section class="map-panel" aria-label="Map of sites for this lens">
+    <div class="panel-head">
+      <h3 class="panel-title">Map</h3>
+      <p class="panel-note">Select a marker or a ranked result to open its card.</p>
+    </div>
     <div id="map" role="application" aria-label="Interactive map"></div>
     <div id="legend" class="legend" aria-label="Legend"></div>
   </section>
 
-  <aside id="card" class="card" aria-label="Analog Test Card" aria-live="polite" tabindex="-1">
+  <aside id="card" class="card detail" aria-label="Analog Test Card" aria-live="polite" tabindex="-1">
     <p class="muted">Select a site on the map or in the list to open its Analog Test Card.</p>
   </aside>
 
-  <section class="list-wrap" aria-label="Candidate list">
-    <h2 id="list-title">Candidates</h2>
+  <section class="results" aria-labelledby="list-title">
+    <div class="panel-head">
+      <h3 id="list-title" class="panel-title">Ranked results</h3>
+    </div>
     <ol id="list" class="cand-list"></ol>
   </section>
+</div>
+</section>
 </main>
 
 <footer class="site-footer">
-  <details id="limits" class="fold">
-    <summary>Data &amp; limits</summary>
-    <ul class="limits">
-      <li>EMIT covers only about &plusmn;52&deg; latitude (ISS orbit), so the spectral lens cannot see polar sites.</li>
-      <li>Earth's atmosphere hides the 1.4 and 1.9 &micro;m water bands where CRISM is most sensitive, so hydration parameters are excluded on both worlds.</li>
-      <li>MICA spectra are Mars I/F (numerator) and EMIT is surface reflectance; they are compared only through band-depth parameters and continuum-removed shapes.</li>
-      <li>X1 is semi-quantitative: it is a configuration match, and Earth ice is near its melting point.</li>
-      <li>Sigma is relative to the variation among Mars/Moon target sites (population) and is display-only; ranking uses the raw distance d.</li>
-      <li>Percentile is computed against a random null sample (n is shown on the card).</li>
-      <li>Attention index = OpenAlex count of analog papers mentioning the place.</li>
-      <li>Scores are provisional until the final engine is in place.</li>
-    </ul>
-    <p><a href="validation_report.md">Validation report</a></p>
-  </details>
-  <p>Data: NASA EMIT, MRO CRISM (MICA), LOLA/PGDA, Copernicus DEM, MODIS&hellip; &middot; Apache-2.0</p>
+  <div class="wrap shell">
+    <details id="limits" class="fold limits-fold">
+      <summary>Data &amp; limits</summary>
+      <ul class="limits">
+        <li>EMIT covers only about &plusmn;52&deg; latitude (ISS orbit), so the spectral lens cannot see polar sites.</li>
+        <li>Earth's atmosphere hides the 1.4 and 1.9 &micro;m water bands where CRISM is most sensitive, so hydration parameters are excluded on both worlds.</li>
+        <li>MICA spectra are Mars I/F (numerator) and EMIT is surface reflectance; they are compared only through band-depth parameters and continuum-removed shapes.</li>
+        <li>X1 is semi-quantitative: a configuration match, and Earth ice sits near its melting point.</li>
+        <li>Sigma is relative to the variation among Mars or Moon target sites (the population) and is shown for reading; ranking uses the raw distance d.</li>
+        <li>Percentile is computed against a random null sample; its size n is printed on the card.</li>
+        <li>Attention = OpenAlex count of analog papers naming the place under the B8 query; a site is called hidden only when that count is known, at most 10, and no cell lies in a known-analog zone.</li>
+        <li>Verdicts TRANSFERS, NO-ANALOG and UNOBSERVED are read from the pipeline's verdict table, never computed in this page.</li>
+      </ul>
+      <p><a href="validation_report.md">Read the validation report</a></p>
+    </details>
+    <p class="data-line">Data: NASA EMIT, MRO CRISM (MICA), LRO LOLA and PGDA, MODIS, ASTER GED, SWIM; Copernicus DEM, ESA WorldCover, ERA5-Land, TerraClimate, OpenAlex. Basemap NASA GIBS Blue Marble. Code Apache-2.0.</p>
+  </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>

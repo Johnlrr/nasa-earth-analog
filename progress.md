@@ -1,22 +1,27 @@
 # PROGRESS — Linh (B)
 
 Nhật ký tiến độ phần việc của Linh (B). Theo yêu cầu của Linh: **không sửa `PLAN.md` / `DESIGN.md`**. Mọi tiến độ, sai khác so với PLAN và việc cần quyết đều ghi ở đây.
-Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` sau khi Bảo hợp nhất A5–A9 + B0–B11). Môi trường: conda `similitude` (Python 3.12).
+Nhánh: `linh/spectral-story`; từ 15/11 09:35 trùng `main` @ `d4ba320` (sau PR #5/#6 của Bảo). Môi trường: conda `similitude` (Python 3.12).
 
-## Cần Linh / đội quyết (chưa chặn việc)
-- [x] ~~Commit / push~~: đã commit + push 8 commit B0–B12 lúc 14:00; Bảo đã hợp nhất vào `main`.
-- [ ] **0.1 / G0 (quy định SI):** cần người đọc Submission Guide và quyết. Bản nháp `docs/compliance.md` sẽ có sẵn checklist.
-- [ ] File `.dodsrc` ở gốc repo do `earthaccess` tạo (chỉ chứa đường dẫn netrc/cookie). Chưa xoá, không commit. Nên thêm vào `.gitignore` (file của Bảo).
-- [ ] **G1 — mục tiêu `shackleton_rim`:** Bảo đề xuất không dùng chip này làm mục tiêu (dốc trung vị 31°, có lẽ là thành trong hố). Hiện **4/5 ứng viên L2** khớp tốt nhất với `shackleton_rim`. Nếu G1 chấp nhận đề xuất, cần lọc mục tiêu này trong `fidelity.parquet` (A8) hoặc trong discovery rồi chạy lại.
-- [ ] **OpenAlex hết ngân sách miễn phí trong ngày** cho IP này (không có API key; reset 00:00 UTC = 07:00 giờ VN). Ô L1/L2 mới chưa có Attention (hiển thị "unknown", vẫn được giữ theo thiết kế). Sáng mai chạy lại `python scripts/discovery/run_discovery.py`; hoặc đặt biến môi trường `OPENALEX_API_KEY` (khoá cá nhân, không commit) để chạy ngay.
-- [ ] **Báo Bảo:** mặt nạ đất trơ tầng 1 để lọt băng/tuyết (sông băng Nunavut, South Patagonian Ice Field) → nên loại WorldCover lớp 70 (snow/ice) trong A2/A6.
+## TÌNH TRẠNG 15/11 09:40 — còn lại trước hạn nộp 21:00
+Phần kỹ thuật của B **đã xong** (B0–B17, B13–B16, việc Bảo nhờ sau PR #5/#6). Ô `[ ]` trong `PLAN.md` không phản ánh tiến độ B (Linh yêu cầu không sửa PLAN); tiến độ thật ở bảng "Giai đoạn 2b" và "Nhật ký" bên dưới.
 
-## Việc còn lại của B (phụ thuộc người / Bảo)
-- **G1 (16:00):** quyết M1 đường chính hay lùi (xem B3), giữ hay cắt X1, và mục tiêu `shackleton_rim` (trên).
-- **B10:** Bảo duyệt chéo `config/review_b10.yaml` + `data/raw/review/contact_sheet.png`, `contact_sheet_L1L2.png`.
-- **B12:** chốt số theo `docs/validation_report.md` (A9); dựng slide thật từ `docs/slides_draft.md`.
-- **0.1 / 5.x:** đọc nguyên văn, quyết G0, ký `docs/compliance.md`, điền trang Project, nộp.
-- Workflow Pages (`.github/workflows/pages.yml`) cần bật Settings → Pages → "GitHub Actions" và merge vào `main` để deploy.
+| # | Việc | Ai | Trạng thái / ghi chú |
+| :--- | :--- | :--- | :--- |
+| 1 | **Bật GitHub Pages** | chủ repo (Johnlrr) | Workflow `pages.yml` **thất bại 3 lần gần nhất** (da4390e, 7f5c283, d4ba320) vì repo chưa bật Pages (`GET /pages` = 404). Cần Settings → Pages → Source = **GitHub Actions**, rồi chạy lại workflow. Cần URL này cho slide 6 (QR) và trang Project |
+| 2 | **Dựng 7 slide thật** (B12 / 5.1) | Linh | Mới có nháp `docs/slides_draft.md` + số trong `docs/slide_numbers.json` (chạy lại `scripts/slides/slide_numbers.py` nếu dữ liệu đổi) |
+| 3 | **0.1 / G0 quy định SI** | Linh + Bảo | Đọc nguyên văn Submission Guide + FAQ SI; quyết và ký `docs/compliance.md`; câu khai báo SI cho trang Project |
+| 4 | **Trang Project** (5.1), **kiểm link ẩn danh** (5.2), **nộp + chụp xác nhận** (5.3) | Linh + Bảo | Cần URL web (việc 1) và URL slide (việc 2). Nộp trước 21:00 |
+| 5 | Đổi câu "Not presented as hidden" trong ghi chú Da Qaidam (`config/sites.yaml`) | Bảo | Để chữ "hidden" chỉ còn ở site `hidden_status = yes` |
+| 6 | Thêm `.dodsrc` vào `.gitignore` | Bảo (file của Bảo) | File do `earthaccess` tạo ở gốc repo, không commit |
+| 7 | Thêm `.taste-skill/` vào `.gitignore` | Bảo (file của Bảo) | Thư mục đo đạc của đợt làm lại giao diện (ảnh chụp, profile Chrome), không commit |
+
+## Đã giải quyết (giữ để tra cứu)
+- [x] Commit / push / merge `main`: theo yêu cầu Linh (lần cuối 09:35, `d4ba320`).
+- [x] G1 (`docs/review_g1.md`): M1 giữ đường chính → tiêu chí dừng FAIL, không công bố M1; X1 thành danh sách 3 điều kiện; `shackleton_rim` giữ trong bảng với nhãn "Shackleton inner wall (Site04 centre)" (`config/sites.yaml`).
+- [x] OpenAlex: Attention ô 108/108 và Attention site cho 7 site có tên (Bảo chạy lại 09:00 sau reset).
+- [x] Mặt nạ băng: đã báo; A13/A17 loại ô `ice_check = excluded`, giữ ô gắn cờ.
+- [x] B10: Linh duyệt mọi ô Connecting Ridge (L1 + L2) và 2 ô A13 Bảo nhờ.
 
 ## Sai khác so với PLAN (ghi lại, không sửa PLAN)
 - `lens_id` dùng dạng ngắn `L1, L2, M1, X1` (khớp `targets_L1.parquet` của Bảo), không dùng `M1_aqueous` như ví dụ DESIGN 2.4.
@@ -59,6 +64,8 @@ Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` 
 **B15 X1:** 3 điều kiện (MAAT ≤ −1 °C; đóng–tan ≤ 20 ngày/năm; khô hạn ≤ 0,5 theo ranh giới bán khô hạn UNEP), **ngưỡng đặt sau khi xem dữ liệu, đã ghi trong `lenses.yaml`**. Kiểm chứng độc lập **ĐẠT**: hai mồi nhử permafrost ẩm đã đăng ký trước (Yakutsk, Tây Siberia) trượt ≥ 1 điều kiện. Beacon Valley đạt 3/3; Axel Heiberg đạt 3/3. **Pamir–Changtang: 0/6 hạt giống đạt** (160–230 ngày đóng–tan/năm) → giả thuyết DESIGN bị dữ liệu bác. Thêm bộ lọc băng hà (WorldCover lớp 70, cùng ngưỡng A13 của Bảo: > 0,2 loại): 4 ô "đạt" thực ra nằm trên chỏm băng Greenland → loại. Còn **7 ô** đạt cả 3 và không phải băng hà (Bắc Cực Canada, Peary Land; 2 ô > 82,75°N ngoài vùng phủ WorldCover = "không đánh giá được băng").
 
 ## Nhật ký
+- 2026-11-15 · **Thêm phần giới thiệu (landing) ở đầu `web/index.html`** (Linh: "web chưa có landing page nên khó hiểu"). Cùng trang, link Pages/QR không đổi; công cụ giữ nguyên bên dưới (`#explorer`). Gồm: hero (h1 "Earth analog sites for Moon and Mars missions", 2 nút Open the explorer / How to read a site, dòng số liệu đọc từ metadata: 1.273 ô đã chấm, 4 lens, 6 site), Test Card thu nhỏ của site nhiều lens nhất (Peary Land) dựng từ `field`/`facility`/`unobserved` thật + nút mở card; 3 bước đọc site; 4 thẻ lens (câu hỏi, Cells scored / Null sample / Candidates từ metadata; M1 ghi "No Earth cell passed… reported as a result"), mỗi thẻ mở lens đó trong explorer. Đổi cấp heading: h1 hero → h2 section/lens → h3 card/bước → h4 nhãn nhỏ. Click-through 1440 + 390: 83 PASS / 2 FAIL (vẫn chỉ `validation_report.md` 404 cục bộ). Cổng tasteskill: hết 3 vòng, **OPEN 32 FAIL** — hầu hết là luật nhịp landing page (section cao đúng 1–2 màn hình, mỗi section cần ảnh, cần "moment" cuộn, lưới split 12 cột) không hợp với khu explorer; đã sửa các lỗi thật cổng tìm ra (nav xuống dòng ở 1024, tràn ngang ở 320, mất viền focus, nhảy cấp heading). Chưa commit.
+- 2026-11-15 · **Làm lại giao diện `web/` (index.html, style.css, app.js) theo skill design-taste-frontend** (Linh yêu cầu; không đổi dữ liệu, route, luồng bản đồ, tab lens, Test Card, chú giải, trạng thái kiểm chứng). **Sai khác:** giữ HTML/CSS/JS thuần, không chuyển React/Next/Tailwind (hạn nộp, Pages copy `web/` không có bước build); không áp các luật dành cho landing page của skill (hero, mỗi section một màn hình, ảnh chụp). Thay đổi: nền tối xanh–đen (Host Grotesk + JetBrains Mono), thanh trên dính + skip link + og/twitter/icon; vùng lens có eyebrow/tiêu đề/câu hỏi + 3 số đọc từ metadata (Cells scored, Null sample, Ranked candidates; tab Sites: 6 site, 2 site ≥ 2 lens engine, 1 Attention thấp); bố cục ≥ 1100 px map + kết quả xếp hạng bên trái, Test Card dính bên phải; panel trống có 3 bước, khoá trạng thái TRANSFERS/NO-ANALOG/UNOBSERVED và nút "Open the top result" (M1 không có ứng viên → "Open the first row (no ranked candidate)", không tự nhận là kết quả); tab lens thành lưới ở ≤ 960 px; nút zoom 44 px trên điện thoại; tile GIBS `noWrap` + bounds. **Đo (`.taste-skill/before|after`):** copy-lint 0/0 cả hai; consistency 116 FAIL/27 WARN → 110/51 (text-contrast 8→0, tap-size 7→0, empty-visual 2→0, skip-link 1→0, fold-cut 3→0, off-grid 8→1; phần lớn FAIL còn lại là luật landing page: section-height, container-edges, one-section, cta, hero-*); perf: broken requests 9→0, LCP 1944→288–1324 ms; còn FAIL "ảnh không width/height" = tile Leaflet. **Click-through headless 1440 + 390:** 71 PASS / 2 FAIL — 2 FAIL là `validation_report.md` 404 khi chạy cục bộ (link có từ trước; `pages.yml` copy `docs/validation_report.md` vào site lúc deploy). Không lỗi JS, không tràn ngang. pytest 180 passed; `validate_candidates` 33 feature OK. Chưa commit.
 - 2026-11-14 16:55 · **Sau khi hợp nhất với engine của Bảo (A5–A8):**
   - Duyệt thay đổi của Bảo trong `discovery.passes_fidelity` (thêm σ ≤ 2; L2 xét `sigma_shadow`): **đồng ý**, đúng DESIGN 2.2(3). Thêm test cho nhánh này.
   - Sửa lỗi: đối chứng L1/L2 **không được xuất** vì bảng của Bảo dùng ID `CTRL_<id>`/`SEED_<Tên>` còn discovery chỉ nhận `ctl_`. Giờ nhận cả hai quy ước (`ID_PREFIXES`, `control_cell_ids`); hạt giống của Bảo lấy tên từ cột `name`.
