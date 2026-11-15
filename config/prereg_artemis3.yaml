@@ -1,0 +1,65 @@
+# Pre-registration A3: the Artemis III candidate landing regions as targets of the terrain lens.
+# Written 2026-11-15 ~23:10 +07 on branch post-submission, after the hackathon submission. Committed
+# and pushed BEFORE any Earth footprint is compared with these regions. While writing it we looked
+# only at the PGDA 78 site list, the NASA region names and the existing V2 code (scripts/v2_mars.py).
+# No new-region DEM had been opened.
+
+regions:
+  source: >
+    NASA (2024-10-28) "NASA Provides Update on Artemis III Moon Landing Regions" (nine regions);
+    George, Rubio, Lawrence, Curell, "Artemis III site selection update: downselection from thirteen
+    to nine candidate regions", NTRS 20250011660. Neither gives numeric region centres, so no
+    coordinate is guessed: a region is run only if NASA PGDA Product 78 (Barker et al. 2021) has a
+    5 m DEM under the same name.
+  run:
+    haworth: {pgda: Haworth, name_in_pgda: "Haworth"}
+    malapert_massif: {pgda: Site23, name_in_pgda: "Malapert massif"}
+    nobile_rim_1: {pgda: Site06, name_in_pgda: "Nobile rim 1"}
+    nobile_rim_2: {pgda: DM2, name_in_pgda: "Nobile rim 2"}
+    mons_mouton_plateau:
+      pgda: Site20
+      name_in_pgda: "Leibnitz beta plateau"
+      note: "Mons Mouton is the IAU name of Leibnitz Beta (NASA SVS 5074)"
+  not_run:
+    mons_mouton: "2024 split of the Leibnitz Beta region; no separate PGDA 78 DEM (Site20v2 'extended boundaries' may cover it, not verified)"
+    de_gerlache_rim_2: "PGDA 78 has two DEMs named 'de Gerlache rim' (Site11, SL2); which one is Rim 2 is not stated"
+    peak_near_cabeus_b: "no PGDA 78 DEM"
+    slater_plain: "no PGDA 78 DEM"
+
+dem_check: >
+  Before the Earth run, our 5 m slope on the central 4 km of each DEM against NASA's own PGDA 78
+  slope raster (as in l1_regions.nasa_slope_check). Reported; a median difference > 0.5 deg stops
+  that region.
+
+reference: >
+  Medoid of the region: 4 km windows on a 1 km grid of the DEM (NaN share <= 5 %), each aggregated
+  to the 30 m baseline; slope descriptors (slope_p50, slope_p90, frac_gt8, frac_gt15, frac_gt20)
+  robust-scaled over all windows; the reference is the window with the smallest sum of distances
+  to all others (route_distance on the slope family).
+
+neighbours_and_thresholds: >
+  Same rule as V2 (config/prereg_v2_mars.yaml): every window of the 1 km grid whose centre is at
+  least 4 km from the reference. Scale = robust_scale over the neighbours, tau = median neighbour
+  distance, separately for the slope family and the route family (OUTCOMES of similitude.route).
+
+earth_sample: >
+  The 1,000 pre-registered random bare-land cells (route_validity.parquet group null; route
+  outcomes as computed there, GLO-30) and the 54 footprints around six classic analog sites (group
+  classic). Slope descriptors from the same cached GLO-30 chips (route_validity.earth_footprint).
+
+match: "D_slope <= tau_slope AND D_route <= tau_route (GLO-30). A second DEM is not checked here."
+
+outputs_per_region:
+  - null prevalence k/n with exact 95 % CI
+  - classic k/n and one-sided Fisher p (classic > null), reported with Bonferroni over the regions run
+  - open-country matches (LSIB country not China/Russia), frac_gt8, frac_gt20, low-Sun window days (astro.low_sun_windows)
+
+decision_rule:
+  earth_site_available: "at least one open-country null match"
+  selective: "null prevalence <= 10 %; otherwise the region is reported as 'lens not selective here'"
+  classic_vs_null: "pass if Bonferroni-adjusted p < 0.05"
+  failures: "published as they come"
+
+sanity_check: >
+  The same code with Site01 and the DEM centre as reference must reproduce the V2 route tau
+  (route_v2.json, 1.161) before any region result is read.
