@@ -185,6 +185,8 @@ def main() -> None:
         put("x1_decoy_n", mv["x1_controls"]["decoy_n"], src)
         for k in ("seed_devon_island", "seed_changtang_north", "seed_peary_land"):
             put(f"x1_{k}_passes", bool(mv["x1_controls"]["seed_pass"][k]), src)
+        for k, val in mv["x1_mission"].items():
+            put(f"x1_mission_{k}", val, src)
         put("m1_checks_passed", mv["m1_checks"]["passed"], src)
         put("m1_checks_n", mv["m1_checks"]["n"], src)
         for lens, c in mv["coverage"].items():

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T15:31",
+ "generated": "2026-11-15T15:35",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -543,6 +543,22 @@
   },
   "x1_seed_peary_land_passes": {
    "value": true,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_cells": {
+   "value": 8,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_within_1m": {
+   "value": 7,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_within_2m": {
+   "value": 8,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_depth_max_m": {
+   "value": 1.0179,
    "source": "data/derived/mission_value.json"
   },
   "m1_checks_passed": {

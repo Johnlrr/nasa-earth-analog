@@ -169,6 +169,29 @@ def x1_controls(x1: pd.DataFrame) -> dict:
             "seed_pass": {r.cell_id: bool(r.passes_all) for r in seed.itertuples()}}
 
 
+def x1_mission(x1: pd.DataFrame, verdicts: pd.DataFrame, targets: pd.DataFrame) -> pd.DataFrame:
+    """Modelled depth to ice-bearing ground of the X1 TRANSFERS cells and of the Mars references,
+    beside the Mars Life Explorer numbers (land within 1 m of ice, drill to 2 m).
+
+    Earth: Stefan thaw depth from ERA5-Land thawing degree-days (active_layer_m), taken as the
+    depth to ice-bearing permafrost. Mars: ice_depth_ratio x 1 m (the descriptor's drill reach),
+    from the sources in targets_X1. A reading of existing descriptors, not a measurement.
+    """
+    kept = set(verdicts[verdicts["lens_id"].eq("X1") & verdicts["state"].eq("TRANSFERS")
+                        & verdicts["cell_id"].fillna("").ne("")]["cell_id"])
+    e = x1[x1["cell_id"].isin(kept)]
+    rows = [{"body": "Mars", "id": r.footprint_id, "depth_to_ice_m": float(r.ice_depth_ratio),
+             "capped": bool(r.ice_depth_ratio >= 3.0), "source": r.source}
+            for r in targets.itertuples()]
+    rows += [{"body": "Earth", "id": r.cell_id, "depth_to_ice_m": float(r.active_layer_m),
+              "capped": False, "source": f"lat {r.lat:.2f}, lon {r.lon:.2f}; qa {r.qa_flag}; "
+                                         f"ice check {r.ice_check}"} for r in e.itertuples()]
+    out = pd.DataFrame(rows)
+    out["within_1m"] = out["depth_to_ice_m"] <= 1.0
+    out["within_2m"] = out["depth_to_ice_m"] <= 2.0
+    return out
+
+
 def coverage(verdicts: pd.DataFrame) -> pd.DataFrame:
     """Per lens and test variable, one state: the test-transfer matrix (lens/target-level rows)."""
     v = verdicts[verdicts["cell_id"].fillna("").eq("")].copy()
@@ -251,7 +274,7 @@ def _robustness_lines(cell_id: str) -> list[str]:
 
 
 def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
-                     generated: str) -> str:
+                     generated: str, x1m: pd.DataFrame | None = None) -> str:
     req, gaps = CFG["requirements"], shortfall_names()
     counts = cov.groupby(["lens_id", "state"]).size().unstack(fill_value=0)
     out = ["# Test protocols for the showcase sites (PLAN 2d)", "",
@@ -290,7 +313,14 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                     f"{n['TRANSFERS']} variable(s) transfer, {n['NO-ANALOG']} are not "
                     f"reproduced on Earth, {n['UNOBSERVED']} unobserved (of {sum(n.values())}; "
                     "best state over the lens' targets"
-                    + (f"; {p['coverage_note']}" if p.get("coverage_note") else "") + ")"), ""]
+                    + (f"; {p['coverage_note']}" if p.get("coverage_note") else "") + ")")]
+        if lens == "X1" and x1m is not None:
+            e = x1m[x1m["body"].eq("Earth")]
+            out.append(f"- **Mars Life Explorer reading:** of the {len(e)} cells kept, "
+                       f"{int(e['within_1m'].sum())} have modelled ice-bearing ground within "
+                       f"1 m and {int(e['within_2m'].sum())} within the 2 m drill reach "
+                       "(Stefan thaw depth from reanalysis; not observed in situ).")
+        out.append("")
     out += ["## Protocol per showcase site", ""]
     kept = crit[crit["group"].eq("Engine match")].set_index("id")
     ref = crit[crit["group"].eq("Moon target")].iloc[0]
@@ -342,6 +372,9 @@ def build(attention_enabled: bool = False) -> dict:
     names[MOON_TARGET] = SITES["target_labels"][MOON_TARGET]
     crit = mission_criteria(targets, earth, kept, names=names)
     cov = coverage(verdicts)
+    x1m = x1_mission(pd.read_parquet(DERIVED / "x1_checklist.parquet"), verdicts,
+                     pd.read_parquet(DERIVED / "targets_X1.parquet"))
+    x1e = x1m[x1m["body"].eq("Earth")]
     classic = crit[crit["group"].eq("Classic analog")]
     ref = crit[crit["group"].eq("Moon target")].iloc[0]
     ctrl = robust[robust["cell_id"].isin(classic["id"]) & robust["target_id"].eq(MOON_TARGET)]
@@ -362,6 +395,9 @@ def build(attention_enabled: bool = False) -> dict:
         "l1_under_sampling": float(ref["frac_gt8"] / classic["frac_gt8"].median()),
         "rediscovery": rediscovery(tier1, earth, robust, site_cells),
         "x1_controls": x1_controls(pd.read_parquet(DERIVED / "x1_checklist.parquet")),
+        "x1_mission": {"cells": len(x1e), "within_1m": int(x1e["within_1m"].sum()),
+                       "within_2m": int(x1e["within_2m"].sum()),
+                       "depth_max_m": float(x1e["depth_to_ice_m"].max())},
         "m1_checks": {"passed": int(sum(bool(x) for x in m1["checks"].values())),
                       "n": len(m1["checks"]), "verdict": m1["verdict"]},
         "coverage": {lens: {s: int((g["state"] == s).sum()) for s in STATE_ORDER}
@@ -374,7 +410,7 @@ def build(attention_enabled: bool = False) -> dict:
                                            ["n_transfers"].iloc[0]),
                    "usable": len(kept)},
     }
-    return {"criteria": crit, "coverage": cov, "value": value,
+    return {"criteria": crit, "coverage": cov, "value": value, "x1_mission": x1m,
             "task_attention": task_attention(attention_enabled)}
 
 
@@ -384,6 +420,7 @@ def main() -> None:
     args = ap.parse_args()
     b = build(attention_enabled=not args.no_attention)
     b["criteria"].to_parquet(DERIVED / "mission_criteria.parquet", index=False)
+    b["x1_mission"].to_parquet(DERIVED / "x1_mission.parquet", index=False)
     if len(b["task_attention"]):
         b["task_attention"].to_parquet(DERIVED / "task_attention.parquet", index=False)
     generated = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -391,7 +428,8 @@ def main() -> None:
         json.dumps({"generated": generated, **b["value"]}, indent=1), encoding="utf-8")
     cards = json.loads((DERIVED / "field_facility.json").read_text(encoding="utf-8"))["sites"]
     (io.REPO_ROOT / "docs" / "test_protocols.md").write_text(
-        render_protocols(cards, b["criteria"], b["coverage"], generated), encoding="utf-8")
+        render_protocols(cards, b["criteria"], b["coverage"], generated, b["x1_mission"]),
+        encoding="utf-8")
     print(b["criteria"][["group", "id", "slope_p50", "frac_gt8", "frac_gt20",
                          "in_range_frac_gt8", "in_range_frac_gt20"]].to_string(index=False))
     print(json.dumps(b["value"], indent=1)[:2500])

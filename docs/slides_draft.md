@@ -170,6 +170,11 @@ Visual: `docs/figures/fig_region_matrix.png` (six PGDA 78 south-pole sites × Ea
   `coverage_X1_total`], but one is the day length, which polar sites do not reproduce under the
   midnight Sun: **1 of 9** at the sites that pass.
   Low Sun: **1 of 9** [`coverage_L2_transfers` / `coverage_L2_total`].
+- **Mars ice, read beside NASA's Mars Life Explorer study** ("land within a vertical meter of
+  Martian mid-latitude ice, drill for samples to a 2-meter depth"): all **8** Earth cells the ice
+  lens keeps have modelled ice-bearing ground within the 2 m drill reach, **7** within 1 m
+  [`x1_mission_cells` = 8, `x1_mission_within_2m` = 8, `x1_mission_within_1m` = 7] (modelled
+  thaw depth, not observed; semi-quantitative).
 - The honest limit, as a number: the best Earth site has the Sun below 7° for **28 %** of
   daylight; the lunar target, **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,
   `l2_moon_lowsun_frac_daylight` = 1.0]. No Earth site can test polar Sun geometry.

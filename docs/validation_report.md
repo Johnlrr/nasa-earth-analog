@@ -471,6 +471,29 @@ the cells cluster into few sites.
 Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). The traverse column is computed inside the 4 km footprint and assumes that the share of steep terrain along a path equals its areal share; it restates the 8° share, which the engine selects on, and the neighbouring footprints differ (§7c). Caveat: Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 <!-- END:mission_criteria -->
 
+### Mars ice access, read on both worlds (semi-quantitative)
+
+<!-- BEGIN:x1_mission -->
+| body | site / cell | depth to ice-bearing ground, m | within 1 m | within the 2 m drill reach | basis |
+|---|---|---|---|---|---|
+| Mars | arcadia_planitia | 0.50 | yes | yes | Subsurface Water Ice Mapping (SWIM) project; Morgan et al. 2021 Nature Astronomy doi:10.1038/s41550-020-01290-z |
+| Mars | phoenix_site | 0.05 | yes | yes | Ice table 5-18 cm under dry soil (Phoenix lander); https://doi.org/10.1126/science.1172339 |
+| Mars | ice_exposing_craters_55n | 0.50 | yes | yes | New impact craters exposing ice within ~1 m at 43-56 N; https://doi.org/10.1126/science.1175307 |
+| Mars | deuteronilus_lda | > 3.00 | no | no | Debris-covered glacial ice, overburden >~1 m (SHARAD); https://doi.org/10.1029/2008GL036379 |
+| Mars | meridiani_equatorial | > 3.00 | no | no | No near-surface ice at the equator (ice unstable); https://swim.psi.edu/ |
+| Mars | hellas_lda | > 3.00 | no | no | Lobate debris aprons: ice under metres of debris; https://doi.org/10.1029/2008GL036379 |
+| Earth | seed_peary_land | 0.00 | yes | yes | lat 82.50, lon -32.00; qa ok; ice check flag: some ice |
+| Earth | seed_devon_island | 0.59 | yes | yes | lat 75.40, lon -89.70; qa ok; ice check ok |
+| Earth | rank_0038 | 0.48 | yes | yes | lat 77.94, lon -111.77; qa ok; ice check ok |
+| Earth | rank_0040 | 0.53 | yes | yes | lat 76.82, lon -118.92; qa ok; ice check ok |
+| Earth | rank_0056 | 1.02 | no | yes | lat 66.87, lon 136.47; qa vegetated; ice check ok |
+| Earth | rank_0058 | 0.74 | yes | yes | lat 68.59, lon -85.73; qa ok; ice check ok |
+| Earth | rank_0087 | 0.60 | yes | yes | lat 80.67, lon -91.86; qa ok; ice check ok |
+| Earth | rank_0123 | 0.00 | yes | yes | lat 83.05, lon -37.92; qa ok; ice check not assessed (outside ESA WorldCover) |
+
+Mars Life Explorer concept study: "land within a vertical meter of Martian mid-latitude ice, drill for samples to a 2-meter depth" (https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf). Of the 8 Earth cells the ice lens keeps, 7 have modelled ice-bearing ground within 1 m and 8 within 2 m (deepest 1.02 m). Earth depths are Stefan thaw depths from ERA5-Land thawing degree-days, taken as the depth to ice-bearing permafrost; Mars depths come from the sources listed. A reading of descriptors the lens already uses (a consistency check), not a measurement: no ice table was observed in situ, and a mission concept study is not a requirement.
+<!-- END:x1_mission -->
+
 ### Test-transfer matrix
 
 ![Lens by test variable, three states](figures/fig_transfer_matrix.png)
@@ -673,6 +696,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 27 | Test protocols and the TRL reading of a card (`docs/test_protocols.md`) | PLAN 2d, 15/11 midday | State what a field campaign may claim | A card is an input to a project's own definition of its relevant environment; no hardware was tested and no TRL is assigned or certified |
 | 28 | Six-region reading of L1, leave-one-out on the Moon, 800 more random bare-land cells (`scripts/l1_regions.py`, `scripts/null_expand.py`) | PLAN 2e, 15/11 afternoon | L1 had no known-truth check; the null sample of 200 gave a prevalence CI of 0.01–2.8 % | Post hoc. The four regions without a published reference use their medoid footprint and are exploratory (never in `verdicts.parquet`). The extra cells were drawn by the pre-registered rule with a new seed before any was scored; the first 200 are unchanged. The published robust sets are reproduced exactly by the generalised code before it is used |
 | 29 | Cross-DEM check with NASADEM / ArcticDEM (`scripts/cross_dem.py`) | PLAN 2e, 15/11 afternoon | The Earth side rests on one DEM whose effective resolution differs from the lunar one | Post hoc robustness check on the ridge cells, the controls and the wall cells, plus the 3 × 3 footprint blocks around the two ridge matches and the six classic sites (`scripts/site_stability.py`, exploratory). Verdicts are not changed by it; a cell whose verdict flips is flagged as marginal in §1, on its card and on the slides |
+| 30 | Mars ice-access reading (modelled depth to ice-bearing ground of the X1 cells beside the Mars Life Explorer numbers), rank-threshold sensitivity table, `web/evidence.html` | PLAN 2e, 15/11 afternoon | Read the Mars lens beside a published NASA document as the Moon lens is; show what the n/2 rule does at n/3 and 2n/3 | Post hoc readings of descriptors and ranks that already exist (consistency checks). A mission concept study is not a requirement. No threshold or verdict changed |
 
 ## 9. Limitations and not done
 

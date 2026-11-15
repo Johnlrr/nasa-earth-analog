@@ -354,6 +354,26 @@ def t_mission_criteria() -> str:
             f"Caveat: {cav}")
 
 
+def t_x1_mission() -> str:
+    x = pd.read_parquet(DERIVED / "x1_mission.parquet")
+    m, req = _mv()["x1_mission"], _mission()["requirements"]["mars_ice_access"]
+    out = pd.DataFrame({
+        "body": x["body"], "site / cell": x["id"],
+        "depth to ice-bearing ground, m": [("> " if c else "") + f"{d:.2f}" for d, c in
+                                           zip(x["depth_to_ice_m"], x["capped"], strict=True)],
+        "within 1 m": x["within_1m"].map({True: "yes", False: "no"}),
+        "within the 2 m drill reach": x["within_2m"].map({True: "yes", False: "no"}),
+        "basis": x["source"]})
+    return (md_table(out) + f"\n\nMars Life Explorer concept study: \"{req['quote']}\" "
+            f"({req['source']}). Of the {m['cells']} Earth cells the ice lens keeps, "
+            f"{m['within_1m']} have modelled ice-bearing ground within 1 m and "
+            f"{m['within_2m']} within 2 m (deepest {m['depth_max_m']:.2f} m). Earth depths are "
+            "Stefan thaw depths from ERA5-Land thawing degree-days, taken as the depth to "
+            "ice-bearing permafrost; Mars depths come from the sources listed. A reading of "
+            "descriptors the lens already uses (a consistency check), not a measurement: no "
+            "ice table was observed in situ, and a mission concept study is not a requirement.")
+
+
 def t_coverage() -> str:
     import sys
 
@@ -701,6 +721,7 @@ TABLES = {"verdicts": t_verdicts, "ledger": t_ledger, "terrain_controls": t_terr
           "multilens": t_multilens, "sites": t_sites,
           "mission_headline": t_mission_headline, "validity": t_validity,
           "mission_criteria": t_mission_criteria, "coverage": t_coverage,
+          "x1_mission": t_x1_mission,
           "task_attention": t_task_attention,
           "checks_headline": t_checks_headline, "nasa_slope": t_nasa_slope,
           "cross_dem": t_cross_dem, "site_stability": t_site_stability,
