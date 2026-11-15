@@ -54,5 +54,5 @@ test('signature orders only observed standardized differences without changing s
 });
 test('the discovery interpretation preserves evidence role and exposes feature-level inspection',()=>{
  const f=data.features.find(f=>f.properties.id==='M1-ctl_lake_salda');const html=render(f,'M1');
- assert.match(html,/Validation control; this is not a qualified discovery/);assert.match(html,/What aligns/);assert.match(html,/What differs/);assert.match(html,/What remains unknown/);assert.match(html,/signature-feature/);assert.match(html,/not a new pass\/fail threshold/);
+ assert.match(html,/Validation control; this is not a qualified discovery/);assert.match(html,/Closest match/);assert.match(html,/Biggest difference/);assert.match(html,/What remains unknown/);assert.match(html,/signature-feature/);
 });

@@ -30,7 +30,8 @@
     if (p.feature_type === 'site') return 'Showcase site / regional group';
     if (p.role === 'control') return 'Validation control / not a discovery';
     if (p.role === 'decoy') return 'Validation decoy / not a discovery';
-    return 'Engine match (4 km cell) / ' + (p.evidence_status || 'evidence status not published');
+    const ev = {'engine-confirmed': 'measured', 'engine-semiquant': 'semi-quantitative', 'literature-only': 'literature only'}[p.evidence_status] || p.evidence_status || 'status not published';
+    return 'Passes the test (4 km footprint) / ' + ev;
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {comparisonRows,descriptorUnit,classification,number};
   if (typeof document === 'undefined') return;
@@ -121,7 +122,7 @@
     $('workspace').setAttribute('aria-busy',String(current.status==='loading'));
     const lens = current.lenses.find(l => l.id === current.lens);
     $('map-task-label').textContent = current.lens === 'SITES' ? 'Grouped site overview' : current.lens+' / '+(lens?.name || '');
-    $('score-help').textContent = current.lens === 'SITES' ? 'Regional groups, not a single ranked score.' : current.lens === 'L2' ? 'Lower σ_shadow is a closer terrain-shadow match. Sun geometry is separate.' : 'Lower σ is a closer feature match. It is not confidence.';
+    $('score-help').textContent = current.lens === 'SITES' ? 'Regional groups, not a single ranked score.' : current.lens === 'L2' ? 'Lower σ_shadow is a closer terrain-shadow match. Sun geometry is separate.' : 'σ = distance to the target. Lower is closer.';
     if (!appliedInitial && current.status === 'ready') {
       appliedInitial = true; const requested = new URLSearchParams(location.search).get('lens');
       if (validLens(requested) && requested !== current.lens) { api().setLens(requested); return; }

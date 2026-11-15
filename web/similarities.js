@@ -42,7 +42,7 @@
     return rows.filter(r=>finite(r.z)&&finite(r.earth)&&finite(r.target)).slice().sort((a,b)=>Math.abs(a.z)-Math.abs(b.z));
   }
   function discovery(c,rows,labelFor,unitFor,feature){
-    const ordered=signature(rows),near=ordered[0],far=ordered[ordered.length-1];
+    const ordered=signature(rows),measured=ordered.filter(r=>r.key!=='permafrost_flag'),near=measured[0]||ordered[0],far=ordered[ordered.length-1];
     const missing=gaps(feature,c.lens),limit=(c.feature?.properties.verdicts||[]).find(r=>r.lens===c.lens&&r.state==='NO-ANALOG');
     let h='<section class="discovery" aria-label="Scientific discovery"><p class="overline">'+esc(c.lens)+' / '+esc(c.name)+' → '+esc(names[c.target]||c.target)+'</p>';
     const g8=rows.find(r=>r.key==='frac_gt8'),g20=rows.find(r=>r.key==='frac_gt20');
@@ -51,11 +51,12 @@
     h+='<h3>'+(slopeLine?esc(slopeLine):near?esc(labelFor(near.key))+' is the closest measured alignment.':'A recorded field relationship. Detailed measurements are not published.')+'</h3>';
     if(slopeLine&&slopeSub)h+='<p class="discovery-sub">'+esc(slopeSub)+'</p>';
     h+='<p class="discovery-boundary">'+(c.feature?.properties.role==='control'?'Validation control; this is not a qualified discovery.':c.feature?.properties.role==='decoy'?'Validation decoy; this is not a qualified discovery.':'A feature comparison supports a test question; it does not qualify hardware.')+'</p>';
-    if(near)h+='<div class="interpretation"><section><h4>What aligns</h4><p>'+esc(labelFor(near.key))+': <strong>'+fmt(near.earth)+'</strong> Earth vs <strong>'+fmt(near.target)+'</strong> target'+(unitFor(near.key,c.lens)?' '+esc(unitFor(near.key,c.lens)):'')+'.</p></section><section><h4>What differs</h4><p>'+esc(labelFor(far.key))+': z <strong>'+fmt(far.z)+'</strong>, the largest gap (an ordering, not a new pass/fail threshold).</p></section><section><h4>What remains unknown</h4><p>'+esc(missing.slice(0,3).map(r=>r.name).join(', '))+'.</p></section></div>';
+    const v=(x,k)=>{if(!finite(x))return 'not available';const un=unitFor(k,c.lens)||'';if(un==='study flag')return x>=0.5?'yes':'no';if(/^fraction/.test(un))return Math.round(x*100)+' %';const t=Math.abs(x)>=10?x.toFixed(1):fmt(x);return un==='degrees'||un==='deg'||un==='°'?t+'°':un&&un!=='dimensionless'?t+' '+esc(un):t;};
+    if(near)h+='<div class="interpretation"><section><h4>Closest match</h4><p>'+esc(labelFor(near.key))+': <strong>'+v(near.earth,near.key)+'</strong> here, <strong>'+v(near.target,near.key)+'</strong> at the target.</p></section><section><h4>Biggest difference</h4><p>'+esc(labelFor(far.key))+': <strong>'+v(far.earth,far.key)+'</strong> here, <strong>'+v(far.target,far.key)+'</strong> at the target.</p></section><section><h4>What remains unknown</h4><p>'+esc(missing.slice(0,3).map(r=>r.name).join(', '))+'. Measure on site.</p></section></div>';
     h+='</section><!--discovery-end-->';
     if(ordered.length){
       const extent=Math.max(1,...ordered.map(r=>Math.abs(r.z)));
-      h+='<section class="similarity-signature" aria-label="Interactive similarity signature"><div class="criteria-heading"><h3>The similarity signature</h3><span class="note">Recorded signed z / closer to zero = closer alignment</span></div><p class="measurement-note">Dots near the centre line = Earth close to the target. Tap a row for values.</p>';
+      h+='<section class="similarity-signature" aria-label="Interactive similarity signature"><div class="criteria-heading"><h3>Every measure at a glance</h3></div><p class="measurement-note">A dot on the centre line means Earth equals the target on that measure. Tap a row for the values.</p>';
       h+=ordered.map(r=>'<details class="signature-feature"><summary><span>'+esc(labelFor(r.key))+'</span><span class="alignment-strip" aria-hidden="true"><i class="alignment-zero"></i><i class="alignment-dot" style="left:'+((r.z/extent+1)*50)+'%"></i></span><code>'+fmt(r.z)+'</code></summary><div class="feature-reading"><strong>'+esc(labelFor(r.key))+'</strong><p>Earth '+fmt(r.earth)+' / target '+fmt(r.target)+' '+esc(unitFor(r.key,c.lens))+' / recorded z '+fmt(r.z)+'.</p><p>Source field: <code>'+esc(r.key)+'</code>. '+(r.key.startsWith('rms_')?'RMS height difference at the recorded terrain lag.':r.key.startsWith('slope_')?'Slope-distribution statistic over the study footprint.':r.key.startsWith('frac_gt')?'Fraction of terrain above the named slope cutoff; not a vehicle safety limit.':'Task-specific descriptor; inspect the full method and source record before interpretation.')+'</p></div></details>').join('');
       h+='</section>';
     }
@@ -92,8 +93,7 @@
     if(pics)h+='<div class="worlds-heading"><p class="overline">Earth / '+esc(body)+'</p><h3>Compare two worlds.</h3></div><div class="terrain-pair-view'+(assets.earth&&assets.target?'':' single')+'">'+pics+'</div><p class="terrain-provenance">Same 4 km window; different sensors and lighting. <a href="media/provenance.json">Image sources</a></p>';
     h+=root?.SimilitudeTerrain?.markup(c)||'';
     h+=story.slice(split);
-    h+='<div class="criteria-heading"><h3>Measured terrain &amp; mission criteria</h3><span class="comparison-key"><i class="key-earth"></i>Earth <i class="key-target"></i>Target</span></div><p class="measurement-note">Earth vs target on one scale per row. z = standardized difference, not confidence.</p>';
-    h+='<details class="technical-evidence"><summary>Measured evidence / inspect the complete numeric table</summary>';
+    h+='<details class="technical-evidence"><summary>Full measurement table (Earth vs target)</summary><p class="measurement-note">One scale per row. z = standardized difference from the target, not a confidence.</p>';
     if(rows.length){
       h+='<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable detailed terrain criteria"><table class="comparison-table"><caption>Published '+esc(c.lens)+' descriptors / units retained</caption><thead><tr><th scope="col">Criterion / unit</th><th scope="col" class="earth-column">Earth</th><th scope="col" class="target-column">Target</th><th scope="col">z</th><th scope="col">Δ Earth − target</th></tr></thead><tbody>';
       h+=rows.map(r=>{const delta=difference(r.earth,r.target);return '<tr><th scope="row">'+esc(labelFor(r.key))+'<small><code>'+esc(r.key)+'</code> / '+esc(unitFor(r.key,c.lens))+'</small></th><td>'+valueCell(r.earth,r.target,'earth')+'</td><td>'+valueCell(r.target,r.earth,'target')+'</td><td>'+fmt(r.z)+'</td><td>'+(finite(delta)&&delta>0?'+':'')+fmt(delta)+'</td></tr>';}).join('')+'</tbody></table></div>';

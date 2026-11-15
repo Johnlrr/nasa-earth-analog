@@ -12,7 +12,7 @@
 <meta property="og:description" content="One formula on NASA data from both worlds, per mission lens, with an Analog Test Card for every site.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161c1a'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%239fc7b8'/%3E%3Ccircle cx='19' cy='13' r='9' fill='%23161c1a' opacity='.55'/%3E%3C/svg%3E">
+<link rel="icon" href="media/logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet">
@@ -30,14 +30,16 @@
 .identity span{font-size:12px;letter-spacing:0;color:var(--muted);font-weight:400;border-left:1px solid var(--line);padding-left:20px}
 .exp-header nav{display:flex;gap:24px;align-items:center}.exp-header nav a{font-size:13px;text-decoration:none;color:var(--text)}.exp-header nav a.current{color:var(--accent)}
 [hidden]{display:none!important}
-@media(max-width:760px){.exp-header{padding:0 20px}.identity span,.exp-header nav .wide{display:none}}
+.exp-header nav a[aria-current=page]{color:var(--accent)}
+.identity .logo{display:block;width:30px;height:30px;margin-right:-8px;border-radius:7px}
+@media(max-width:760px){.exp-header{padding:0 16px;gap:12px}.exp-header nav{gap:14px}.exp-header nav .nav-mission{display:none}.identity span,.exp-header nav .wide{display:none}}
 </style>
 
 </head>
 <body>
 <a class="skip-link" href="#finder">Skip to the test-site list</a>
 
-<header class="exp-header"><a class="identity" href="./">SIMILITUDE<span>The proving-ground finder</span></a><nav aria-label="Main navigation"><a href="./">Mission app</a><a href="#finder" class="current">Test sites open to NASA</a><a class="wide" href="evidence.html">Evidence</a><a class="hdr-link wide" href="#limits">Data &amp; limits</a></nav></header>
+<header class="exp-header"><a class="identity" href="./"><img class="logo" src="media/logo.svg" alt="" width="30" height="30">SIMILITUDE<span>The proving-ground finder</span></a><nav aria-label="Main navigation"><a href="./" class="nav-mission">Mission</a><a href="explorer.html" class="nav-explorer-link">Explorer</a><a href="test-sites.html" class="nav-finder" aria-current="page">Test sites</a><a href="guide.html" class="nav-guide">Guide</a></nav></header>
 
 <div class="banners">
   <div id="mock-banner" class="banner" role="status" hidden>Mock data: fake numbers for interface development only. Do not cite.</div>
@@ -87,9 +89,9 @@
 
 <section class="story alt" id="finder" aria-labelledby="finder-title" tabindex="-1">
   <div class="wrap shell">
-    <p class="eyebrow">2 &middot; Find a test site</p>
-    <h2 id="finder-title" class="sec-title">Pick your Artemis region: matching terrain outside our access screen</h2>
-    <p class="story-lead narrow">Each lead is a 4 km footprint that passes the same terrain test as the published results (all three test configurations), in a country outside our access screen (a planning assumption, not legal advice). The Routes column is the pre-registered traverse-planner test: a slope match is not always a route match. Open the coordinates and look at the ground before you plan a visit.</p>
+    <p class="eyebrow">Test sites by Artemis region</p>
+    <h2 id="finder-title" class="sec-title">Pick an Artemis region. See where NASA can test.</h2>
+    <p class="story-lead narrow">Each row is one 4 km footprint that passes the published terrain test, in a country open to NASA. Routes is the pre-registered traverse-planner test: matching slopes do not always give a matching route. Click the coordinates to look at the ground.</p>
     <div class="finder-controls" role="group" aria-label="Lead filters">
       <label>Artemis south-pole region
         <select id="finder-region"></select>

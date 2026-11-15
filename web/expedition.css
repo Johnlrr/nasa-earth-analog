@@ -78,3 +78,14 @@ p.similarities-intro{font-size:15px;color:var(--muted);padding:0 0 20px;max-widt
 .env-details{margin:28px 0 0;border-top:1px solid var(--line);padding-top:12px}.env-details summary{font-size:1rem;font-weight:600;color:inherit}
 .terrain-pair-view.single{grid-template-columns:minmax(0,1fr)!important;max-width:640px}
 .discovery-sub{font-size:var(--text-lg,1.15rem);margin:8px 0 0;color:var(--muted)}
+.identity .logo{display:block;width:30px;height:30px;margin-right:-8px;border-radius:7px}
+.exp-header nav a[aria-current=page]{color:var(--accent)}
+/* folded sections: visible, clickable cards (not a bare text line) */
+#comparison details:not(.signature-feature){margin:16px 0;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+#comparison details:not(.signature-feature)>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;font-size:17px;font-weight:600;color:var(--ink);cursor:pointer}
+#comparison details:not(.signature-feature)>summary::-webkit-details-marker{display:none}
+#comparison details:not(.signature-feature)>summary::after{content:"+";font:24px/1 var(--mono);color:var(--accent)}
+#comparison details[open]:not(.signature-feature)>summary::after{content:"\2212"}
+#comparison details:not(.signature-feature):hover{border-color:var(--accent)}
+#comparison details:not(.signature-feature)[open]>*:not(summary){padding-inline:22px}
+#comparison details:not(.signature-feature)[open]{padding-bottom:16px}
