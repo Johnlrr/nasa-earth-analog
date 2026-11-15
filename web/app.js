@@ -379,8 +379,9 @@
     h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'engine-confirmed') + ' ' +
       chip(p.lenses_engine_semiquant, 'c-semi', 'engine-semiquant') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (B10 downgraded)') + ' ' +
       chip(p.lenses_literature_only, 'c-lit', 'literature-only context') + '</p>';
-    h += '<p><strong>Literature attention:</strong> ' + esc(p.hidden_status) +
-      (typeof p.attention_n === 'number' ? ' (' + esc(p.attention_n) + ' papers)' : '') + '</p>';
+    h += '<p><strong>Hidden (low Attention under the B8 query):</strong> ' + esc(p.hidden_status) + '</p>';
+    h += '<p><strong>Attention:</strong> ' + (typeof p.attention_n === 'number' ? esc(p.attention_n) + ' OpenAlex works' : 'not known') + '</p>';
+    if (p.hidden_status === 'yes') h += '<p class="note">Low count of works naming this site in a Mars/Moon analog context; not proof that the site is unknown (validation report, Deviations 21).</p>';
     if (p.note) h += '<p class="note">' + esc(p.note) + '</p>';
     h += '<h3>Comes home valid (Field)</h3>' + rowsHtml(p.field, 'r-field');
     h += '<h3>Needs a facility</h3>' + rowsHtml(p.facility, 'r-fac');
