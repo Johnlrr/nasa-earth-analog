@@ -54,6 +54,17 @@ phiên khác tiếp tục được nếu phiên này hết quota giữa chừng.
   `scripts/web_evidence.py`.
 - Mục 3 bên dưới: các bước 1–7 đã xong; còn bước 8 (cổng → sửa → merge).
 
+## 2d. Cập nhật 16:40
+
+- Cổng 2 (PR #8) lần 1 = FIX → đã sửa (McNemar thay Fisher, ước lượng phân tầng, câu "1/9",
+  "six PGDA 78 south-pole sites", km hành trình, đối chứng Mặt Trăng có tỷ lệ nền). Lần 2 đang
+  chạy. HEAD nhánh: `7af7d8d`.
+- Cross-DEM đã chạy đủ ô vách: **102/109** phán quyết giữ nguyên.
+- Thêm: bảng độ nhạy ngưỡng hạng (§7c), đọc lens băng bên cạnh Mars Life Explorer
+  (`x1_mission.parquet`, 8/8 ô trong tầm khoan 2 m, 7/8 trong 1 m; Deviations 30).
+- Việc còn lại: đọc kết quả cổng lần 2 → sửa → merge PR #8. Sau đó các hướng ở mục 4 (V3 đã
+  làm; V2 đã làm; I1 đã làm; còn I2 phiếu chiến dịch, I3 web của Linh).
+
 ## 3. Việc còn lại của chu kỳ 2e (theo thứ tự)
 
 1. Chờ `null_expand.py` xong → `PYTHONPATH=src .venv/bin/python scripts/l1_regions.py` (sinh
