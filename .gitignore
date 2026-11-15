@@ -29,3 +29,6 @@ data/derived/tier1_terrain.csv
 .taste-skill/
 *.local.bak.json
 data/derived/*.log
+
+# Third-party mood-board captures (not ours to publish; kept local only)
+design/reference-images/
