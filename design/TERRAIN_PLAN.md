@@ -1,0 +1,3 @@
+﻿# Terrain inspector implementation
+
+User references: Compare two worlds (large opposing images, restrained split) → Explore beyond the surface (real terrain layers and a linked elevation section). Retain original images and proportions; do not invent a shared horizon. Build a native canvas/SVG terrain inspector from locally cached DEMs, with source-bound selection, hillshade/slope/contour toggles, a movable east–west transect and linked elevation plot. Display real units, orientation, native/display resolution and datum caveats. No hazard/displacement layers or cross-planet absolute altitude inference. No new rendering framework. Refresh port 8000 only after browser/contract checks.

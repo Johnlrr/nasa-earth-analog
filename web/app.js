@@ -182,12 +182,12 @@
       if (sites.length) {
         var two = sites.filter(function (f) { var p = f.properties; return (p.lenses_engine_confirmed.length + p.lenses_engine_semiquant.length) >= 2; }).length;
         var low = sites.filter(function (f) { return f.properties.hidden_status === 'yes'; }).length;
-        h = stat('Showcase sites', sites.length) + stat('Two or more lenses', two) + stat('Low attention', low);
+        h = stat('Field sites', sites.length) + stat('Sites passing 2+ tasks', two) + stat('Rarely studied (10 papers or fewer)', low);
       }
     } else if (lm && !lm.status) {
       var ranked = state.features.filter(function (f) { return !isSite(f) && f.properties.lens_scores && f.properties.lens_scores[id] && roleOf(f.properties) === 'hidden'; }).length;
-      h = (typeof lm.n_scored === 'number' ? stat('Cells scored', lm.n_scored) : '') +
-        (typeof lm.n_null === 'number' ? stat('Null sample', lm.n_null) : '') + stat('Ranked candidates', ranked);
+      h = (typeof lm.n_scored === 'number' ? stat('Earth cells tested', lm.n_scored) : '') +
+        (typeof lm.n_null === 'number' ? stat('Random cells for comparison', lm.n_null) : '') + stat('Passed the test', ranked);
     }
     $('lens-stats').innerHTML = h;
   }
@@ -263,7 +263,7 @@
     });
     if (feats.length && fit !== false && !$('map').clientWidth) mapNeedsFit = true;
     if (feats.length && fit !== false && $('map').clientWidth) {
-      if (EXPEDITION) map.setMinZoom($('map').clientWidth < 500 ? 0 : $('map').clientWidth < 700 ? 1 : 2);
+      if (EXPEDITION) map.setMinZoom($('map').clientWidth < 500 ? 0 : 1); // a wide but short map needs zoom 1 to hold 70N and 30S
       var b = L.latLngBounds(feats.map(function (f) { return [f.geometry.coordinates[1], f.geometry.coordinates[0]]; }));
       map.fitBounds(b, { padding: [40, 40], maxZoom: 5, animate: !EXPEDITION });
       mapNeedsFit = false;
@@ -281,10 +281,12 @@
     if (isSite(f)) return siteRowHtml(f);
     var p = f.properties, ls = p.lens_scores[state.lens], role = roleOf(p);
     var dot = role === 'decoy' ? 'dot diamond' : (role === 'control' ? 'dot ring' : 'dot');
-    var tag = role === 'hidden' ? '' : ' <span class="tag ' + role + '">' + esc(roleLabel(role)) + '</span>';
+    var u = USABLE[p.id];
+    var tag = role === 'hidden' ? (u && !u.usable ? ' <span class="tag unusable">' + (u.ice_excluded ? 'ice rule' : 'closed to NASA') + '</span>' : '') :
+      ' <span class="tag ' + role + '">' + esc(roleLabel(role)) + '</span>';
     return '<li><button type="button" data-id="' + esc(p.id) + '"' + (p.id === state.selectedId ? ' aria-current="true"' : '') + '>' +
       '<span class="' + dot + '" style="background:' + sigmaColor(rankSigma(ls)) + '"></span>' +
-      '<span>' + esc(p.name) + tag + '<br><span class="note">' + esc(p.country || '') + '</span></span>' +
+      '<span>' + esc(p.name) + tag + (u && !u.usable && role === 'hidden' ? '<br><span class="note">' + (u.ice_excluded ? 'Excluded by the published ice rule (perennial snow/ice)' : esc(u.country) + ': NASA cannot run a field campaign there') + '</span>' : '') + '</span>' +
       '<span class="sig">' + esc(rankSigmaText(ls)) + '</span></button></li>';
   }
 
@@ -305,9 +307,16 @@
     }
     var hidden = feats.filter(function (f) { return roleOf(f.properties) === 'hidden'; });
     var valid = feats.filter(function (f) { return roleOf(f.properties) !== 'hidden'; });
-    var h = '<li class="group-h">Engine matches (4 km cells)</li>';
-    if (hidden.length) h += hidden.map(rowHtml).join('');
-    else h += '<li class="empty">' + (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data') + '</li>';
+    var ok = hidden.filter(function (f) { return !USABLE[f.properties.id] || USABLE[f.properties.id].usable; });
+    var no = hidden.filter(function (f) { return USABLE[f.properties.id] && !USABLE[f.properties.id].usable; });
+    var h = (state.lens === 'L1' || state.lens === 'L2') ? '<li class="finder-callout"><a href="test-sites.html">More matches in countries open to NASA (Chile, Argentina, Canada) → test-site finder</a></li>' : '';
+    if (hidden.length) {
+      h += '<li class="group-h">Usable by a NASA team</li>';
+      h += ok.length ? ok.map(rowHtml).join('') : '<li class="empty">None in this lens list. See the test-site finder.</li>';
+      if (no.length) h += '<li class="group-h">Matches, not usable</li>' + no.map(rowHtml).join('');
+    } else {
+      h += '<li class="group-h">Engine matches (4 km cells)</li><li class="empty">' + (state.lens === 'M1' ? 'No mineral site is published. The test failed its own pre-registered stop rule (the Lake Salda control did not reach the required matched area), so we report the failure instead of a site. The controls and decoys below show how the test behaved.' : (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data')) + '</li>';
+    }
     if (lm && lm.n_attention_unknown) {
       h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "little studied".</li>';
     }
@@ -415,7 +424,7 @@
     h += '<p class="meta">Site · ' + num(p.lat, 3) + ', ' + num(p.lon, 3) + ' · ' + esc(p.n_cells) + ' cell(s) · span ' +
       esc(num(p.max_span_km, 0)) + ' km' + (p.max_span_km > 300 ? ' <span class="flag">a region, not one camp</span>' : '') +
       ' · <span class="note">' + esc(p.id) + '</span></p>';
-    h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'engine-confirmed') + ' ' +
+    h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'measured') + ' ' +
       chip(p.lenses_engine_semiquant, 'c-semi', 'semi-quantitative') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (downgraded at visual review)') + ' ' +
       chip(p.lenses_literature_only, 'c-lit', 'literature-only context') + '</p>';
     // the word "hidden" appears only on a site whose hidden_status is exactly "yes" (PR #5 request)
@@ -586,9 +595,9 @@
     // lens cards
     $('lens-cards').innerHTML = LENSES.map(function (l) {
       var m = lm[l.id] || {};
-      var stats = (typeof m.n_scored === 'number' ? stat('Cells scored', m.n_scored) : '') +
-        (typeof m.n_null === 'number' ? stat('Null sample', m.n_null) : '') +
-        (typeof m.n_hidden === 'number' ? stat('Candidates', m.n_hidden) : '');
+      var stats = (typeof m.n_scored === 'number' ? stat('Earth cells tested', m.n_scored) : '') +
+        (typeof m.n_null === 'number' ? stat('Random cells for comparison', m.n_null) : '') +
+        (typeof m.n_hidden === 'number' ? stat('Passed the test', m.n_hidden) : '');
       var note = m.no_hidden_found ? '<p class="lc-note">No Earth cell passed the gates and thresholds. That is reported as a result.</p>' : '';
       return '<article class="lens-card"><p class="lc-head"><span class="lb-code">' + esc(l.id) + '</span><span class="lc-body">' + esc(l.body) + '</span></p>' +
         '<h3>' + esc(l.name) + '</h3><p class="lc-q">' + esc(l.question) + '</p>' +
@@ -599,7 +608,7 @@
   function goExplorer() { var e = $('explorer'); if (e && e.scrollIntoView) e.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
   // ---------- story sections: keyed numbers (docs/slide_numbers.json) and open-country leads ----------
-  var ACCESS = null, NUMBERS = null;
+  var ACCESS = null, NUMBERS = null, USABLE = {};
   function fmtKey(v, kind) {
     if (v === null || v === undefined) return null;
     if (kind === 'pct0') return Math.round(Number(v) * 100) + ' %';
@@ -684,7 +693,7 @@
       h = '<p class="af-site">Connecting Ridge</p><p class="af-sub">' + n + ' open-country lead(s); none holds with a second DEM yet</p>' +
         '<ul class="af-rows"><li><span class="v-unk-t">RESULT</span><span>no stable Earth match outside our access screen in the scored sample</span></li></ul>';
     }
-    h += '<a class="btn btn-primary af-open" href="#finder">See all leads <span aria-hidden="true">&rarr;</span></a>';
+
     $('hero-card').innerHTML = h;
   }
   function renderTransfer() {
@@ -763,7 +772,7 @@
     });
 
     loadStory();
-    Promise.all([loadLenses(), loadLedger()]).then(function () {
+    Promise.all([loadLenses(), loadLedger(), fetchJson('data/usability.json').then(function (d) { USABLE = d.cells || {}; }).catch(function () { USABLE = {}; })]).then(function () {
       buildLensTabs();
       return loadData();
     }).then(function (res) {

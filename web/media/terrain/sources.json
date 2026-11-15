@@ -1,0 +1,54 @@
+{
+  "target:connecting_ridge": {
+    "file": ".taste-skill\\source\\connecting-ridge.tif",
+    "sha256": "3ba7b97cb00a2bcf21189c3aeb535f65afc21207154ab9f0d43c5bdc1f7e747e",
+    "crop_sample_indices": [
+      1200,
+      1200,
+      2000,
+      2000
+    ],
+    "sampling": "Every tenth native 5 m sample; no rescaling of elevation"
+  },
+  "earth:E10K_-329_-641": {
+    "file": "data\\raw\\earth\\chips\\-26.4996_-66.5102_10000.npy",
+    "sha256": "1bd21e8428b5942a469b4a93bc8841a32d0fc376831e2dc0eb891c4558c020f3",
+    "metadata": {
+      "crs": "EPSG:32719",
+      "epsg": 32719,
+      "tiles": [
+        "S27_00_W067_00"
+      ],
+      "nodata_frac": 0.0,
+      "source": "Copernicus GLO-30 (AWS open data)",
+      "chip_m": 10000,
+      "res_m": 30.0,
+      "lat": -26.4996,
+      "lon": -66.5102
+    },
+    "crop_sample_indices": [
+      99,
+      99,
+      233,
+      233
+    ],
+    "sampling_stride": 2
+  },
+  "earth:E10K_453_921": {
+    "url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N38_00_E095_00_DEM/Copernicus_DSM_COG_10_N38_00_E095_00_DEM.tif",
+    "sha256": "16d658c6ead275b79cdbb44ce44e57354434d204789ac73313668789753005dd",
+    "center_lon_lat": [
+      95.6895,
+      38.0446
+    ],
+    "size_m": 4000,
+    "display_step_m": 50,
+    "method": "Nearest original sample on local equirectangular 50 m grid. Horizontal distances approximate, not survey-grade. No vertical scaling. Not used in similarity calculations.",
+    "native_pixel_degrees": [
+      0.0002777777777777778,
+      0.0002777777777777778
+    ],
+    "license": "Copernicus DEM GLO-30 public distribution; retain Copernicus attribution",
+    "source_reference": "scripts/gee/chip_dem.py"
+  }
+}

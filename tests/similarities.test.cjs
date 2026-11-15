@@ -1,4 +1,4 @@
-﻿const test=require('node:test');
+const test=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
@@ -20,7 +20,7 @@ test('images never substitute an unrelated footprint or target',()=>{
   const c=s.context(site,data.features,'SITES');const pair=s.imagePair(c);
   assert.match(pair.earth.src,/qaidam/);assert.match(pair.target.src,/connecting-ridge/);
   assert.equal(s.imagePair({cellId:'E10K_691_-680',target:'shackleton_rim'}).earth,null);
-  assert.equal(s.imagePair({cellId:'E10K_691_-680',target:'shackleton_rim'}).target,null);
+  assert.match(s.imagePair({cellId:'E10K_691_-680',target:'shackleton_rim'}).target.src,/shackleton-wall-4km/);
 });
 test('row scales share one domain, including signed spectral values, with no missing-zero imputation',()=>{
   assert.deepEqual(s.range(-.2,.3),{min:-.2,max:.3,span:.5});
@@ -40,10 +40,19 @@ test('unpublished member measurements do not inherit another target table',()=>{
   const option=s.contexts(site,data.features,'SITES')[1];const html=render(site,'SITES',option.key);
   assert.match(html,/does not publish its detailed cell descriptors/);
   assert.doesNotMatch(html,/<table class="comparison-table">/);
-  assert.match(html,/No verified image for this footprint/);
+  assert.doesNotMatch(html,/No verified image/);assert.match(html,/shackleton-wall-4km/);
 });
 test('copied CTX image pixels remain identical to the original project observation',()=>{
   const a=fs.readFileSync(path.join(__dirname,'../web/media/expedition/jezero-margin-ctx.png'));
   const b=fs.readFileSync(path.join(__dirname,'../data/raw/mars/ctx_chips/jezero_margin.png'));
   assert.ok(a.equals(b));
+});
+
+test('signature orders only observed standardized differences without changing source data',()=>{
+ const rows=[{key:'far',earth:1,target:3,z:-2},{key:'missing',earth:null,target:3,z:0},{key:'near',earth:1,target:1,z:.1}];
+ const before=JSON.stringify(rows);assert.deepEqual(s.signature(rows).map(r=>r.key),['near','far']);assert.equal(JSON.stringify(rows),before);
+});
+test('the discovery interpretation preserves evidence role and exposes feature-level inspection',()=>{
+ const f=data.features.find(f=>f.properties.id==='M1-ctl_lake_salda');const html=render(f,'M1');
+ assert.match(html,/Validation control; this is not a qualified discovery/);assert.match(html,/Closest match/);assert.match(html,/Biggest difference/);assert.match(html,/What remains unknown/);assert.match(html,/signature-feature/);
 });
