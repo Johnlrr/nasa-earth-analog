@@ -59,3 +59,22 @@ known_confounds (stated before the run):
   - Metre-scale rocks and sand are below 30 m; the planner cannot see them.
 
 not_claimed: one rover, one crater; no claim about the Moon from this test.
+
+# ------------------------------------------------------------------------------------------------
+# Addendum R1b, written 2026-11-15 ~22:30 +07 AFTER R1 and R2 had run (both failed, published as is)
+# and BEFORE any slope was read at a waypoint. It is a different, narrower question (measurement
+# validity of our slope from orbit), not a rescue of R1; R1 stays failed.
+R1b_slope_vs_rover_tilt:
+  question: Does SIMILITUDE's 30 m slope from orbit track the terrain tilt the rover itself
+            measured where it stopped?
+  ground_truth: `tilt` (deg) of every waypoint in M20_waypoints.json (rover attitude at the end of
+            a drive); waypoints with missing or negative tilt are dropped (counted).
+  orbit: one square-cell 30 m window covering all waypoints plus 1 km (same resampling as R1);
+         slope = degrees(arctan(|np.gradient(dem, 30)|)), the formula of slope_stats; value at the
+         waypoint's cell.
+  hypothesis: Spearman(slope_30m, tilt) >= 0.30 AND one-sided p < 0.05.
+  sensitivity (reported, not tested): the same at 20 m (no aggregation); one value per rover
+         site (median over its waypoints) to remove clustering.
+  decision_rule:
+    pass: "our orbital slope tracks the rover's measured tilt (rho = x, n waypoints)".
+    fail: publish; slope verdicts stay described as 30 m terrain statistics only.
