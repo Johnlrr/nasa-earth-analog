@@ -1,0 +1,9 @@
+{
+ "target_id": "arcadia_planitia",
+ "lat": 44.0,
+ "lon": -167.0,
+ "size_km": 4,
+ "pixels": 393,
+ "source": "https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX/MapServer",
+ "note": "MRO CTX global mosaic (Caltech) via NASA Mars Trek / OnMars tiles; config/targets.yaml centre"
+}

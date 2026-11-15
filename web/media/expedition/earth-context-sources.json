@@ -1,0 +1,542 @@
+{
+  "ctl_lake_salda": {
+    "src": "media/expedition/earth-context/8-149-99.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 29.531\u00b0, 36.598\u00b0, 30.938\u00b0, 37.719\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/99/149.jpeg",
+    "bounds": [
+      29.53125,
+      36.59788913307021,
+      30.9375,
+      37.718590325588146
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Lake Salda hydromagnesite shoreline, Turkey",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "ctl_wadi_rum": {
+    "src": "media/expedition/earth-context/8-153-105.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 35.156\u00b0, 29.535\u00b0, 36.562\u00b0, 30.751\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/105/153.jpeg",
+    "bounds": [
+      35.15625,
+      29.535229562948455,
+      36.5625,
+      30.751277776257812
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Wadi Rum, Jordan (The Martian filming location)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "ctl_simpson_desert": {
+    "src": "media/expedition/earth-context/8-225-146.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 136.406\u00b0, -25.800\u00b0, 137.812\u00b0, -24.527\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/146/225.jpeg",
+    "bounds": [
+      136.40625,
+      -25.799891182088317,
+      137.8125,
+      -24.5271348225978
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Simpson Desert red quartz dunes, Australia",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "rank_0038": {
+    "src": "media/expedition/earth-context/8-48-36.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -112.500\u00b0, 77.768\u00b0, -111.094\u00b0, 78.062\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/36/48.jpeg",
+    "bounds": [
+      -112.5,
+      77.76758238272801,
+      -111.09375,
+      78.06198918665974
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Inuvik Region, Northwest Territories (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "rank_0040": {
+    "src": "media/expedition/earth-context/8-43-40.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -119.531\u00b0, 76.517\u00b0, -118.125\u00b0, 76.841\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/40/43.jpeg",
+    "bounds": [
+      -119.53125,
+      76.51681887717322,
+      -118.125,
+      76.84081641443098
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Inuvik Region, Northwest Territories (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "rank_0087": {
+    "src": "media/expedition/earth-context/8-62-25.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -92.812\u00b0, 80.647\u00b0, -91.406\u00b0, 80.873\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/25/62.jpeg",
+    "bounds": [
+      -92.8125,
+      80.64703474739618,
+      -91.40625,
+      80.87282721505684
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "seed_peary_land": {
+    "src": "media/expedition/earth-context/8-105-16.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -32.344\u00b0, 82.495\u00b0, -30.938\u00b0, 82.676\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/16/105.jpeg",
+    "bounds": [
+      -32.34375,
+      82.49482361179574,
+      -30.9375,
+      82.67628497834903
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Peary Land polar desert",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "rank_0058": {
+    "src": "media/expedition/earth-context/8-67-60.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -85.781\u00b0, 68.139\u00b0, -84.375\u00b0, 68.657\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/60/67.jpeg",
+    "bounds": [
+      -85.78125,
+      68.13885164925573,
+      -84.375,
+      68.65655498475736
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "ctl_axel_heiberg_eureka": {
+    "src": "media/expedition/earth-context/8-66-28.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -87.188\u00b0, 79.936\u00b0, -85.781\u00b0, 80.179\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/28/66.jpeg",
+    "bounds": [
+      -87.1875,
+      79.93591824625466,
+      -85.78125,
+      80.17871349622823
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Axel Heiberg / Eureka polar desert, Nunavut",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "ctl_beacon_valley": {
+    "src": "media/expedition/earth-context/8-242-219.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 160.312\u00b0, -78.062\u00b0, 161.719\u00b0, -77.768\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/219/242.jpeg",
+    "bounds": [
+      160.3125,
+      -78.06198918665974,
+      161.71875,
+      -77.76758238272801
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Beacon Valley, McMurdo Dry Valleys, Antarctica",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_691_-680": {
+    "src": "media/expedition/earth-context/8-77-57.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -71.719\u00b0, 69.657\u00b0, -70.312\u00b0, 70.140\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/57/77.jpeg",
+    "bounds": [
+      -71.71875,
+      69.65708627301174,
+      -70.3125,
+      70.14036427207168
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_453_921": {
+    "src": "media/expedition/earth-context/8-196-98.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 95.625\u00b0, 37.719\u00b0, 97.031\u00b0, 38.823\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/98/196.jpeg",
+    "bounds": [
+      95.625,
+      37.718590325588146,
+      97.03125,
+      38.8225909761771
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Da Qaidam, Qinghai (China)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_-329_-641": {
+    "src": "media/expedition/earth-context/8-80-147.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -67.500\u00b0, -27.059\u00b0, -66.094\u00b0, -25.800\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/147/80.jpeg",
+    "bounds": [
+      -67.5,
+      -27.059125784374054,
+      -66.09375,
+      -25.799891182088317
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Departamento Bel\u00e9n, Catamarca (Argentina)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_423_793": {
+    "src": "media/expedition/earth-context/8-186-101.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 81.562\u00b0, 34.307\u00b0, 82.969\u00b0, 35.461\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/101/186.jpeg",
+    "bounds": [
+      81.5625,
+      34.30714385628804,
+      82.96875,
+      35.4606699514953
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "G\u00earz\u00ea County, Xizang (China)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_-388_-672": {
+    "src": "media/expedition/earth-context/8-78-151.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -70.312\u00b0, -31.952\u00b0, -68.906\u00b0, -30.751\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/151/78.jpeg",
+    "bounds": [
+      -70.3125,
+      -31.952162238024968,
+      -68.90625,
+      -30.751277776257812
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Calingasta, San Juan (Argentina)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_haughton_devon": {
+    "src": "media/expedition/earth-context/8-64-44.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -90.000\u00b0, 75.141\u00b0, -88.594\u00b0, 75.497\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/44/64.jpeg",
+    "bounds": [
+      -90.0,
+      75.14077784070429,
+      -88.59375,
+      75.49715731893085
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Haughton impact structure, Devon Island",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_haughton_devon_l2": {
+    "src": "media/expedition/earth-context/8-64-44.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -90.000\u00b0, 75.141\u00b0, -88.594\u00b0, 75.497\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/44/64.jpeg",
+    "bounds": [
+      -90.0,
+      75.14077784070429,
+      -88.59375,
+      75.49715731893085
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Haughton impact structure, Devon Island",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_sp_crater_black_point": {
+    "src": "media/expedition/earth-context/8-48-100.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -112.500\u00b0, 35.461\u00b0, -111.094\u00b0, 36.598\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/100/48.jpeg",
+    "bounds": [
+      -112.5,
+      35.4606699514953,
+      -111.09375,
+      36.59788913307021
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "SP Crater / Black Point lava flow, Arizona",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_kilauea_lava": {
+    "src": "media/expedition/earth-context/8-17-113.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -156.094\u00b0, 19.311\u00b0, -154.688\u00b0, 20.633\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/113/17.jpeg",
+    "bounds": [
+      -156.09375,
+      19.31114335506464,
+      -154.6875,
+      20.632784250388017
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Kilauea lava fields, Hawaii",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_lava_beds_california": {
+    "src": "media/expedition/earth-context/8-41-95.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -122.344\u00b0, 40.980\u00b0, -120.938\u00b0, 42.033\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/95/41.jpeg",
+    "bounds": [
+      -122.34375,
+      40.97989806962013,
+      -120.9375,
+      42.03297433244139
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Lava Beds National Monument, California",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_meteor_crater_arizona": {
+    "src": "media/expedition/earth-context/8-49-101.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -111.094\u00b0, 34.307\u00b0, -109.688\u00b0, 35.461\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/101/49.jpeg",
+    "bounds": [
+      -111.09375,
+      34.30714385628804,
+      -109.6875,
+      35.4606699514953
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Barringer (Meteor) Crater, Arizona",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_413_804": {
+    "src": "media/expedition/earth-context/8-187-102.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 82.969\u00b0, 33.138\u00b0, 84.375\u00b0, 34.307\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/102/187.jpeg",
+    "bounds": [
+      82.96875,
+      33.137551192346145,
+      84.375,
+      34.30714385628804
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "G\u00earz\u00ea County, Xizang (China)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_-555_-695": {
+    "src": "media/expedition/earth-context/8-76-167.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -73.125\u00b0, -48.922\u00b0, -71.719\u00b0, -47.990\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/167/76.jpeg",
+    "bounds": [
+      -73.125,
+      -48.92249926375824,
+      -71.71875,
+      -47.98992166741417
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Lago Argentino, Santa Cruz (Argentina)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_289_551": {
+    "src": "media/expedition/earth-context/8-168-111.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 56.250\u00b0, 21.943\u00b0, 57.656\u00b0, 23.241\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/111/168.jpeg",
+    "bounds": [
+      56.25,
+      21.943045533438177,
+      57.65625,
+      23.241346102386135
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Al Hamra Province, Ad Dakhiliyah Governorate (Oman)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_341_539": {
+    "src": "media/expedition/earth-context/8-167-107.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 54.844\u00b0, 27.059\u00b0, 56.250\u00b0, 28.304\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/107/167.jpeg",
+    "bounds": [
+      54.84375,
+      27.059125784374054,
+      56.25,
+      28.304380682962773
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Bandar-e-Abbas County, Hormozgan Province (Iran)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "E10K_695_-696": {
+    "src": "media/expedition/earth-context/8-76-54.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: -73.125\u00b0, 71.074\u00b0, -71.719\u00b0, 71.525\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/54/76.jpeg",
+    "bounds": [
+      -73.125,
+      71.07405646336098,
+      -71.71875,
+      71.52490903732816
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  },
+  "CTRL_sahara_lowlat_l2": {
+    "src": "media/expedition/earth-context/8-140-112.jpg",
+    "credit": "NASA GIBS / Blue Marble regional context",
+    "note": "Regional map tile, not the test footprint. Bounds W/S/E/N: 16.875\u00b0, 20.633\u00b0, 18.281\u00b0, 21.943\u00b0. Composite acquisition date not recorded; not used in the score.",
+    "source": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/8/112/140.jpeg",
+    "bounds": [
+      16.875,
+      20.632784250388017,
+      18.28125,
+      21.943045533438177
+    ],
+    "type": "regional context, not exact-footprint evidence",
+    "name": "Low-latitude Sahara reference (Tibesti foreland)",
+    "pixels": [
+      256,
+      256
+    ],
+    "usage_guidance": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licensing_note": "NASA imagery usage guidance; attribution retained; no endorsement implied."
+  }
+}

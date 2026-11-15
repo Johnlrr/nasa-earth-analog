@@ -1,0 +1,194 @@
+{
+ "rule": "ice_check from the published sites (WorldCover snow/ice > 0.2 = excluded); closed countries as in access.json (China, Russia, comprehensively sanctioned states)",
+ "cells": {
+  "M1-ctl_lake_salda": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "M1-ctl_wadi_rum": {
+   "ice_check": null,
+   "country": "The Martian filming location",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "M1-ctl_simpson_desert": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-rank_0038": {
+   "ice_check": null,
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-rank_0040": {
+   "ice_check": null,
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-rank_0087": {
+   "ice_check": null,
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-seed_peary_land": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-rank_0058": {
+   "ice_check": null,
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-ctl_axel_heiberg_eureka": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "X1-ctl_beacon_valley": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-E10K_691_-680": {
+   "ice_check": "excluded: perennial ice",
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": true,
+   "usable": false
+  },
+  "L1-E10K_453_921": {
+   "ice_check": "ok",
+   "country": "China",
+   "closed_to_nasa": true,
+   "ice_excluded": false,
+   "usable": false
+  },
+  "L1-E10K_-329_-641": {
+   "ice_check": "ok",
+   "country": "Argentina",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-E10K_423_793": {
+   "ice_check": "ok",
+   "country": "China",
+   "closed_to_nasa": true,
+   "ice_excluded": false,
+   "usable": false
+  },
+  "L1-E10K_-388_-672": {
+   "ice_check": "ok",
+   "country": "Argentina",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-CTRL_haughton_devon": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-CTRL_sp_crater_black_point": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-CTRL_kilauea_lava": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-CTRL_lava_beds_california": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L1-CTRL_meteor_crater_arizona": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L2-E10K_413_804": {
+   "ice_check": "ok",
+   "country": "China",
+   "closed_to_nasa": true,
+   "ice_excluded": false,
+   "usable": false
+  },
+  "L2-E10K_-555_-695": {
+   "ice_check": "flag: some ice",
+   "country": "Argentina",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L2-E10K_289_551": {
+   "ice_check": "ok",
+   "country": "Oman",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L2-E10K_341_539": {
+   "ice_check": "ok",
+   "country": "Iran",
+   "closed_to_nasa": true,
+   "ice_excluded": false,
+   "usable": false
+  },
+  "L2-E10K_695_-696": {
+   "ice_check": "excluded: perennial ice",
+   "country": "Canada",
+   "closed_to_nasa": false,
+   "ice_excluded": true,
+   "usable": false
+  },
+  "L2-CTRL_haughton_devon_l2": {
+   "ice_check": null,
+   "country": null,
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  },
+  "L2-CTRL_sahara_lowlat_l2": {
+   "ice_check": null,
+   "country": "Tibesti foreland",
+   "closed_to_nasa": false,
+   "ice_excluded": false,
+   "usable": true
+  }
+ }
+}
