@@ -39,8 +39,10 @@ DERIVED = io.REPO_ROOT / "data" / "derived"
 CFG = io.load_yaml(io.CONFIG_DIR / "mission.yaml")
 SITES = io.load_yaml(io.CONFIG_DIR / "sites.yaml")
 MOON_TARGET = "connecting_ridge"
+# both are subsets of the B8 context "(analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)"
 TASK_CONTEXT = {"moon": "(analog OR analogue) AND (Moon OR lunar)",
-                "mars": "(analog OR analogue) AND (Mars OR Martian)"}
+                "mars": "(analog OR analogue) AND (Mars)"}
+SCREEN_COLS = ["slope_p50_90m", "relief_90m", "frac_gt8_90m"]
 STATE_ORDER = ["TRANSFERS", "NO-ANALOG", "UNOBSERVED"]
 
 
@@ -109,42 +111,59 @@ def l1_null_rate(robust: pd.DataFrame) -> list[dict]:
     return rows
 
 
-def rediscovery(tier1: pd.DataFrame, earth: pd.DataFrame, robust: pd.DataFrame) -> dict:
-    """Do the cells the terrain screen picks fall in zones the analog community already uses?
+def rediscovery(tier1: pd.DataFrame, earth: pd.DataFrame, robust: pd.DataFrame,
+                site_cells: pd.DataFrame | None = None) -> dict:
+    """Sanity check: do the cells the terrain screen picks fall in known-analog zones?
 
-    The screen saw only DEM slope and relief; config/exclusion_zones.yaml (known-analog buffers)
-    was never an input. Base rate = all bare-land cells of tier 1.
+    The screen saw only DEM slope and relief; config/exclusion_zones.yaml was never an input.
+    Two base rates: all bare land, and the terrain-matched stratum (bare-land cells inside the
+    5-95 % range of the screened cells on the coarse screen variables), because known-analog
+    zones sit in steep, high, dry terrain. Cells cluster in space, so no p-value is given;
+    ``sites`` counts single-linkage sites instead of cells.
     """
-    base_k, base_n = int(tier1["in_exclusion_buffer"].astype(bool).sum()), len(tier1)
+    zone = tier1["in_exclusion_buffer"].astype(bool)
     e = earth.drop_duplicates("cell_id")
-    rank = e[e["sample_role"].eq("rank")]
-    rank_k, rank_n = int(rank["in_exclusion_buffer"].astype(bool).sum()), len(rank)
-    p = stats.binomtest(rank_k, rank_n, base_k / base_n, alternative="greater").pvalue
-    out = {"base_in_zone": base_k, "base_n": base_n, "base_rate": base_k / base_n,
-           "rank_in_zone": rank_k, "rank_n": rank_n, "rank_rate": rank_k / rank_n,
-           "rank_enrichment": (rank_k / rank_n) / (base_k / base_n), "rank_p_binomial": float(p),
-           "targets": []}
+    rank_ids = set(e.loc[e["sample_role"].eq("rank"), "cell_id"])
+    rank = tier1[tier1["cell_id"].isin(rank_ids)]
+    rank_zone = e.loc[e["sample_role"].eq("rank"), "in_exclusion_buffer"].astype(bool)
+    out = {"base_in_zone": int(zone.sum()), "base_n": len(tier1),
+           "base_rate": float(zone.mean()), "rank_in_zone": int(rank_zone.sum()),
+           "rank_n": len(rank_zone), "rank_rate": float(rank_zone.mean()), "targets": []}
+    out["rank_enrichment"] = out["rank_rate"] / out["base_rate"]
+    cols = [c for c in SCREEN_COLS if c in tier1.columns]
+    if cols and len(rank):
+        m = pd.Series(True, index=tier1.index)
+        for c in cols:
+            m &= tier1[c].between(rank[c].quantile(0.05), rank[c].quantile(0.95))
+        out |= {"matched_n": int(m.sum()), "matched_in_zone": int((m & zone).sum()),
+                "matched_rate": float((m & zone).sum() / m.sum())}
+        out["matched_enrichment"] = out["rank_rate"] / out["matched_rate"]
     r = robust[robust["sample_role"].eq("rank")].merge(
         e[["cell_id", "in_exclusion_buffer"]], on="cell_id")
     r["zone"] = r["in_exclusion_buffer"].astype(bool)
+    site_of = {} if site_cells is None else dict(zip(site_cells["cell_id"],
+                                                     site_cells["site_id"], strict=True))
     for target, g in r.groupby("target_id"):
-        a, b = int((g["robust"] & g["zone"]).sum()), int((g["robust"] & ~g["zone"]).sum())
-        c, d = int((~g["robust"] & g["zone"]).sum()), int((~g["robust"] & ~g["zone"]).sum())
-        out["targets"].append({"target_id": target, "robust_in_zone": a, "robust_n": a + b,
-                               "other_in_zone": c, "other_n": c + d,
-                               "p_fisher": float(stats.fisher_exact([[a, b], [c, d]])[1])})
+        k = g[g["robust"]]
+        sites = {site_of.get(c) for c in k["cell_id"]} - {None}
+        zone_sites = {site_of.get(c) for c in k.loc[k["zone"], "cell_id"]} - {None}
+        out["targets"].append({
+            "target_id": target, "robust_in_zone": int(k["zone"].sum()), "robust_n": len(k),
+            "other_in_zone": int((~g["robust"] & g["zone"]).sum()),
+            "other_n": int((~g["robust"]).sum()),
+            "sites": len(sites), "sites_with_zone_cell": len(zone_sites)})
     return out
 
 
-def x1_controls(x1: pd.DataFrame, controls: list[dict]) -> dict:
-    exp = {c["id"]: c.get("expected") for c in controls}
-    x = x1[x1["sample_role"].isin(["control", "decoy"])].copy()
-    x["expected"] = [exp.get(c.replace("ctl_", ""), exp.get(c)) for c in x["cell_id"]]
-    pos = x[x["sample_role"].eq("control")]
-    dec = x[x["sample_role"].eq("decoy")]
+def x1_controls(x1: pd.DataFrame) -> dict:
+    """Controls, decoys and seeds of the current X1 checklist (B15)."""
+    pos = x1[x1["sample_role"].eq("control")]
+    dec = x1[x1["sample_role"].eq("decoy")]
+    seed = x1[x1["sample_role"].eq("seed")]
     return {"positive_pass": sorted(pos[pos["passes_all"]]["cell_id"]),
             "positive_n": len(pos),
-            "decoy_rejected": sorted(dec[~dec["passes_all"]]["cell_id"]), "decoy_n": len(dec)}
+            "decoy_rejected": sorted(dec[~dec["passes_all"]]["cell_id"]), "decoy_n": len(dec),
+            "seed_pass": {r.cell_id: bool(r.passes_all) for r in seed.itertuples()}}
 
 
 def coverage(verdicts: pd.DataFrame) -> pd.DataFrame:
@@ -160,6 +179,7 @@ def coverage(verdicts: pd.DataFrame) -> pd.DataFrame:
 # task attention (supplementary)
 # ============================================================================================
 def task_attention(enabled: bool) -> pd.DataFrame:
+    """Cached counts; new queries only when ``enabled``. The caller writes the table."""
     path = DERIVED / "task_attention.parquet"
     old = pd.read_parquet(path) if path.exists() else pd.DataFrame(
         columns=["key", "context", "name", "query", "n_pubs", "source", "date"])
@@ -187,7 +207,6 @@ def task_attention(enabled: bool) -> pd.DataFrame:
     out = pd.DataFrame(rows).drop(columns="Index", errors="ignore")
     if len(out):
         out["n_pubs"] = out["n_pubs"].astype("Int64")
-        out.to_parquet(path, index=False)
     return out
 
 
@@ -211,17 +230,15 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
            "`field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. "
            "Post hoc presentation layer: no threshold or verdict changed.", "",
            "## What a card is, in NASA's terms", "",
-           f"NASA's TRL definitions ask for a *\"{'Documented definition of relevant environment'}"
-           f"\"* before TRL 5 (*\"{req['trl_relevant_environment']['quote']}\"*) "
-           f"([source]({req['trl_relevant_environment']['source']})). A SIMILITUDE card is that "
-           "document for one site, written per test variable: **Field** rows are variables for "
-           "which the site is a relevant environment by a stated, reproducible measure; "
-           "**Facility** rows are variables for which no Earth site is, with the facility that "
-           "replaces it; **Unobserved** rows are variables this engine cannot judge. A field "
-           "campaign can therefore be credited towards TRL 5-6 for the Field rows only; the "
-           "Facility rows must be closed in the named facility before a TRL 6 claim "
-           "(*\"operations under critical environmental conditions\"*). This is the evidence a "
-           "campaign may claim, not a certification of any hardware.", "",
+           "NASA's TRL definitions make a *\"Documented definition of relevant environment\"* "
+           "an exit criterion of TRL 4, before *\"" + req["trl_relevant_environment"]["quote"]
+           + f"\"* at TRL 5 ([source]({req['trl_relevant_environment']['source']})). That "
+           "definition belongs to the technology project and its own system. A SIMILITUDE card "
+           "is an **input** to it: for one site it says, per test variable, whether the site "
+           "reproduces the target by a stated, reproducible measure (**Field**), whether no "
+           "Earth site does and which facility is used instead (**Facility**), or that this "
+           "engine cannot judge (**Unobserved**). It does not assign or certify a TRL, and no "
+           "hardware was tested here.", "",
            "## Published requirements used", ""]
     for k, r in req.items():
         out.append(f"- **{k}** — \"{r['quote']}\". {r['document']} ([source]({r['source']})).")
@@ -235,12 +252,15 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                     f"\"{req[r]['quote']}\"" for r in p["requirement"]) or "—"),
                 "- **NASA shortfalls addressed (ledger):** " + ("; ".join(
                     f"{g} {gaps[g][0]}" if g in gaps else g for g in p["shortfalls"]) or "—"),
-                f"- **Credited in the field:** {p['field_credit']}",
+                f"- **Reproduced at a TRANSFERS site:** {p['field_credit']}",
                 f"- **Measure:** {p['measure']}",
-                f"- **Not credited (facility or unobserved):** {p['not_credited']}",
-                f"- **Test-matrix coverage:** {n['TRANSFERS']} variable(s) transfer, "
-                f"{n['NO-ANALOG']} need a facility, {n['UNOBSERVED']} unobserved "
-                f"(of {sum(n.values())})", ""]
+                f"- **Not reproduced (facility or unobserved):** {p['not_credited']}",
+                "- **Test-matrix coverage:** " + (
+                    "— (stop rule FAIL: no site is published for this lens)"
+                    if not p["requirement"] else
+                    f"{n['TRANSFERS']} variable(s) transfer, {n['NO-ANALOG']} are not "
+                    f"reproduced on Earth, {n['UNOBSERVED']} unobserved (of {sum(n.values())}; "
+                    "best state over the lens' targets)"), ""]
     out += ["## Protocol per showcase site", ""]
     kept = crit[crit["group"].eq("Engine match")].set_index("id")
     ref = crit[crit["group"].eq("Moon target")].iloc[0]
@@ -256,7 +276,7 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
         for lens in lenses:
             p = CFG["protocols"][lens]
             out.append(f"- **{lens} {p['name']}.** Test: {p['systems']}. Measure: "
-                       f"{p['measure']}. Not credited here: {p['not_credited']}.")
+                       f"{p['measure']}. Not reproduced here: {p['not_credited']}.")
         for cid in [x for x in c["cells"].split(",") if x in kept.index]:
             k = kept.loc[cid]
             out.append(f"- **Artemis III slope reading, cell {cid}:** {k['frac_gt8']:.0%} of the "
@@ -275,7 +295,8 @@ def build(attention_enabled: bool = False) -> dict:
     earth = pd.read_parquet(DERIVED / "earth_L1.parquet")
     robust = pd.read_parquet(DERIVED / "l1_robust_set.parquet")
     tier1 = pd.read_parquet(DERIVED / "tier1_terrain.parquet",
-                            columns=["cell_id", "in_exclusion_buffer"])
+                            columns=["cell_id", "in_exclusion_buffer", *SCREEN_COLS])
+    site_cells = pd.read_parquet(DERIVED / "site_cells.parquet").dropna(subset=["site_id"])
     verdicts = pd.read_parquet(DERIVED / "verdicts.parquet")
     scarcity = pd.read_parquet(DERIVED / "target_scarcity.parquet")
     kept = scarcity[scarcity["lens_id"].eq("L1") & scarcity["target_id"].eq(MOON_TARGET)]
@@ -290,16 +311,21 @@ def build(attention_enabled: bool = False) -> dict:
     ctrl = robust[robust["cell_id"].isin(classic["id"]) & robust["target_id"].eq(MOON_TARGET)]
     m1 = json.loads((DERIVED / "m1_stop_rule.json").read_text(encoding="utf-8"))
     value = {
-        "l1_null": l1_null_rate(robust),
-        "l1_classic_controls": {"n": len(classic), "robust": int(ctrl["robust"].sum()),
+        "l1_null": [r | {"bare_land_cells": len(tier1),
+                         "extrapolated_cells": round(r["null_rate"] * len(tier1)),
+                         "extrapolated_lo": round(r["null_ci_lo"] * len(tier1)),
+                         "extrapolated_hi": round(r["null_ci_hi"] * len(tier1))}
+                    for r in l1_null_rate(robust)],
+        "l1_classic_controls": {"n": len(classic), "n_scored": int(ctrl["cell_id"].nunique()),
+                                "robust": int(ctrl["robust"].sum()),
+                                "in_range_frac_gt20": int(classic["in_range_frac_gt20"].sum()),
                                 "in_range_frac_gt8": int(classic["in_range_frac_gt8"].sum()),
                                 "frac_gt8_max": float(classic["frac_gt8"].max()),
                                 "frac_gt8_median": float(classic["frac_gt8"].median())},
         "l1_reference": {c: float(ref[c]) for c in ("slope_p50", "frac_gt8", "frac_gt20")},
         "l1_under_sampling": float(ref["frac_gt8"] / classic["frac_gt8"].median()),
-        "rediscovery": rediscovery(tier1, earth, robust),
-        "x1_controls": x1_controls(pd.read_parquet(DERIVED / "x1_checklist.parquet"),
-                                   io.load_controls()),
+        "rediscovery": rediscovery(tier1, earth, robust, site_cells),
+        "x1_controls": x1_controls(pd.read_parquet(DERIVED / "x1_checklist.parquet")),
         "m1_checks": {"passed": int(sum(bool(x) for x in m1["checks"].values())),
                       "n": len(m1["checks"]), "verdict": m1["verdict"]},
         "coverage": {lens: {s: int((g["state"] == s).sum()) for s in STATE_ORDER}
@@ -322,6 +348,8 @@ def main() -> None:
     args = ap.parse_args()
     b = build(attention_enabled=not args.no_attention)
     b["criteria"].to_parquet(DERIVED / "mission_criteria.parquet", index=False)
+    if len(b["task_attention"]):
+        b["task_attention"].to_parquet(DERIVED / "task_attention.parquet", index=False)
     generated = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     (DERIVED / "mission_value.json").write_text(
         json.dumps({"generated": generated, **b["value"]}, indent=1), encoding="utf-8")

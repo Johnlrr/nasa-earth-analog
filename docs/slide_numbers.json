@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T11:35",
+ "generated": "2026-11-15T14:23",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -381,8 +381,16 @@
    "value": 6,
    "source": "data/derived/mission_value.json"
   },
+  "classic_n_scored": {
+   "value": 6,
+   "source": "data/derived/mission_value.json"
+  },
   "classic_robust": {
    "value": 0,
+   "source": "data/derived/mission_value.json"
+  },
+  "classic_in_range_frac_gt20": {
+   "value": 4,
    "source": "data/derived/mission_value.json"
   },
   "classic_in_range_frac_gt8": {
@@ -409,12 +417,36 @@
    "value": 200,
    "source": "data/derived/mission_value.json"
   },
+  "null_connecting_ridge_extrapolated_cells": {
+   "value": 980,
+   "source": "data/derived/mission_value.json"
+  },
+  "null_connecting_ridge_extrapolated_lo": {
+   "value": 25,
+   "source": "data/derived/mission_value.json"
+  },
+  "null_connecting_ridge_extrapolated_hi": {
+   "value": 5398,
+   "source": "data/derived/mission_value.json"
+  },
   "null_shackleton_rim_robust": {
    "value": 4,
    "source": "data/derived/mission_value.json"
   },
   "null_shackleton_rim_n": {
    "value": 200,
+   "source": "data/derived/mission_value.json"
+  },
+  "null_shackleton_rim_extrapolated_cells": {
+   "value": 3920,
+   "source": "data/derived/mission_value.json"
+  },
+  "null_shackleton_rim_extrapolated_lo": {
+   "value": 1073,
+   "source": "data/derived/mission_value.json"
+  },
+  "null_shackleton_rim_extrapolated_hi": {
+   "value": 9881,
    "source": "data/derived/mission_value.json"
   },
   "rediscovery_rank_in_zone": {
@@ -425,12 +457,20 @@
    "value": 300,
    "source": "data/derived/mission_value.json"
   },
+  "rediscovery_rank_rate": {
+   "value": 0.2267,
+   "source": "data/derived/mission_value.json"
+  },
   "rediscovery_base_rate": {
    "value": 0.0142,
    "source": "data/derived/mission_value.json"
   },
-  "rediscovery_rank_enrichment": {
-   "value": 15.9987,
+  "rediscovery_matched_rate": {
+   "value": 0.1647,
+   "source": "data/derived/mission_value.json"
+  },
+  "rediscovery_matched_enrichment": {
+   "value": 1.376,
    "source": "data/derived/mission_value.json"
   },
   "rediscovery_connecting_ridge_robust_in_zone": {
@@ -441,12 +481,28 @@
    "value": 5,
    "source": "data/derived/mission_value.json"
   },
+  "rediscovery_connecting_ridge_sites": {
+   "value": 2,
+   "source": "data/derived/mission_value.json"
+  },
+  "rediscovery_connecting_ridge_sites_with_zone_cell": {
+   "value": 0,
+   "source": "data/derived/mission_value.json"
+  },
   "rediscovery_shackleton_rim_robust_in_zone": {
    "value": 39,
    "source": "data/derived/mission_value.json"
   },
   "rediscovery_shackleton_rim_robust_n": {
    "value": 99,
+   "source": "data/derived/mission_value.json"
+  },
+  "rediscovery_shackleton_rim_sites": {
+   "value": 27,
+   "source": "data/derived/mission_value.json"
+  },
+  "rediscovery_shackleton_rim_sites_with_zone_cell": {
+   "value": 1,
    "source": "data/derived/mission_value.json"
   },
   "x1_positive_pass": {
@@ -465,6 +521,18 @@
    "value": 2,
    "source": "data/derived/mission_value.json"
   },
+  "x1_seed_devon_island_passes": {
+   "value": true,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_seed_changtang_north_passes": {
+   "value": false,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_seed_peary_land_passes": {
+   "value": true,
+   "source": "data/derived/mission_value.json"
+  },
   "m1_checks_passed": {
    "value": 3,
    "source": "data/derived/mission_value.json"
@@ -481,6 +549,10 @@
    "value": 5,
    "source": "data/derived/mission_value.json"
   },
+  "coverage_L1_unobserved": {
+   "value": 1,
+   "source": "data/derived/mission_value.json"
+  },
   "coverage_L1_total": {
    "value": 7,
    "source": "data/derived/mission_value.json"
@@ -491,6 +563,10 @@
   },
   "coverage_L2_facility": {
    "value": 7,
+   "source": "data/derived/mission_value.json"
+  },
+  "coverage_L2_unobserved": {
+   "value": 1,
    "source": "data/derived/mission_value.json"
   },
   "coverage_L2_total": {
@@ -505,6 +581,10 @@
    "value": 6,
    "source": "data/derived/mission_value.json"
   },
+  "coverage_M1_unobserved": {
+   "value": 2,
+   "source": "data/derived/mission_value.json"
+  },
   "coverage_M1_total": {
    "value": 9,
    "source": "data/derived/mission_value.json"
@@ -515,6 +595,10 @@
   },
   "coverage_X1_facility": {
    "value": 6,
+   "source": "data/derived/mission_value.json"
+  },
+  "coverage_X1_unobserved": {
+   "value": 1,
    "source": "data/derived/mission_value.json"
   },
   "coverage_X1_total": {
@@ -553,6 +637,14 @@
    "value": 0.0824,
    "source": "data/derived/mission_criteria.parquet"
   },
+  "site_gerze_attention": {
+   "value": 0,
+   "source": "data/derived/sites.parquet"
+  },
+  "site_gerze_lenses_engine_confirmed": {
+   "value": "L1",
+   "source": "data/derived/sites.parquet"
+  },
   "task_attention_peary_land_moon": {
    "value": 1,
    "source": "data/derived/task_attention.parquet (OpenAlex)"
@@ -566,7 +658,7 @@
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   },
   "task_attention_da_qaidam_mars": {
-   "value": 76,
+   "value": 71,
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   },
   "task_attention_zanda_gar_moon": {
@@ -590,7 +682,7 @@
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   },
   "task_attention_atacama_puna_mars": {
-   "value": 229,
+   "value": 214,
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   },
   "task_attention_mauna_loa_moon": {
@@ -598,7 +690,7 @@
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   },
   "task_attention_mauna_loa_mars": {
-   "value": 199,
+   "value": 183,
    "source": "data/derived/task_attention.parquet (OpenAlex)"
   }
  }

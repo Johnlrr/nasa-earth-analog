@@ -19,6 +19,11 @@ requirements:
     source: "https://ntrs.nasa.gov/citations/20250009323"
     descriptor: frac_gt20
     reading: "share of the 4 km footprint that is no-EVA terrain under Artemis III requirement 3"
+  artemis3_lighting:
+    quote: "Artemis III will require the surface to be lit for the duration of the surface stay"
+    detail: "Key Artemis III Landing Requirements, item 5: Lighting (a. Surface Lighting, b. Approach lighting)"
+    document: "Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 26"
+    source: "https://ntrs.nasa.gov/citations/20250009323"
   mars_ice_access:
     quote: "land within a vertical meter of Martian mid-latitude ice, drill for samples to a 2-meter depth"
     detail: "mid-latitude terrain with ice within 2 m of the surface ... Much of 45°N (e.g. Arcadia Planitia) contains ice within <1 m depth ... materials of high interest to future human landed missions"
@@ -30,14 +35,15 @@ requirements:
     document: "NASA Technology Readiness Level Definitions (table reproduced from NPR 7123.1)"
     source: "https://www.nasa.gov/wp-content/uploads/2017/12/458490main_trl_definitions.pdf"
 
-# Caveat printed with every mission-criterion table: our slopes are measured on a 30 m baseline
-# inside a 4 km footprint; NASA states the landing limit on a 100 m baseline and the EVA limit
-# over 2 km. The table compares Earth and Moon with the SAME formula and baseline; it does not
-# certify a landing site.
-criteria_caveat: "30 m baseline in a 4 km footprint on both worlds; NASA states the landing limit at 100 m and the EVA limit over 2 km. Same formula both sides; not a landing-site certification."
+# Caveat printed with every mission-criterion table. The NASA slides give "(100m)" and "(2km)"
+# next to the limits; they do not state the baseline on which slope is computed, so our shares
+# cannot be compared with NASA's maps. They compare Earth with Moon only. The limits are
+# operational limits, not similarity targets. Copernicus GLO-30 and PGDA 78 resampled to 30 m do
+# not have the same effective resolution.
+criteria_caveat: "Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test."
 
-# One protocol per lens: what a field campaign at a TRANSFERS site can be credited with, and what
-# it cannot. `shortfalls` are ids already cited in ledger/*.yaml (nasa_gaps).
+# One protocol per lens: which test variables a field campaign at a TRANSFERS site reproduces by
+# this engine's measure, and which it does not. `shortfalls` are ids already cited in ledger/*.yaml (nasa_gaps).
 protocols:
   L1:
     name: "Slope traverse and touchdown-terrain rehearsal"
@@ -50,7 +56,7 @@ protocols:
   L2:
     name: "Low-Sun shadow navigation rehearsal"
     systems: "optical navigation and hazard detection cameras, traverse timing around long terrain shadows"
-    requirement: [artemis3_eva_slope]
+    requirement: [artemis3_lighting]
     shortfalls: ["ESDMD #0805", "ESDMD #0301"]
     field_credit: "terrain shadow casting at Sun elevations of 2, 5 and 7 deg (verdict variable shadow_casting)"
     measure: "navigation solution error and hazard-detection rate inside and at the edge of terrain shadows at the three Sun elevations"
@@ -59,7 +65,7 @@ protocols:
     name: "Ice-access drilling rehearsal under dry overburden"
     systems: "1-2 m class ice-access drills and sample handling, site characterisation before drilling"
     requirement: [mars_ice_access]
-    shortfalls: ["ESDMD #0603"]
+    shortfalls: []
     field_credit: "ice configuration: permafrost, ice-bearing ground that never thaws from above, dry overburden (verdict variable ice_configuration; semi-quantitative)"
     measure: "depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling"
     not_credited: "Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden"
