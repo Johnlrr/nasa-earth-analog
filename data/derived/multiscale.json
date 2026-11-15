@@ -1,0 +1,119 @@
+{
+  "rule": "Rule, written and committed before the first run: at each scale s in {5, 10, 30} m, the lead \"holds at s\" if its frac_gt8 and frac_gt20 both lie within [min, max] of the ridge and its lunar neighbours at the same scale (PGDA 78 Site01 5 m DEM, aggregated). Route outcomes (same planner as V1) are reported at 10 m and 30 m beside the ridge's, without a pass rule.",
+  "scales_m": [
+    5.0,
+    10.0,
+    30.0
+  ],
+  "moon": {
+    "5": {
+      "ridge": {
+        "frac_gt8": 0.7625,
+        "frac_gt20": 0.0961,
+        "slope_p50": 12.5886
+      },
+      "range_frac_gt8": [
+        0.4951,
+        0.8712
+      ],
+      "range_frac_gt20": [
+        0.0114,
+        0.2426
+      ]
+    },
+    "10": {
+      "ridge": {
+        "frac_gt8": 0.7624,
+        "frac_gt20": 0.084,
+        "slope_p50": 12.5208
+      },
+      "range_frac_gt8": [
+        0.4863,
+        0.872
+      ],
+      "range_frac_gt20": [
+        0.0091,
+        0.2326
+      ]
+    },
+    "30": {
+      "ridge": {
+        "frac_gt8": 0.7581,
+        "frac_gt20": 0.0573,
+        "slope_p50": 12.3354
+      },
+      "range_frac_gt8": [
+        0.4642,
+        0.8685
+      ],
+      "range_frac_gt20": [
+        0.0067,
+        0.2193
+      ]
+    },
+    "routes": {
+      "10": {
+        "nan_frac": 0.0,
+        "reach_6": 0.5728226047219495,
+        "reach_8": 0.946185216942886,
+        "detour_8": 1.3121610002014805,
+        "detour_10": 1.1462761458941007,
+        "climb_10": 24.945088904679444
+      },
+      "30": {
+        "nan_frac": 0.0,
+        "reach_6": 0.5345718988157,
+        "reach_8": 0.9121748541987191,
+        "detour_8": 1.2895901458144954,
+        "detour_10": 1.1375136320635162,
+        "climb_10": 26.073105070859953
+      }
+    }
+  },
+  "leads": {
+    "E10K_660_-632": {
+      "name": "Baffin Island",
+      "lat": 63.84696578979492,
+      "lon": -65.57559204101562,
+      "nan_frac": 0.0,
+      "scales": {
+        "5": {
+          "frac_gt8": 0.6501,
+          "frac_gt20": 0.137,
+          "slope_p50": 11.0163,
+          "holds": true
+        },
+        "10": {
+          "frac_gt8": 0.6512,
+          "frac_gt20": 0.1329,
+          "slope_p50": 11.0327,
+          "holds": true
+        },
+        "30": {
+          "frac_gt8": 0.6541,
+          "frac_gt20": 0.1205,
+          "slope_p50": 10.9976,
+          "holds": true
+        }
+      },
+      "routes": {
+        "10": {
+          "nan_frac": 0.0,
+          "reach_6": 0.5016143932304049,
+          "reach_8": 0.9053855997330119,
+          "detour_8": 1.359981388281552,
+          "detour_10": 1.1869245607608718,
+          "climb_10": 43.957655659142766
+        },
+        "30": {
+          "nan_frac": 0.0,
+          "reach_6": 0.5016547998139468,
+          "reach_8": 0.9148046441733156,
+          "detour_8": 1.3598437556901635,
+          "detour_10": 1.1982278601922087,
+          "climb_10": 38.17231235748824
+        }
+      }
+    }
+  }
+}

@@ -122,6 +122,7 @@ the Deviations table of the validation report.</p>
 <tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>{n(num, 'v1_h1_verdict')}</b> for the group: {n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} vs {n(num, 'v1_null_share', '{:.0f} %', 100)} of random land</td></tr>
 <tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>{n(num, 'v1_h2_verdict')}</b>: Spearman {n(num, 'v1_h2_rho', '{:.2f}')}</td></tr>
 <tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
+<tr><td>Baffin slope match holds at rover scale</td><td>Exploratory, rule committed before the run</td><td>within the ridge neighbourhood at 5, 10 and 30 m (ArcticDEM 2 m vs LOLA 5 m)</td></tr>
 <tr><td>Baffin low-Sun window</td><td>Exploratory, geometric sun model</td><td>{n(num, 'i1_baffin_window_days')} days, {n(num, 'i1_baffin_window_from')}–{n(num, 'i1_baffin_window_to')}</td></tr>
 <tr><td>Hardware performance at any site</td><td>Field test</td><td>none done; a card assigns no TRL</td></tr>
 </table>

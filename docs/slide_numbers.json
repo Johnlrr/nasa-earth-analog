@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T20:58",
+ "generated": "2026-11-15T21:09",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1508,6 +1508,34 @@
   "i1_da_qaidam_route_reproduces": {
    "value": false,
    "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "ms_baffin_holds_all_scales": {
+   "value": true,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_baffin_frac_gt8_5m": {
+   "value": 0.6501,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_ridge_frac_gt8_5m": {
+   "value": 0.7625,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_baffin_frac_gt20_5m": {
+   "value": 0.137,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_ridge_frac_gt20_5m": {
+   "value": 0.0961,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_baffin_climb_10m": {
+   "value": 43.9577,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
+  },
+  "ms_ridge_climb_10m": {
+   "value": 24.9451,
+   "source": "data/derived/multiscale.json (scripts/multiscale_check.py)"
   }
  }
 }

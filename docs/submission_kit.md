@@ -88,7 +88,8 @@ pictures, the share of terrain steeper than 8° and 20°, a second-DEM check and
 For Connecting Ridge, the two leads that also pass the traverse test are the ones to visit first:
 Argentina (-28.79, -69.63; terrain shadow inside the ridge neighbourhood's range, low Sun only at
 dawn and dusk) and Baffin Island (63.85, -65.58; a 71-day winter window of all-day low Sun, but
-snow season and more terrain shadow than the ridge). For the steep Shackleton inner wall the rule
+snow season and more terrain shadow than the ridge; its slope match still holds at 5 m with
+ArcticDEM 2 m [`ms_baffin_holds_all_scales` = 1]). For the steep Shackleton inner wall the rule
 is not selective (9 of 1,000 random cells pass), so its many Andean leads are steep mountains,
 not findings. Leads are exploratory: found after the published results, not visited yet. The
 access screen leaves out China (Wolf Amendment), Russia and countries under comprehensive US

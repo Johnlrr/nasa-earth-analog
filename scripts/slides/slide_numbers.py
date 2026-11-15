@@ -393,6 +393,20 @@ def main() -> None:
             if cid in lw.index:
                 put(f"i1_{slug}_route_reproduces", bool(lw.loc[cid].route_reproduces), src)
 
+    # multi-scale check of the Baffin lead (exploratory, Deviations 34)
+    ms_path = D / "multiscale.json"
+    if ms_path.exists():
+        ms = json.loads(ms_path.read_text(encoding="utf-8"))
+        src = "data/derived/multiscale.json (scripts/multiscale_check.py)"
+        b = ms["leads"]["E10K_660_-632"]
+        put("ms_baffin_holds_all_scales", all(v["holds"] for v in b["scales"].values()), src)
+        put("ms_baffin_frac_gt8_5m", b["scales"]["5"]["frac_gt8"], src)
+        put("ms_ridge_frac_gt8_5m", ms["moon"]["5"]["ridge"]["frac_gt8"], src)
+        put("ms_baffin_frac_gt20_5m", b["scales"]["5"]["frac_gt20"], src)
+        put("ms_ridge_frac_gt20_5m", ms["moon"]["5"]["ridge"]["frac_gt20"], src)
+        put("ms_baffin_climb_10m", b["routes"]["10"]["climb_10"], src)
+        put("ms_ridge_climb_10m", ms["moon"]["routes"]["10"]["climb_10"], src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

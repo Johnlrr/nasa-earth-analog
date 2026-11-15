@@ -735,6 +735,24 @@ that passed L1) and `E10K_660_-632` (Baffin Island). Baffin's 71-day window fall
 season and its terrain shadow exceeds the ridge's range; the sun model has no refraction and no
 horizon. The Chile lead (inside the Atacama exclusion buffer) and Da Qaidam fail the route test.
 
+### Does the Baffin match hold at rover scale? (exploratory, Deviations 34)
+
+Rule committed before the first run (`c4f7be5`, `scripts/multiscale_check.py`): the lead holds at
+a scale if its shares above 8° and 20° both lie within the range of the ridge and its lunar
+neighbours at that scale. Earth: ArcticDEM v4 2 m mosaic averaged to 5 m; Moon: PGDA 78 5 m.
+
+| Scale | Ridge > 8° (neighbours) | Baffin > 8° | Ridge > 20° (neighbours) | Baffin > 20° | Holds |
+|---|---|---|---|---|---|
+| 5 m | 0.76 (0.50–0.87) | 0.65 | 0.096 (0.011–0.243) | 0.137 | yes |
+| 10 m | 0.76 (0.49–0.87) | 0.65 | 0.084 (0.009–0.233) | 0.133 | yes |
+| 30 m | 0.76 (0.46–0.87) | 0.65 | 0.057 (0.007–0.219) | 0.120 | yes |
+
+Routes at 10 m (same planner): reach at 6° 0.50 vs 0.57 on the ridge,
+at 8° 0.91 vs 0.95; detour at 8° 1.36 vs 1.31;
+ascent 44 vs 25 m per km. The slope match holds down to 5 m; the
+Baffin footprint climbs more than the ridge at every scale. Argentina has no open DEM finer than
+30 m in this pipeline.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -775,6 +793,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 31 | Open-country site finder: access screen (China incl. areas administered by China, Russia, comprehensively sanctioned states left out), 160 more cells scored by the unchanged L1 rule, second DEM and ice rule on the leads (`scripts/access/access_screen.py`) | 15/11 afternoon, `674f129` | The published ridge matches are in China or marginal | Leads only, exploratory; never in verdicts. The screen is a planning assumption, not a legal opinion. Shackleton-wall leads are not findings: the rule passes 9 of 1,000 random cells |
 | 32 | Low-Sun calendar of the ridge matches (I1) and terrain shadow at the leads | 15/11 evening, this section §7d | L2 over a year hides seasonal windows | Exploratory; L2 verdicts unchanged |
 | 33 | V1 implementation details fixed before the Earth run (commit `6ab5bd5`): the lunar population footprint centred on the reference (`connecting_ridge_pop_004`) is the reference and is left out of the neighbours; a zero MAD would fall back to the standard deviation (did not occur) | 15/11 evening | Not stated in the registration | τ and scales |
+| 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
 
 ## 9. Limitations and not done
 

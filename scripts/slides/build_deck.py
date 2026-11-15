@@ -242,7 +242,7 @@ SLIDES = r"""
         <li><b>Argentina</b> ({{i1_argentina_lat:f2}}, {{i1_argentina_lon:f2}}): the only one of {{prevalence_connecting_ridge_n:int}} <i>random</i> cells to pass, not picked by us.
           Terrain shadow {{i1_argentina_shadow_e2:pct0}} (ridge neighbourhood {{i1_ridge_native_shadow_e2_min:pct0}}–{{i1_ridge_native_shadow_e2_max:pct0}}). Low Sun only ~{{i1_argentina_lowsun_min_per_day:int}} min a day.</li>
         <li><b>Baffin Island, Canada</b> ({{i1_baffin_lat:f2}}, {{i1_baffin_lon:f2}}): from {{i1_baffin_window_from}} to {{i1_baffin_window_to}} ({{i1_baffin_window_days}} days) every daylight minute has the Sun below 7°,
-          ~{{i1_baffin_window_lowsun_h:int}} h a day. Caveats: snow season; terrain shadow {{i1_baffin_shadow_e2:pct0}}, more than the ridge.</li>
+          ~{{i1_baffin_window_lowsun_h:int}} h a day. Slopes still match at 5 m (ArcticDEM 2 m: {{ms_baffin_frac_gt8_5m:pct0}} vs {{ms_ridge_frac_gt8_5m:pct0}} above 8°). Caveats: snow season; more shadow and climb than the ridge.</li>
         <li><b>Dropped by the traverse test:</b> the Chile lead (inside the Atacama analog area) and Da Qaidam (China).</li>
       </ul>
       <p class="small" style="margin-top:16px">Leads, not verdicts: found after the published results, not yet visited; the low-Sun calendar is exploratory. Planning screen, not legal advice:
