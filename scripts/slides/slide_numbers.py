@@ -328,6 +328,71 @@ def main() -> None:
                 put(f"access_{slug}_best_usable_frac_gt8", best["frac_gt8"], src)
                 put(f"access_{slug}_best_usable_traverse_km", best["traverse_km"], src)
 
+    # V1: pre-registered traverse-outcome test (config/prereg_route_v1.yaml)
+    rv_path = D / "route_validity.json"
+    if rv_path.exists():
+        rv = json.loads(rv_path.read_text(encoding="utf-8"))
+        src = "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+        put("v1_passer_reproduce", rv["passer"][0], src)
+        put("v1_passer_n", rv["passer"][1], src)
+        put("v1_null_reproduce", rv["null"][0], src)
+        put("v1_null_n", rv["null"][1], src)
+        put("v1_null_share", rv["null"][0] / rv["null"][1], src)
+        put("v1_classic_reproduce", rv["classic"][0], src)
+        put("v1_classic_n", rv["classic"][1], src)
+        put("v1_passer_second_dem_reproduce", rv["passer_second_dem"][0], src)
+        put("v1_moon_native_reproduce", rv["moon_native_reproduce"][0], src)
+        put("v1_moon_native_n", rv["moon_native_reproduce"][1], src)
+        put("v1_h1_p", rv["H1_p"], src)
+        put("v1_h1_verdict", "PASS" if rv["H1_pass"] else "FAIL", src)
+        put("v1_h1b_p", rv["H1b_p"], src)
+        put("v1_h2_rho", rv["H2_rho"], src)
+        put("v1_h2_verdict", "PASS" if rv["H2_pass"] else "FAIL", src)
+        put("v1_ridge_climb_10", rv["ridge_outcomes"]["climb_10"], src)
+        rvt = pd.read_parquet(D / "route_validity.parquet")
+        pas = rvt[rvt.group.eq("passer")]
+        put("v1_passer_climb_10_median", float(pas.climb_10.median()), src)
+        put("v1_classic_climb_10_median", float(rvt[rvt.group.eq("classic")].climb_10.median()),
+            src)
+
+    # I1: low-Sun windows of the ridge matches (exploratory, Deviations 32)
+    lw_path = D / "lighting_windows.parquet"
+    if lw_path.exists():
+        lw = pd.read_parquet(lw_path).set_index("cell_id")
+        src = "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+        three = lw[lw.route_reproduces & lw.route_reproduces_second_dem.fillna(False)]
+        put("i1_three_tests_n", len(three), src)
+        hero = lw[lw.route_reproduces & lw.route_reproduces_second_dem.fillna(False)
+                  & lw.open_country & lw.l1_robust_second_dem.fillna(False)
+                  & ~lw.in_exclusion_buffer.fillna(True)]
+        put("i1_open_all_tests_n", len(hero), src)
+        put("i1_open_all_tests_countries", ", ".join(sorted(hero.country.unique())), src)
+        for cid, slug in (("E10K_660_-632", "baffin"), ("E10K_-355_-671", "argentina")):
+            if cid in lw.index:
+                r = lw.loc[cid]
+                put(f"i1_{slug}_lat", float(r.lat), src)
+                put(f"i1_{slug}_lon", float(r.lon), src)
+                put(f"i1_{slug}_window_days", int(r.window_days), src)
+                if int(r.window_days) > 0:
+                    put(f"i1_{slug}_window_from", r.window_from, src)
+                    put(f"i1_{slug}_window_to", r.window_to, src)
+                put(f"i1_{slug}_window_lowsun_h", float(r.window_lowsun_min_per_day) / 60.0, src)
+                put(f"i1_{slug}_lowsun_min_per_day", float(r.lowsun_min_per_day), src)
+                put(f"i1_{slug}_shadow_e2", float(r.shadow_e2), src)
+                put(f"i1_{slug}_route_D", float(r.route_D), src)
+                put(f"i1_{slug}_frac_gt8", float(
+                    pd.read_parquet(D / "access_leads.parquet").set_index("cell_id")
+                    .loc[[cid], "frac_gt8"].iloc[0]), "data/derived/access_leads.parquet")
+        put("i1_ridge_shadow_e2", float(lw.ridge_shadow_e2.iloc[0]), src)
+        t2 = pd.read_parquet(D / "targets_L2.parquet")
+        nat = t2[t2.target_id.eq("connecting_ridge") & ~t2.is_reference.astype(bool)]
+        t2src = "data/derived/targets_L2.parquet"
+        put("i1_ridge_native_shadow_e2_min", float(nat.shadow_e2.min()), t2src)
+        put("i1_ridge_native_shadow_e2_max", float(nat.shadow_e2.max()), t2src)
+        for cid, slug in (("E10K_-334_-677", "chile"), ("E10K_453_921", "da_qaidam")):
+            if cid in lw.index:
+                put(f"i1_{slug}_route_reproduces", bool(lw.loc[cid].route_reproduces), src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

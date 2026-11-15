@@ -71,11 +71,11 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
   <p class="eyebrow">NASA Space Apps Challenge 2026 · Moon Base and Mars analog sites</p>
   <h1 class="cover">Famous ≠ faithful.</h1>
   <p class="lead" style="font-size:40px;max-width:1560px"><b>SIMILITUDE</b> helps Artemis test engineers pick an Earth field site the way a wind-tunnel engineer checks a model:
-    not “does it look like the Moon?” but <b>does the terrain match, can NASA go there, and which test results transfer</b>.</p>
+    not “does it look like the Moon?” but <b>which test results transfer</b>, and we test our own answer against a pre-registered traverse simulation.</p>
   <div class="row" style="margin-top:60px;gap:28px">
     <div class="tile" style="flex:1"><span class="num">76 %</span><p style="font-size:24px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
     <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">9 %</span><p style="font-size:24px">median at six famous analog field sites, same formula</p></div>
-    <div class="tile" style="flex:1"><span class="num">102 / 109</span><p style="font-size:24px">verdicts unchanged with a second NASA elevation model</p></div>
+    <div class="tile" style="flex:1"><span class="num">3 / 9</span><p style="font-size:24px">slope matches also reproduce the ridge's simulated traverse outcomes (pre-registered test)</p></div>
   </div>
   <div style="margin-top:34px" class="verdicts">
     <span class="v t">TRANSFERS · test it in the field</span>
@@ -139,7 +139,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 
 <section class="slide" id="s4">
   <p class="eyebrow">3 · Evidence</p>
-  <h1>Six checks against known truth — and the test that failed</h1>
+  <h1>Six checks against known truth, and two tests that failed</h1>
   <div class="tiles">
     <div class="tile"><span class="num">0.0009°</span><h3>Matches NASA's own product</h3>
       <p>largest difference between our slope code and NASA's PGDA 78 slope rasters, six south-pole sites</p></div>
@@ -154,31 +154,43 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
     <div class="tile"><span class="num">2 / 2 · 2 / 2</span><h3>Ice test (semi-quantitative)</h3>
       <p>polar-desert controls pass, wet-permafrost decoys rejected; our own Pamir–Changtang guess: 0 / 6</p></div>
   </div>
-  <div class="tile fail" style="margin-top:22px;display:flex;gap:34px;align-items:center">
+  <div class="row" style="margin-top:22px;gap:22px">
+  <div class="tile fail" style="flex:1;display:flex;gap:26px;align-items:center">
     <span class="num">FAIL</span>
-    <p style="font-size:24px;color:var(--ink)"><b>Mineral test:</b> 3 of 4 pre-registered checks pass, but the Lake Salda pair reaches only
+    <p style="font-size:21px;color:var(--ink)"><b>Our own method, tested (pre-registered):</b> a 30 m traverse planner on both worlds. Slope matches reproduce the ridge's routes in
+      3/9, random land in 15 % (p = 0.1477); classic sites 27/54.
+      Slope distance does predict route distance (ρ = 0.377). Matches climb more: 40 vs 26 m per km.</p>
+  </div>
+  <div class="tile fail" style="flex:1;display:flex;gap:26px;align-items:center">
+    <span class="num">FAIL</span>
+    <p style="font-size:21px;color:var(--ink)"><b>Mineral test:</b> 3 of 4 pre-registered checks pass, but the Lake Salda pair reaches only
       0.052 km² (rule: 0.1 km²). The rule says fail, so we publish <b>no mineral analog</b>.</p>
+  </div>
   </div>
 </section>
 
 <section class="slide" id="s5">
   <p class="eyebrow">4 · What the data found</p>
-  <h1>Where a NASA team can actually go: ridge-like terrain outside China</h1>
+  <h1>Two open-country sites pass both terrain tests, on two DEMs</h1>
   <div class="row grow">
-    <div class="col" style="width:820px">
+    <div class="col" style="width:860px">
+      <div class="funnel">
+        <div><b>9</b><span>slope matches for the ridge</span></div>
+        <div><b>3</b><span>also reproduce its traverse routes, on two DEMs</span></div>
+        <div><b>2</b><span>open to NASA, outside known analog areas</span></div>
+      </div>
       <ul class="pts">
-        <li><b>First screen:</b> 300 screened cells → 2 ridge matches, Da Qaidam (China) and Peary Land (Greenland).
-          Neither works for NASA: no bilateral work in China; Peary Land fails with a second DEM.</li>
-        <li><b>Same test, countries open to NASA:</b> 160 more cells. <b>3</b> usable ridge leads
-          (second DEM and published ice rule): Argentina, Canada, Chile.</li>
-        <li><b>Best (Chile):</b> 92 % steeper than 8° vs 76 % on the ridge;
-          ~8 km of traverse for the slope exposure of 10 km on the ridge (86 km at the median classic site).</li>
-        <li><b>Shackleton inner wall:</b> 113 usable leads, most in the Andes.</li>
+        <li><b>Argentina</b> (-28.79, -69.63): the only one of 1,000 <i>random</i> cells to pass, not picked by us.
+          Terrain shadow 59 % (ridge neighbourhood 51 %–67 %). Low Sun only ~68 min a day.</li>
+        <li><b>Baffin Island, Canada</b> (63.85, -65.58): from 13 Nov to 22 Jan (71 days) every daylight minute has the Sun below 7°,
+          ~5 h a day. Caveats: snow season; terrain shadow 75 %, more than the ridge.</li>
+        <li><b>Dropped by the traverse test:</b> the Chile lead (inside the Atacama analog area) and Da Qaidam (China).</li>
       </ul>
-      <p class="small" style="margin-top:18px">Leads, not verdicts: same rule, found after the published results, not yet visited. Closed: China (incl. Aksai Chin), Russia, sanctioned states.</p>
+      <p class="small" style="margin-top:16px">Leads, not verdicts: found after the published results, not yet visited; the low-Sun calendar is exploratory. Planning screen, not legal advice:
+        China (Wolf Amendment), Russia, comprehensively sanctioned states left out.</p>
     </div>
     <div class="col grow" style="gap:14px">
-      <div class="row" style="gap:14px"><div class="fig" style="flex:1;padding:8px"><img src="../web/figures/leads/E10K_-334_-677_s2.jpg" alt="Sentinel-2 true colour"></div><div class="fig" style="flex:1;padding:8px"><img src="../web/figures/leads/E10K_-334_-677_slope.png" alt="Slope classes"></div></div><p class="small" style="margin:0">Chile · -26.937, -70.248 · 4 km footprint · inside a known analog area. Left: Sentinel-2 true colour. Right: slope classes from the same 30 m DEM — <span style="color:#3f9a64">■</span> under 8°, <span style="color:#d08a2e">■</span> 8–20°, <span style="color:#d0563f">■</span> over 20°.</p>
+      <div class="row" style="gap:12px;align-items:center"><div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/figures/leads/E10K_-355_-671_s2.jpg" alt="Sentinel-2 true colour"></div><div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/figures/leads/E10K_-355_-671_slope.png" alt="Slope classes"></div><p class="small" style="width:150px;margin:0"><b>Argentina</b><br>-28.79, -69.63<br>4 km</p></div><div class="row" style="gap:12px;align-items:center"><div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/figures/leads/E10K_660_-632_s2.jpg" alt="Sentinel-2 true colour"></div><div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/figures/leads/E10K_660_-632_slope.png" alt="Slope classes"></div><p class="small" style="width:150px;margin:0"><b>Canada</b><br>63.85, -65.58<br>4 km</p></div><p class="small" style="margin:0">Left: Sentinel-2 true colour. Right: slope classes from the same 30 m DEM — <span style="color:#3f9a64">■</span> under 8°, <span style="color:#d08a2e">■</span> 8–20°, <span style="color:#d0563f">■</span> over 20°.</p>
     </div>
   </div>
 </section>
@@ -191,21 +203,21 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
       <ul class="pts">
         <li><b>A sample, not a census:</b> 307 scored cells. The random sample suggests about 201 cells on Earth
           would pass the terrain test (95 % CI 10–1,093).</li>
-        <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved.</li>
+        <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved. The traverse test is a planner simulation, not a rover.</li>
         <li><b>Gravity, vacuum, radiation, dust:</b> no Earth site reproduces them; each card names the facility instead.</li>
         <li><b>Ice lens is semi-quantitative</b> (reanalysis soil temperature, thresholds set after seeing data). <b>Mineral lens publishes nothing.</b></li>
-        <li><b>Mostly known places:</b> Da Qaidam and Peary Land are known analog regions. Only Zanda/Gar has a low literature count (1 paper), for Shackleton-wall terrain.</li>
+        <li><b>Slope match ≠ route match:</b> our pre-registered test failed for the group. Each card now reports both; half of the classic footprints reproduce the ridge's routes, so they still serve traverse rehearsal.</li>
         <li>Every rule changed after seeing data is listed in the validation report.</li>
       </ul>
     </div>
     <div class="col" style="width:600px">
       <div class="tile" style="padding:34px">
-        <p class="small" style="margin:0 0 14px">Sun below 7° for a share of daylight</p>
+        <p class="small" style="margin:0 0 14px">Sun below 7° for a share of daylight, over a year</p>
         <div class="row" style="gap:40px">
           <div><span class="num" style="color:var(--n)">28 %</span><p class="small">best Earth site</p></div>
           <div><span class="num">100 %</span><p class="small">lunar south-pole target</p></div>
         </div>
-        <p style="font-size:25px;line-height:1.35;margin:18px 0 0">No Earth site can test polar Sun geometry. We report it as a number.</p>
+        <p style="font-size:25px;line-height:1.35;margin:18px 0 0">Over a year no Earth site matches. In a season one can: Baffin has 71 days with all daylight below 7°.</p>
       </div>
     </div>
   </div>
@@ -218,7 +230,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
     <div class="fig" style="width:760px"><img src="../docs/figures/fig_transfer_matrix.png" alt="Test-transfer matrix"></div>
     <div class="col grow">
       <ul class="pts">
-        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints in countries open to NASA, with satellite and slope-class pictures and a second-DEM check.</li>
+        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints outside our access screen, with satellite and slope-class pictures, a second-DEM check and the traverse test.</li>
         <li>A terrain site reproduces <b>1 of 7</b> test variables; 5 need a named facility
           (offload rig for 0.165 g, thermal-vacuum chamber…), 1 is unobserved.</li>
         <li><b>Mars ice, beside NASA's Mars Life Explorer study</b> (drill to 2 m): at 6 of 8 ice-lens cells the modelled permafrost

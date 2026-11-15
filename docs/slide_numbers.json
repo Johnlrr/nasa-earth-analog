@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T18:51",
+ "generated": "2026-11-15T20:58",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1332,6 +1332,182 @@
   "access_shackleton_rim_best_usable_traverse_km": {
    "value": 10.0,
    "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "v1_passer_reproduce": {
+   "value": 3,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_passer_n": {
+   "value": 9,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_null_reproduce": {
+   "value": 151,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_null_n": {
+   "value": 994,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_null_share": {
+   "value": 0.1519,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_classic_reproduce": {
+   "value": 27,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_classic_n": {
+   "value": 54,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_passer_second_dem_reproduce": {
+   "value": 3,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_moon_native_reproduce": {
+   "value": 4,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_moon_native_n": {
+   "value": 8,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_h1_p": {
+   "value": 0.1477,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_h1_verdict": {
+   "value": "FAIL",
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_h1b_p": {
+   "value": 0.9022,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_h2_rho": {
+   "value": 0.377,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_h2_verdict": {
+   "value": "PASS",
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_ridge_climb_10": {
+   "value": 26.0731,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_passer_climb_10_median": {
+   "value": 39.5206,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "v1_classic_climb_10_median": {
+   "value": 17.4971,
+   "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+  },
+  "i1_three_tests_n": {
+   "value": 3,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_open_all_tests_n": {
+   "value": 2,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_open_all_tests_countries": {
+   "value": "Argentina, Canada",
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_lat": {
+   "value": 63.847,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_lon": {
+   "value": -65.5756,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_window_days": {
+   "value": 71,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_window_from": {
+   "value": "13 Nov",
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_window_to": {
+   "value": "22 Jan",
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_window_lowsun_h": {
+   "value": 4.5599,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_lowsun_min_per_day": {
+   "value": 184.9452,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_shadow_e2": {
+   "value": 0.7494,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_route_D": {
+   "value": 0.589,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_baffin_frac_gt8": {
+   "value": 0.6543,
+   "source": "data/derived/access_leads.parquet"
+  },
+  "i1_argentina_lat": {
+   "value": -28.7911,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_lon": {
+   "value": -69.6254,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_window_days": {
+   "value": 0,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_window_lowsun_h": {
+   "value": 0.0,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_lowsun_min_per_day": {
+   "value": 68.1781,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_shadow_e2": {
+   "value": 0.5856,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_route_D": {
+   "value": 0.6548,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_argentina_frac_gt8": {
+   "value": 0.8572,
+   "source": "data/derived/access_leads.parquet"
+  },
+  "i1_ridge_shadow_e2": {
+   "value": 0.5136,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_ridge_native_shadow_e2_min": {
+   "value": 0.5136,
+   "source": "data/derived/targets_L2.parquet"
+  },
+  "i1_ridge_native_shadow_e2_max": {
+   "value": 0.6652,
+   "source": "data/derived/targets_L2.parquet"
+  },
+  "i1_chile_route_reproduces": {
+   "value": false,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+  },
+  "i1_da_qaidam_route_reproduces": {
+   "value": false,
+   "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
   }
  }
 }

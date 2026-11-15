@@ -33,6 +33,8 @@ def fmt(v, kind: str) -> str:
         return f"{int(round(float(v))):,}"
     if kind == "km0":
         return f"{round(float(v)):d} km"
+    if kind == "f2":
+        return f"{float(v):.2f}"
     if kind == "raw":
         return str(v)
     raise ValueError(f"unknown format {kind}")
@@ -128,11 +130,11 @@ SLIDES = r"""
   <p class="eyebrow">NASA Space Apps Challenge 2026 · Moon Base and Mars analog sites</p>
   <h1 class="cover">Famous ≠ faithful.</h1>
   <p class="lead" style="font-size:40px;max-width:1560px"><b>SIMILITUDE</b> helps Artemis test engineers pick an Earth field site the way a wind-tunnel engineer checks a model:
-    not “does it look like the Moon?” but <b>does the terrain match, can NASA go there, and which test results transfer</b>.</p>
+    not “does it look like the Moon?” but <b>which test results transfer</b>, and we test our own answer against a pre-registered traverse simulation.</p>
   <div class="row" style="margin-top:60px;gap:28px">
     <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:24px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
     <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:24px">median at six famous analog field sites, same formula</p></div>
-    <div class="tile" style="flex:1"><span class="num">{{cross_dem_same_verdict}} / {{cross_dem_n}}</span><p style="font-size:24px">verdicts unchanged with a second NASA elevation model</p></div>
+    <div class="tile" style="flex:1"><span class="num">{{v1_passer_reproduce}} / {{v1_passer_n}}</span><p style="font-size:24px">slope matches also reproduce the ridge's simulated traverse outcomes (pre-registered test)</p></div>
   </div>
   <div style="margin-top:34px" class="verdicts">
     <span class="v t">TRANSFERS · test it in the field</span>
@@ -196,7 +198,7 @@ SLIDES = r"""
 
 <section class="slide" id="s4">
   <p class="eyebrow">3 · Evidence</p>
-  <h1>Six checks against known truth — and the test that failed</h1>
+  <h1>Six checks against known truth, and two tests that failed</h1>
   <div class="tiles">
     <div class="tile"><span class="num">{{nasa_slope_max_abs_diff_deg}}°</span><h3>Matches NASA's own product</h3>
       <p>largest difference between our slope code and NASA's PGDA 78 slope rasters, six south-pole sites</p></div>
@@ -211,28 +213,40 @@ SLIDES = r"""
     <div class="tile"><span class="num">{{x1_positive_pass}} / {{x1_positive_n}} · {{x1_decoy_rejected}} / {{x1_decoy_n}}</span><h3>Ice test (semi-quantitative)</h3>
       <p>polar-desert controls pass, wet-permafrost decoys rejected; our own Pamir–Changtang guess: {{x1_pamir_changtang_pass}} / {{x1_pamir_changtang_total}}</p></div>
   </div>
-  <div class="tile fail" style="margin-top:22px;display:flex;gap:34px;align-items:center">
+  <div class="row" style="margin-top:22px;gap:22px">
+  <div class="tile fail" style="flex:1;display:flex;gap:26px;align-items:center">
+    <span class="num">{{v1_h1_verdict}}</span>
+    <p style="font-size:21px;color:var(--ink)"><b>Our own method, tested (pre-registered):</b> a 30 m traverse planner on both worlds. Slope matches reproduce the ridge's routes in
+      {{v1_passer_reproduce}}/{{v1_passer_n}}, random land in {{v1_null_share:pct0}} (p = {{v1_h1_p}}); classic sites {{v1_classic_reproduce}}/{{v1_classic_n}}.
+      Slope distance does predict route distance (ρ = {{v1_h2_rho}}). Matches climb more: {{v1_passer_climb_10_median:int}} vs {{v1_ridge_climb_10:int}} m per km.</p>
+  </div>
+  <div class="tile fail" style="flex:1;display:flex;gap:26px;align-items:center">
     <span class="num">{{m1_stop_rule_verdict}}</span>
-    <p style="font-size:24px;color:var(--ink)"><b>Mineral test:</b> {{m1_checks_passed}} of {{m1_checks_n}} pre-registered checks pass, but the Lake Salda pair reaches only
+    <p style="font-size:21px;color:var(--ink)"><b>Mineral test:</b> {{m1_checks_passed}} of {{m1_checks_n}} pre-registered checks pass, but the Lake Salda pair reaches only
       {{salda_relocated_largest_patch_km2}} km² (rule: 0.1 km²). The rule says fail, so we publish <b>no mineral analog</b>.</p>
+  </div>
   </div>
 </section>
 
 <section class="slide" id="s5">
   <p class="eyebrow">4 · What the data found</p>
-  <h1>Where a NASA team can actually go: ridge-like terrain outside China</h1>
+  <h1>Two open-country sites pass both terrain tests, on two DEMs</h1>
   <div class="row grow">
-    <div class="col" style="width:820px">
+    <div class="col" style="width:860px">
+      <div class="funnel">
+        <div><b>{{v1_passer_n}}</b><span>slope matches for the ridge</span></div>
+        <div><b>{{i1_three_tests_n}}</b><span>also reproduce its traverse routes, on two DEMs</span></div>
+        <div><b>{{i1_open_all_tests_n}}</b><span>open to NASA, outside known analog areas</span></div>
+      </div>
       <ul class="pts">
-        <li><b>First screen:</b> {{funnel_screened:int}} screened cells → {{funnel_usable}} ridge matches, Da Qaidam (China) and Peary Land (Greenland).
-          Neither works for NASA: no bilateral work in China; Peary Land fails with a second DEM.</li>
-        <li><b>Same test, countries open to NASA:</b> {{access_new_scored}} more cells. <b>{{access_connecting_ridge_leads_usable}}</b> usable ridge leads
-          (second DEM and published ice rule): {{access_connecting_ridge_countries_usable}}.</li>
-        <li><b>Best ({{access_connecting_ridge_best_usable_country}}):</b> {{access_connecting_ridge_best_usable_frac_gt8:pct0}} steeper than 8° vs {{cr_frac_gt8:pct0}} on the ridge;
-          ~{{access_connecting_ridge_best_usable_traverse_km:km0}} of traverse for the slope exposure of 10 km on the ridge ({{traverse_km_classic_median:km0}} at the median classic site).</li>
-        <li><b>Shackleton inner wall:</b> {{access_shackleton_rim_leads_usable}} usable leads, most in the Andes.</li>
+        <li><b>Argentina</b> ({{i1_argentina_lat:f2}}, {{i1_argentina_lon:f2}}): the only one of {{prevalence_connecting_ridge_n:int}} <i>random</i> cells to pass, not picked by us.
+          Terrain shadow {{i1_argentina_shadow_e2:pct0}} (ridge neighbourhood {{i1_ridge_native_shadow_e2_min:pct0}}–{{i1_ridge_native_shadow_e2_max:pct0}}). Low Sun only ~{{i1_argentina_lowsun_min_per_day:int}} min a day.</li>
+        <li><b>Baffin Island, Canada</b> ({{i1_baffin_lat:f2}}, {{i1_baffin_lon:f2}}): from {{i1_baffin_window_from}} to {{i1_baffin_window_to}} ({{i1_baffin_window_days}} days) every daylight minute has the Sun below 7°,
+          ~{{i1_baffin_window_lowsun_h:int}} h a day. Caveats: snow season; terrain shadow {{i1_baffin_shadow_e2:pct0}}, more than the ridge.</li>
+        <li><b>Dropped by the traverse test:</b> the Chile lead (inside the Atacama analog area) and Da Qaidam (China).</li>
       </ul>
-      <p class="small" style="margin-top:18px">Leads, not verdicts: same rule, found after the published results, not yet visited. Closed: China (incl. Aksai Chin), Russia, sanctioned states.</p>
+      <p class="small" style="margin-top:16px">Leads, not verdicts: found after the published results, not yet visited; the low-Sun calendar is exploratory. Planning screen, not legal advice:
+        China (Wolf Amendment), Russia, comprehensively sanctioned states left out.</p>
     </div>
     <div class="col grow" style="gap:14px">
       __LEAD_PICS__
@@ -248,21 +262,21 @@ SLIDES = r"""
       <ul class="pts">
         <li><b>A sample, not a census:</b> {{l1_cells_scored_rank_seed}} scored cells. The random sample suggests about {{prevalence_connecting_ridge_cells:int}} cells on Earth
           would pass the terrain test (95 % CI {{prevalence_connecting_ridge_cells_lo:int}}–{{prevalence_connecting_ridge_cells_hi:int}}).</li>
-        <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved.</li>
+        <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved. The traverse test is a planner simulation, not a rover.</li>
         <li><b>Gravity, vacuum, radiation, dust:</b> no Earth site reproduces them; each card names the facility instead.</li>
         <li><b>Ice lens is semi-quantitative</b> (reanalysis soil temperature, thresholds set after seeing data). <b>Mineral lens publishes nothing.</b></li>
-        <li><b>Mostly known places:</b> Da Qaidam and Peary Land are known analog regions. Only Zanda/Gar has a low literature count ({{site_zanda_gar_attention}} paper), for Shackleton-wall terrain.</li>
+        <li><b>Slope match ≠ route match:</b> our pre-registered test failed for the group. Each card now reports both; half of the classic footprints reproduce the ridge's routes, so they still serve traverse rehearsal.</li>
         <li>Every rule changed after seeing data is listed in the validation report.</li>
       </ul>
     </div>
     <div class="col" style="width:600px">
       <div class="tile" style="padding:34px">
-        <p class="small" style="margin:0 0 14px">Sun below 7° for a share of daylight</p>
+        <p class="small" style="margin:0 0 14px">Sun below 7° for a share of daylight, over a year</p>
         <div class="row" style="gap:40px">
           <div><span class="num" style="color:var(--n)">{{l2_earth_best_lowsun_frac_daylight:pct0}}</span><p class="small">best Earth site</p></div>
           <div><span class="num">{{l2_moon_lowsun_frac_daylight:pct0}}</span><p class="small">lunar south-pole target</p></div>
         </div>
-        <p style="font-size:25px;line-height:1.35;margin:18px 0 0">No Earth site can test polar Sun geometry. We report it as a number.</p>
+        <p style="font-size:25px;line-height:1.35;margin:18px 0 0">Over a year no Earth site matches. In a season one can: Baffin has {{i1_baffin_window_days}} days with all daylight below 7°.</p>
       </div>
     </div>
   </div>
@@ -275,7 +289,7 @@ SLIDES = r"""
     <div class="fig" style="width:760px"><img src="../docs/figures/fig_transfer_matrix.png" alt="Test-transfer matrix"></div>
     <div class="col grow">
       <ul class="pts">
-        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints in countries open to NASA, with satellite and slope-class pictures and a second-DEM check.</li>
+        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints outside our access screen, with satellite and slope-class pictures, a second-DEM check and the traverse test.</li>
         <li>A terrain site reproduces <b>{{coverage_L1_transfers}} of {{coverage_L1_total}}</b> test variables; {{coverage_L1_facility}} need a named facility
           (offload rig for 0.165 g, thermal-vacuum chamber…), {{coverage_L1_unobserved}} is unobserved.</li>
         <li><b>Mars ice, beside NASA's Mars Life Explorer study</b> (drill to 2 m): at {{x1_mission_within_2m}} of {{x1_mission_cells}} ice-lens cells the modelled permafrost
@@ -309,22 +323,27 @@ QR_JS = """
 
 
 def lead_pictures() -> str:
-    """Slide 5 picture: the best usable Connecting Ridge lead (second DEM and ice rule)."""
+    """Slide 5 pictures: the open-country ridge leads that pass slope (two DEMs), the
+    pre-registered traverse test (two DEMs) and lie outside known analog areas."""
     acc = json.loads((ROOT / "web" / "data" / "access.json").read_text(encoding="utf-8"))
     reg = next(r for r in acc["regions"] if r["id"] == "connecting_ridge")
-    stable = [x for x in reg["leads"] if x.get("usable") and x.get("images")]
-    if not stable:
+    lw = json.loads((ROOT / "data" / "derived" / "lighting_windows.json").read_text(encoding="utf-8"))
+    ok = {r["cell_id"] for r in lw if r["route_reproduces"] and r["route_reproduces_second_dem"]
+          and r["open_country"] and r["l1_robust_second_dem"] and not r["in_exclusion_buffer"]}
+    leads = [x for x in reg["leads"] if x["cell_id"] in ok and x.get("images")]
+    if not leads:
         return ('<div class="fig grow"><img src="../docs/figures/fig_region_matrix.png" '
                 'alt="Six PGDA 78 south-pole sites against Earth footprints"></div>')
-    b = max(stable, key=lambda x: x["frac_gt8"])
-    cap = (f"{html.escape(b['country'])} · {b['lat']:.3f}, {b['lon']:.3f} · 4 km footprint"
-           + (" · inside a known analog area" if b.get("known_analog_area") else ""))
-    return ('<div class="row" style="gap:14px">'
-            f'<div class="fig" style="flex:1;padding:8px"><img src="../web/{b["images"]["s2"]}" alt="Sentinel-2 true colour"></div>'
-            f'<div class="fig" style="flex:1;padding:8px"><img src="../web/{b["images"]["slope"]}" alt="Slope classes"></div></div>'
-            f'<p class="small" style="margin:0">{cap}. Left: Sentinel-2 true colour. Right: slope classes from the same 30 m DEM — '
-            '<span style="color:#3f9a64">■</span> under 8°, <span style="color:#d08a2e">■</span> 8–20°, '
-            '<span style="color:#d0563f">■</span> over 20°.</p>')
+    out = []
+    for b in sorted(leads, key=lambda x: x["lat"]):
+        out.append('<div class="row" style="gap:12px;align-items:center">'
+                   f'<div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/{b["images"]["s2"]}" alt="Sentinel-2 true colour"></div>'
+                   f'<div class="fig" style="flex:1;padding:6px"><img style="max-height:300px" src="../web/{b["images"]["slope"]}" alt="Slope classes"></div>'
+                   f'<p class="small" style="width:150px;margin:0"><b>{html.escape(b["country"])}</b><br>{b["lat"]:.2f}, {b["lon"]:.2f}<br>4 km</p></div>')
+    out.append('<p class="small" style="margin:0">Left: Sentinel-2 true colour. Right: slope classes from the same 30 m DEM — '
+               '<span style="color:#3f9a64">■</span> under 8°, <span style="color:#d08a2e">■</span> 8–20°, '
+               '<span style="color:#d0563f">■</span> over 20°.</p>')
+    return "".join(out)
 
 
 def main() -> None:
