@@ -38,6 +38,7 @@ data rebuild without downloading anything:
 .venv/bin/python scripts/l1_robust.py        # A12 robust terrain set
 .venv/bin/python scripts/build_verdicts.py   # single verdict source: data/derived/verdicts.parquet
 .venv/bin/python scripts/sites.py --no-attention   # sites, scarcity, multi-lens, field/facility cards
+.venv/bin/python scripts/l1_regions.py      # L1 against known truth: NASA slope rasters, leave-one-out on the Moon, six PGDA 78 regions, prevalence
 .venv/bin/python scripts/mission_value.py --no-attention   # Artemis III slope readings, validity summary, test protocols
 .venv/bin/python scripts/report_tables.py    # refresh every table in docs/validation_report.md
 .venv/bin/python scripts/discovery/run_discovery.py   # web/data/candidates.geojson
@@ -82,12 +83,19 @@ NASA and partner-agency data (all open):
 | NASA planetary fact sheets; Chang'e-4 LND and MSL RAD dose papers | Transfer Ledger | URLs/DOIs per row in `ledger/*.yaml` |
 | NASA Artemis Human Landing System Overview (Space Apps 2025) and HLS Update (2024); Mars Life Explorer mission concept study; NASA TRL definitions | mission requirements the results are read against (`config/mission.yaml`) | https://ntrs.nasa.gov/citations/20250009323 ; https://ntrs.nasa.gov/citations/20240009596 ; https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf ; https://www.nasa.gov/wp-content/uploads/2017/12/458490main_trl_definitions.pdf |
 | Copernicus DEM GLO-30 (ESA) | Earth terrain (L1, L2) | doi:10.5270/ESA-c5d3d65 |
+| NASADEM HGT v001 (NASA JPL; `NASA/NASADEM_HGT/001`) | second, independent Earth DEM for the cross-DEM check | https://developers.google.com/earth-engine/datasets/catalog/NASA_NASADEM_HGT_001 |
+| ArcticDEM mosaic v3 (Polar Geospatial Center; `UMN/PGC/ArcticDEM/V3/2m_mosaic`) | second DEM above 60° N | https://developers.google.com/earth-engine/datasets/catalog/UMN_PGC_ArcticDEM_V3_2m_mosaic |
 | ESA WorldCover v200 | bare-land mask, water, perennial ice (A13) | doi:10.5281/zenodo.7254221 |
 | Copernicus Sentinel-2 L2A (`COPERNICUS/S2_SR_HARMONIZED`) | visual review contact sheets | Copernicus Sentinel data 2022–2024 |
 | ERA5-Land monthly (Copernicus C3S) | soil temperature, thaw degree-days (X1) | doi:10.24381/cds.68d2bb30 |
 | TerraClimate (Abatzoglou et al. 2018) | aridity P/PET (X1) | doi:10.1038/sdata.2017.191 |
 | OpenAlex | Analog Attention Index (literature count) | https://openalex.org |
 | OpenStreetMap Nominatim (© OpenStreetMap contributors, ODbL) | place names | https://nominatim.org |
+
+Three checks need the network or the raw PGDA 78 rasters and are committed as tables:
+`scripts/null_expand.py` (800 more random bare-land cells, Copernicus DEM tiles),
+`scripts/cross_dem.py` and `scripts/site_stability.py` (NASADEM / ArcticDEM through Google Earth
+Engine, `export EE_PROJECT=<your project>`).
 
 ## Known limits
 
@@ -101,6 +109,9 @@ NASA and partner-agency data (all open):
   beyond 10 km (L2), radar/GPR response of the overburden (X1), lava-tube ice caves.
 - **X1 is semi-quantitative**: reanalysis soil temperature and clear-sky MODIS; condition floors
   set after seeing data and calibrated on Beacon Valley.
+- **A terrain match is one 4 km footprint**, not a region: around each of the two Connecting
+  Ridge matches only 1 of 9 neighbouring footprints passes with both DEMs, and the Peary Land
+  cell itself leaves the robust set with a second DEM (marginal).
 - **Counts are of the scored sample** (300 cells ranked from 196,008 bare-land cells by a coarse
   screen, plus seeds and controls), not a global census.
 - **Attention** is an OpenAlex title/abstract count; a count of 0 for an administrative place name

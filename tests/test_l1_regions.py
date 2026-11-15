@@ -84,3 +84,20 @@ def test_slope_formula_matches_nasa_rasters_when_available():
     assert (chk["frac_gt8_ours_5m"] - chk["frac_gt8_nasa"]).abs().max() < 0.001
     saved = pd.read_parquet(DERIVED / "nasa_slope_check.parquet")
     pd.testing.assert_frame_equal(saved, chk)
+
+
+def test_site_stability_blocks_are_complete_and_neighbours_stay_out_of_verdicts():
+    path = DERIVED / "site_stability.parquet"
+    if not path.exists():
+        pytest.skip("site_stability.parquet not built")
+    s = pd.read_parquet(path)
+    assert (s.groupby(["anchor", "dem"]).size() == 9).all()
+    centre = s[(s["dx"] == 0) & (s["dy"] == 0) & s["dem"].eq("GLO-30")]
+    rob = pd.read_parquet(DERIVED / "l1_robust_set.parquet")
+    rob = rob[rob["target_id"].eq("connecting_ridge")].set_index("cell_id")["robust"]
+    assert (centre["robust"].to_numpy() == rob.loc[centre["anchor"]].to_numpy()).all()
+    v = pd.read_parquet(DERIVED / "verdicts.parquet")
+    assert not v["cell_id"].fillna("").str.contains(":").any()   # block ids never become verdicts
+    regions = pd.read_parquet(DERIVED / "l1_regions.parquet")
+    exploratory = set(regions["target_id"]) - set(lr.PUBLISHED)
+    assert not (set(v["target_id"].dropna()) & exploratory)

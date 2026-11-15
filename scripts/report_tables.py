@@ -412,6 +412,22 @@ def _label(region: str) -> str:
     return REGION_LABELS.get(region, region.replace("_", " "))
 
 
+def _stability_line() -> str:
+    s = pd.read_parquet(DERIVED / "site_stability.parquet")
+    s = s[s["ok"]]
+    cl = s[s["group"].eq("Classic analog")]
+    em = s[s["group"].eq("Engine match")]
+    both = em.pivot_table(index=["site", "dx", "dy"], columns="dem", values="robust",
+                          aggfunc="first").all(axis=1)
+    per = both.groupby(level=0).sum()
+    return (f"- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the "
+            f"{cl['site'].nunique()} classic sites, {int(cl['robust'].sum())} of {len(cl)} "
+            f"footprints are in the robust set for Connecting Ridge. Around the two engine "
+            f"matches, " + " and ".join(f"{int(k)} of 9 at {site.split(',')[0]}"
+                                        for site, k in per.items())
+            + " are robust with both DEMs: the coordinates matter, the region name does not.")
+
+
 def t_checks_headline() -> str:
     """Headline sentences of PLAN 2e, every number read from the 2e tables."""
     r = _reg()
@@ -455,6 +471,7 @@ def t_checks_headline() -> str:
         "- **Six regions, not two (exploratory).** " + "; ".join(
             f"{names.get(i, i)} is in the robust set of {len(v)} of the 6 PGDA 78 regions "
             f"({', '.join(_label(x) for x in v)})" for i, v in n_reg.items()) + ".",
+        _stability_line(),
         f"- **Known truth on the Moon.** Scored like Earth cells, footprints of the same "
         f"region pass in {lc['same_pass']} of {lc['same_n']} cases and footprints of other "
         f"regions in {lc['other_pass']} of {lc['other_n']}; for the Shackleton inner wall, "
@@ -528,6 +545,35 @@ def t_cross_dem() -> str:
             "and are listed only for the DEM comparison.")
 
 
+def t_site_stability() -> str:
+    s = pd.read_parquet(DERIVED / "site_stability.parquet")
+    s = s[s["ok"]].copy()
+    thr = s["n_i"].to_numpy()[:, None] / 2
+    s["any"] = (s[["nr_i", "nr_ii", "nr_iii"]].to_numpy() >= thr).any(axis=1)
+    g = s.groupby(["group", "site", "dem"]).agg(
+        n=("robust", "size"), robust=("robust", "sum"), one=("any", "sum")).reset_index()
+    both = s[s["group"].eq("Engine match")].pivot_table(
+        index=["site", "dx", "dy"], columns="dem", values="robust", aggfunc="first")
+    nb = {site: int(d.all(axis=1).sum()) for site, d in both.groupby(level=0)}
+    def place(dx: int, dy: int) -> str:
+        if (dx, dy) == (0, 0):
+            return "the cell itself"
+        parts = ([f"{4 * abs(dy)} km {'north' if dy > 0 else 'south'}"] if dy else []) + (
+            [f"{4 * abs(dx)} km {'east' if dx > 0 else 'west'}"] if dx else [])
+        return "the footprint " + " and ".join(parts)
+
+    where = {site: "; ".join(place(dx, dy) for _, dx, dy in d[d.all(axis=1)].index)
+             for site, d in both.groupby(level=0)}
+    g.columns = ["group", "site", "DEM", "footprints scored", "in the robust set",
+                 "pass at least one configuration"]
+    tail = " ".join(f"{site.split(',')[0]}: {k} of 9 footprints are robust with both DEMs "
+                    f"({where[site]})." for site, k in nb.items())
+    return (md_table(g) + "\n\nThe 3 × 3 block of 4 km footprints centred on each site (12 km "
+            "across), scored against Connecting Ridge with the unchanged rule. " + tail
+            + " Neighbouring footprints are not candidates; a neighbour that passes was found "
+            "by looking at nine, so it is a lead, not a result.")
+
+
 def t_lunar_control() -> str:
     c = pd.read_parquet(DERIVED / "l1_lunar_control.parquet")
     c["txt"] = c["n_pass"].astype(str) + "/" + c["n"].astype(str)
@@ -597,7 +643,7 @@ TABLES = {"verdicts": t_verdicts, "ledger": t_ledger, "terrain_controls": t_terr
           "mission_criteria": t_mission_criteria, "coverage": t_coverage,
           "task_attention": t_task_attention,
           "checks_headline": t_checks_headline, "nasa_slope": t_nasa_slope,
-          "cross_dem": t_cross_dem,
+          "cross_dem": t_cross_dem, "site_stability": t_site_stability,
           "lunar_control": t_lunar_control, "region_prevalence": t_region_prevalence,
           "region_matches": t_region_matches}
 

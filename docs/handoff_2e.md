@@ -29,6 +29,19 @@ phiên khác tiếp tục được nếu phiên này hết quota giữa chừng.
 | Độ phổ biến không thiên lệch (null 200) | Connecting Ridge 1/200, vách Shackleton 4/200, Fisher p = 0,37 | chưa đủ mạnh → đang mở rộng lên 1000 ô |
 | JETT5 (NASA SVS 14583) | diễn tập Artemis III ở San Francisco Volcanic Field, 13–17/5/2024 | footprint SP Crater / Black Point là site kinh điển gần Connecting Ridge nhất (duy nhất qua 1 cấu hình), nhưng không bền vững |
 
+## 2b. Cập nhật 15:30 (đã làm thêm sau khi viết file này)
+
+- Mẫu null đã mở rộng xong: 1000 ô ngẫu nhiên → Connecting Ridge **1**, vách Shackleton **9**,
+  Fisher p = 0,02; ngoại suy Connecting Ridge ≈ 196 ô (CI 5–1.090).
+- `scripts/site_stability.py`: khối 3 × 3 footprint. Quanh 6 site kinh điển **0/54** đạt; quanh
+  Da Qaidam và Peary Land mỗi nơi **1/9** đạt với cả hai DEM (Peary Land: footprint 4 km về phía
+  nam, không phải ô gốc → là "manh mối", không phải kết quả).
+- Hình mới `docs/figures/fig_region_matrix.png`; hiệu suất hành trình (≈ 10 km so với ≈ 86 km)
+  đã vào bảng tiêu chí và slide 5; JETT5 đã vào `config/mission.yaml`.
+- Mốc đã commit: `e4142fd`. Đang chạy: `cross_dem.py --n-wall 99` (toàn bộ ô vách).
+- Slide 4 còn placeholder `@SAME@ of @NDEM@`: điền bằng khóa `cross_dem_same_verdict` /
+  `cross_dem_n` sau khi cross-DEM xong.
+
 ## 3. Việc còn lại của chu kỳ 2e (theo thứ tự)
 
 1. Chờ `null_expand.py` xong → `PYTHONPATH=src .venv/bin/python scripts/l1_regions.py` (sinh

@@ -5,6 +5,7 @@ fig_sites_map.png       : engine-kept cells by lens + X1 TRANSFERS cells, showca
 fig_m1_stop_rule.png    : M1 largest matched patch per site vs the pre-registered 0.1 km² rule
 fig_mission_slopes.png  : 8° / 20° slope shares vs the Artemis III requirements (PLAN 2d)
 fig_transfer_matrix.png : lens x test variable, three states (PLAN 2d)
+fig_region_matrix.png   : six PGDA 78 regions x Earth footprints (PLAN 2e, exploratory)
 
 Palette: dataviz reference categorical slots 1-4 in fixed order (L1 blue, L2 orange, L1+L2 aqua,
 X1 yellow), validated light mode; slots 3-4 are below 3:1 contrast, so every series also has its
@@ -272,6 +273,50 @@ def fig_transfer_matrix():
     plt.close(fig)
 
 
+def fig_region_matrix():
+    """Six PGDA 78 regions x Earth footprints: the binding native rank and the robust verdict."""
+    s = pd.read_parquet(DERIVED / "l1_regions.parquet")
+    crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    crit = crit[crit["group"].ne("Moon target")]
+    regions = ["connecting_ridge", "de_gerlache_rim", "peak_near_shackleton", "nobile_rim_1",
+               "malapert_massif", "shackleton_rim"]
+    labels = ["Connecting\nRidge", "de Gerlache\nrim *", "peak near\nShackleton *",
+              "Nobile\nrim 1 *", "Malapert\nmassif *", "Shackleton\ninner wall"]
+    fig, ax = plt.subplots(figsize=(9.2, 0.46 * len(crit) + 1.9), facecolor=SURFACE)
+    ax.set_facecolor(SURFACE)
+    for yi, r in enumerate(crit.itertuples()):
+        for xi, reg in enumerate(regions):
+            d = s[s["cell_id"].eq(r.id) & s["target_id"].eq(reg)]
+            if d.empty:
+                continue
+            d = d.iloc[0]
+            frac = min(d["nr_i"] / d["n_i"], d["nr_ii"] / d["n_ii"], d["nr_iii"] / d["n_iii"])
+            ok = bool(d["robust"])
+            ax.add_patch(plt.Rectangle((xi + 0.04, yi + 0.08), 0.92, 0.84,
+                                       color=SERIES["L1"] if ok else GRID))
+            ax.text(xi + 0.5, yi + 0.5, f"{100 * frac:.0f} %" + (" ✓" if ok else ""),
+                    ha="center", va="center", fontsize=8.5, color=SURFACE if ok else INK2)
+    ax.set_xlim(0, len(regions))
+    ax.set_ylim(len(crit), 0)
+    ax.set_xticks([i + 0.5 for i in range(len(regions))], labels)
+    ax.xaxis.tick_top()
+    ax.set_yticks([i + 0.5 for i in range(len(crit))],
+                  [f"{str(n).split(',')[0][:30]}" for n in crit["name"]])
+    ax.tick_params(length=0, colors=INK2, labelsize=8.5)
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    fig.suptitle("Which Artemis III candidate region does each Earth footprint stand in for?",
+                 x=0.01, ha="left", fontsize=11, color=INK)
+    fig.text(0.01, 0.005, "Cell value: the lowest of the three native ranks, as a share of the "
+             "lunar population (the rule needs 50 % in all three; ✓ = in the robust set).\n"
+             "* medoid reference, exploratory: not a published verdict. First two rows: the "
+             "engine's ridge matches; other rows: classic analog field sites.", fontsize=7.5,
+             color=INK2, ha="left", va="bottom")
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
+    fig.savefig(FIG / "fig_region_matrix.png", dpi=150, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def main() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     fig_scarcity()
@@ -279,6 +324,7 @@ def main() -> None:
     fig_m1()
     fig_mission_slopes()
     fig_transfer_matrix()
+    fig_region_matrix()
     print(f"figures -> {FIG}")
 
 

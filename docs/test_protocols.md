@@ -1,6 +1,6 @@
 # Test protocols for the showcase sites (PLAN 2d)
 
-Generated 2026-11-15 15:14 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
+Generated 2026-11-15 15:24 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
 
 ## What a card is, in NASA's terms
 

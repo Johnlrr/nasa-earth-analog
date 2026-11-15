@@ -259,6 +259,18 @@ def main() -> None:
             put(f"traverse_km_{slug}", r.km_for_10km_of_target,
                 "data/derived/mission_criteria.parquet")
         put("rank_rule_threshold", float(x.n_i) / 2, src)
+        ss = pd.read_parquet(D / "site_stability.parquet")
+        ss = ss[ss.ok]
+        src = "data/derived/site_stability.parquet"
+        cls_ = ss[ss.group.eq("Classic analog")]
+        put("stability_classic_robust", int(cls_.robust.sum()), src)
+        put("stability_classic_n", int(len(cls_)), src)
+        em = ss[ss.group.eq("Engine match")].pivot_table(
+            index=["site", "dx", "dy"], columns="dem", values="robust", aggfunc="first")
+        for site, d in em.all(axis=1).groupby(level=0):
+            slug = next((v for k, v in slugs.items() if k in str(site)), site)
+            put(f"stability_{slug}_robust_both_dems", int(d.sum()), src)
+            put(f"stability_{slug}_n", int(len(d)), src)
         cl = crit[crit.group.eq("Classic analog")]
         put("traverse_km_classic_median", float(cl.km_for_10km_of_target.median()),
             "data/derived/mission_criteria.parquet")

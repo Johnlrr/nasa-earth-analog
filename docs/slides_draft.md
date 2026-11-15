@@ -60,11 +60,13 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
 ## Slide 4 — Can you trust it? Five checks, and a failed test we report
 - **Our code reproduces NASA's own product:** on the six PGDA 78 sites our slope formula differs
   from NASA's slope rasters by at most **0.0009°** [`nasa_slope_max_abs_diff_deg`].
-- **The terrain test is selective and stable:** random bare land passes for Connecting Ridge in
-  **1 of 200** cells [`prevalence_connecting_ridge_pass` / `prevalence_connecting_ridge_n`];
-  **0 of 6** classic sites pass [`classic_robust`]; recomputed from a second, independent DEM
-  (NASADEM / ArcticDEM), **40 of 42** verdicts are unchanged [`cross_dem_same_verdict` /
-  `cross_dem_n`].
+- **The terrain test is selective and stable:** of **1,000** random bare-land cells, **1** passes
+  for Connecting Ridge and **9** for the Shackleton inner wall (Fisher p = **0.02**)
+  [`prevalence_connecting_ridge_n`, `prevalence_connecting_ridge_pass`,
+  `prevalence_shackleton_rim_pass`, `prevalence_ridge_vs_wall_p`]; in the 12 km blocks around
+  six classic sites, **0 of 54** footprints pass [`stability_classic_robust` /
+  `stability_classic_n`]; recomputed from a second, independent DEM (NASADEM / ArcticDEM),
+  **40 of 42** verdicts are unchanged [`cross_dem_same_verdict` = 40, `cross_dem_n` = 42].
 - **Known truth on the Moon:** scored like Earth cells, footprints of the Shackleton inner wall
   pass their own region **4 of 4**; footprints of the other regions, **13 of 45**
   [`lunar_control_wall_same_pass` / `lunar_control_wall_same_n`,
@@ -96,10 +98,14 @@ Visual: four-row control table beside `docs/figures/fig_m1_stop_rule.png`.
   test configurations → **2** usable after the ice filter and a visual review
   [`funnel_bare_land_cells`, `funnel_screened`, `funnel_robust_rank_seed`, `funnel_usable`]:
   **Da Qaidam** (Qinghai) and **Peary Land** (North Greenland). In our sample, not on Earth:
-  the random sample says about **980** bare-land cells (95 % CI 25–5,398) would pass the
+  the random sample says about **196** bare-land cells (95 % CI 5–1,090) would pass the
   terrain test, before the ice filter and the visual review
   [`prevalence_connecting_ridge_cells`, `prevalence_connecting_ridge_cells_lo`,
   `prevalence_connecting_ridge_cells_hi`].
+- **A match is a 4 km footprint, not a region:** around Da Qaidam and around Peary Land,
+  **1 of 9** neighbouring footprints passes with both DEMs
+  [`stability_da_qaidam_robust_both_dems`, `stability_peary_land_robust_both_dems`]. The
+  coordinates matter; the region name does not.
 - **Da Qaidam holds up:** it stays in the robust set with NASA's NASADEM
   [`cross_dem_da_qaidam_robust`], and the same cell matches **3 of the 6** Artemis III candidate
   regions of PGDA 78 — Connecting Ridge, de Gerlache rim, peak near Shackleton
@@ -140,7 +146,8 @@ is not provably pre-registered (Deviations 23); Peary Land (52 papers) and Da Qa
 [`site_zanda_gar_attention`], and **Gêrzê**, **0** [`site_gerze_attention`], both for
 Shackleton-wall terrain; the JETT5 site and our SP Crater footprint are in the same volcanic
 field, not necessarily the same ground.
-Visual: `docs/figures/fig_sites_map.png`, Da Qaidam highlighted.
+Visual: `docs/figures/fig_region_matrix.png` (six Artemis regions × Earth footprints) beside
+`docs/figures/fig_sites_map.png`, Da Qaidam highlighted.
 
 ## Slide 6 — The product: a test protocol per site ("which rows of your test matrix come home valid")
 - NASA's TRL definitions ask each project for a **"documented definition of relevant
