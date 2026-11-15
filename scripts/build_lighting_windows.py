@@ -6,7 +6,9 @@ which ALL daylight has the Sun at or below 7 deg. Terrain-shadow fractions at 2/
 computed from the same DEM chip as L1 and set beside the ridge's. Joined with V1 route outcomes
 and the access screen. Geometry only: no surface brightness, no snow state, no refraction.
 
-Outputs: data/derived/lighting_windows.parquet, data/derived/lighting_windows.json
+Outputs: data/derived/lighting_windows.parquet, data/derived/lighting_windows.json; adds the route
+         and window fields to the Connecting Ridge leads in web/data/access.json (run again after
+         scripts/access/access_screen.py, which rewrites that file)
 Usage  : python scripts/build_lighting_windows.py   (after scripts/route_validity.py)
 """
 from __future__ import annotations
@@ -76,6 +78,24 @@ def main() -> None:
     print(out[cols].round(3).to_string())
     (DERIVED / "lighting_windows.json").write_text(json.dumps(
         json.loads(out.round(4).to_json(orient="records")), indent=2))
+    web = io.REPO_ROOT / "web" / "data" / "access.json"
+    acc_web = json.loads(web.read_text(encoding="utf-8"))
+    by_id = out.set_index("cell_id")
+    for reg in acc_web["regions"]:
+        if reg["id"] != "connecting_ridge":
+            continue
+        for lead in reg["leads"]:
+            if lead["cell_id"] not in by_id.index:
+                continue
+            r = by_id.loc[lead["cell_id"]]
+            lead["route_reproduces"] = bool(r.route_reproduces)
+            lead["route_reproduces_second_dem"] = (None if pd.isna(r.route_reproduces_second_dem)
+                                                   else bool(r.route_reproduces_second_dem))
+            lead["route_D"] = round(float(r.route_D), 3)
+            lead["window_days"] = int(r.window_days)
+            lead["window_from"] = r.window_from if isinstance(r.window_from, str) else None
+            lead["window_to"] = r.window_to if isinstance(r.window_to, str) else None
+    web.write_text(json.dumps(acc_web, indent=1, ensure_ascii=False), encoding="utf-8")
 
 
 if __name__ == "__main__":

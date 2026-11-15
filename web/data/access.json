@@ -68,7 +68,13 @@
        "8to20": 0.7698576675849403,
        "gt20": 0.1511707988980716
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 1.366,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-355_-671",
@@ -94,7 +100,13 @@
        "8to20": 0.7474173553719008,
        "gt20": 0.1127754820936639
       }
-     }
+     },
+     "route_reproduces": true,
+     "route_reproduces_second_dem": true,
+     "route_D": 0.655,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_660_-632",
@@ -120,7 +132,13 @@
        "8to20": 0.5336891643709826,
        "gt20": 0.12035123966942149
       }
-     }
+     },
+     "route_reproduces": true,
+     "route_reproduces_second_dem": true,
+     "route_D": 0.589,
+     "window_days": 71,
+     "window_from": "13 Nov",
+     "window_to": "22 Jan"
     },
     {
      "cell_id": "E10K_726_-686",
@@ -137,7 +155,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 1.127,
+     "window_days": 36,
+     "window_from": "23 Sep",
+     "window_to": "10 Oct"
     },
     {
      "cell_id": "E10K_699_-750",
@@ -154,7 +178,13 @@
      "water_frac": 0.018,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 1.298,
+     "window_days": 45,
+     "window_from": "28 Jan",
+     "window_to": "19 Feb"
     },
     {
      "cell_id": "E10K_691_-680",
@@ -171,7 +201,13 @@
      "water_frac": 0.005,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 1.188,
+     "window_days": 51,
+     "window_from": "19 Jan",
+     "window_to": "13 Feb"
     },
     {
      "cell_id": "E10K_-304_-654",
@@ -188,7 +224,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 1.301,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_729_-319",
@@ -205,7 +247,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": true,
+     "route_reproduces_second_dem": true,
+     "route_D": 0.355,
+     "window_days": 36,
+     "window_from": "19 Sep",
+     "window_to": "06 Oct"
     }
    ]
   },

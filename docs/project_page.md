@@ -19,16 +19,17 @@ transfer? One formula is run on NASA data from both worlds, per mission test, an
 gets a card that says what a field test there reproduces, what no Earth site reproduces (and
 which facility replaces it) and what cannot be judged. For the Moon Base ridge (Connecting
 Ridge), 76 % of the terrain is steeper than 8°; in the footprints of
-six classic analog field sites the median is 9 %. From
-196,008 bare-land cells we screened 300; two footprints match the ridge in that sample, and one
-of them, Da Qaidam (a known Mars analog region), also survives a second, independent NASA
-elevation model and matches 3 of 6 south-pole sites. But
-Da Qaidam is in China, where NASA cannot run a bilateral campaign. So we ran the same test on
-160 more cells in countries open to NASA: 3 usable ridge
-leads hold with a second elevation model and the published ice rule, in Argentina, Canada and Chile; the best needs about
-8 km of traverse for the slope exposure of 10 km on the ridge, against about 86 km at the median
-classic site. Our mineral test did not pass its own pre-registered rule, so we publish no mineral
-analog.
+six classic analog field sites the median is 9 %.
+Then we tested our own method. In a test we registered before running it, a slope-limited
+traverse planner ran on the ridge and on every Earth footprint. Only 3 of 9 slope matches
+reproduce the ridge's simulated routes, against
+15 % of random land: the test fails for the group, and we publish
+that. Slope matches climb more than the ridge; half of the classic footprints reproduce its routes. So every card now reports slope and traverse separately. Two
+footprints in countries open to NASA and outside known analog areas pass both tests on two
+elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
+Baffin Island, Canada, where from 13 Nov to 22 Jan every daylight minute has the Sun below 7°
+(71 days), the polar low Sun no Earth site has over a year.
+Our mineral test did not pass its own pre-registered rule, so we publish no mineral analog.
 
 ## Detailed Project Description
 What it does. For four mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
@@ -51,15 +52,26 @@ How we know it is not noise.
 - In the 12 km blocks around six classic analog sites, 0 of 54 footprints pass the ridge test.
 - Ice test: 2 of 2 polar-desert controls pass, 2 of 2 wet-permafrost decoys are rejected; semi-quantitative.
 - Mineral test: 3 of 4 pre-registered checks pass; the rule says FAIL, so nothing is published for it.
+- Traverse test, registered before it was run (`config/prereg_route_v1.yaml`, commit 4e9ceff):
+  an 8-connected planner with grade limits of 6°, 8° and 10° on 30 m cells, same seed on both
+  worlds; a footprint reproduces the ridge if its route outcomes are as close as half of the
+  ridge's own lunar neighbours. Slope matches 3 of 9, random land 151 of 994, classic
+  footprints 27 of 54; H1 fails (p = 0.15). Slope distance does
+  predict route distance in random land (Spearman 0.38). The same three
+  matches reproduce the routes on the second DEM.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
 
 Site finder for test engineers. Pick an Artemis south-pole region (six PGDA 78 regions) and
-get matching 4 km footprints in countries open to NASA, each with Sentinel-2 and slope-class
+get matching 4 km footprints outside our access screen, each with Sentinel-2 and slope-class
 pictures, the share of terrain steeper than 8° and 20°, a second-DEM check and the snow/ice share.
-For the steep Shackleton inner wall there are 113 usable open-country leads, most in the Andes. Leads are exploratory: found
-after the published results by the unchanged rule, not visited yet. Closed countries are an
-assumption for planning (China including Aksai Chin, Russia, countries under comprehensive US
-sanctions), not a legal opinion.
+For Connecting Ridge, the two leads that also pass the traverse test are the ones to visit first:
+Argentina (-28.79, -69.63; terrain shadow inside the ridge neighbourhood's range, low Sun only at
+dawn and dusk) and Baffin Island (63.85, -65.58; a 71-day winter window of all-day low Sun, but
+snow season and more terrain shadow than the ridge). For the steep Shackleton inner wall the rule
+is not selective (9 of 1,000 random cells pass), so its many Andean leads are steep mountains,
+not findings. Leads are exploratory: found after the published results, not visited yet. The
+access screen leaves out China (Wolf Amendment), Russia and countries under comprehensive US
+sanctions; it is an assumption for planning, not a legal opinion.
 
 What a mission team gets. A test protocol per site (systems to test, what to measure, what
 the site does not reproduce), read beside published NASA numbers: Artemis III "Surface slope for
@@ -75,10 +87,13 @@ Limits we state ourselves.
   10–1,093) would pass the terrain test.
 - A match is one 4 km footprint, not a region; slopes are computed on a 30 m baseline and compare
   Earth with Moon, not with NASA's landing maps.
-- Da Qaidam and Peary Land are known analog regions, not hidden sites; only Zanda/Gar has a low
-  literature count.
-- No Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 % of daylight,
-  the lunar target for 100 %.
+- Da Qaidam and Peary Land are known analog regions, not hidden sites; Da Qaidam and the Chile
+  lead (inside the Atacama analog area) fail the traverse test.
+- The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
+  soil strength are not in it.
+- Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 %
+  of daylight, the lunar target for 100 %. The Baffin window is seasonal, from a geometric sun
+  model (no refraction, no horizon), and exploratory.
 - The ice lens is semi-quantitative (reanalysis soil temperature, thresholds set after seeing
   data); metre-scale boulders are below our resolution.
 

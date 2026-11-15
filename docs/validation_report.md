@@ -672,6 +672,69 @@ Pass = robust set (all three configurations), before the ice filter and the visu
 Screened cells (rank + seed) in the robust set of at least one ridge, rim or massif site. Only the Connecting Ridge and Shackleton rows are verdicts; the other four sites use a medoid reference and are exploratory.
 <!-- END:region_matches -->
 
+## 7d. Does a slope match reproduce the ridge's traverse outcomes? (V1, pre-registered)
+
+Registered in `config/prereg_route_v1.yaml` (commit `4e9ceff`, pushed 15/11 before the run); the
+planner and run script were committed in `6ab5bd5` before any Earth footprint was run. Only the
+lunar target was looked at while choosing the grade limits. Script: `scripts/route_validity.py`;
+per-footprint results: `data/derived/route_validity.parquet`; summary: `route_validity.json`.
+
+**Method.** 4 km footprint on 30 m cells (Moon: PGDA 78 Site01 5 m DEM aggregated, frac_gt8 =
+0.7581, as published). 8-connected graph, an edge passable if its along-edge
+grade ≤ 6°, 8° or 10°, cost = length; 24 sources (seed 20261115), destinations 1.0–2.5 km away.
+Outcomes: reach at 6° and 8°, median detour at 8° and 10°, median ascent per km at 10°. Distance
+D_route = mean |difference| / MAD over the ridge's 8 lunar neighbours; a
+footprint reproduces the ridge if D_route ≤ τ = 0.797 (median of the neighbours; same logic as
+the L1 rank rule).
+
+| Group | Reproduce the ridge's routes |
+|---|---|
+| Lunar neighbours of the ridge | 4 / 8 (by construction about half) |
+| L1 ridge matches (GLO-30) | 3 / 9 |
+| L1 ridge matches (second DEM) | 3 / 9 (the same three cells) |
+| Random bare land | 151 / 994 (6 skipped, > 5 % no data) |
+| Classic analog footprints (6 sites × 9) | 27 / 54 |
+
+- **H1 (primary) fails:** matches vs random land, one-sided Fisher p = 0.14766.
+- **H1b fails:** matches vs classic footprints, p = 0.90225.
+- **H2 passes:** in random land the L1 distance to the ridge predicts D_route (Spearman ρ =
+  0.377, n = 994).
+- Why (diagnosis after the run, not a test): the ridge's own neighbourhood spans easy and hard
+  routes, so τ is wide; most L1 matches are *harder* than the ridge (median ascent
+  40 m/km
+  vs 26 on the ridge; twice its share above 20°), while classic
+  footprints are easier but fall inside the neighbourhood's spread.
+
+**Decision (as registered).** L1 TRANSFERS now reads "slope distribution similar"; the traverse
+result is a separate field. Classic sites keep NO slope match but half of their footprints
+reproduce the ridge's simulated routes, so they still serve route-planning rehearsal. The test is
+a planner on 30 m cells, not a rover; rocks, small craters and soil strength are not in it.
+
+### Ridge matches: slope, routes and the low-Sun calendar (I1, exploratory, Deviations 32)
+
+The L2 sun model (same geometry and 7° threshold as `low_sun_hours`) read as a calendar: window
+days have every daylight minute with the Sun ≤ 7°. Shadow = terrain-shadow fraction at 2° from
+the same DEM chip (ridge 0.51; its lunar neighbours 0.51–0.67).
+Script `scripts/build_lighting_windows.py`.
+
+| Cell | Country | D_route | Routes (GLO-30) | Routes (2nd DEM) | L1 on 2nd DEM | Window days / yr | Longest run | Shadow 2° |
+|---|---|---|---|---|---|---|---|---|
+| `E10K_729_-319` | Greenland | 0.35 | yes | yes | no | 36 | 19 Sep–06 Oct | 0.59 |
+| `E10K_660_-632` | Canada | 0.59 | yes | yes | yes | 71 | 13 Nov–22 Jan | 0.75 |
+| `E10K_-355_-671` | Argentina | 0.65 | yes | yes | yes | 0 | — | 0.59 |
+| `E10K_453_921` | China | 1.03 | no | no | yes | 0 | — | 0.68 |
+| `E10K_726_-686` | Canada | 1.13 | no | no | yes | 36 | 23 Sep–10 Oct | 0.64 |
+| `E10K_691_-680` | Canada | 1.19 | no | no | yes | 51 | 19 Jan–13 Feb | 0.71 |
+| `E10K_699_-750` | Canada | 1.30 | no | no | yes | 45 | 28 Jan–19 Feb | 0.73 |
+| `E10K_-304_-654` | Argentina | 1.30 | no | no | no | 0 | — | 0.69 |
+| `E10K_-334_-677` | Chile | 1.37 | no | no | yes | 0 | — | 0.69 |
+
+Two cells pass slope (both DEMs) and routes (both DEMs), lie in countries outside the access
+screen and outside known analog areas: `E10K_-355_-671` (Argentina; the one random cell of 1,000
+that passed L1) and `E10K_660_-632` (Baffin Island). Baffin's 71-day window falls in the snow
+season and its terrain shadow exceeds the ridge's range; the sun model has no refraction and no
+horizon. The Chile lead (inside the Atacama exclusion buffer) and Da Qaidam fail the route test.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -709,6 +772,9 @@ evidence of order; where git cannot prove the order, the row says so.
 | 28 | Six-region reading of L1, leave-one-out on the Moon, 800 more random bare-land cells (`scripts/l1_regions.py`, `scripts/null_expand.py`) | PLAN 2e, 15/11 afternoon | L1 had no known-truth check; the null sample of 200 gave a prevalence CI of 0.01–2.8 % | Post hoc. The four regions without a published reference use their medoid footprint and are exploratory (never in `verdicts.parquet`). The extra cells were drawn by the pre-registered rule with a new seed before any was scored; the first 200 are unchanged. The published robust sets are reproduced exactly by the generalised code before it is used |
 | 29 | Cross-DEM check with NASADEM / ArcticDEM (`scripts/cross_dem.py`) | PLAN 2e, 15/11 afternoon | The Earth side rests on one DEM whose effective resolution differs from the lunar one | Post hoc robustness check on the ridge cells, the controls and the wall cells, plus the 3 × 3 footprint blocks around the two ridge matches and the six classic sites (`scripts/site_stability.py`, exploratory). Verdicts are not changed by it; a cell whose verdict flips is flagged as marginal in §1, on its card and on the slides |
 | 30 | Mars ice-access reading (modelled permafrost table of the X1 cells beside the Mars Life Explorer numbers; ice content not observed), rank-threshold sensitivity table, `web/evidence.html` | PLAN 2e, 15/11 afternoon | Read the Mars lens beside a published NASA document as the Moon lens is; show what the n/2 rule does at n/3 and 2n/3 | Post hoc readings of descriptors and ranks that already exist (consistency checks). A mission concept study is not a requirement. No threshold or verdict changed |
+| 31 | Open-country site finder: access screen (China incl. areas administered by China, Russia, comprehensively sanctioned states left out), 160 more cells scored by the unchanged L1 rule, second DEM and ice rule on the leads (`scripts/access/access_screen.py`) | 15/11 afternoon, `674f129` | The published ridge matches are in China or marginal | Leads only, exploratory; never in verdicts. The screen is a planning assumption, not a legal opinion. Shackleton-wall leads are not findings: the rule passes 9 of 1,000 random cells |
+| 32 | Low-Sun calendar of the ridge matches (I1) and terrain shadow at the leads | 15/11 evening, this section §7d | L2 over a year hides seasonal windows | Exploratory; L2 verdicts unchanged |
+| 33 | V1 implementation details fixed before the Earth run (commit `6ab5bd5`): the lunar population footprint centred on the reference (`connecting_ridge_pop_004`) is the reference and is left out of the neighbours; a zero MAD would fall back to the standard deviation (did not occur) | 15/11 evening | Not stated in the registration | τ and scales |
 
 ## 9. Limitations and not done
 

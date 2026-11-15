@@ -29,7 +29,7 @@
   var ROLE_LABEL = { hidden: 'engine-qualified cell', control: 'control', decoy: 'decoy' };
   function roleLabel(r) { return ROLE_LABEL[r] || r; }
   var SITES_TAB = { id: 'SITES', name: 'Showcase sites', body: 'Earth',
-    question: 'Engine-qualified 4 km cells grouped into field sites (150 km): which rows of your test matrix come home valid, which need a facility, which are not certified.' };
+    question: 'Engine-qualified 4 km cells grouped into field sites (150 km): which rows of your test matrix come home valid, which need a facility, which cannot be judged from orbit.' };
   var PROTOCOLS_URL = 'https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/test_protocols.md';
   // GitHub heading anchor: lower case, drop punctuation (letters, digits, spaces, - and _ stay), spaces -> '-'
   function ghSlug(t) { return String(t || '').toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-'); }
@@ -349,7 +349,7 @@
   }
 
   // B16: three-state verdicts, read from verdicts.parquet (A15) by discovery; never computed here.
-  var VERDICT_LABEL = { 'TRANSFERS': 'Qualified for', 'NO-ANALOG': 'Not qualified for', 'UNOBSERVED': 'Not certified' };
+  var VERDICT_LABEL = { 'TRANSFERS': 'Similar on', 'NO-ANALOG': 'Not reproduced on', 'UNOBSERVED': 'Not observable from orbit' };
   function verdictHtml(p) {
     var v = (p.verdicts || []);
     if (!v.length) {
@@ -423,7 +423,7 @@
       ' · <a href="figures/fig_transfer_matrix.png" target="_blank" rel="noopener">Test-transfer matrix (figure)</a></p>';
     h += '<h4>Comes home valid (Field)</h4>' + rowsHtml(p.field, 'r-field');
     h += '<h4>Needs a facility</h4>' + rowsHtml(p.facility, 'r-fac');
-    h += '<h4>Not certified (unobserved)</h4>' + rowsHtml(p.unobserved, 'r-unobs');
+    h += '<h4>Not observable from orbit (unobserved)</h4>' + rowsHtml(p.unobserved, 'r-unobs');
     var snow = p.l2_snow_free_frac || {};
     var sk = Object.keys(snow);
     if (sk.length) h += '<p class="note">L2 cells snow-free fraction (MODIS 2023): ' + sk.map(function (k) { return esc(k) + ' ' + esc(num(snow[k], 2)); }).join(', ') + '</p>';
@@ -448,9 +448,9 @@
       '<h3>Select a site to read its verdicts</h3>' +
       '<ol><li>Pick a marker on the map or a row in the ranked results.</li>' +
       '<li>Read each test: does the result come home valid from this place?</li>' +
-      '<li>Check what still needs a facility, and what orbit cannot certify.</li></ol>' +
+      '<li>Check what still needs a facility, and what orbit cannot show.</li></ol>' +
       '<dl class="state-key">' +
-      '<div><dt class="v-ok-t">TRANSFERS</dt><dd>the field test is valid for the target</dd></div>' +
+      '<div><dt class="v-ok-t">TRANSFERS</dt><dd>this variable matches the target (for slopes: distribution; routes reported separately)</dd></div>' +
       '<div><dt class="v-no-t">NO-ANALOG</dt><dd>no Earth site matches; use a facility</dd></div>' +
       '<div><dt class="v-unk-t">UNOBSERVED</dt><dd>not measurable from orbit; check in situ</dd></div></dl>';
     if (top) {
@@ -615,6 +615,13 @@
       '<br><a href="https://www.google.com/maps/@' + l.lat + ',' + l.lon + ',13z/data=!3m1!1e3" target="_blank" rel="noopener">' + esc(ll) + '</a>' +
       ' · <a href="https://www.openstreetmap.org/?mlat=' + l.lat + '&mlon=' + l.lon + '#map=12/' + l.lat + '/' + l.lon + '" target="_blank" rel="noopener">map</a>';
   }
+  function routeCell(l) {
+    if (l.route_reproduces === undefined || l.route_reproduces === null) return '<span class="v-unk-t">not tested</span>';
+    var both = l.route_reproduces && l.route_reproduces_second_dem;
+    var t = both ? '<span class="v-ok-t">match</span>' : (l.route_reproduces ? '<span class="v-unk-t">one DEM</span>' : '<span class="v-no-t">no match</span>');
+    if (l.window_days) t += '<br><small>low-Sun window ' + l.window_days + ' d/yr' + (l.window_from ? ', ' + esc(l.window_from) + '–' + esc(l.window_to) : '') + '</small>';
+    return t;
+  }
   function renderFinder() {
     if (!ACCESS) return;
     var sel = $('finder-region');
@@ -630,16 +637,16 @@
       (rows.length ? ' · ' + Object.keys(countries).map(function (c) { return esc(c) + ' ' + countries[c]; }).join(', ') : '') + '.';
     var body = $('finder-table').querySelector('tbody');
     if (!rows.length) {
-      body.innerHTML = '<tr><td colspan="7" class="empty">No footprint in a country open to NASA passes this region' +
+      body.innerHTML = '<tr><td colspan="8" class="empty">No footprint outside our access screen passes this region' +
         (onlyStable && reg.leads.length ? ' as a usable lead (untick the filter to see leads that fail the second DEM or the ice rule)' : '') + '. That is a result: field-test this region in a facility or on the nearest classic site and state the slope gap.</td></tr>';
     } else {
       body.innerHTML = rows.slice(0, 40).map(function (l) {
         var sec = l.second_dem === 'yes' ? '<span class="v-ok-t">holds</span>' : (l.second_dem === 'no' ? '<span class="v-no-t">fails</span>' : '<span class="v-unk-t">not checked</span>');
         return '<tr><td>' + leadPlace(l) + '</td><td class="num">' + pct(l.frac_gt8) + '</td><td class="num">' + pct(l.frac_gt20) +
-          '</td><td class="num">' + (l.traverse_km !== null ? esc(l.traverse_km) + ' km' : '—') + '</td><td>' + sec +
+          '</td><td>' + routeCell(l) + '</td><td class="num">' + (l.traverse_km !== null ? esc(l.traverse_km) + ' km' : '—') + '</td><td>' + sec +
           (l.second_dem_source ? '<br><small>' + esc(l.second_dem_source) + '</small>' : '') + '</td><td class="num">' +
           (l.snow_ice_frac !== null ? pct(l.snow_ice_frac) : '—') + (l.ice_excluded ? ' <span class="tag">ice rule</span>' : '') + '</td><td><small>' + esc(l.source) + '</small></td></tr>';
-      }).join('') + (rows.length > 40 ? '<tr><td colspan="7" class="empty">' + (rows.length - 40) + ' more in data/access.json</td></tr>' : '');
+      }).join('') + (rows.length > 40 ? '<tr><td colspan="8" class="empty">' + (rows.length - 40) + ' more in data/access.json</td></tr>' : '');
     }
     $('finder-caveat').textContent = 'Exploratory leads, not verdicts: found after the published results by the same rule (' + ACCESS.rule + '). ' +
       'Countries treated as closed: ' + ACCESS.excluded_countries.join(', ') + ' (' + ACCESS.excluded_reason + ') ' +
@@ -648,19 +655,21 @@
   function renderHeroLead() {
     if (!ACCESS || !$('hero-card')) return;
     var reg = ACCESS.regions.filter(function (r) { return r.id === 'connecting_ridge'; })[0];
-    var l = reg && reg.leads.filter(function (x) { return x.usable; })[0];
+    var l = reg && (reg.leads.filter(function (x) { return x.usable && x.route_reproduces && x.route_reproduces_second_dem && !x.known_analog_area; })[0] ||
+      reg.leads.filter(function (x) { return x.usable; })[0]);
     var h;
     if (l) {
       h = leadPics(l, 'hero-pics') + '<p class="af-site">' + esc(l.country) + ' · ' + l.lat.toFixed(3) + ', ' + l.lon.toFixed(3) + '</p>' +
         '<p class="af-sub">Usable lead for Connecting Ridge: holds with a second DEM, little snow or ice' + (l.known_analog_area ? ' · inside a known analog area' : '') + ' · ' + esc(l.source) + '</p><ul class="af-rows">' +
         '<li><span class="v-ok-t">TERRAIN</span><span>' + pct(l.frac_gt8) + ' steeper than 8° (ridge ' + pct(reg.target_frac_gt8) + ')</span></li>' +
-        '<li><span class="v-ok-t">TRAVERSE</span><span>' + esc(l.traverse_km) + ' km gives the slope exposure of 10 km on the ridge</span></li>' +
+        '<li><span class="' + (l.route_reproduces && l.route_reproduces_second_dem ? 'v-ok-t">ROUTES</span><span>simulated routes match the ridge on two DEMs (pre-registered planner test)' : 'v-no-t">ROUTES</span><span>simulated routes do not match the ridge (pre-registered planner test)') + '</span></li>' +
+        '<li><span class="v-unk-t">LOW SUN</span><span>' + (l.window_days ? l.window_days + ' days a year with all daylight below 7° (' + esc(l.window_from) + '–' + esc(l.window_to) + ')' : 'only at dawn and dusk; use a lighting facility') + '</span></li>' +
         '<li><span class="v-no-t">NO-ANALOG</span><span>gravity → reduced-gravity offload rig</span></li>' +
         '<li><span class="v-unk-t">UNOBSERVED</span><span>boulders and craters under 60 m</span></li></ul>';
     } else {
       var n = reg ? reg.leads.length : 0;
       h = '<p class="af-site">Connecting Ridge</p><p class="af-sub">' + n + ' open-country lead(s); none holds with a second DEM yet</p>' +
-        '<ul class="af-rows"><li><span class="v-unk-t">RESULT</span><span>no stable Earth match in a country open to NASA in the scored sample</span></li></ul>';
+        '<ul class="af-rows"><li><span class="v-unk-t">RESULT</span><span>no stable Earth match outside our access screen in the scored sample</span></li></ul>';
     }
     h += '<a class="btn btn-primary af-open" href="#finder">See all leads <span aria-hidden="true">&rarr;</span></a>';
     $('hero-card').innerHTML = h;
