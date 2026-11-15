@@ -1,0 +1,53 @@
+# Pre-registration V2 + M1. Written 2026-11-15 ~22:00 +07, BEFORE any Earth footprint was compared
+# with the V2 threshold or with the Mars target. Looked at while writing: the lunar Site01 DEM only
+# (neighbour count and tau for the grid below) and the Mars CTX DTM only (target and neighbour count).
+# Earth planner outcomes already exist in route_validity.parquet (V1 run) and do not depend on the
+# target; nothing below changes how they are computed. Commit hash = registration timestamp.
+
+V2_lunar_threshold:
+  why: V1 estimated scale and tau from only 8 lunar neighbours (the L1 population, footprints
+       within 1 km of the reference dropped). 8 points give an unstable MAD and median.
+  neighbours: every 4 km window of the PGDA 78 Site01 5 m DEM on a 1 km grid (window centres
+              on 200 px steps), aggregated to 30 m, nodata <= 5 %, whose centre is >= 4 km from
+              the ridge reference centre (no pixel shared with the reference footprint).
+              Expected n = 124 (counted on the Moon side only).
+  unchanged_from_V1: planner, seed, limits, outcomes, D_route formula, tau = median D_route of
+              the neighbours, groups (route_groups.csv), H1 / H1b / H2 tests and alpha,
+              second-DEM robustness, decision rule wording.
+  reporting: V2 is published beside V1, not instead of it. V1 stays the registered primary
+             result of the night; V2 is the registered replacement threshold. If they disagree,
+             both are shown and the cards use V2 only if V2 H1 passes; otherwise cards keep the
+             V1 wording ("slope distribution similar", routes as a separate field).
+
+M1_mars_lens:
+  question: Do Earth footprints reproduce the terrain of Perseverance's Jezero delta-front traverse
+            area as a rover planner sees it, and do classic Mars analog sites do so more often
+            than random bare land?
+  mars_dem: USGS Mars 2020 TRN CTX DTM, JEZ_ctx_B_soc_008_DTM_MOLAtopography_DeltaGeoid_20m
+            (equirectangular, Mars 2000 sphere R = 3396190 m); values < -1e30 are nodata.
+  target:   4 km footprint centred 18.4532 N, 77.4022 E (Jezero western delta front),
+            20 m aggregated to 30 m with aggregate_to_baseline.
+  neighbours: 4 km windows of the same DTM on a 2 km grid, nodata <= 5 %, centre >= 4 km from
+              the target. Expected n = 185.
+  descriptors:
+    slope:  slope_p50, slope_p90, frac_gt8, frac_gt15, frac_gt20 (slope_stats at 30 m)
+    routes: the five V1 planner outcomes (same code, seed, limits)
+  distance: for each family, D = mean_k |x_k - x_k(target)| / MAD_k over the Mars neighbours
+            (std if a MAD is 0); tau_family = median D of the Mars neighbours to the target.
+  match(f): D_slope(f) <= tau_slope AND D_route(f) <= tau_route.
+  groups:
+    null:    the same 1,000 random bare-land cells as V1
+    classic_mars: 3x3 blocks at 4 km spacing (9 footprints) around five classic Mars analog sites:
+             MDRS Hanksville Utah (38.4063, -110.7918); Atacama Yungay (-24.0833, -70.0167);
+             Haughton Devon Island (reuse the V1 classic block); McMurdo Wright Valley
+             (-77.52, 161.85); HI-SEAS Mauna Loa (19.6022, -155.4858)
+    moon_leads: the 9 V1 passers (reported only)
+  hypothesis:
+    HM1: share(match | classic_mars) > share(match | null); one-sided Fisher exact, alpha 0.05
+  reported_either_way: null prevalence of match, per-site matches, every null cell that matches
+             with country, open-country matches (excluding China and Russia).
+  decision_rule:
+    HM1 pass: "classic Mars analogs reproduce Jezero delta-front terrain more often than random land".
+    HM1 fail: publish the failure; matches are reported as terrain leads only, and the Mars lens is
+             described as the method transferring, not as validated Mars analog sites.
+  not_claimed: 30 m terrain and a planner simulation; no rocks, no soil, no mineralogy, no dust.
