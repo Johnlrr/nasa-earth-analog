@@ -110,7 +110,6 @@
       const ref=x=>'<strong>'+ (finite(x?.value)?fmt(x.value)+' '+esc(x.unit||''):'Not available')+'</strong>'+(x?.note?'<small>'+esc(x.note)+'</small>':'');
       h+='<details class="env-details"><summary>What no Earth site reproduces: '+items.length+' conditions and the facility to use instead</summary><p class="measurement-note">Planetary references, not measurements at '+esc(c.name||c.cellId)+'.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Planetary environmental differences"><table class="environment-table"><caption>Reference values, limitations and citations</caption><thead><tr><th scope="col">Condition</th><th scope="col">Earth reference</th><th scope="col">'+esc(body)+' reference</th><th scope="col">Engineering consequence</th></tr></thead><tbody>'+items.map(i=>'<tr><th scope="row">'+esc(i.quantity)+'</th><td>'+ref(i.earth)+'</td><td>'+ref(i.target)+'</td><td>'+esc(i.consequence)+(i.mitigation?'<small>Test setup: '+esc(i.mitigation)+'</small>':'')+(/^https?:\/\//i.test(i.source||'')?' <a href="'+esc(i.source)+'" target="_blank" rel="noopener">Source ↗</a>':'')+'</td></tr>').join('')+'</tbody></table></div></details>';
     }
-    if(p.feature_type==='site'&&c.feature&&!c.feature.properties.synthetic)h+='<button type="button" class="button secondary open-footprint" data-comparison-cell="'+esc(c.feature.properties.id)+'" data-comparison-lens="'+esc(c.lens)+'">Open this footprint in Explorer ↗</button>';
     return h;
   }
   const api={contexts,context,imagePair,range,difference,fmt,gaps,signature,render};

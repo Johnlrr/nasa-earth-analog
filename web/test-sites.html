@@ -30,6 +30,7 @@
 .identity span{font-size:12px;letter-spacing:0;color:var(--muted);font-weight:400;border-left:1px solid var(--line);padding-left:20px}
 .exp-header nav{display:flex;gap:24px;align-items:center}.exp-header nav a{font-size:13px;text-decoration:none;color:var(--text)}.exp-header nav a.current{color:var(--accent)}
 [hidden]{display:none!important}
+@media(max-width:560px){.exp-header nav{min-width:0;overflow-x:auto;scrollbar-width:none}.exp-header nav::-webkit-scrollbar{display:none}.exp-header nav a{white-space:nowrap;flex:none}.identity{flex:none}}
 .exp-header nav a[aria-current=page]{color:var(--accent)}
 .identity .logo{display:block;width:30px;height:30px;margin-right:-8px;border-radius:7px}
 @media(max-width:760px){.exp-header{padding:0 16px;gap:12px}.exp-header nav{gap:14px}.exp-header nav .nav-mission{display:none}.identity span,.exp-header nav .wide{display:none}}

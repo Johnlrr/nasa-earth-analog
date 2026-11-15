@@ -89,3 +89,10 @@ p.similarities-intro{font-size:15px;color:var(--muted);padding:0 0 20px;max-widt
 #comparison details:not(.signature-feature):hover{border-color:var(--accent)}
 #comparison details:not(.signature-feature)[open]>*:not(summary){padding-inline:22px}
 #comparison details:not(.signature-feature)[open]{padding-bottom:16px}
+@media(max-width:560px){.exp-header{gap:10px}.exp-header nav{min-width:0;overflow-x:auto;scrollbar-width:none;gap:14px}.exp-header nav::-webkit-scrollbar{display:none}.exp-header nav a,.exp-header nav button{white-space:nowrap;flex:none}.identity{flex:none}}
+/* stronger folded cards and secondary buttons: soft amber tint in the page accent */
+#comparison details:not(.signature-feature){background:rgba(232,187,130,.10);border-color:rgba(232,187,130,.45)}
+#comparison details:not(.signature-feature)>summary{color:var(--ink)}
+#comparison details:not(.signature-feature):hover{background:rgba(232,187,130,.16);border-color:var(--accent)}
+.button.secondary{background:rgba(232,187,130,.12);border-color:rgba(232,187,130,.55);color:var(--ink)}
+.button.secondary:hover:not(:disabled){background:rgba(232,187,130,.22);border-color:var(--accent)}
