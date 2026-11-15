@@ -1,6 +1,6 @@
 # Test protocols for the showcase sites (PLAN 2d)
 
-Generated 2026-11-15 14:23 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
+Generated 2026-11-15 14:29 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
 
 ## What a card is, in NASA's terms
 
@@ -43,12 +43,12 @@ NASA's TRL definitions make a *"Documented definition of relevant environment"* 
 - **NASA shortfalls addressed (ledger):** —
 - **Reproduced at a TRANSFERS site:** ice configuration: permafrost, ice-bearing ground that never thaws from above, dry overburden (verdict variable ice_configuration; semi-quantitative)
 - **Measure:** depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling
-- **Not reproduced (facility or unobserved):** Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden
+- **Not reproduced (facility or unobserved):** Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden; the 24.6 h day-night cycle is not reproduced at the polar sites in the midnight-sun field season
 - **Test-matrix coverage:** 2 variable(s) transfer, 6 are not reproduced on Earth, 1 unobserved (of 9; best state over the lens' targets)
 
 ### M1 — Aqueous-mineral instrument rehearsal
 
-- **Systems under test:** none certified by this engine
+- **Systems under test:** none: no site is published for this lens
 - **Requirement it rehearses:** —
 - **NASA shortfalls addressed (ledger):** —
 - **Reproduced at a TRANSFERS site:** none: M1 failed its pre-registered stop rule, no M1 site is published
@@ -78,7 +78,7 @@ Evidence: engine-confirmed **L2** · 1 cell(s), span 0 km · showcase rule a
 Evidence: engine-confirmed **L1**, engine-semiquant **X1** · 1 cell(s), span 0 km · showcase rule a,b
 
 - **L1 Slope traverse and touchdown-terrain rehearsal.** Test: crewed/uncrewed rover mobility and path planning on slopes, EVA traverse planning, hazard-map products for landing-site selection. Measure: traverse energy, slip and path length per km against the slope classes <8, 8-20 and >20 deg; compare with predictions made on the lunar DEM. Not reproduced here: wheel-soil traction and sinkage (gravity, regolith), dust, vacuum, thermal: facility rows of the card.
-- **X1 Ice-access drilling rehearsal under dry overburden.** Test: 1-2 m class ice-access drills and sample handling, site characterisation before drilling. Measure: depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling. Not reproduced here: Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden.
+- **X1 Ice-access drilling rehearsal under dry overburden.** Test: 1-2 m class ice-access drills and sample handling, site characterisation before drilling. Measure: depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling. Not reproduced here: Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden; the 24.6 h day-night cycle is not reproduced at the polar sites in the midnight-sun field season.
 - **Artemis III slope reading, cell E10K_729_-319:** 56% of the footprint is steeper than 8° (Connecting Ridge reference 76%), 8.2% is steeper than the 20° EVA limit (reference 5.8%). Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 - **Facility rows to close elsewhere:** 11 (see `docs/field_facility.md`, same site).
 

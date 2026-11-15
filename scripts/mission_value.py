@@ -8,7 +8,7 @@ mission_criteria : slope descriptors of the Moon targets, of the Earth cells the
                    published Artemis III slope requirements (config/mission.yaml).
 validity         : per lens, what the controls show for the CURRENT engine: random bare land
                    (null) passing the L1 robust test, classic controls, X1 controls and decoys,
-                   M1 stop-rule checks; and the blind rediscovery of known-analog zones.
+                   M1 stop-rule checks; and a sanity check against known-analog zones.
 coverage         : per lens, how many test variables TRANSFER / are NO-ANALOG / UNOBSERVED.
 task_attention   : OpenAlex counts of the named sites with a Moon-only and a Mars-only context
                    (supplementary; hidden_status is NOT recomputed from it).
@@ -170,7 +170,7 @@ def coverage(verdicts: pd.DataFrame) -> pd.DataFrame:
     """Per lens and test variable, one state: the test-transfer matrix (lens/target-level rows)."""
     v = verdicts[verdicts["cell_id"].fillna("").eq("")].copy()
     v["rank"] = v["state"].map({s: i for i, s in enumerate(STATE_ORDER)})
-    v = v.sort_values("rank").drop_duplicates(["lens_id", "variable"])
+    v = v.sort_values("rank", kind="stable").drop_duplicates(["lens_id", "variable"])
     return v[["lens_id", "variable", "state", "facility"]].sort_values(
         ["lens_id", "state", "variable"]).reset_index(drop=True)
 

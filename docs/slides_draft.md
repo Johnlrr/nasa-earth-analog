@@ -30,7 +30,7 @@ Challenge: Identify Earth Locations that Analog the Permanent Moon Base Location
 Team ⟨name⟩ · NASA Space Apps 2026, Ho Chi Minh City.
 Visual: wind-tunnel model | Moon south pole | Mars (split frame).
 
-## Slide 2 — The problem: famous analog field sites are too flat for the Moon Base ridge
+## Slide 2 — The problem: six famous analog field sites are too flat for the Moon Base ridge
 - NASA's Artemis III landing requirements: **"Surface slope for landing (100m): <10 deg"**, with
   8° contours on the landing map, and **"Surface slope limit for EVA (2km): <20 deg"**
   (NASA, Artemis Human Landing System Overview, Space Apps 2025, NTRS 20250009323).
@@ -60,7 +60,8 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
 ## Slide 4 — Can you trust it? Controls, decoys and a failed test we report
 - **Terrain test is selective:** random bare land passes it for Connecting Ridge in **1 of 200**
   cells [`null_connecting_ridge_robust` / `null_connecting_ridge_n`]; **0 of 6** classic sites
-  pass [`classic_robust`]; the result holds in three test configurations.
+  pass [`classic_robust`]. A cell must pass three test configurations; the strictest one cuts
+  the screened cells from 119 to 5 (report §3).
 - **Ice test:** **2 of 2** polar-desert controls pass (one is the calibration site), **2 of 2**
   wet-permafrost decoys are rejected [`x1_positive_pass`, `x1_decoy_rejected`]; our own
   Pamir–Changtang hypothesis is rejected, **0 of 6** [`x1_pamir_changtang_pass` /
@@ -70,9 +71,11 @@ Visual: data-flow diagram, NASA data on both sides → same functions → verdic
   `m1_checks_n`], but NASA's Lake Salda pair reaches only **0.052 km²** < 0.1 km²
   [`salda_relocated_largest_patch_km2`]. Our rule says FAIL [`m1_stop_rule_verdict`], so **we
   publish no mineral analog**.
-- **Sanity check, not proof:** the largest site the terrain engine finds is the Atacama–Puna,
-  the most used analog region — **1 of 27** sites [`rediscovery_shackleton_rim_sites_with_zone_cell`
-  / `rediscovery_shackleton_rim_sites`].
+- **Sanity check, not proof:** for the steep Shackleton wall (not the ridge), the largest site
+  the terrain engine finds is the Atacama–Puna, one of the most studied analog regions —
+  **1 of 27** sites [`rediscovery_shackleton_rim_sites_with_zone_cell` /
+  `rediscovery_shackleton_rim_sites`]; against land of the same coarse terrain the excess is
+  only **1.4-fold** [`rediscovery_matched_enrichment`].
 - Every rule changed after seeing data is listed in the report (Deviations table).
 Visual: `docs/figures/fig_m1_stop_rule.png` beside a four-row control table.
 
@@ -92,15 +95,16 @@ Visual: `docs/figures/fig_m1_stop_rule.png` beside a four-row control table.
   `scarcity_L1_connecting_ridge_n_usable_not_downgraded`].
 - **Known for Mars, 1 paper in a lunar context:** Da Qaidam is a known Mars analog region,
   **71** analog papers in a Mars context and **1** in a Moon context
-  [`task_attention_da_qaidam_mars`, `task_attention_da_qaidam_moon`]; new here is its match to
-  the Moon Base ridge. Neither site is in our known-analog zone list
+  [`task_attention_da_qaidam_mars`, `task_attention_da_qaidam_moon`] (the query covers the
+  whole Qaidam basin): rarely studied in a lunar context. Neither site is in our known-analog zone list
   [`rediscovery_connecting_ridge_sites_with_zone_cell` = 0].
 - **One camp, two tests:** Peary Land passes the Moon terrain test and the Mars ice test
   (semi-quantitative) — the only such site in the sample [`multilens_engine_engine_sites` = 1].
-- **Same place, different verdict per test:** Devon Island fails the Moon terrain test
-  [`classic_robust` = 0] and passes the Mars ice test [`x1_seed_devon_island_passes`]; the
-  Changtang plateau fails the ice test [`x1_seed_changtang_north_passes`] and passes the terrain
-  test for the Shackleton wall [`site_gerze_lenses_engine_confirmed`].
+- **Same island or plateau, different footprints, different verdict per test:** on Devon
+  Island the Haughton footprint fails the Moon terrain test [`classic_robust` = 0] while another
+  Devon footprint passes the Mars ice test [`x1_seed_devon_island_passes`]; on the Changtang
+  plateau a northern footprint fails the ice test [`x1_seed_changtang_north_passes`] while Gêrzê
+  passes the terrain test for the Shackleton wall [`site_gerze_lenses_engine_confirmed`].
 - Low literature count outside known regions ("hidden"): **Zanda/Gar**, western Tibet, **1**
   paper [`site_zanda_gar_attention`] and **Gêrzê**, **0** [`site_gerze_attention`] — for
   Shackleton-wall terrain.
@@ -118,7 +122,9 @@ Visual: `docs/figures/fig_sites_map.png`, Da Qaidam and Peary Land highlighted.
 - By this measure a terrain site reproduces **1 of 7** test variables; **5** need a named
   facility (offload rig for 0.165 g, thermal-vacuum chamber, irradiation…), **1** is unobserved
   [`coverage_L1_transfers`, `coverage_L1_total`, `coverage_L1_facility`,
-  `coverage_L1_unobserved`]. Ice: **2 of 9** [`coverage_X1_transfers` / `coverage_X1_total`].
+  `coverage_L1_unobserved`]. Ice: **2 of 9** on paper [`coverage_X1_transfers` /
+  `coverage_X1_total`], but one is the day length, which polar sites do not reproduce under the
+  midnight Sun: **1 of 9** at the sites that pass.
   Low Sun: **1 of 9** [`coverage_L2_transfers` / `coverage_L2_total`].
 - The honest limit, as a number: the best Earth site has the Sun below 7° for **28 %** of
   daylight; the lunar target, **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,

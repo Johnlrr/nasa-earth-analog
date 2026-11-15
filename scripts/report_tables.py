@@ -276,7 +276,9 @@ def t_mission_headline() -> str:
         f"measure a field site reproduces {cov['L1']['TRANSFERS']} of "
         f"{sum(cov['L1'].values())} L1 test variables, {cov['L2']['TRANSFERS']} of "
         f"{sum(cov['L2'].values())} for L2 and {cov['X1']['TRANSFERS']} of "
-        f"{sum(cov['X1'].values())} for X1; every other row names the facility that replaces "
+        f"{sum(cov['X1'].values())} for X1 (one of them the day length, which the polar X1 "
+        f"sites do not reproduce in the midnight-sun season); every other row names the "
+        f"facility that replaces "
         f"the field site, or is marked unobserved (`docs/test_protocols.md`). M1 publishes no "
         f"site.",
     ])
@@ -330,8 +332,8 @@ def t_mission_criteria() -> str:
     out = pd.DataFrame({
         "group": c["group"], "site": c["name"].fillna(c["id"]), "cell": c["id"],
         "median slope °": c["slope_p50"].round(1),
-        "steeper than 8° (landing-map contour)": [_pct(x) for x in c["frac_gt8"]],
-        "steeper than 20° (no-EVA)": [_pct(x, 1) for x in c["frac_gt20"]],
+        "steeper than 8° (30 m baseline)": [_pct(x) for x in c["frac_gt8"]],
+        "steeper than 20° (30 m baseline)": [_pct(x, 1) for x in c["frac_gt20"]],
         "8° share inside target range": c["in_range_frac_gt8"].map({True: "yes", False: "no"}),
         "20° share inside target range": c["in_range_frac_gt20"].map({True: "yes",
                                                                        False: "no"})})
@@ -360,7 +362,11 @@ def t_coverage() -> str:
             "targets (L1 slope–roughness and L2 shadow casting transfer for both targets; M1 "
             "aqueous minerals are NO-ANALOG for the two analog targets and UNOBSERVED for the "
             "other two; M1's only TRANSFERS row is the day–night cycle from the ledger, and M1 "
-            "publishes no site).")
+            "publishes no site). The day–night cycle is a planet-level ledger row (a Mars sol "
+            "is 24.6 h): the X1 sites that pass are polar and do not reproduce it in the "
+            "midnight-sun field season, so at those sites X1 reproduces 1 variable, not 2. "
+            "The null extrapolation of §1 refers to cells passing the robust set, before the "
+            "ice filter and the visual review.")
 
 
 def t_task_attention() -> str:

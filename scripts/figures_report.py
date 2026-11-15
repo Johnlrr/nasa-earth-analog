@@ -179,8 +179,8 @@ def fig_mission_slopes():
     label = [str(n if isinstance(n, str) and n else i).split(",")[0][:34]
              for n, i in zip(c["name"], c["id"], strict=True)]
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), facecolor=SURFACE, sharey=True)
-    panels = [("frac_gt8", "share of footprint steeper than 8° (NASA landing-map contour)", 0),
-              ("frac_gt20", "share steeper than 20° (Artemis III: no EVA)", 1)]
+    panels = [("frac_gt8", "share of 4 km footprint steeper than 8° (30 m baseline)", 0),
+              ("frac_gt20", "share steeper than 20° (30 m baseline)", 1)]
     for ax, (col, title, nd) in zip(axes, panels, strict=True):
         style(ax)
         lo, hi = c[f"range_lo_{col}"].iloc[0], c[f"range_hi_{col}"].iloc[0]
@@ -200,9 +200,14 @@ def fig_mission_slopes():
     n_fp = int(c["n_target_footprints"].iloc[0])
     axes[1].legend(handles, [*color.keys(), f"range of the {n_fp} Connecting Ridge footprints"],
                    loc="lower right", fontsize=8.5, frameon=False, labelcolor=INK)
-    fig.suptitle("Classic lunar analogs are too flat for Connecting Ridge; the two engine "
-                 "matches sit inside the lunar range", x=0.01, ha="left", fontsize=11, color=INK)
-    fig.tight_layout()
+    fig.suptitle("Consistency check, same formula on both worlds: the footprints of six classic "
+                 "analog sites are flatter than Connecting Ridge", x=0.01, ha="left",
+                 fontsize=11, color=INK)
+    fig.text(0.01, 0.005, "8° and 20° are the values of NASA's Artemis III landing-map contour "
+             "and EVA slope limit; NASA does not state its slope baseline, so this compares "
+             "Earth with Moon only. The engine selects on these shares.", fontsize=7.5,
+             color=INK2, ha="left", va="bottom")
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
     fig.savefig(FIG / "fig_mission_slopes.png", dpi=150, facecolor=SURFACE)
     plt.close(fig)
 
@@ -215,10 +220,12 @@ def fig_transfer_matrix():
     import mission_value as mv
 
     cov = mv.coverage(pd.read_parquet(DERIVED / "verdicts.parquet"))
+    cov = cov[cov["lens_id"].ne("M1")]  # stop rule FAIL: M1 publishes no site, no cells drawn
     lenses = ["L1", "L2", "M1", "X1"]
     order = cov.assign(r=cov["state"].map({s: i for i, s in enumerate(mv.STATE_ORDER)}))
     variables = list(order.sort_values(["r", "variable"])["variable"].drop_duplicates())
-    state = {(r.lens_id, r.variable): (r.state, bool(r.facility)) for r in cov.itertuples()}
+    state = {(r.lens_id, r.variable): (r.state, isinstance(r.facility, str) and bool(r.facility))
+             for r in cov.itertuples()}
     look = {"TRANSFERS": (SERIES["L1"], "field", SURFACE),
             "NO-ANALOG": (SERIES["L2"], "facility", INK), "UNOBSERVED": ("#c9c8c2", "?", INK)}
     fig, ax = plt.subplots(figsize=(8.2, 0.34 * len(variables) + 1.6), facecolor=SURFACE)
@@ -233,6 +240,10 @@ def fig_transfer_matrix():
                 txt = "no analog"
             ax.add_patch(plt.Rectangle((xi + 0.04, yi + 0.08), 0.92, 0.84, color=col))
             ax.text(xi + 0.5, yi + 0.5, txt, ha="center", va="center", fontsize=8, color=ink)
+    xm = lenses.index("M1")
+    ax.add_patch(plt.Rectangle((xm + 0.04, 0.08), 0.92, len(variables) - 0.16, color=GRID))
+    ax.text(xm + 0.5, len(variables) / 2, "stop rule FAIL: no site published, no verdict shown",
+            rotation=90, ha="center", va="center", fontsize=8.5, color=INK2)
     ax.set_xlim(0, len(lenses))
     ax.set_ylim(len(variables), 0)
     ax.set_xticks([i + 0.5 for i in range(len(lenses))],
@@ -240,17 +251,22 @@ def fig_transfer_matrix():
                    "X1 ice\n(Mars)"])
     ax.xaxis.tick_top()
     ax.set_yticks([i + 0.5 for i in range(len(variables))],
-                  [v.replace("_", " ")[:44] for v in variables])
+                  [v.replace("_", " ")[:44] + (" *" if v == "day_night_cycle" else "")
+                   for v in variables])
     ax.tick_params(length=0, colors=INK2, labelsize=8.5)
     for s in ax.spines.values():
         s.set_visible(False)
     handles = [plt.Rectangle((0, 0), 1, 1, color=look[s][0]) for s in mv.STATE_ORDER]
     ax.legend(handles, ["TRANSFERS: test it in the field",
                         "NO-ANALOG: not reproduced on Earth; the card names the facility",
-                        "UNOBSERVED: this engine cannot say"], loc="upper center",
+                        "UNOBSERVED: this engine cannot say",
+                        ], loc="upper center",
               bbox_to_anchor=(0.5, -0.02), ncol=1, fontsize=8.5, frameon=False, labelcolor=INK)
     fig.suptitle("Test-transfer matrix: which rows of a field test come home valid",
                  x=0.01, ha="left", fontsize=11, color=INK)
+    fig.text(0.01, 0.005, "* planet-level ledger row (a Mars sol is 24.6 h): the polar ice sites "
+             "do not reproduce it in the midnight-sun field season.", fontsize=7.5, color=INK2,
+             ha="left", va="bottom")
     fig.tight_layout()
     fig.savefig(FIG / "fig_transfer_matrix.png", dpi=150, facecolor=SURFACE)
     plt.close(fig)

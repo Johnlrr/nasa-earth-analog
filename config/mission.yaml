@@ -68,10 +68,10 @@ protocols:
     shortfalls: []
     field_credit: "ice configuration: permafrost, ice-bearing ground that never thaws from above, dry overburden (verdict variable ice_configuration; semi-quantitative)"
     measure: "depth to ice-cemented ground, drilling energy and bit temperature through the dry layer into ice, ice-table mapping before drilling"
-    not_credited: "Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden"
+    not_credited: "Mars pressure and CO2 atmosphere, temperature, perchlorate chemistry, radar response of the overburden; the 24.6 h day-night cycle is not reproduced at the polar sites in the midnight-sun field season"
   M1:
     name: "Aqueous-mineral instrument rehearsal"
-    systems: "none certified by this engine"
+    systems: "none: no site is published for this lens"
     requirement: []
     shortfalls: []
     field_credit: "none: M1 failed its pre-registered stop rule, no M1 site is published"
