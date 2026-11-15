@@ -1,0 +1,1280 @@
+{
+  "prereg": "config/prereg_v2_mars.yaml (commit 67920dd)",
+  "target": {
+    "name": "Jezero western delta front",
+    "lat": 18.4532,
+    "lon": 77.4022,
+    "slope_p50": 3.3041,
+    "slope_p90": 8.941,
+    "frac_gt8": 0.1243,
+    "frac_gt15": 0.0308,
+    "frac_gt20": 0.0087,
+    "reach_6": 0.987,
+    "reach_8": 0.9986,
+    "detour_8": 1.0742,
+    "detour_10": 1.069,
+    "climb_10": 22.7481
+  },
+  "n_mars_neighbours": 185,
+  "tau": {
+    "slope": 1.1475,
+    "route": 4.7897
+  },
+  "null": [
+    159,
+    994
+  ],
+  "classic_mars": [
+    17,
+    45
+  ],
+  "moon_passers": [
+    0,
+    9
+  ],
+  "per_site": {
+    "Atacama, Yungay": [
+      4,
+      9
+    ],
+    "HI-SEAS, Mauna Loa": [
+      9,
+      9
+    ],
+    "Haughton impact structure, Devon Island": [
+      3,
+      9
+    ],
+    "MDRS Hanksville, Utah": [
+      1,
+      9
+    ],
+    "McMurdo Wright Valley": [
+      0,
+      9
+    ]
+  },
+  "HM1_p": 0.00051,
+  "HM1_pass": true,
+  "null_route_only": 198,
+  "null_slope_only": 208,
+  "n_open_matches": 132,
+  "countries": {
+    "China": 27,
+    "Algeria": 27,
+    "Saudi Arabia": 18,
+    "Egypt": 9,
+    "Libya": 9,
+    "Mauritania": 7,
+    "Mongolia": 6,
+    "Iran": 6,
+    "Sudan": 5,
+    "Tunisia": 5,
+    "Niger": 5,
+    "Canada": 4,
+    "Chad": 4,
+    "Afghanistan": 4,
+    "Turkmenistan": 4,
+    "Pakistan": 3,
+    "Morocco": 3,
+    "United States": 2,
+    "United Arab Emirates": 2,
+    "Argentina": 2,
+    "Mali": 2,
+    "Namibia": 1,
+    "Iraq": 1,
+    "Western Sahara": 1,
+    "Kazakhstan": 1,
+    "Uzbekistan": 1
+  },
+  "open_matches": [
+    {
+      "cell_id": "E10K_396_86",
+      "country": "Tunisia",
+      "lat": 32.6016,
+      "lon": 8.9822,
+      "D_slope": 0.405,
+      "D_route": 0.726,
+      "frac_gt8": 0.223
+    },
+    {
+      "cell_id": "E10K_-519_-660",
+      "country": "Argentina",
+      "lat": -44.7851,
+      "lon": -68.4831,
+      "D_slope": 0.304,
+      "D_route": 0.934,
+      "frac_gt8": 0.154
+    },
+    {
+      "cell_id": "E10K_-296_144",
+      "country": "Namibia",
+      "lat": -23.653,
+      "lon": 15.005,
+      "D_slope": 0.453,
+      "D_route": 1.088,
+      "frac_gt8": 0.19
+    },
+    {
+      "cell_id": "E10K_325_-107",
+      "country": "Western Sahara",
+      "lat": 26.2381,
+      "lon": -11.0591,
+      "D_slope": 0.898,
+      "D_route": 1.107,
+      "frac_gt8": 0.025
+    },
+    {
+      "cell_id": "E10K_254_-124",
+      "country": "Mauritania",
+      "lat": 20.2802,
+      "lon": -12.8244,
+      "D_slope": 0.915,
+      "D_route": 1.176,
+      "frac_gt8": 0.108
+    },
+    {
+      "cell_id": "E10K_304_26",
+      "country": "Algeria",
+      "lat": 24.423,
+      "lon": 2.7518,
+      "D_slope": 0.859,
+      "D_route": 1.245,
+      "frac_gt8": 0.048
+    },
+    {
+      "cell_id": "E10K_-490_-676",
+      "country": "Argentina",
+      "lat": -41.6927,
+      "lon": -70.1446,
+      "D_slope": 0.301,
+      "D_route": 1.293,
+      "frac_gt8": 0.176
+    },
+    {
+      "cell_id": "E10K_261_255",
+      "country": "Sudan",
+      "lat": 20.7813,
+      "lon": 26.5314,
+      "D_slope": 0.712,
+      "D_route": 1.335,
+      "frac_gt8": 0.07
+    },
+    {
+      "cell_id": "E10K_343_-53",
+      "country": "Algeria",
+      "lat": 27.816,
+      "lon": -5.4517,
+      "D_slope": 0.301,
+      "D_route": 1.407,
+      "frac_gt8": 0.177
+    },
+    {
+      "cell_id": "E10K_329_609",
+      "country": "Pakistan",
+      "lat": 26.5869,
+      "lon": 63.2911,
+      "D_slope": 0.488,
+      "D_route": 1.479,
+      "frac_gt8": 0.068
+    },
+    {
+      "cell_id": "E10K_341_73",
+      "country": "Algeria",
+      "lat": 27.6396,
+      "lon": 7.6323,
+      "D_slope": 0.429,
+      "D_route": 1.494,
+      "frac_gt8": 0.133
+    },
+    {
+      "cell_id": "E10K_219_300",
+      "country": "Sudan",
+      "lat": 17.3866,
+      "lon": 31.2042,
+      "D_slope": 0.815,
+      "D_route": 1.513,
+      "frac_gt8": 0.07
+    },
+    {
+      "cell_id": "E10K_264_308",
+      "country": "Sudan",
+      "lat": 21.0325,
+      "lon": 32.0349,
+      "D_slope": 0.777,
+      "D_route": 1.539,
+      "frac_gt8": 0.059
+    },
+    {
+      "cell_id": "E10K_342_51",
+      "country": "Algeria",
+      "lat": 27.7277,
+      "lon": 5.3478,
+      "D_slope": 1.068,
+      "D_route": 2.124,
+      "frac_gt8": 0.014
+    },
+    {
+      "cell_id": "E10K_386_91",
+      "country": "Tunisia",
+      "lat": 31.6808,
+      "lon": 9.5015,
+      "D_slope": 0.083,
+      "D_route": 2.29,
+      "frac_gt8": 0.134
+    },
+    {
+      "cell_id": "E10K_249_28",
+      "country": "Mali",
+      "lat": 19.8638,
+      "lon": 2.9595,
+      "D_slope": 0.806,
+      "D_route": 2.294,
+      "frac_gt8": 0.115
+    },
+    {
+      "cell_id": "E10K_345_79",
+      "country": "Algeria",
+      "lat": 27.9926,
+      "lon": 8.2554,
+      "D_slope": 0.618,
+      "D_route": 2.597,
+      "frac_gt8": 0.21
+    },
+    {
+      "cell_id": "E10K_713_-945",
+      "country": "Canada",
+      "lat": 75.9843,
+      "lon": -98.0778,
+      "D_slope": 0.363,
+      "D_route": 2.776,
+      "frac_gt8": 0.117
+    },
+    {
+      "cell_id": "E10K_721_-983",
+      "country": "Canada",
+      "lat": 78.8043,
+      "lon": -102.0238,
+      "D_slope": 0.569,
+      "D_route": 2.81,
+      "frac_gt8": 0.104
+    },
+    {
+      "cell_id": "E10K_334_-25",
+      "country": "Algeria",
+      "lat": 27.0244,
+      "lon": -2.5441,
+      "D_slope": 0.637,
+      "D_route": 2.989,
+      "frac_gt8": 0.234
+    },
+    {
+      "cell_id": "E10K_437_-1054",
+      "country": "United States",
+      "lat": 36.4799,
+      "lon": -109.3965,
+      "D_slope": 0.767,
+      "D_route": 2.994,
+      "frac_gt8": 0.068
+    },
+    {
+      "cell_id": "E10K_412_557",
+      "country": "Iran",
+      "lat": 34.0943,
+      "lon": 57.8914,
+      "D_slope": 1.072,
+      "D_route": 2.995,
+      "frac_gt8": 0.019
+    },
+    {
+      "cell_id": "E10K_351_-34",
+      "country": "Algeria",
+      "lat": 28.5243,
+      "lon": -3.4787,
+      "D_slope": 0.422,
+      "D_route": 3.047,
+      "frac_gt8": 0.125
+    },
+    {
+      "cell_id": "E10K_352_236",
+      "country": "Libya",
+      "lat": 28.6132,
+      "lon": 24.5584,
+      "D_slope": 1.039,
+      "D_route": 3.12,
+      "frac_gt8": 0.028
+    },
+    {
+      "cell_id": "E10K_272_315",
+      "country": "Sudan",
+      "lat": 21.7042,
+      "lon": 32.7618,
+      "D_slope": 1.11,
+      "D_route": 3.167,
+      "frac_gt8": 0.023
+    },
+    {
+      "cell_id": "E10K_245_27",
+      "country": "Mali",
+      "lat": 19.5315,
+      "lon": 2.8556,
+      "D_slope": 1.094,
+      "D_route": 3.175,
+      "frac_gt8": 0.012
+    },
+    {
+      "cell_id": "E10K_291_186",
+      "country": "Libya",
+      "lat": 23.3121,
+      "lon": 19.3663,
+      "D_slope": 0.72,
+      "D_route": 3.294,
+      "frac_gt8": 0.096
+    },
+    {
+      "cell_id": "E10K_263_76",
+      "country": "Niger",
+      "lat": 20.9487,
+      "lon": 7.9438,
+      "D_slope": 0.74,
+      "D_route": 3.405,
+      "frac_gt8": 0.094
+    },
+    {
+      "cell_id": "E10K_288_74",
+      "country": "Algeria",
+      "lat": 23.057,
+      "lon": 7.7362,
+      "D_slope": 0.273,
+      "D_route": 3.444,
+      "frac_gt8": 0.086
+    },
+    {
+      "cell_id": "E10K_685_-676",
+      "country": "Canada",
+      "lat": 68.6321,
+      "lon": -70.1446,
+      "D_slope": 0.737,
+      "D_route": 3.53,
+      "frac_gt8": 0.24
+    },
+    {
+      "cell_id": "E10K_503_1032",
+      "country": "Mongolia",
+      "lat": 43.1664,
+      "lon": 107.2158,
+      "D_slope": 0.711,
+      "D_route": 3.571,
+      "frac_gt8": 0.09
+    },
+    {
+      "cell_id": "E10K_400_561",
+      "country": "Iran",
+      "lat": 32.9724,
+      "lon": 58.3067,
+      "D_slope": 0.962,
+      "D_route": 3.621,
+      "frac_gt8": 0.054
+    },
+    {
+      "cell_id": "E10K_381_519",
+      "country": "Iran",
+      "lat": 31.2238,
+      "lon": 53.9454,
+      "D_slope": 0.741,
+      "D_route": 3.698,
+      "frac_gt8": 0.12
+    },
+    {
+      "cell_id": "E10K_341_17",
+      "country": "Algeria",
+      "lat": 27.6396,
+      "lon": 1.8172,
+      "D_slope": 0.636,
+      "D_route": 3.723,
+      "frac_gt8": 0.188
+    },
+    {
+      "cell_id": "E10K_407_653",
+      "country": "Afghanistan",
+      "lat": 33.6251,
+      "lon": 67.8601,
+      "D_slope": 0.51,
+      "D_route": 3.789,
+      "frac_gt8": 0.142
+    },
+    {
+      "cell_id": "E10K_346_356",
+      "country": "Saudi Arabia",
+      "lat": 28.0811,
+      "lon": 37.0193,
+      "D_slope": 0.711,
+      "D_route": 3.936,
+      "frac_gt8": 0.147
+    },
+    {
+      "cell_id": "E10K_394_81",
+      "country": "Algeria",
+      "lat": 32.4167,
+      "lon": 8.463,
+      "D_slope": 0.612,
+      "D_route": 3.973,
+      "frac_gt8": 0.17
+    },
+    {
+      "cell_id": "E10K_240_412",
+      "country": "Saudi Arabia",
+      "lat": 19.117,
+      "lon": 42.8344,
+      "D_slope": 1.003,
+      "D_route": 3.994,
+      "frac_gt8": 0.35
+    },
+    {
+      "cell_id": "E10K_315_221",
+      "country": "Libya",
+      "lat": 25.3705,
+      "lon": 23.0008,
+      "D_slope": 1.05,
+      "D_route": 4.017,
+      "frac_gt8": 0.039
+    },
+    {
+      "cell_id": "E10K_375_23",
+      "country": "Algeria",
+      "lat": 30.6781,
+      "lon": 2.4403,
+      "D_slope": 0.866,
+      "D_route": 4.017,
+      "frac_gt8": 0.064
+    },
+    {
+      "cell_id": "E10K_262_149",
+      "country": "Chad",
+      "lat": 20.865,
+      "lon": 15.5242,
+      "D_slope": 1.141,
+      "D_route": 4.023,
+      "frac_gt8": 0.02
+    },
+    {
+      "cell_id": "E10K_551_883",
+      "country": "Mongolia",
+      "lat": 48.5153,
+      "lon": 91.7435,
+      "D_slope": 0.859,
+      "D_route": 4.024,
+      "frac_gt8": 0.08
+    },
+    {
+      "cell_id": "E10K_238_439",
+      "country": "Saudi Arabia",
+      "lat": 18.9514,
+      "lon": 45.6381,
+      "D_slope": 0.837,
+      "D_route": 4.112,
+      "frac_gt8": 0.065
+    },
+    {
+      "cell_id": "E10K_284_391",
+      "country": "Saudi Arabia",
+      "lat": 22.7176,
+      "lon": 40.6538,
+      "D_slope": 0.906,
+      "D_route": 4.117,
+      "frac_gt8": 0.055
+    },
+    {
+      "cell_id": "E10K_332_602",
+      "country": "Iran",
+      "lat": 26.8492,
+      "lon": 62.5642,
+      "D_slope": 0.652,
+      "D_route": 4.133,
+      "frac_gt8": 0.309
+    },
+    {
+      "cell_id": "E10K_325_-14",
+      "country": "Algeria",
+      "lat": 26.2381,
+      "lon": -1.4019,
+      "D_slope": 0.648,
+      "D_route": 4.147,
+      "frac_gt8": 0.104
+    },
+    {
+      "cell_id": "E10K_318_586",
+      "country": "Iran",
+      "lat": 25.6302,
+      "lon": 60.9027,
+      "D_slope": 1.135,
+      "D_route": 4.19,
+      "frac_gt8": 0.048
+    },
+    {
+      "cell_id": "E10K_347_407",
+      "country": "Saudi Arabia",
+      "lat": 28.1696,
+      "lon": 42.3152,
+      "D_slope": 0.769,
+      "D_route": 4.191,
+      "frac_gt8": 0.072
+    },
+    {
+      "cell_id": "E10K_379_26",
+      "country": "Algeria",
+      "lat": 31.0415,
+      "lon": 2.7518,
+      "D_slope": 0.785,
+      "D_route": 4.195,
+      "frac_gt8": 0.162
+    },
+    {
+      "cell_id": "E10K_393_-6",
+      "country": "Algeria",
+      "lat": 32.3244,
+      "lon": -0.5711,
+      "D_slope": 1.098,
+      "D_route": 4.238,
+      "frac_gt8": 0.026
+    },
+    {
+      "cell_id": "E10K_289_524",
+      "country": "United Arab Emirates",
+      "lat": 23.142,
+      "lon": 54.4646,
+      "D_slope": 0.597,
+      "D_route": 4.25,
+      "frac_gt8": 0.092
+    },
+    {
+      "cell_id": "E10K_345_244",
+      "country": "Egypt",
+      "lat": 27.9926,
+      "lon": 25.3891,
+      "D_slope": 0.992,
+      "D_route": 4.29,
+      "frac_gt8": 0.04
+    },
+    {
+      "cell_id": "E10K_428_-1069",
+      "country": "United States",
+      "lat": 35.6131,
+      "lon": -110.9541,
+      "D_slope": 0.584,
+      "D_route": 4.32,
+      "frac_gt8": 0.036
+    },
+    {
+      "cell_id": "E10K_346_78",
+      "country": "Algeria",
+      "lat": 28.0811,
+      "lon": 8.1515,
+      "D_slope": 1.123,
+      "D_route": 4.325,
+      "frac_gt8": 0.032
+    },
+    {
+      "cell_id": "E10K_297_433",
+      "country": "Saudi Arabia",
+      "lat": 23.8237,
+      "lon": 45.0151,
+      "D_slope": 0.927,
+      "D_route": 4.329,
+      "frac_gt8": 0.093
+    },
+    {
+      "cell_id": "E10K_360_234",
+      "country": "Libya",
+      "lat": 29.3268,
+      "lon": 24.3507,
+      "D_slope": 0.879,
+      "D_route": 4.334,
+      "frac_gt8": 0.077
+    },
+    {
+      "cell_id": "E10K_301_310",
+      "country": "Egypt",
+      "lat": 24.1659,
+      "lon": 32.2426,
+      "D_slope": 0.791,
+      "D_route": 4.335,
+      "frac_gt8": 0.109
+    },
+    {
+      "cell_id": "E10K_372_628",
+      "country": "Afghanistan",
+      "lat": 30.4064,
+      "lon": 65.2641,
+      "D_slope": 0.81,
+      "D_route": 4.364,
+      "frac_gt8": 0.164
+    },
+    {
+      "cell_id": "E10K_339_66",
+      "country": "Algeria",
+      "lat": 27.4635,
+      "lon": 6.9054,
+      "D_slope": 0.665,
+      "D_route": 4.365,
+      "frac_gt8": 0.082
+    },
+    {
+      "cell_id": "E10K_383_28",
+      "country": "Algeria",
+      "lat": 31.4063,
+      "lon": 2.9595,
+      "D_slope": 0.707,
+      "D_route": 4.4,
+      "frac_gt8": 0.116
+    },
+    {
+      "cell_id": "E10K_292_119",
+      "country": "Niger",
+      "lat": 23.3972,
+      "lon": 12.409,
+      "D_slope": 0.866,
+      "D_route": 4.42,
+      "frac_gt8": 0.065
+    },
+    {
+      "cell_id": "E10K_340_250",
+      "country": "Egypt",
+      "lat": 27.5515,
+      "lon": 26.0122,
+      "D_slope": 0.865,
+      "D_route": 4.422,
+      "frac_gt8": 0.06
+    },
+    {
+      "cell_id": "E10K_339_54",
+      "country": "Algeria",
+      "lat": 27.4635,
+      "lon": 5.6593,
+      "D_slope": 1.0,
+      "D_route": 4.444,
+      "frac_gt8": 0.22
+    },
+    {
+      "cell_id": "E10K_502_942",
+      "country": "Mongolia",
+      "lat": 43.06,
+      "lon": 97.8701,
+      "D_slope": 0.817,
+      "D_route": 4.444,
+      "frac_gt8": 0.064
+    },
+    {
+      "cell_id": "E10K_363_-49",
+      "country": "Algeria",
+      "lat": 29.5956,
+      "lon": -5.0363,
+      "D_slope": 1.02,
+      "D_route": 4.449,
+      "frac_gt8": 0.075
+    },
+    {
+      "cell_id": "E10K_339_-18",
+      "country": "Algeria",
+      "lat": 27.4635,
+      "lon": -1.8172,
+      "D_slope": 0.91,
+      "D_route": 4.474,
+      "frac_gt8": 0.061
+    },
+    {
+      "cell_id": "E10K_372_259",
+      "country": "Egypt",
+      "lat": 30.4064,
+      "lon": 26.9467,
+      "D_slope": 0.984,
+      "D_route": 4.49,
+      "frac_gt8": 0.077
+    },
+    {
+      "cell_id": "E10K_309_413",
+      "country": "Saudi Arabia",
+      "lat": 24.8528,
+      "lon": 42.9383,
+      "D_slope": 0.708,
+      "D_route": 4.502,
+      "frac_gt8": 0.029
+    },
+    {
+      "cell_id": "E10K_334_251",
+      "country": "Egypt",
+      "lat": 27.0244,
+      "lon": 26.116,
+      "D_slope": 0.984,
+      "D_route": 4.519,
+      "frac_gt8": 0.043
+    },
+    {
+      "cell_id": "E10K_235_472",
+      "country": "Saudi Arabia",
+      "lat": 18.7034,
+      "lon": 49.0649,
+      "D_slope": 0.933,
+      "D_route": 4.525,
+      "frac_gt8": 0.055
+    },
+    {
+      "cell_id": "E10K_403_-28",
+      "country": "Morocco",
+      "lat": 33.2516,
+      "lon": -2.8556,
+      "D_slope": 0.82,
+      "D_route": 4.565,
+      "frac_gt8": 0.109
+    },
+    {
+      "cell_id": "E10K_243_469",
+      "country": "Saudi Arabia",
+      "lat": 19.3655,
+      "lon": 48.7533,
+      "D_slope": 0.927,
+      "D_route": 4.577,
+      "frac_gt8": 0.059
+    },
+    {
+      "cell_id": "E10K_472_554",
+      "country": "Turkmenistan",
+      "lat": 39.9464,
+      "lon": 57.5798,
+      "D_slope": 1.017,
+      "D_route": 4.589,
+      "frac_gt8": 0.017
+    },
+    {
+      "cell_id": "E10K_550_918",
+      "country": "Mongolia",
+      "lat": 48.3984,
+      "lon": 95.378,
+      "D_slope": 0.869,
+      "D_route": 4.591,
+      "frac_gt8": 0.089
+    },
+    {
+      "cell_id": "E10K_235_-69",
+      "country": "Mauritania",
+      "lat": 18.7034,
+      "lon": -7.1131,
+      "D_slope": 0.861,
+      "D_route": 4.595,
+      "frac_gt8": 0.067
+    },
+    {
+      "cell_id": "E10K_504_596",
+      "country": "Uzbekistan",
+      "lat": 43.273,
+      "lon": 61.9412,
+      "D_slope": 0.979,
+      "D_route": 4.597,
+      "frac_gt8": 0.032
+    },
+    {
+      "cell_id": "E10K_305_185",
+      "country": "Libya",
+      "lat": 24.5089,
+      "lon": 19.2625,
+      "D_slope": 0.998,
+      "D_route": 4.597,
+      "frac_gt8": 0.077
+    },
+    {
+      "cell_id": "E10K_472_533",
+      "country": "Turkmenistan",
+      "lat": 39.9464,
+      "lon": 55.3992,
+      "D_slope": 0.99,
+      "D_route": 4.599,
+      "frac_gt8": 0.034
+    },
+    {
+      "cell_id": "E10K_292_527",
+      "country": "United Arab Emirates",
+      "lat": 23.3972,
+      "lon": 54.7761,
+      "D_slope": 1.009,
+      "D_route": 4.601,
+      "frac_gt8": 0.034
+    },
+    {
+      "cell_id": "E10K_350_-37",
+      "country": "Algeria",
+      "lat": 28.4355,
+      "lon": -3.7902,
+      "D_slope": 1.128,
+      "D_route": 4.608,
+      "frac_gt8": 0.027
+    },
+    {
+      "cell_id": "E10K_484_577",
+      "country": "Turkmenistan",
+      "lat": 41.1744,
+      "lon": 59.9682,
+      "D_slope": 1.036,
+      "D_route": 4.609,
+      "frac_gt8": 0.031
+    },
+    {
+      "cell_id": "E10K_247_458",
+      "country": "Saudi Arabia",
+      "lat": 19.6976,
+      "lon": 47.6111,
+      "D_slope": 1.053,
+      "D_route": 4.612,
+      "frac_gt8": 0.038
+    },
+    {
+      "cell_id": "E10K_261_-108",
+      "country": "Mauritania",
+      "lat": 20.7813,
+      "lon": -11.1629,
+      "D_slope": 1.017,
+      "D_route": 4.618,
+      "frac_gt8": 0.021
+    },
+    {
+      "cell_id": "E10K_327_110",
+      "country": "Libya",
+      "lat": 26.4124,
+      "lon": 11.4744,
+      "D_slope": 0.803,
+      "D_route": 4.622,
+      "frac_gt8": 0.1
+    },
+    {
+      "cell_id": "E10K_239_-99",
+      "country": "Mauritania",
+      "lat": 19.0342,
+      "lon": -10.2283,
+      "D_slope": 0.959,
+      "D_route": 4.632,
+      "frac_gt8": 0.055
+    },
+    {
+      "cell_id": "E10K_514_914",
+      "country": "Mongolia",
+      "lat": 44.3492,
+      "lon": 94.9626,
+      "D_slope": 1.009,
+      "D_route": 4.635,
+      "frac_gt8": 0.029
+    },
+    {
+      "cell_id": "E10K_407_598",
+      "country": "Afghanistan",
+      "lat": 33.6251,
+      "lon": 62.1488,
+      "D_slope": 0.969,
+      "D_route": 4.637,
+      "frac_gt8": 0.062
+    },
+    {
+      "cell_id": "E10K_443_651",
+      "country": "Afghanistan",
+      "lat": 37.063,
+      "lon": 67.6524,
+      "D_slope": 1.101,
+      "D_route": 4.639,
+      "frac_gt8": 0.036
+    },
+    {
+      "cell_id": "E10K_249_494",
+      "country": "Saudi Arabia",
+      "lat": 19.8638,
+      "lon": 51.3494,
+      "D_slope": 1.003,
+      "D_route": 4.641,
+      "frac_gt8": 0.047
+    },
+    {
+      "cell_id": "E10K_350_-9",
+      "country": "Algeria",
+      "lat": 28.4355,
+      "lon": -0.8826,
+      "D_slope": 1.073,
+      "D_route": 4.647,
+      "frac_gt8": 0.049
+    },
+    {
+      "cell_id": "E10K_327_220",
+      "country": "Libya",
+      "lat": 26.4124,
+      "lon": 22.8969,
+      "D_slope": 1.049,
+      "D_route": 4.648,
+      "frac_gt8": 0.035
+    },
+    {
+      "cell_id": "E10K_346_687",
+      "country": "Pakistan",
+      "lat": 28.0811,
+      "lon": 71.3907,
+      "D_slope": 1.012,
+      "D_route": 4.648,
+      "frac_gt8": 0.032
+    },
+    {
+      "cell_id": "E10K_358_235",
+      "country": "Libya",
+      "lat": 29.1479,
+      "lon": 24.4546,
+      "D_slope": 1.089,
+      "D_route": 4.653,
+      "frac_gt8": 0.031
+    },
+    {
+      "cell_id": "E10K_378_92",
+      "country": "Tunisia",
+      "lat": 30.9506,
+      "lon": 9.6053,
+      "D_slope": 1.029,
+      "D_route": 4.661,
+      "frac_gt8": 0.043
+    },
+    {
+      "cell_id": "E10K_425_416",
+      "country": "Iraq",
+      "lat": 35.3263,
+      "lon": 43.2498,
+      "D_slope": 1.071,
+      "D_route": 4.663,
+      "frac_gt8": 0.016
+    },
+    {
+      "cell_id": "E10K_312_653",
+      "country": "Pakistan",
+      "lat": 25.1114,
+      "lon": 67.8601,
+      "D_slope": 1.14,
+      "D_route": 4.663,
+      "frac_gt8": 0.03
+    },
+    {
+      "cell_id": "E10K_215_126",
+      "country": "Niger",
+      "lat": 17.0588,
+      "lon": 13.1359,
+      "D_slope": 1.07,
+      "D_route": 4.669,
+      "frac_gt8": 0.014
+    },
+    {
+      "cell_id": "E10K_260_487",
+      "country": "Saudi Arabia",
+      "lat": 20.6977,
+      "lon": 50.6225,
+      "D_slope": 1.097,
+      "D_route": 4.672,
+      "frac_gt8": 0.016
+    },
+    {
+      "cell_id": "E10K_215_125",
+      "country": "Niger",
+      "lat": 17.0588,
+      "lon": 13.032,
+      "D_slope": 1.063,
+      "D_route": 4.674,
+      "frac_gt8": 0.016
+    },
+    {
+      "cell_id": "E10K_360_-8",
+      "country": "Algeria",
+      "lat": 29.3268,
+      "lon": -0.7788,
+      "D_slope": 1.11,
+      "D_route": 4.675,
+      "frac_gt8": 0.022
+    },
+    {
+      "cell_id": "E10K_387_82",
+      "country": "Algeria",
+      "lat": 31.7725,
+      "lon": 8.5669,
+      "D_slope": 1.092,
+      "D_route": 4.676,
+      "frac_gt8": 0.027
+    },
+    {
+      "cell_id": "E10K_223_-82",
+      "country": "Mauritania",
+      "lat": 17.7149,
+      "lon": -8.463,
+      "D_slope": 1.073,
+      "D_route": 4.68,
+      "frac_gt8": 0.019
+    },
+    {
+      "cell_id": "E10K_466_584",
+      "country": "Turkmenistan",
+      "lat": 39.3404,
+      "lon": 60.6951,
+      "D_slope": 1.036,
+      "D_route": 4.682,
+      "frac_gt8": 0.053
+    },
+    {
+      "cell_id": "E10K_372_53",
+      "country": "Algeria",
+      "lat": 30.4064,
+      "lon": 5.5555,
+      "D_slope": 1.133,
+      "D_route": 4.683,
+      "frac_gt8": 0.031
+    },
+    {
+      "cell_id": "E10K_230_187",
+      "country": "Chad",
+      "lat": 18.2909,
+      "lon": 19.4702,
+      "D_slope": 1.082,
+      "D_route": 4.684,
+      "frac_gt8": 0.028
+    },
+    {
+      "cell_id": "E10K_355_403",
+      "country": "Saudi Arabia",
+      "lat": 28.8802,
+      "lon": 41.8998,
+      "D_slope": 1.084,
+      "D_route": 4.687,
+      "frac_gt8": 0.028
+    },
+    {
+      "cell_id": "E10K_240_-99",
+      "country": "Mauritania",
+      "lat": 19.117,
+      "lon": -10.2283,
+      "D_slope": 1.105,
+      "D_route": 4.695,
+      "frac_gt8": 0.006
+    },
+    {
+      "cell_id": "E10K_342_-110",
+      "country": "Morocco",
+      "lat": 27.7277,
+      "lon": -11.3706,
+      "D_slope": 1.064,
+      "D_route": 4.695,
+      "frac_gt8": 0.068
+    },
+    {
+      "cell_id": "E10K_399_83",
+      "country": "Tunisia",
+      "lat": 32.8796,
+      "lon": 8.6707,
+      "D_slope": 1.062,
+      "D_route": 4.697,
+      "frac_gt8": 0.045
+    },
+    {
+      "cell_id": "E10K_282_53",
+      "country": "Algeria",
+      "lat": 22.5482,
+      "lon": 5.5555,
+      "D_slope": 1.001,
+      "D_route": 4.702,
+      "frac_gt8": 0.038
+    },
+    {
+      "cell_id": "E10K_511_616",
+      "country": "Kazakhstan",
+      "lat": 44.0243,
+      "lon": 64.018,
+      "D_slope": 1.127,
+      "D_route": 4.706,
+      "frac_gt8": 0.014
+    },
+    {
+      "cell_id": "E10K_252_498",
+      "country": "Saudi Arabia",
+      "lat": 20.1135,
+      "lon": 51.7647,
+      "D_slope": 1.127,
+      "D_route": 4.711,
+      "frac_gt8": 0.02
+    },
+    {
+      "cell_id": "E10K_256_-100",
+      "country": "Mauritania",
+      "lat": 20.3636,
+      "lon": -10.3322,
+      "D_slope": 1.135,
+      "D_route": 4.713,
+      "frac_gt8": 0.004
+    },
+    {
+      "cell_id": "E10K_551_893",
+      "country": "Mongolia",
+      "lat": 48.5153,
+      "lon": 92.7819,
+      "D_slope": 1.144,
+      "D_route": 4.713,
+      "frac_gt8": 0.032
+    },
+    {
+      "cell_id": "E10K_330_220",
+      "country": "Libya",
+      "lat": 26.6743,
+      "lon": 22.8969,
+      "D_slope": 1.111,
+      "D_route": 4.726,
+      "frac_gt8": 0.014
+    },
+    {
+      "cell_id": "E10K_322_253",
+      "country": "Egypt",
+      "lat": 25.9772,
+      "lon": 26.3237,
+      "D_slope": 1.109,
+      "D_route": 4.727,
+      "frac_gt8": 0.026
+    },
+    {
+      "cell_id": "E10K_190_106",
+      "country": "Niger",
+      "lat": 15.0223,
+      "lon": 11.0591,
+      "D_slope": 1.132,
+      "D_route": 4.728,
+      "frac_gt8": 0.009
+    },
+    {
+      "cell_id": "E10K_331_289",
+      "country": "Egypt",
+      "lat": 26.7617,
+      "lon": 30.062,
+      "D_slope": 1.145,
+      "D_route": 4.734,
+      "frac_gt8": 0.013
+    },
+    {
+      "cell_id": "E10K_698_-762",
+      "country": "Canada",
+      "lat": 71.8198,
+      "lon": -79.0749,
+      "D_slope": 0.824,
+      "D_route": 4.737,
+      "frac_gt8": 0.285
+    },
+    {
+      "cell_id": "E10K_352_416",
+      "country": "Saudi Arabia",
+      "lat": 28.6132,
+      "lon": 43.2498,
+      "D_slope": 1.139,
+      "D_route": 4.75,
+      "frac_gt8": 0.005
+    },
+    {
+      "cell_id": "E10K_398_81",
+      "country": "Tunisia",
+      "lat": 32.7868,
+      "lon": 8.463,
+      "D_slope": 1.113,
+      "D_route": 4.753,
+      "frac_gt8": 0.035
+    },
+    {
+      "cell_id": "E10K_342_69",
+      "country": "Algeria",
+      "lat": 27.7277,
+      "lon": 7.2169,
+      "D_slope": 1.07,
+      "D_route": 4.755,
+      "frac_gt8": 0.054
+    },
+    {
+      "cell_id": "E10K_335_582",
+      "country": "Iran",
+      "lat": 27.112,
+      "lon": 60.4874,
+      "D_slope": 1.097,
+      "D_route": 4.756,
+      "frac_gt8": 0.032
+    },
+    {
+      "cell_id": "E10K_238_460",
+      "country": "Saudi Arabia",
+      "lat": 18.9514,
+      "lon": 47.8188,
+      "D_slope": 1.131,
+      "D_route": 4.759,
+      "frac_gt8": 0.009
+    },
+    {
+      "cell_id": "E10K_192_152",
+      "country": "Chad",
+      "lat": 15.1845,
+      "lon": 15.8358,
+      "D_slope": 1.103,
+      "D_route": 4.76,
+      "frac_gt8": 0.008
+    },
+    {
+      "cell_id": "E10K_303_300",
+      "country": "Egypt",
+      "lat": 24.3373,
+      "lon": 31.2042,
+      "D_slope": 1.136,
+      "D_route": 4.763,
+      "frac_gt8": 0.027
+    },
+    {
+      "cell_id": "E10K_339_247",
+      "country": "Egypt",
+      "lat": 27.4635,
+      "lon": 25.7006,
+      "D_slope": 1.122,
+      "D_route": 4.764,
+      "frac_gt8": 0.012
+    },
+    {
+      "cell_id": "E10K_387_-36",
+      "country": "Morocco",
+      "lat": 31.7725,
+      "lon": -3.6864,
+      "D_slope": 1.067,
+      "D_route": 4.765,
+      "frac_gt8": 0.056
+    },
+    {
+      "cell_id": "E10K_192_258",
+      "country": "Sudan",
+      "lat": 15.1845,
+      "lon": 26.8429,
+      "D_slope": 1.14,
+      "D_route": 4.772,
+      "frac_gt8": 0.029
+    },
+    {
+      "cell_id": "E10K_243_450",
+      "country": "Saudi Arabia",
+      "lat": 19.3655,
+      "lon": 46.7804,
+      "D_slope": 1.096,
+      "D_route": 4.783,
+      "frac_gt8": 0.012
+    },
+    {
+      "cell_id": "E10K_288_429",
+      "country": "Saudi Arabia",
+      "lat": 23.057,
+      "lon": 44.5997,
+      "D_slope": 0.912,
+      "D_route": 4.787,
+      "frac_gt8": 0.084
+    },
+    {
+      "cell_id": "E10K_221_225",
+      "country": "Chad",
+      "lat": 17.5507,
+      "lon": 23.4161,
+      "D_slope": 1.14,
+      "D_route": 4.788,
+      "frac_gt8": 0.03
+    }
+  ]
+}

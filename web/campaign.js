@@ -5,7 +5,7 @@
   const STORAGE = 'similitude.review-draft.v1';
   const REPORT = 'https://github.com/Johnlrr/nasa-earth-analog/blob/main/docs/validation_report.md';
   const CATALOG = [
-    { id: 'site:E10K_453_921', title: 'Da Qaidam', location: 'Qinghai, China', image: 'media/qaidam-4km.png', label: 'Terrain study', limit: 'A terrain reference. Access and collaboration require review; no field permission is established.' },
+    { id: 'site:E10K_453_921', title: 'Da Qaidam', location: 'Qinghai, China', image: 'media/qaidam-4km.png', label: 'Terrain study', limit: 'A terrain reference in China (outside our access screen). Its simulated routes do not match the ridge (pre-registered test, report §7d). Shown to demonstrate the workflow.' },
     { id: 'site:E10K_729_-319', title: 'Peary Land', location: 'North Greenland', image: 'media/peary-4km.png', label: 'DEM-sensitive', limit: 'This footprint leaves the robust set with ArcticDEM. Treat the terrain result as sensitive.' },
     { id: 'site:E10K_244_-1498', title: 'Mauna Loa–Mauna Kea', location: 'Hawaiʻi, United States', image: 'media/hawaii-4km.png', label: 'Shadow study', limit: 'Terrain-shadow evidence only. Sun geometry, camera response and site access remain unresolved.' }
   ];
@@ -28,6 +28,7 @@
     'The 30 m terrain baseline does not resolve metre-scale obstacles or establish soil strength.',
     'No access permission, safe route, weather forecast, lighting window or hardware performance has been verified.',
     'Peary Land is sensitive to the elevation model; see validation report section 7c.',
+    'Slope match is not route match: in the pre-registered planner test only 3 of 9 slope matches reproduce the ridge routes (report §7d).',
     'Checklist entries are planned survey work, not completed verification.'
   ];
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -159,7 +160,7 @@
     if (!catalog.length) { $('load-status').textContent = 'Study records are still loading. Please retry when candidates appear.'; location.hash = 'compare'; return; }
     state.task = 'navigation'; state.objectives = ['terrain', 'shadow', 'lighting', 'obstacles']; state.selected = ['site:E10K_453_921'];
     bindInputs(); renderCandidates(); render();
-    $('load-status').textContent = 'Worked example: Da Qaidam adds terrain evidence. Add Hawaiʻi to compare shadow evidence; camera response and soil remain unmeasured.';
+    $('load-status').textContent = 'Worked example: Da Qaidam adds slope evidence but its simulated routes do not match the ridge, and it is in China. Field leads that pass both terrain tests (Argentina, Baffin Island) are in the explorer site finder. Add Hawaiʻi to compare shadow evidence; camera response and soil remain unmeasured.';
     location.hash = 'compare';
   });
   for (const [id, extension] of [['download-brief', 'html'], ['download-data', 'json']]) $(id).addEventListener('click', () => {
@@ -168,14 +169,13 @@
     download(extension === 'html' ? briefHTML(pack) : JSON.stringify(pack, null, 2), extension === 'html' ? 'text/html;charset=utf-8' : 'application/json', extension);
   });
   bindInputs(); render();
+  fetch('data/access.json').then(r => r.json()).then(acc => { const reg = acc.regions.find(r => r.id === TARGET); const lead = reg && reg.leads.find(l => l.cell_id === 'E10K_-355_-671'); if (!lead) return; $('hero-moon').textContent = pct(reg.target_frac_gt8); $('hero-earth').textContent = pct(lead.frac_gt8); $('hero-moon-bar').style.width = (reg.target_frac_gt8 * 100) + '%'; $('hero-earth-bar').style.width = (lead.frac_gt8 * 100) + '%'; }).catch(() => {});
   fetch('data/candidates.geojson').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); }).then(async text => {
     const data = JSON.parse(text); const entries = catalogFrom(data); if (!entries.length) throw new Error('No supported study footprints found.');
     if (globalThis.crypto?.subtle) { try { sourceHash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))].map(b => b.toString(16).padStart(2, '0')).join(''); } catch (_) { /* explicitly null in export */ } }
     $('candidate-grid').setAttribute('aria-busy', 'false');
     source = data; catalog = entries; state.selected = state.selected.filter(id => catalog.some(c => c.id === id));
     $('load-status').textContent = '';
-    const descriptor = catalog.find(c => c.id === 'site:E10K_453_921')?.cells[0]?.properties?.lens_scores?.L1?.descriptors?.frac_gt8;
-    if (descriptor) { $('hero-moon').textContent = pct(descriptor.target); $('hero-earth').textContent = pct(descriptor.earth); $('hero-moon-bar').style.width = (descriptor.target * 100) + '%'; $('hero-earth-bar').style.width = (descriptor.earth * 100) + '%'; }
     renderCandidates(); render();
   }).catch(error => { $('candidate-grid').setAttribute('aria-busy', 'false'); $('load-status').classList.add('error'); $('load-status').setAttribute('role', 'alert'); $('load-status').textContent = 'Study records could not be loaded (' + error.message + '). Reload this page or use the scientific evidence link. Export is unavailable.'; });
 })();

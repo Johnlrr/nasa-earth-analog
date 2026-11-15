@@ -5591,7 +5591,8 @@
       "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
      }
     ],
-    "multilens": []
+    "multilens": [],
+    "route_test": "Traverse test (pre-registered, 30 m planner): the ridge match E10K_453_921 does NOT reproduce the ridge's simulated traverse routes (slope match only)."
    }
   },
   {
@@ -5731,7 +5732,8 @@
       "reason": "shadows are computed inside the 10 km chip only, on both sides"
      }
     ],
-    "multilens": []
+    "multilens": [],
+    "route_test": null
    }
   },
   {
@@ -5963,7 +5965,8 @@
       "partner_state": "engine TRANSFERS",
       "edge_of_radius": false
      }
-    ]
+    ],
+    "route_test": "Traverse test (pre-registered, 30 m planner): the ridge match E10K_729_-319 reproduces the ridge's simulated traverse routes on two DEMs."
    }
   },
   {
@@ -6296,7 +6299,8 @@
       "partner_state": "literature-only",
       "edge_of_radius": true
      }
-    ]
+    ],
+    "route_test": null
    }
   },
   {
@@ -6472,7 +6476,8 @@
       "partner_state": "literature-only",
       "edge_of_radius": true
      }
-    ]
+    ],
+    "route_test": null
    }
   },
   {
@@ -6600,7 +6605,8 @@
       "reason": "below the 30 m DEM baseline on both sides (LOLA 5 m maps cannot resolve 1-2 m boulders either)"
      }
     ],
-    "multilens": []
+    "multilens": [],
+    "route_test": null
    }
   }
  ]

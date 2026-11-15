@@ -328,6 +328,176 @@ def main() -> None:
                 put(f"access_{slug}_best_usable_frac_gt8", best["frac_gt8"], src)
                 put(f"access_{slug}_best_usable_traverse_km", best["traverse_km"], src)
 
+    # V1: pre-registered traverse-outcome test (config/prereg_route_v1.yaml)
+    rv_path = D / "route_validity.json"
+    if rv_path.exists():
+        rv = json.loads(rv_path.read_text(encoding="utf-8"))
+        src = "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
+        put("v1_passer_reproduce", rv["passer"][0], src)
+        put("v1_passer_n", rv["passer"][1], src)
+        put("v1_null_reproduce", rv["null"][0], src)
+        put("v1_null_n", rv["null"][1], src)
+        put("v1_null_share", rv["null"][0] / rv["null"][1], src)
+        put("v1_classic_reproduce", rv["classic"][0], src)
+        put("v1_classic_n", rv["classic"][1], src)
+        put("v1_passer_second_dem_reproduce", rv["passer_second_dem"][0], src)
+        put("v1_moon_native_reproduce", rv["moon_native_reproduce"][0], src)
+        put("v1_moon_native_n", rv["moon_native_reproduce"][1], src)
+        put("v1_h1_p", rv["H1_p"], src)
+        put("v1_h1_verdict", "PASS" if rv["H1_pass"] else "FAIL", src)
+        put("v1_h1b_p", rv["H1b_p"], src)
+        put("v1_h2_rho", rv["H2_rho"], src)
+        put("v1_h2_verdict", "PASS" if rv["H2_pass"] else "FAIL", src)
+        put("v1_ridge_climb_10", rv["ridge_outcomes"]["climb_10"], src)
+        rvt = pd.read_parquet(D / "route_validity.parquet")
+        pas = rvt[rvt.group.eq("passer")]
+        put("v1_passer_climb_10_median", float(pas.climb_10.median()), src)
+        put("v1_classic_climb_10_median", float(rvt[rvt.group.eq("classic")].climb_10.median()),
+            src)
+
+    # V2 (pre-registered threshold) and M1 Mars lens: config/prereg_v2_mars.yaml
+    v2_path = D / "route_v2.json"
+    if v2_path.exists():
+        v2 = json.loads(v2_path.read_text(encoding="utf-8"))
+        src = "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+        put("v2_n_moon_native", v2["n_moon_native"], src)
+        put("v2_tau", v2["tau"], src)
+        put("v2_passer_reproduce", v2["passer"][0], src)
+        put("v2_passer_n", v2["passer"][1], src)
+        put("v2_null_reproduce", v2["null"][0], src)
+        put("v2_null_n", v2["null"][1], src)
+        put("v2_null_share", v2["null"][0] / v2["null"][1], src)
+        put("v2_classic_reproduce", v2["classic"][0], src)
+        put("v2_classic_n", v2["classic"][1], src)
+        put("v2_classic_share", v2["classic"][0] / v2["classic"][1], src)
+        put("v2_h1_p", v2["H1_p"], src)
+        put("v2_h1_verdict", "PASS" if v2["H1_pass"] else "FAIL", src)
+        # two registered looks at H1 (V1, V2): Bonferroni-adjusted p for the second one
+        put("v2_h1_p_bonferroni", min(1.0, 2 * v2["H1_p"]), src)
+        put("v2_h1b_p", v2["H1b_p"], src)
+        put("v2_h1b_verdict", "PASS" if v2["H1b_pass"] else "FAIL", src)
+        put("v2_h2_rho", v2["H2_rho"], src)
+    # square ground cells (Deviations 40) supersede the first M1 run when present
+    m1_path = D / "mars_m1_square.json"
+    if not m1_path.exists():
+        m1_path = D / "mars_m1.json"
+    if m1_path.exists():
+        m1 = json.loads(m1_path.read_text(encoding="utf-8"))
+        src = f"data/derived/{m1_path.name} (scripts/v2_mars.py, pre-registered M1)"
+        put("mars_n_neighbours", m1["n_mars_neighbours"], src)
+        put("mars_target_frac_gt8", m1["target"]["frac_gt8"], src)
+        put("mars_classic_match", m1["classic_mars"][0], src)
+        put("mars_classic_n", m1["classic_mars"][1], src)
+        put("mars_classic_share", m1["classic_mars"][0] / m1["classic_mars"][1], src)
+        put("mars_null_match", m1["null"][0], src)
+        put("mars_null_n", m1["null"][1], src)
+        put("mars_null_share", m1["null"][0] / m1["null"][1], src)
+        put("mars_moon_passer_match", m1["moon_passers"][0], src)
+        put("mars_p", m1["HM1_p"], src)
+        put("mars_verdict", "PASS" if m1["HM1_pass"] else "FAIL", src)
+        put("mars_open_matches", m1["n_open_matches"], src)
+        put("mars_open_countries", len({x["country"] for x in m1["open_matches"]}), src)
+        for site, (k, nn) in m1["per_site"].items():
+            slug = site.split()[0].strip(",").lower().replace("-", "")
+            put(f"mars_site_{slug}", f"{k}/{nn}", src)
+
+    # R1b: 30 m orbital slope vs Perseverance's measured tilt (config/prereg_rover_r1.yaml)
+    r1_path = D / "rover_r1.json"
+    if r1_path.exists():
+        r1 = json.loads(r1_path.read_text(encoding="utf-8"))
+        src = "data/derived/rover_r1.json (scripts/rover_r1.py, pre-registered R1/R1b)"
+        put("r1b_rho", r1["R1b"]["rho"], src)
+        put("r1b_n", r1["R1b"]["n_waypoints"], src)
+        put("r1b_rho_site", r1["R1b"]["sensitivity"]["per_site"]["rho"], src)
+        put("r1b_n_site", r1["R1b"]["sensitivity"]["per_site"]["n"], src)
+        put("r1b_verdict", "PASS" if r1["R1b"]["pass"] else "FAIL", src)
+        put("r1_rho", r1["R1"]["rho"], src)
+        put("r1_verdict", "PASS" if r1["R1"]["pass"] else "FAIL", src)
+        put("r2_verdict", "PASS" if r1["R2"]["pass"] else "FAIL", src)
+
+    # I1: low-Sun windows of the ridge matches (exploratory, Deviations 32)
+    lw_path = D / "lighting_windows.parquet"
+    if lw_path.exists():
+        lw = pd.read_parquet(lw_path).set_index("cell_id")
+        src = "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
+        three = lw[lw.route_reproduces & lw.route_reproduces_second_dem.fillna(False)]
+        put("i1_three_tests_n", len(three), src)
+        hero = lw[lw.route_reproduces & lw.route_reproduces_second_dem.fillna(False)
+                  & lw.open_country & lw.l1_robust_second_dem.fillna(False)
+                  & ~lw.in_exclusion_buffer.fillna(True)]
+        put("i1_open_all_tests_n", len(hero), src)
+        put("i1_open_all_tests_countries", ", ".join(sorted(hero.country.unique())), src)
+        for cid, slug in (("E10K_660_-632", "baffin"), ("E10K_-355_-671", "argentina")):
+            if cid in lw.index:
+                r = lw.loc[cid]
+                put(f"i1_{slug}_lat", float(r.lat), src)
+                put(f"i1_{slug}_lon", float(r.lon), src)
+                put(f"i1_{slug}_window_days", int(r.window_days), src)
+                if int(r.window_days) > 0:
+                    put(f"i1_{slug}_window_from", r.window_from, src)
+                    put(f"i1_{slug}_window_to", r.window_to, src)
+                put(f"i1_{slug}_window_lowsun_h", float(r.window_lowsun_min_per_day) / 60.0, src)
+                put(f"i1_{slug}_lowsun_min_per_day", float(r.lowsun_min_per_day), src)
+                put(f"i1_{slug}_shadow_e2", float(r.shadow_e2), src)
+                put(f"i1_{slug}_route_D", float(r.route_D), src)
+                put(f"i1_{slug}_frac_gt8", float(
+                    pd.read_parquet(D / "access_leads.parquet").set_index("cell_id")
+                    .loc[[cid], "frac_gt8"].iloc[0]), "data/derived/access_leads.parquet")
+        put("i1_ridge_shadow_e2", float(lw.ridge_shadow_e2.iloc[0]), src)
+        t2 = pd.read_parquet(D / "targets_L2.parquet")
+        nat = t2[t2.target_id.eq("connecting_ridge") & ~t2.is_reference.astype(bool)]
+        t2src = "data/derived/targets_L2.parquet"
+        put("i1_ridge_native_shadow_e2_min", float(nat.shadow_e2.min()), t2src)
+        put("i1_ridge_native_shadow_e2_max", float(nat.shadow_e2.max()), t2src)
+        for cid, slug in (("E10K_-334_-677", "chile"), ("E10K_453_921", "da_qaidam")):
+            if cid in lw.index:
+                put(f"i1_{slug}_route_reproduces", bool(lw.loc[cid].route_reproduces), src)
+
+    # multi-scale check of the Baffin lead (exploratory, Deviations 34)
+    ms_path = D / "multiscale.json"
+    if ms_path.exists():
+        ms = json.loads(ms_path.read_text(encoding="utf-8"))
+        src = "data/derived/multiscale.json (scripts/multiscale_check.py)"
+        b = ms["leads"]["E10K_660_-632"]
+        put("ms_baffin_holds_all_scales", all(v["holds"] for v in b["scales"].values()), src)
+        put("ms_baffin_frac_gt8_5m", b["scales"]["5"]["frac_gt8"], src)
+        put("ms_ridge_frac_gt8_5m", ms["moon"]["5"]["ridge"]["frac_gt8"], src)
+        put("ms_baffin_frac_gt20_5m", b["scales"]["5"]["frac_gt20"], src)
+        put("ms_ridge_frac_gt20_5m", ms["moon"]["5"]["ridge"]["frac_gt20"], src)
+        put("ms_baffin_climb_10m", b["routes"]["10"]["climb_10"], src)
+        put("ms_ridge_climb_10m", ms["moon"]["routes"]["10"]["climb_10"], src)
+
+    # campaign coverage for Connecting Ridge (exploratory, Deviations 35)
+    cp_path = D / "campaign_connecting_ridge.json"
+    if cp_path.exists():
+        cp = json.loads(cp_path.read_text(encoding="utf-8"))
+        src = "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+        put("camp_n_field", cp["n_field"], src)
+        put("camp_two_leads", cp["campaign_two_leads"], src)
+        put("camp_best_classic_alone", cp["best_classic_alone"], src)
+        put("camp_baffin_joint", cp["per_site_joint"]["Baffin Island lead"], src)
+        put("camp_n_facility", cp["n_facility"], src)
+        put("camp_haughton_window_days",
+            next(x["window_days"] for x in cp["sites"] if x["kind"] == "classic"), src)
+
+    # Artemis atlas: V1 rule and low-Sun calendar per region (exploratory, Deviations 36)
+    at_path = D / "artemis_atlas.json"
+    if at_path.exists():
+        at = json.loads(at_path.read_text(encoding="utf-8"))
+        src = "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+        put("atlas_n_regions", at["n_regions"], src)
+        put("atlas_regions_with_lead", at["regions_with_lead_all_tests"], src)
+        put("atlas_regions_with_lead_window",
+            sum(r["n_all_tests_window"] > 0 for r in at["regions"]), src)
+        put("atlas_leads_all_tests", sum(r["n_all_tests"] for r in at["regions"]), src)
+        put("atlas_leads_slope_two_dems", sum(r.get("n_slope_two_dems", 0)
+                                              for r in at["regions"]), src)
+        sh = next(r for r in at["regions"] if r["target_id"] == "shackleton_rim")
+        put("atlas_shackleton_slope_two_dems", sh["n_slope_two_dems"], src)
+        put("atlas_shackleton_routes_two_dems", sh["n_routes_two_dems"], src)
+        put("atlas_regions_no_lead",
+            sum(r["n_leads"] == 0 for r in at["regions"]), src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

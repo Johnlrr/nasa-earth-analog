@@ -20,7 +20,7 @@ test('raw comparison retains published values without converting scores into con
   assert.ok(count>100);
 });
 test('controls and decoys cannot be described as qualified discoveries',()=>{
-  for(const role of ['control','decoy'])assert.match(ui.classification({properties:{role}}),/not a qualified discovery/);
+  for(const role of ['control','decoy'])assert.match(ui.classification({properties:{role}}),/not a discovery/);
   assert.match(ui.classification({properties:{feature_type:'site'}}),/regional group/);
   assert.match(ui.classification(null),/No selection/);
 });
