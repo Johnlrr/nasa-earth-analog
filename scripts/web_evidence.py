@@ -108,7 +108,7 @@ def build() -> str:
 <h1>Can you trust the terrain verdicts, and what are they worth to a test team?</h1>
 <p class="lead">Every number on this page is generated from the pipeline tables. None of these
 checks changed a threshold or a verdict; all were run after the results were known and are
-listed as deviations in the validation report.</p>
+listed in the Deviations table of the validation report (rows 25 to 30).</p>
 <div class="ev-tiles">{tile_html}</div>
 
 <h2>1. Read beside NASA's Artemis III requirements</h2>
@@ -139,7 +139,12 @@ Moon terrain test and the Mars ice test at one camp, but it is marginal: with a 
 rank in the strictest configuration is {n(num, 'cross_dem_peary_land_rank_full_metric')} where
 the rule needs {n(num, 'rank_rule_threshold')}.</p>
 {fig('fig_region_matrix.png', 'Six PGDA 78 south-pole sites against two engine matches and six classic analog sites',
-     'A match is a 4 km footprint, not a region: of the 9 footprints of the 12 km block around each engine match, 1 passes with both DEMs (at Da Qaidam the cell itself; at Peary Land the footprint 4 km south, not the cell).')}
+     'A match is a 4 km footprint, not a region: of the 9 footprints of the 12 km block around each engine match, '
+     + n(num, 'stability_da_qaidam_robust_both_dems') + ' passes with both DEMs at Da Qaidam ('
+     + ('the cell itself' if num['stability_da_qaidam_cell_itself_robust_both_dems']['value'] else 'a neighbour, not the cell')
+     + ') and ' + n(num, 'stability_peary_land_robust_both_dems') + ' at Peary Land ('
+     + ('the cell itself' if num['stability_peary_land_cell_itself_robust_both_dems']['value'] else 'a neighbour, not the cell')
+     + ').')}
 
 <h2>3. What a field test can and cannot bring home</h2>
 <p>By this engine's measure a terrain site reproduces {n(num, 'coverage_L1_transfers')} of
@@ -182,7 +187,7 @@ polar-desert controls pass, one of them the calibration site;
 <li>Mineral lens: {n(num, 'm1_checks_passed')} of {n(num, 'm1_checks_n')} pre-registered checks
 pass; the stop rule is {n(num, 'm1_stop_rule_verdict')}, so no mineral analog is published.</li>
 </ul>
-<p class="note">Counts of matching cells come from a 307-cell sample screened towards Connecting
+<p class="note">Counts of matching cells come from a {n(num, 'l1_cells_scored_rank_seed')}-cell sample screened towards Connecting
 Ridge, not from a census: about {n(num, 'prevalence_connecting_ridge_cells', '{:,}')} bare-land
 cells (95 % CI {n(num, 'prevalence_connecting_ridge_cells_lo', '{:,}')}–
 {n(num, 'prevalence_connecting_ridge_cells_hi', '{:,}')}) would pass the terrain test for the

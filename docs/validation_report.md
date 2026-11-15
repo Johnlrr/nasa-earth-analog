@@ -49,10 +49,10 @@ matching, and a single verdict source. **Every table below is written by
 
 <!-- BEGIN:checks_headline -->
 - **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our formula at 5 m differs from NASA's slope rasters by at most 0.0009° on the median slope and 0.004 points on the 8° and 20° shares.
-- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 102 of 109 verdicts are unchanged (ridge cells, classic controls, wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). A verdict that changes with the DEM is marginal and is reported as such.
+- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 102 of 109 verdicts are unchanged (ridge cells, classic controls, wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). The 7 cells whose verdict changes are marginal; each is listed in §7c and counted on the protocol of its site (Atacama – Puna altiplano (Chile: 3; Peary Land: 1; Chechar District: 1; Sorkheh County: 1; — (ice-excluded: 1).
 - **Six PGDA 78 south-pole sites, not two (exploratory).** Da Qaidam is in the robust set of 3 of the 6 sites (Connecting Ridge, de Gerlache rim, peak near Shackleton); Peary Land is in the robust set of 1 of the 6 sites (Connecting Ridge).
-- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the 6 classic sites, 0 of 54 footprints are in the robust set for Connecting Ridge. In the block around each engine match, 1 of the 9 footprints at Da Qaidam and 1 of the 9 footprints at Peary Land is robust with both DEMs (at Da Qaidam the cell itself and none of its eight neighbours; at Peary Land the footprint 4 km south, not the cell): the coordinates matter, the region name does not.
-- **Known truth on the Moon.** Scored like Earth cells, footprints of the Shackleton inner wall pass their own reference in 4 of 4 cases and footprints of the other sites in 13 of 45: the test separates the steep wall. It does not separate the ridge, rim and massif sites from one another: same site 12 of 28, other sites 81 of 225, against 110 of 302 for any lunar footprint (each configuration passes about half of the lunar population by construction). The Connecting Ridge reference even ranks footprints of de Gerlache rim and of the peak near Shackleton above its own. The test recognises a terrain class, not a named place.
+- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the 6 classic sites, 0 of 54 footprints are in the robust set for Connecting Ridge. In the block around each engine match, 1 of the 9 footprints at Da Qaidam and 1 of the 9 footprints at Peary Land is robust with both DEMs (at Da Qaidam the cell itself; at Peary Land the footprint 4 km south, not the cell): the coordinates matter, the region name does not.
+- **Known truth on the Moon.** Scored like Earth cells, footprints of the Shackleton inner wall pass their own reference in 4 of 4 cases and footprints of the other sites in 13 of 45: the test separates the steep wall. It does not separate the ridge, rim and massif sites from one another: same site 12 of 28, other sites 81 of 225, against 110 of 302 for any lunar footprint (each configuration passes about half of the lunar population by construction). For the Connecting Ridge reference, its own footprints pass in 2 of 4 cases, fewer than those of de Gerlache rim (6 of 9) and peak near Shackleton (5 of 9). The test recognises a terrain class, not a named place.
 - **Prevalence from a random sample.** In 1000 random cells of the unscreened bare land, 1 pass for Connecting Ridge (0.10 %, 95 % CI 0.00 %–0.56 %) and 9 for the Shackleton inner wall (0.90 %, 0.41 %–1.70 %). On the same cells: 8 pass for the wall only, 0 for the ridge only, 1 for both (exact McNemar p = 0.0078). With the 5 passing cells already known among the screened ones, about 201 bare-land cells (95 % CI 10–1,093) would pass for Connecting Ridge.
 <!-- END:checks_headline -->
 
@@ -582,6 +582,18 @@ Central 4 km footprint of each PGDA 78 site; NASA raster = `SiteNN_final_adj_5mp
 | ridge match | nan | E10K_726_-686 | ArcticDEM | 85.2 % | 85.0 % | 49/34/44 of 49 | yes | yes |
 | ridge match | nan | E10K_699_-750 | ArcticDEM | 79.5 % | 79.2 % | 44/29/44 of 49 | yes | yes |
 
+All 7 cells whose verdict changes with the second DEM (marginal: each misses the threshold by a few ranks in one configuration); the protocol of every showcase site states how many of its cells are marginal (`docs/test_protocols.md`):
+
+| target | site | cell | second DEM | native rank (i)/(ii)/(iii), second DEM | showcase site | cells in that site |
+|---|---|---|---|---|---|---|
+| Connecting Ridge | Peary Land, North Greenland | E10K_729_-319 | ArcticDEM | 44/19/44 of 49 | yes | 1 |
+| Shackleton inner wall | Atacama – Puna altiplano (Chile, Argentina, Bolivia) | E10K_-265_-663 | NASADEM | 22/49/26 of 49 | yes | 54 |
+| Shackleton inner wall | Atacama – Puna altiplano (Chile, Argentina, Bolivia) | E10K_-331_-676 | NASADEM | 24/47/27 of 49 | yes | 54 |
+| Shackleton inner wall | Atacama – Puna altiplano (Chile, Argentina, Bolivia) | E10K_-338_-656 | NASADEM | 23/39/26 of 49 | yes | 54 |
+| Shackleton inner wall | Chechar District, Khenchela (Algeria) | E10K_421_65 | NASADEM | 23/48/26 of 49 | no | 1 |
+| Shackleton inner wall | Sorkheh County, Semnan Province (Iran) | E10K_427_511 | NASADEM | 24/45/26 of 49 | no | 1 |
+| Shackleton inner wall | — (ice-excluded, not a site member) | E10K_722_-798 | ArcticDEM | 33/17/39 of 49 | no | — |
+
 Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same code, baselines and rule. "Wall match" = the cells kept for the Shackleton inner wall that are not also ridge cells. Three of the five ridge cells are ice-excluded (§7) and are listed only for the DEM comparison.
 <!-- END:cross_dem -->
 
@@ -601,7 +613,7 @@ Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N,
 | Engine match | Peary Land, North Greenland | ArcticDEM | 9 | 1 | 7 |
 | Engine match | Peary Land, North Greenland | GLO-30 | 9 | 2 | 7 |
 
-The 3 × 3 block of 4 km footprints centred on each site (12 km across), scored against Connecting Ridge with the unchanged rule. Da Qaidam: 1 of 9 footprints are robust with both DEMs (the cell itself). Peary Land: 1 of 9 footprints are robust with both DEMs (the footprint 4 km south). Neighbouring footprints are not candidates; a neighbour that passes was found by looking at nine, so it is a lead, not a result.
+The 3 × 3 block of 4 km footprints centred on each site (12 km across), scored against Connecting Ridge with the unchanged rule. Da Qaidam: 1 of 9 footprints are robust with both DEMs (the cell itself). Peary Land: 1 of 9 footprints are robust with both DEMs (the footprint 4 km south, not the cell). Neighbouring footprints are not candidates; a neighbour that passes was found by looking at nine, so it is a lead, not a result.
 <!-- END:site_stability -->
 
 ### Sensitivity to the rank threshold

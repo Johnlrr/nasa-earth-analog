@@ -1,6 +1,6 @@
 # Test protocols for the showcase sites (PLAN 2d)
 
-Generated 2026-11-15 15:35 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
+Generated 2026-11-15 15:38 by `scripts/mission_value.py` from `verdicts.parquet`, `field_facility.json`, `mission_criteria.parquet` and `config/mission.yaml`. Post hoc presentation layer: no threshold or verdict changed.
 
 ## What a card is, in NASA's terms
 
@@ -67,6 +67,7 @@ Evidence: engine-confirmed **L1** · 2 cell(s), span 143 km · showcase rule a
 - **Artemis III slope reading, cell E10K_453_921:** 79% of the footprint is steeper than 8° (Connecting Ridge reference 76%), 4.5% is steeper than 20° (reference 5.8%). Inside this 4 km footprint a traverse of about 10 km meets as much terrain steeper than 8° as 10 km on the target (if the share along the path equals the areal share; the neighbouring footprints differ). Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 - **Second DEM (NASADEM), cell E10K_453_921:** stays in the robust set (native rank 42/34/40 of 49; the rule needs 24.5).
 - **PGDA 78 south-pole sites matched by cell E10K_453_921 (exploratory beyond the two published targets):** 3 of 6 — connecting ridge, de gerlache rim, peak near shackleton.
+- **Second DEM, all terrain cells of the site:** 2 of 2 published terrain verdicts are unchanged.
 - **Facility rows to close elsewhere:** 5 (see `docs/field_facility.md`, same site).
 
 ### Mauna Loa – Mauna Kea, Hawaiʻi
@@ -85,6 +86,7 @@ Evidence: engine-confirmed **L1**, engine-semiquant **X1** · 1 cell(s), span 0 
 - **Artemis III slope reading, cell E10K_729_-319:** 56% of the footprint is steeper than 8° (Connecting Ridge reference 76%), 8.2% is steeper than 20° (reference 5.8%). Inside this 4 km footprint a traverse of about 14 km meets as much terrain steeper than 8° as 10 km on the target (if the share along the path equals the areal share; the neighbouring footprints differ). Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 - **Second DEM (ArcticDEM), cell E10K_729_-319:** **leaves** the robust set (native rank 44/19/44 of 49; the rule needs 24.5): the terrain verdict here is marginal.
 - **PGDA 78 south-pole sites matched by cell E10K_729_-319 (exploratory beyond the two published targets):** 1 of 6 — connecting ridge.
+- **Second DEM, all terrain cells of the site:** 0 of 1 published terrain verdicts are unchanged; marginal (verdict changes): E10K_729_-319.
 - **Facility rows to close elsewhere:** 11 (see `docs/field_facility.md`, same site).
 
 ### Atacama – Puna altiplano (Chile, Argentina, Bolivia)
@@ -93,6 +95,7 @@ Evidence: engine-confirmed **L1,L2** · 54 cell(s), span 1108 km · showcase rul
 
 - **L1 Slope traverse and touchdown-terrain rehearsal.** Test: crewed/uncrewed rover mobility and path planning on slopes, EVA traverse planning, hazard-map products for landing-site selection. Measure: traverse energy, slip and path length per km against the slope classes <8, 8-20 and >20 deg; compare with predictions made on the lunar DEM. Not reproduced here: wheel-soil traction and sinkage (gravity, regolith), dust, vacuum, thermal: facility rows of the card.
 - **L2 Low-Sun shadow navigation rehearsal.** Test: optical navigation and hazard detection cameras, traverse timing around long terrain shadows. Measure: navigation solution error and hazard-detection rate inside and at the edge of terrain shadows at the three Sun elevations. Not reproduced here: the Sun geometry itself (grazing Sun for all of daylight, 360 deg azimuth): NO-ANALOG at every Earth site; black sky without diffuse light.
+- **Second DEM, all terrain cells of the site:** 50 of 53 published terrain verdicts are unchanged; marginal (verdict changes): E10K_-265_-663, E10K_-331_-676, E10K_-338_-656.
 - **Facility rows to close elsewhere:** 12 (see `docs/field_facility.md`, same site).
 
 ### Jebel Akhdar, Hajar Mountains (Oman)
@@ -107,5 +110,6 @@ Evidence: engine-confirmed **L2** · 1 cell(s), span 0 km · showcase rule b
 Evidence: engine-confirmed **L1** · 5 cell(s), span 206 km · showcase rule c
 
 - **L1 Slope traverse and touchdown-terrain rehearsal.** Test: crewed/uncrewed rover mobility and path planning on slopes, EVA traverse planning, hazard-map products for landing-site selection. Measure: traverse energy, slip and path length per km against the slope classes <8, 8-20 and >20 deg; compare with predictions made on the lunar DEM. Not reproduced here: wheel-soil traction and sinkage (gravity, regolith), dust, vacuum, thermal: facility rows of the card.
+- **Second DEM, all terrain cells of the site:** 5 of 5 published terrain verdicts are unchanged.
 - **Facility rows to close elsewhere:** 5 (see `docs/field_facility.md`, same site).
 

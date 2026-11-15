@@ -50,7 +50,7 @@
 <h1>Can you trust the terrain verdicts, and what are they worth to a test team?</h1>
 <p class="lead">Every number on this page is generated from the pipeline tables. None of these
 checks changed a threshold or a verdict; all were run after the results were known and are
-listed as deviations in the validation report.</p>
+listed in the Deviations table of the validation report (rows 25 to 30).</p>
 <div class="ev-tiles"><div class="ev-tile"><p class="ev-num">76 % vs 9 %</p><p>of terrain steeper than 8°: the Connecting Ridge footprint against the median of six classic analog field sites, same formula on both worlds</p></div><div class="ev-tile"><p class="ev-num">1 vs 9 of 1,000</p><p>random bare-land cells pass the terrain test for the ridge and for the steep Shackleton inner wall (exact McNemar p = 0.008)</p></div><div class="ev-tile"><p class="ev-num">102 of 109</p><p>terrain verdicts unchanged when recomputed from a second, independent Earth DEM (NASADEM / ArcticDEM)</p></div><div class="ev-tile"><p class="ev-num">0.0009°</p><p>largest difference between our slope formula and NASA&#x27;s PGDA 78 slope rasters on six south-pole sites</p></div></div>
 
 <h2>1. Read beside NASA's Artemis III requirements</h2>
@@ -79,7 +79,7 @@ region: 71 analog papers in a Mars context,
 Moon terrain test and the Mars ice test at one camp, but it is marginal: with a second DEM its
 rank in the strictest configuration is 19 where
 the rule needs 24.5.</p>
-<figure class="ev-fig"><img src="figures/fig_region_matrix.png" alt="Six PGDA 78 south-pole sites against two engine matches and six classic analog sites" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='../docs/figures/fig_region_matrix.png';}"><figcaption>A match is a 4 km footprint, not a region: of the 9 footprints of the 12 km block around each engine match, 1 passes with both DEMs (at Da Qaidam the cell itself; at Peary Land the footprint 4 km south, not the cell).</figcaption></figure>
+<figure class="ev-fig"><img src="figures/fig_region_matrix.png" alt="Six PGDA 78 south-pole sites against two engine matches and six classic analog sites" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='../docs/figures/fig_region_matrix.png';}"><figcaption>A match is a 4 km footprint, not a region: of the 9 footprints of the 12 km block around each engine match, 1 passes with both DEMs at Da Qaidam (the cell itself) and 1 at Peary Land (a neighbour, not the cell).</figcaption></figure>
 
 <h2>3. What a field test can and cannot bring home</h2>
 <p>By this engine's measure a terrain site reproduces 1 of

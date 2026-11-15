@@ -442,14 +442,16 @@ def _stability_line() -> str:
     both = em.pivot_table(index=["site", "dx", "dy"], columns="dem", values="robust",
                           aggfunc="first").all(axis=1)
     per = both.groupby(level=0).sum()
+    where = "; ".join(
+        f"at {site.split(',')[0]} " + " and ".join(_place(dx, dy) for _, dx, dy in d[d].index)
+        for site, d in both.groupby(level=0))
     return (f"- **A match is a 4 km footprint, not a region.** In the 12 km blocks around the "
             f"{cl['site'].nunique()} classic sites, {int(cl['robust'].sum())} of {len(cl)} "
             f"footprints are in the robust set for Connecting Ridge. In the block around each "
             f"engine match, " + " and ".join(f"{int(k)} of the 9 footprints at "
                                              f"{site.split(',')[0]}" for site, k in per.items())
-            + " is robust with both DEMs (at Da Qaidam the cell itself and none of its eight "
-            "neighbours; at Peary Land the footprint 4 km south, not the cell): the coordinates "
-            "matter, the region name does not.")
+            + f" is robust with both DEMs ({where}): the coordinates matter, the region name "
+            "does not.")
 
 
 def t_checks_headline() -> str:
@@ -481,9 +483,20 @@ def t_checks_headline() -> str:
     wall = ctrl[ctrl["reference_region"].eq("shackleton_rim")]
     w_same = wall[wall["candidate_region"].eq("shackleton_rim")].iloc[0]
     w_other = wall[wall["candidate_region"].ne("shackleton_rim")]
+    crc = ctrl[ctrl["reference_region"].eq("connecting_ridge")].set_index("candidate_region")
+    rate = crc["n_pass"] / crc["n"]
+    above = [k for k in rate.index if k != "connecting_ridge"
+             and rate[k] > rate["connecting_ridge"]]
+    cr_line = ("" if not above else
+               f"For the Connecting Ridge reference, its own footprints pass in "
+               f"{int(crc.loc['connecting_ridge', 'n_pass'])} of "
+               f"{int(crc.loc['connecting_ridge', 'n'])} cases, fewer than those of "
+               + " and ".join(f"{_label(k)} ({int(crc.loc[k, 'n_pass'])} of "
+                              f"{int(crc.loc[k, 'n'])})" for k in above) + ". ")
     p = pd.read_parquet(DERIVED / "l1_prevalence.parquet").set_index("target_id")
     cr, sh = p.loc["connecting_ridge"], p.loc["shackleton_rim"]
     rv = r["ridge_vs_wall"]
+    flips = _dem_flips()
     return "\n".join([
         f"- **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our "
         f"formula at 5 m differs from NASA's slope rasters by at most "
@@ -491,8 +504,10 @@ def t_checks_headline() -> str:
         f"{100 * r['nasa_frac_max_abs_diff']:.3f} points on the 8° and 20° shares.",
         f"- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, "
         f"{same} of {len(pub)} verdicts are unchanged (ridge cells, classic controls, wall "
-        "cells). " + "; ".join(dem_line(i) for i in usable) + ". A verdict that "
-        "changes with the DEM is marginal and is reported as such.",
+        "cells). " + "; ".join(dem_line(i) for i in usable) + f". The {len(flips)} cells "
+        "whose verdict changes are marginal; each is listed in §7c and counted on the protocol "
+        "of its site (" + "; ".join(f"{k.split(',')[0]}: {v}" for k, v in
+                                    flips["site"].value_counts().items()) + ").",
         "- **Six PGDA 78 south-pole sites, not two (exploratory).** " + "; ".join(
             f"{names.get(i, i)} is in the robust set of {len(v)} of the 6 sites "
             f"({', '.join(_label(x) for x in v)})" for i, v in n_reg.items()) + ".",
@@ -505,9 +520,8 @@ def t_checks_headline() -> str:
         f"same site {lc['no_wall_same_pass']} of {lc['no_wall_same_n']}, other sites "
         f"{lc['no_wall_other_pass']} of {lc['no_wall_other_n']}, against "
         f"{lc['all_pass']} of {lc['all_n']} for any lunar footprint (each configuration passes "
-        f"about half of the lunar population by construction). The Connecting Ridge reference "
-        f"even ranks footprints of de Gerlache rim and of the peak near Shackleton above its "
-        f"own. The test recognises a terrain class, not a named place.",
+        f"about half of the lunar population by construction). " + cr_line
+        + "The test recognises a terrain class, not a named place.",
         f"- **Prevalence from a random sample.** In {int(cr['n'])} random cells of the "
         f"unscreened bare land, {int(cr['pass'])} pass for Connecting Ridge "
         f"({_pct(cr['rate'], 2)}, 95 % CI {_pct(cr['ci_lo'], 2)}–{_pct(cr['ci_hi'], 2)}) and "
@@ -546,6 +560,28 @@ def t_nasa_slope() -> str:
             f"{100 * d8:.1f} points and the 20° share by at most {100 * d20:.1f} points.")
 
 
+def _place(dx: int, dy: int) -> str:
+    if (dx, dy) == (0, 0):
+        return "the cell itself"
+    parts = ([f"{4 * abs(dy)} km {'north' if dy > 0 else 'south'}"] if dy else []) + (
+        [f"{4 * abs(dx)} km {'east' if dx > 0 else 'west'}"] if dx else [])
+    return "the footprint " + " and ".join(parts) + ", not the cell"
+
+
+def _dem_flips() -> pd.DataFrame:
+    """Cells whose published L1 verdict changes with the second DEM, with their site."""
+    c = pd.read_parquet(DERIVED / "cross_dem.parquet")
+    c = c[c["alt_ok"] & c["robust_glo30"].astype(bool) & ~c["robust"].astype(bool)
+          & c["target_id"].isin(["connecting_ridge", "shackleton_rim"])]
+    sc = pd.read_parquet(DERIVED / "site_cells.parquet")[["cell_id", "site_id", "ice_check"]]
+    s = pd.read_parquet(DERIVED / "sites.parquet").set_index("site_id")
+    c = c.merge(sc, on="cell_id", how="left")
+    c["site"] = c["site_id"].map(s["name"]).fillna("— (ice-excluded, not a site member)")
+    c["showcase"] = c["site_id"].map(s["showcase"]).fillna("")
+    c["site_cells"] = c["site_id"].map(s["n_cells"])
+    return c.sort_values(["target_id", "site", "cell_id"]).reset_index(drop=True)
+
+
 def t_cross_dem() -> str:
     c = pd.read_parquet(DERIVED / "cross_dem.parquet")
     c = c[c["alt_ok"]]
@@ -571,7 +607,20 @@ def t_cross_dem() -> str:
             zip(d["nr_i"], d["nr_ii"], d["nr_iii"], d["n_i"], strict=True)],
         "robust, GLO-30": d["robust_glo30"].map({True: "yes", False: "no"}),
         "robust, second DEM": d["robust"].map({True: "yes", False: "no"})})
+    f = _dem_flips()
+    flips = pd.DataFrame({
+        "target": [_label(x) for x in f["target_id"]], "site": f["site"], "cell": f["cell_id"],
+        "second DEM": f["alt_source"],
+        "native rank (i)/(ii)/(iii), second DEM": [
+            f"{int(a)}/{int(b)}/{int(e)} of {int(n)}" for a, b, e, n in
+            zip(f["nr_i"], f["nr_ii"], f["nr_iii"], f["n_i"], strict=True)],
+        "showcase site": f["showcase"].map(lambda x: "yes" if x else "no"),
+        "cells in that site": f["site_cells"].map(lambda x: "—" if pd.isna(x) else int(x))})
     return (md_table(g) + "\n\n" + md_table(cells.sort_values(["cells", "site"]))
+            + f"\n\nAll {len(f)} cells whose verdict changes with the second DEM (marginal: "
+            "each misses the threshold by a few ranks in one configuration); the protocol of "
+            "every showcase site states how many of its cells are marginal "
+            "(`docs/test_protocols.md`):\n\n" + md_table(flips)
             + "\n\nSecond DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and "
             "60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same "
             "code, baselines and rule. \"Wall match\" = the cells kept for the Shackleton "
@@ -589,14 +638,7 @@ def t_site_stability() -> str:
     both = s[s["group"].eq("Engine match")].pivot_table(
         index=["site", "dx", "dy"], columns="dem", values="robust", aggfunc="first")
     nb = {site: int(d.all(axis=1).sum()) for site, d in both.groupby(level=0)}
-    def place(dx: int, dy: int) -> str:
-        if (dx, dy) == (0, 0):
-            return "the cell itself"
-        parts = ([f"{4 * abs(dy)} km {'north' if dy > 0 else 'south'}"] if dy else []) + (
-            [f"{4 * abs(dx)} km {'east' if dx > 0 else 'west'}"] if dx else [])
-        return "the footprint " + " and ".join(parts)
-
-    where = {site: "; ".join(place(dx, dy) for _, dx, dy in d[d.all(axis=1)].index)
+    where = {site: "; ".join(_place(dx, dy) for _, dx, dy in d[d.all(axis=1)].index)
              for site, d in both.groupby(level=0)}
     g.columns = ["group", "site", "DEM", "footprints scored", "in the robust set",
                  "pass at least one configuration"]
@@ -615,7 +657,6 @@ def t_threshold_sensitivity() -> str:
     crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
     kept = crit[crit["group"].eq("Engine match")]
     classic = set(crit[crit["group"].eq("Classic analog")]["id"])
-    earth = pd.read_parquet(DERIVED / "earth_L1.parquet").drop_duplicates("cell_id")
     ctrl = s[s["cell_id"].isin(classic)]
     rows = []
     for label, f in (("n/3", 1 / 3), ("n/2 (published rule)", 1 / 2), ("2n/3", 2 / 3)):
@@ -637,7 +678,6 @@ def t_threshold_sensitivity() -> str:
         c = ctrl[ctrl["target_id"].eq("connecting_ridge")]
         row["classic sites passing (ridge)"] = f"{int(ok[c.index].sum())}/{len(c)}"
         rows.append(row)
-    del earth
     return (md_table(pd.DataFrame(rows)) + "\n\nA cell must reach the threshold in all three "
             "configurations. Counts before the ice filter and the visual review; first DEM "
             "(Copernicus GLO-30).")

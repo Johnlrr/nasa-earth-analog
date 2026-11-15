@@ -262,7 +262,10 @@ def build() -> dict:
     # the two rates are measured on the same random cells: exact McNemar on discordant cells
     allc = pd.concat([scored, null2], ignore_index=True) if null2 is not None else scored
     rnd = allc[allc["sample_role"].isin(["null", "null2"]) & allc["target_id"].isin(PUBLISHED)]
-    pv = rnd.pivot(index="cell_id", columns="target_id", values="robust").astype(bool)
+    pv = rnd.pivot(index="cell_id", columns="target_id", values="robust")
+    if pv.isna().any().any():
+        raise SystemExit("a random cell lacks a verdict for one of the published targets")
+    pv = pv.astype(bool)
     b = int((pv["connecting_ridge"] & ~pv[wall]).sum())
     c = int((~pv["connecting_ridge"] & pv[wall]).sum())
     summary["ridge_vs_wall"] = {

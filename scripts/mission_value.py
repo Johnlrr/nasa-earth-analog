@@ -273,6 +273,22 @@ def _robustness_lines(cell_id: str) -> list[str]:
     return out
 
 
+def _site_dem_line(cells: list[str]) -> list[str]:
+    """How many of a site's terrain cells keep their published verdict with the second DEM."""
+    p = DERIVED / "cross_dem.parquet"
+    if not p.exists():
+        return []
+    c = pd.read_parquet(p)
+    c = c[c["cell_id"].isin(cells) & c["alt_ok"] & c["robust_glo30"].astype(bool)
+          & c["target_id"].isin([MOON_TARGET, "shackleton_rim"])]
+    if c.empty:
+        return []
+    lost = sorted(c[~c["robust"].astype(bool)]["cell_id"].unique())
+    line = (f"- **Second DEM, all terrain cells of the site:** {int(c['robust'].sum())} of "
+            f"{len(c)} published terrain verdicts are unchanged")
+    return [line + (f"; marginal (verdict changes): {', '.join(lost)}." if lost else ".")]
+
+
 def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                      generated: str, x1m: pd.DataFrame | None = None) -> str:
     req, gaps = CFG["requirements"], shortfall_names()
@@ -349,6 +365,7 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                        f"{CFG['criteria_caveat']}")
         for cid in [x for x in c["cells"].split(",") if x in kept.index]:
             out += _robustness_lines(cid)
+        out += _site_dem_line(c["cells"].split(","))
         n_fac = len(c["facility"])
         out += [f"- **Facility rows to close elsewhere:** {n_fac} (see `docs/field_facility.md`, "
                 "same site).", ""]

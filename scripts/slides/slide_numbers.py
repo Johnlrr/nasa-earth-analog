@@ -278,7 +278,7 @@ def main() -> None:
             put(f"stability_{slug}_cell_itself_robust_both_dems",
                 bool(d.xs((0, 0), level=("dx", "dy")).iloc[0]), src)
         g30 = ss[ss.dem.eq("GLO-30")].groupby(["group", "site"]).frac_gt8.mean()
-        ref8 = float(crit[crit.group.eq("Moon target")].frac_gt8.iloc[0])
+        ref8 = float(crit[crit.id.eq("connecting_ridge")].frac_gt8.iloc[0])
         for site, v in g30["Engine match"].items():
             slug = next((val for k, val in slugs.items() if k in str(site)), site)
             put(f"traverse_km_block_{slug}", 10 * ref8 / float(v), src)
