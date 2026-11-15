@@ -1,0 +1,116 @@
+{
+  "E10K_691_-680": {
+    "src": "media/expedition/footprints/E10K_691_-680.png",
+    "name": "Qikiqtaaluk Region, Nunavut (Canada)",
+    "credit": "Copernicus Sentinel-2 / Google Earth Engine",
+    "note": "Nominal 4 km footprint; 2023 multi-date median, not a single acquisition. Cloud/shadow mask; snow retained. Source bands 10 m; 640 px display. Not used in the similarity score.",
+    "collection": "COPERNICUS/S2_SR_HARMONIZED",
+    "scene_count": 117,
+    "date_range": [
+      "2023-01-01",
+      "2024-01-01"
+    ],
+    "center_lon_lat": [
+      -70.56,
+      69.9389
+    ],
+    "region_geojson": {
+      "geodesic": false,
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -70.61246758895848,
+            69.92090336240403
+          ],
+          [
+            -70.50753979248375,
+            69.92090336240403
+          ],
+          [
+            -70.50753979248375,
+            69.95689773190298
+          ],
+          [
+            -70.61246758895848,
+            69.95689773190298
+          ],
+          [
+            -70.61246758895848,
+            69.92090336240403
+          ]
+        ]
+      ]
+    },
+    "bands": [
+      "B4",
+      "B3",
+      "B2"
+    ],
+    "visualization": {
+      "min": 0,
+      "max": 10000,
+      "gamma": 1.2
+    },
+    "source": "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED",
+    "license": "Copernicus Sentinel data; free and open use with attribution",
+    "processing": "2023 median, SCL excludes cloud shadow 3 and cloud/cirrus 8/9/10. Snow retained. No terrain inference."
+  },
+  "E10K_453_921": {
+    "src": "media/expedition/footprints/qaidam-4km.png",
+    "name": "Da Qaidam, Qinghai (China)",
+    "credit": "Copernicus Sentinel-2 / Google Earth Engine",
+    "note": "Nominal 4 km footprint; 2023 multi-date median, not a single acquisition. Cloud/shadow mask; snow retained. Source bands 10 m; 640 px display. Not used in the similarity score.",
+    "collection": "COPERNICUS/S2_SR_HARMONIZED",
+    "scene_count": 187,
+    "date_range": [
+      "2023-01-01",
+      "2024-01-01"
+    ],
+    "center_lon_lat": [
+      95.6895,
+      38.0446
+    ],
+    "region_geojson": {
+      "geodesic": false,
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            95.66664696199163,
+            38.026603363076156
+          ],
+          [
+            95.71235013264665,
+            38.026603363076156
+          ],
+          [
+            95.71235013264665,
+            38.06259773190298
+          ],
+          [
+            95.66664696199163,
+            38.06259773190298
+          ],
+          [
+            95.66664696199163,
+            38.026603363076156
+          ]
+        ]
+      ]
+    },
+    "bands": [
+      "B4",
+      "B3",
+      "B2"
+    ],
+    "visualization": {
+      "min": 0,
+      "max": 6000,
+      "gamma": 1.2
+    },
+    "source": "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED",
+    "license": "Copernicus Sentinel data; free and open use with attribution",
+    "processing": "2023 median, SCL excludes cloud shadow 3 and cloud/cirrus 8/9/10. Snow retained. No terrain inference."
+  }
+}
