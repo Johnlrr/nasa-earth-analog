@@ -549,10 +549,6 @@
     var total = 0;
     LENSES.forEach(function (l) { if (lm[l.id] && typeof lm[l.id].n_scored === 'number') total += lm[l.id].n_scored; });
     var sites = siteFeatures();
-    if (total) {
-      $('hero-fact').textContent = total.toLocaleString('en-US') + ' Earth cells scored · ' + LENSES.length + ' mission lenses' +
-        (sites.length ? ' · ' + sites.length + ' showcase field sites' : '') + ' · a random null sample for every lens';
-    }
     // hero: Da Qaidam, the match that holds with a second DEM (validation report 7c, slide 5);
     // fallback: the first showcase site
     var best = sites.filter(function (f) { return f.properties.id === HERO_SITE; })[0] || sites[0];
@@ -572,7 +568,7 @@
       });
       if (un) h += '<li><span class="v-unk-t">UNOBSERVED</span><span>' + esc(un.lens) + ' · ' + esc(un.variable) + '</span></li>';
       h += '</ul><button type="button" class="btn btn-primary af-open" data-open-site="' + esc(p.id) + '">Open this card <span aria-hidden="true">&rarr;</span></button>';
-      $('hero-card').innerHTML = h;
+      void h; // the hero now shows the open-country lead (renderHeroLead)
     }
     // lens cards
     $('lens-cards').innerHTML = LENSES.map(function (l) {
@@ -588,6 +584,121 @@
     }).join('');
   }
   function goExplorer() { var e = $('explorer'); if (e && e.scrollIntoView) e.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+  // ---------- story sections: keyed numbers (docs/slide_numbers.json) and open-country leads ----------
+  var ACCESS = null, NUMBERS = null;
+  function fmtKey(v, kind) {
+    if (v === null || v === undefined) return null;
+    if (kind === 'pct0') return Math.round(Number(v) * 100) + ' %';
+    if (kind === 'int') return Math.round(Number(v)).toLocaleString('en-US');
+    if (kind === 'km0') return Math.round(Number(v)) + ' km';
+    return String(v);
+  }
+  function fillNumbers() {
+    if (!NUMBERS) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-key]'), function (el) {
+      var e = NUMBERS[el.getAttribute('data-key')];
+      var v = e && typeof e === 'object' && 'value' in e ? e.value : e;
+      var t = fmtKey(v, el.getAttribute('data-fmt'));
+      if (t !== null) el.textContent = t;
+    });
+  }
+  function pct(v) { return typeof v === 'number' ? Math.round(v * 100) + ' %' : '—'; }
+  function leadPics(l, cls) {
+    if (!l.images || !l.images.s2) return '';
+    return '<span class="' + (cls || 'lead-pics') + '"><img src="' + esc(l.images.s2) + '" alt="Sentinel-2 true colour of the 4 km footprint" width="400" height="400" loading="lazy">' +
+      '<img src="' + esc(l.images.slope) + '" alt="Slope classes of the 4 km footprint: green under 8, amber 8 to 20, red over 20 degrees" width="400" height="400" loading="lazy"></span>';
+  }
+  function leadPlace(l) {
+    var ll = l.lat.toFixed(3) + ', ' + l.lon.toFixed(3);
+    return leadPics(l) + '<b>' + esc(l.country) + '</b>' + (l.known_analog_area ? ' <span class="tag">known analog area</span>' : '') +
+      '<br><a href="https://www.google.com/maps/@' + l.lat + ',' + l.lon + ',13z/data=!3m1!1e3" target="_blank" rel="noopener">' + esc(ll) + '</a>' +
+      ' · <a href="https://www.openstreetmap.org/?mlat=' + l.lat + '&mlon=' + l.lon + '#map=12/' + l.lat + '/' + l.lon + '" target="_blank" rel="noopener">map</a>';
+  }
+  function renderFinder() {
+    if (!ACCESS) return;
+    var sel = $('finder-region');
+    var reg = ACCESS.regions.filter(function (r) { return r.id === sel.value; })[0] || ACCESS.regions[0];
+    var onlyStable = $('finder-stable').checked;
+    var rows = reg.leads.filter(function (l) { return !onlyStable || l.usable; });
+    var stable = reg.leads.filter(function (l) { return l.usable; }).length;
+    var countries = {};
+    rows.forEach(function (l) { countries[l.country] = (countries[l.country] || 0) + 1; });
+    $('finder-summary').innerHTML = '<b>' + esc(reg.label) + '</b> (' + esc(reg.reference) + ' reference): ' +
+      'target ' + pct(reg.target_frac_gt8) + ' steeper than 8°, ' + pct(reg.target_frac_gt20) + ' steeper than 20°. ' +
+      '<b>' + reg.leads.length + '</b> open-country footprint(s) pass, <b>' + stable + '</b> usable (hold with a second DEM, snow/ice at most 20 %)' +
+      (rows.length ? ' · ' + Object.keys(countries).map(function (c) { return esc(c) + ' ' + countries[c]; }).join(', ') : '') + '.';
+    var body = $('finder-table').querySelector('tbody');
+    if (!rows.length) {
+      body.innerHTML = '<tr><td colspan="7" class="empty">No footprint in a country open to NASA passes this region' +
+        (onlyStable && reg.leads.length ? ' as a usable lead (untick the filter to see leads that fail the second DEM or the ice rule)' : '') + '. That is a result: field-test this region in a facility or on the nearest classic site and state the slope gap.</td></tr>';
+    } else {
+      body.innerHTML = rows.slice(0, 40).map(function (l) {
+        var sec = l.second_dem === 'yes' ? '<span class="v-ok-t">holds</span>' : (l.second_dem === 'no' ? '<span class="v-no-t">fails</span>' : '<span class="v-unk-t">not checked</span>');
+        return '<tr><td>' + leadPlace(l) + '</td><td class="num">' + pct(l.frac_gt8) + '</td><td class="num">' + pct(l.frac_gt20) +
+          '</td><td class="num">' + (l.traverse_km !== null ? esc(l.traverse_km) + ' km' : '—') + '</td><td>' + sec +
+          (l.second_dem_source ? '<br><small>' + esc(l.second_dem_source) + '</small>' : '') + '</td><td class="num">' +
+          (l.snow_ice_frac !== null ? pct(l.snow_ice_frac) : '—') + (l.ice_excluded ? ' <span class="tag">ice rule</span>' : '') + '</td><td><small>' + esc(l.source) + '</small></td></tr>';
+      }).join('') + (rows.length > 40 ? '<tr><td colspan="7" class="empty">' + (rows.length - 40) + ' more in data/access.json</td></tr>' : '');
+    }
+    $('finder-caveat').textContent = 'Exploratory leads, not verdicts: found after the published results by the same rule (' + ACCESS.rule + '). ' +
+      'Countries treated as closed: ' + ACCESS.excluded_countries.join(', ') + ' (' + ACCESS.excluded_reason + ') ' +
+      'Not visually reviewed; a 4 km footprint, not a whole site; slopes on a 30 m baseline. Generated ' + ACCESS.generated + '.';
+  }
+  function renderHeroLead() {
+    if (!ACCESS || !$('hero-card')) return;
+    var reg = ACCESS.regions.filter(function (r) { return r.id === 'connecting_ridge'; })[0];
+    var l = reg && reg.leads.filter(function (x) { return x.usable; })[0];
+    var h;
+    if (l) {
+      h = leadPics(l, 'hero-pics') + '<p class="af-site">' + esc(l.country) + ' · ' + l.lat.toFixed(3) + ', ' + l.lon.toFixed(3) + '</p>' +
+        '<p class="af-sub">Usable lead for Connecting Ridge: holds with a second DEM, little snow or ice' + (l.known_analog_area ? ' · inside a known analog area' : '') + ' · ' + esc(l.source) + '</p><ul class="af-rows">' +
+        '<li><span class="v-ok-t">TERRAIN</span><span>' + pct(l.frac_gt8) + ' steeper than 8° (ridge ' + pct(reg.target_frac_gt8) + ')</span></li>' +
+        '<li><span class="v-ok-t">TRAVERSE</span><span>' + esc(l.traverse_km) + ' km gives the slope exposure of 10 km on the ridge</span></li>' +
+        '<li><span class="v-no-t">NO-ANALOG</span><span>gravity → reduced-gravity offload rig</span></li>' +
+        '<li><span class="v-unk-t">UNOBSERVED</span><span>boulders and craters under 60 m</span></li></ul>';
+    } else {
+      var n = reg ? reg.leads.length : 0;
+      h = '<p class="af-site">Connecting Ridge</p><p class="af-sub">' + n + ' open-country lead(s); none holds with a second DEM yet</p>' +
+        '<ul class="af-rows"><li><span class="v-unk-t">RESULT</span><span>no stable Earth match in a country open to NASA in the scored sample</span></li></ul>';
+    }
+    h += '<a class="btn btn-primary af-open" href="#finder">See all leads <span aria-hidden="true">&rarr;</span></a>';
+    $('hero-card').innerHTML = h;
+  }
+  function renderTransfer() {
+    var host = $('transfer-list');
+    if (!host) return;
+    var site = state.features.filter(function (f) { return isSite(f) && (f.properties.facility || []).some(function (r) { return r.lens === 'L1'; }); })[0];
+    if (!site) return;
+    var p = site.properties, h = '';
+    (p.field || []).filter(function (r) { return r.lens === 'L1'; }).slice(0, 1).forEach(function (r) {
+      h += '<li><span class="v-ok-t">TRANSFERS</span><span><b>' + esc(words(r.variable)) + '</b>: test it in the field</span></li>';
+    });
+    (p.facility || []).filter(function (r) { return r.lens === 'L1'; }).forEach(function (r) {
+      h += '<li><span class="v-no-t">NO-ANALOG</span><span><b>' + esc(words(r.variable)) + '</b> → ' + esc(r.facility) + '</span></li>';
+    });
+    (p.unobserved || []).filter(function (r) { return r.lens === 'L1'; }).forEach(function (r) {
+      h += '<li><span class="v-unk-t">UNOBSERVED</span><span><b>' + esc(r.variable) + '</b>: ' + esc(r.reason || '') + '</span></li>';
+    });
+    host.innerHTML = h;
+  }
+  function loadStory() {
+    if (!$('finder-region')) return; // a page without the story sections
+    fetchJson('data/numbers.json').then(function (d) { NUMBERS = d.numbers || d; fillNumbers(); }).catch(function () { /* fallbacks stay */ });
+    fetchJson('data/access.json').then(function (d) {
+      ACCESS = d;
+      var sel = $('finder-region');
+      sel.innerHTML = d.regions.map(function (r) {
+        return '<option value="' + esc(r.id) + '">' + esc(r.label) + (r.reference === 'published' ? '' : ' (exploratory)') + '</option>';
+      }).join('');
+      sel.addEventListener('change', renderFinder);
+      $('finder-stable').addEventListener('change', renderFinder);
+      renderFinder(); renderHeroLead();
+    }).catch(function () {
+      $('finder-summary').textContent = 'Open-country leads are not available in this build.';
+      $('hero-card').innerHTML = '<p class="af-site">Leads not loaded</p>';
+    });
+  }
 
   // ---------- init ----------
   function init() {
@@ -619,6 +730,7 @@
       if (b) select(b.getAttribute('data-id'), true);
     });
 
+    loadStory();
     Promise.all([loadLenses(), loadLedger()]).then(function () {
       buildLensTabs();
       return loadData();
@@ -631,7 +743,7 @@
         return state.features.some(function (f) { return f.properties.lens_scores && f.properties.lens_scores[l.id]; });
       })[0];
       setLens(state.features.some(isSite) ? 'SITES' : (first ? first.id : LENSES[0].id));
-      renderIntro();
+      renderIntro(); renderTransfer();
     }).catch(function (err) {
       var b = $('error-banner'); b.textContent = 'Could not load data: ' + err.message; b.hidden = false;
       buildLensTabs();

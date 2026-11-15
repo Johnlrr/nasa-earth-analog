@@ -303,6 +303,31 @@ def main() -> None:
             (base[base.index.isin(cl.id)][["in_i", "in_ii", "in_iii"]].any(axis=1)).sum()),
             "data/derived/l1_robust_set.parquet")
 
+    # open-country leads (scripts/access/access_screen.py; post hoc, exploratory)
+    acc_path = io.REPO_ROOT / "web" / "data" / "access.json"
+    if acc_path.exists():
+        acc = json.loads(acc_path.read_text(encoding="utf-8"))
+        src = "web/data/access.json (scripts/access/access_screen.py)"
+        put("access_coarse_pool", int(acc["pool"]["coarse_ranked"]), src)
+        put("access_open_pool", int(acc["pool"]["open_not_scored_before"]), src)
+        put("access_new_scored", int(acc["pool"]["new_scored"]), src)
+        put("access_excluded_countries", ", ".join(acc["excluded_countries"]), src)
+        for reg in acc["regions"]:
+            slug = reg["id"]
+            stable = [x for x in reg["leads"] if x["second_dem"] == "yes"]
+            usable = [x for x in reg["leads"] if x.get("usable")]
+            put(f"access_{slug}_leads", len(reg["leads"]), src)
+            put(f"access_{slug}_leads_stable", len(stable), src)
+            put(f"access_{slug}_leads_usable", len(usable), src)
+            put(f"access_{slug}_new_pass", int(reg["new_pass"]), src)
+            put(f"access_{slug}_countries_usable",
+                ", ".join(sorted({x["country"] for x in usable})), src)
+            if usable:
+                best = max(usable, key=lambda x: x["frac_gt8"])
+                put(f"access_{slug}_best_usable_country", best["country"], src)
+                put(f"access_{slug}_best_usable_frac_gt8", best["frac_gt8"], src)
+                put(f"access_{slug}_best_usable_traverse_km", best["traverse_km"], src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

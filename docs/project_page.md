@@ -22,9 +22,13 @@ Ridge), 76 % of the terrain is steeper than 8°; in the footprints of
 six classic analog field sites the median is 9 %. From
 196,008 bare-land cells we screened 300; two footprints match the ridge in that sample, and one
 of them, Da Qaidam (a known Mars analog region), also survives a second, independent NASA
-elevation model and matches 3 of 6 south-pole sites. We
-also report what failed: our mineral test did not pass its own pre-registered rule, so we publish
-no mineral analog.
+elevation model and matches 3 of 6 south-pole sites. But
+Da Qaidam is in China, where NASA cannot run a bilateral campaign. So we ran the same test on
+160 more cells in countries open to NASA: 3 usable ridge
+leads hold with a second elevation model and the published ice rule, in Argentina, Canada and Chile; the best needs about
+8 km of traverse for the slope exposure of 10 km on the ridge, against about 86 km at the median
+classic site. Our mineral test did not pass its own pre-registered rule, so we publish no mineral
+analog.
 
 ## Detailed Project Description
 What it does. For four mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
@@ -48,6 +52,14 @@ How we know it is not noise.
 - Ice test: 2 of 2 polar-desert controls pass, 2 of 2 wet-permafrost decoys are rejected; semi-quantitative.
 - Mineral test: 3 of 4 pre-registered checks pass; the rule says FAIL, so nothing is published for it.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
+
+Site finder for test engineers. Pick an Artemis south-pole region (six PGDA 78 regions) and
+get matching 4 km footprints in countries open to NASA, each with Sentinel-2 and slope-class
+pictures, the share of terrain steeper than 8° and 20°, a second-DEM check and the snow/ice share.
+For the steep Shackleton inner wall there are 113 usable open-country leads, most in the Andes. Leads are exploratory: found
+after the published results by the unchanged rule, not visited yet. Closed countries are an
+assumption for planning (China including Aksai Chin, Russia, countries under comprehensive US
+sanctions), not a legal opinion.
 
 What a mission team gets. A test protocol per site (systems to test, what to measure, what
 the site does not reproduce), read beside published NASA numbers: Artemis III "Surface slope for

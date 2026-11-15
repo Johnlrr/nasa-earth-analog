@@ -27,6 +27,7 @@ COPIES = [
     ("docs/field_facility.md", "field_facility.md"),
     ("docs/figures", "figures"),
     ("slides/SIMILITUDE-slides.pdf", "SIMILITUDE-slides.pdf"),
+    ("docs/slide_numbers.json", "data/numbers.json"),  # keyed numbers for the story sections
 ]
 # local-only folders that must never be published
 SKIP = shutil.ignore_patterns(".taste-skill", "__pycache__", "*.mock.geojson.bak")

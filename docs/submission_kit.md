@@ -37,9 +37,15 @@ Ridge), **76 %** of the terrain is steeper than 8° [`cr_frac_gt8` = 0.758]; in 
 six classic analog field sites the median is **9 %** [`classic_frac_gt8_median` = 0.089]. From
 196,008 bare-land cells we screened 300; two footprints match the ridge in that sample, and one
 of them, Da Qaidam (a known Mars analog region), also survives a second, independent NASA
-elevation model and matches **3 of 6** south-pole sites [`regions_matched_da_qaidam` = 3]. We
-also report what failed: our mineral test did not pass its own pre-registered rule, so we publish
-no mineral analog.
+elevation model and matches **3 of 6** south-pole sites [`regions_matched_da_qaidam` = 3]. But
+Da Qaidam is in China, where NASA cannot run a bilateral campaign. So we ran the same test on
+**160** more cells in countries open to NASA [`access_new_scored` = 160]: **3** usable ridge
+leads hold with a second elevation model and the published ice rule
+[`access_connecting_ridge_leads_usable` = 3], in Argentina, Canada and Chile; the best needs about
+**8 km** of traverse for the slope exposure of 10 km on the ridge
+[`access_connecting_ridge_best_usable_traverse_km` = 8.2], against about 86 km at the median
+classic site. Our mineral test did not pass its own pre-registered rule, so we publish no mineral
+analog.
 
 ## Detailed Project Description
 **What it does.** For four mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
@@ -67,6 +73,15 @@ the field), NO-ANALOG (no Earth site reproduces it; the card names the facility)
 - Mineral test: **3 of 4** pre-registered checks pass [`m1_checks_passed` = 3,
   `m1_checks_n` = 4]; the rule says FAIL, so nothing is published for it.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
+
+**Site finder for test engineers.** Pick an Artemis south-pole region (six PGDA 78 regions) and
+get matching 4 km footprints in countries open to NASA, each with Sentinel-2 and slope-class
+pictures, the share of terrain steeper than 8° and 20°, a second-DEM check and the snow/ice share.
+For the steep Shackleton inner wall there are **113** usable open-country leads
+[`access_shackleton_rim_leads_usable` = 113], most in the Andes. Leads are exploratory: found
+after the published results by the unchanged rule, not visited yet. Closed countries are an
+assumption for planning (China including Aksai Chin, Russia, countries under comprehensive US
+sanctions), not a legal opinion.
 
 **What a mission team gets.** A test protocol per site (systems to test, what to measure, what
 the site does not reproduce), read beside published NASA numbers: Artemis III "Surface slope for

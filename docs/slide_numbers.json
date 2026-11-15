@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T15:40",
+ "generated": "2026-11-15T18:51",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1172,6 +1172,166 @@
   "classic_pass_any_config": {
    "value": 1,
    "source": "data/derived/l1_robust_set.parquet"
+  },
+  "access_coarse_pool": {
+   "value": 8000,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_open_pool": {
+   "value": 5209,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_new_scored": {
+   "value": 160,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_excluded_countries": {
+   "value": "China, Aksai Chin, Russia, Iran, Korea, North, Syria, Cuba, Belarus, Venezuela",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_leads": {
+   "value": 8,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_leads_stable": {
+   "value": 6,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_leads_usable": {
+   "value": 3,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_new_pass": {
+   "value": 3,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_countries_usable": {
+   "value": "Argentina, Canada, Chile",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_best_usable_country": {
+   "value": "Chile",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_best_usable_frac_gt8": {
+   "value": 0.9209,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_connecting_ridge_best_usable_traverse_km": {
+   "value": 8.2,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_de_gerlache_rim_leads": {
+   "value": 2,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_de_gerlache_rim_leads_stable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_de_gerlache_rim_leads_usable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_de_gerlache_rim_new_pass": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_de_gerlache_rim_countries_usable": {
+   "value": "",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_malapert_massif_leads": {
+   "value": 1,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_malapert_massif_leads_stable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_malapert_massif_leads_usable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_malapert_massif_new_pass": {
+   "value": 1,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_malapert_massif_countries_usable": {
+   "value": "",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_nobile_rim_1_leads": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_nobile_rim_1_leads_stable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_nobile_rim_1_leads_usable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_nobile_rim_1_new_pass": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_nobile_rim_1_countries_usable": {
+   "value": "",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_peak_near_shackleton_leads": {
+   "value": 3,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_peak_near_shackleton_leads_stable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_peak_near_shackleton_leads_usable": {
+   "value": 0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_peak_near_shackleton_new_pass": {
+   "value": 1,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_peak_near_shackleton_countries_usable": {
+   "value": "",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_leads": {
+   "value": 126,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_leads_stable": {
+   "value": 116,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_leads_usable": {
+   "value": 113,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_new_pass": {
+   "value": 44,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_countries_usable": {
+   "value": "Algeria, Argentina, Bolivia, Canada, Chile, Greenland, Jordan, Mongolia, Pakistan, Peru",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_best_usable_country": {
+   "value": "Chile",
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_best_usable_frac_gt8": {
+   "value": 0.9657,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
+  },
+  "access_shackleton_rim_best_usable_traverse_km": {
+   "value": 10.0,
+   "source": "web/data/access.json (scripts/access/access_screen.py)"
   }
  }
 }

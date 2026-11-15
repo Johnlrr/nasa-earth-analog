@@ -127,8 +127,8 @@ SLIDES = r"""
 <section class="slide" id="s1">
   <p class="eyebrow">NASA Space Apps Challenge 2026 · Moon Base and Mars analog sites</p>
   <h1 class="cover">Famous ≠ faithful.</h1>
-  <p class="lead" style="font-size:42px;max-width:1500px"><b>SIMILITUDE</b> checks Earth analog sites the way a wind-tunnel engineer checks a model:
-    not “does it look like the Moon?” but <b>which test results transfer</b> — per mission test, with NASA data from both worlds.</p>
+  <p class="lead" style="font-size:40px;max-width:1560px"><b>SIMILITUDE</b> helps Artemis test engineers pick an Earth field site the way a wind-tunnel engineer checks a model:
+    not “does it look like the Moon?” but <b>does the terrain match, can NASA go there, and which test results transfer</b>.</p>
   <div class="row" style="margin-top:60px;gap:28px">
     <div class="tile" style="flex:1"><span class="num">{{cr_frac_gt8:pct0}}</span><p style="font-size:24px">of the Moon Base ridge (Connecting Ridge) is steeper than 8°</p></div>
     <div class="tile" style="flex:1"><span class="num" style="color:var(--n)">{{classic_frac_gt8_median:pct0}}</span><p style="font-size:24px">median at six famous analog field sites, same formula</p></div>
@@ -220,24 +220,23 @@ SLIDES = r"""
 
 <section class="slide" id="s5">
   <p class="eyebrow">4 · What the data found</p>
-  <h1>Da Qaidam: a known Mars analog that also fits the Moon Base ridge</h1>
-  <div class="funnel">
-    <div><b>{{funnel_bare_land_cells:int}}</b><span>bare-land 4 km cells on Earth</span></div>
-    <div><b>{{funnel_screened:int}}</b><span>screened towards Connecting Ridge</span></div>
-    <div><b>{{funnel_robust_rank_seed}}</b><span>pass all three test configurations</span></div>
-    <div><b>{{funnel_usable}}</b><span>usable after ice filter and visual review</span></div>
-  </div>
+  <h1>Where a NASA team can actually go: ridge-like terrain outside China</h1>
   <div class="row grow">
-    <div class="col" style="width:720px">
+    <div class="col" style="width:820px">
       <ul class="pts">
-        <li><b>Holds with a second DEM</b> (NASA's NASADEM) and matches <b>{{regions_matched_da_qaidam}} of 6</b> south-pole sites of PGDA 78 (two exploratory).</li>
-        <li>Steeper than 8°: <b>{{match_da_qaidam_frac_gt8:pct0}}</b> vs {{cr_frac_gt8:pct0}} on the ridge.
-          A rover meets as much &gt;8° terrain in about <b>{{traverse_km_da_qaidam:km0}}</b> here as in 10 km on the ridge; about {{traverse_km_classic_median:km0}} at the median classic site.</li>
-        <li><b>Not a hidden site:</b> {{task_attention_da_qaidam_mars}} Mars-analog papers, {{task_attention_da_qaidam_moon}} in a Moon context. New is its lunar use.</li>
-        <li>Peary Land, the second match, is <b>marginal</b>: rank {{cross_dem_peary_land_rank_full_metric}} with the second DEM, the rule needs {{rank_rule_threshold}}.</li>
+        <li><b>First screen:</b> {{funnel_screened:int}} screened cells → {{funnel_usable}} ridge matches, Da Qaidam (China) and Peary Land (Greenland).
+          Neither works for NASA: no bilateral work in China; Peary Land fails with a second DEM.</li>
+        <li><b>Same test, countries open to NASA:</b> {{access_new_scored}} more cells. <b>{{access_connecting_ridge_leads_usable}}</b> usable ridge leads
+          (second DEM and published ice rule): {{access_connecting_ridge_countries_usable}}.</li>
+        <li><b>Best ({{access_connecting_ridge_best_usable_country}}):</b> {{access_connecting_ridge_best_usable_frac_gt8:pct0}} steeper than 8° vs {{cr_frac_gt8:pct0}} on the ridge;
+          ~{{access_connecting_ridge_best_usable_traverse_km:km0}} of traverse for the slope exposure of 10 km on the ridge ({{traverse_km_classic_median:km0}} at the median classic site).</li>
+        <li><b>Shackleton inner wall:</b> {{access_shackleton_rim_leads_usable}} usable leads, most in the Andes.</li>
       </ul>
+      <p class="small" style="margin-top:18px">Leads, not verdicts: same rule, found after the published results, not yet visited. Closed: China (incl. Aksai Chin), Russia, sanctioned states.</p>
     </div>
-    <div class="fig grow"><img src="../docs/figures/fig_region_matrix.png" alt="Six PGDA 78 south-pole sites against Earth footprints"></div>
+    <div class="col grow" style="gap:14px">
+      __LEAD_PICS__
+    </div>
   </div>
 </section>
 
@@ -276,6 +275,7 @@ SLIDES = r"""
     <div class="fig" style="width:760px"><img src="../docs/figures/fig_transfer_matrix.png" alt="Test-transfer matrix"></div>
     <div class="col grow">
       <ul class="pts">
+        <li><b>Site finder:</b> pick an Artemis south-pole region, get matching 4 km footprints in countries open to NASA, with satellite and slope-class pictures and a second-DEM check.</li>
         <li>A terrain site reproduces <b>{{coverage_L1_transfers}} of {{coverage_L1_total}}</b> test variables; {{coverage_L1_facility}} need a named facility
           (offload rig for 0.165 g, thermal-vacuum chamber…), {{coverage_L1_unobserved}} is unobserved.</li>
         <li><b>Mars ice, beside NASA's Mars Life Explorer study</b> (drill to 2 m): at {{x1_mission_within_2m}} of {{x1_mission_cells}} ice-lens cells the modelled permafrost
@@ -308,6 +308,25 @@ QR_JS = """
 """
 
 
+def lead_pictures() -> str:
+    """Slide 5 picture: the best usable Connecting Ridge lead (second DEM and ice rule)."""
+    acc = json.loads((ROOT / "web" / "data" / "access.json").read_text(encoding="utf-8"))
+    reg = next(r for r in acc["regions"] if r["id"] == "connecting_ridge")
+    stable = [x for x in reg["leads"] if x.get("usable") and x.get("images")]
+    if not stable:
+        return ('<div class="fig grow"><img src="../docs/figures/fig_region_matrix.png" '
+                'alt="Six PGDA 78 south-pole sites against Earth footprints"></div>')
+    b = max(stable, key=lambda x: x["frac_gt8"])
+    cap = (f"{html.escape(b['country'])} · {b['lat']:.3f}, {b['lon']:.3f} · 4 km footprint"
+           + (" · inside a known analog area" if b.get("known_analog_area") else ""))
+    return ('<div class="row" style="gap:14px">'
+            f'<div class="fig" style="flex:1;padding:8px"><img src="../web/{b["images"]["s2"]}" alt="Sentinel-2 true colour"></div>'
+            f'<div class="fig" style="flex:1;padding:8px"><img src="../web/{b["images"]["slope"]}" alt="Slope classes"></div></div>'
+            f'<p class="small" style="margin:0">{cap}. Left: Sentinel-2 true colour. Right: slope classes from the same 30 m DEM — '
+            '<span style="color:#3f9a64">■</span> under 8°, <span style="color:#d08a2e">■</span> 8–20°, '
+            '<span style="color:#d0563f">■</span> over 20°.</p>')
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--team", default="", help="team name for the cover (left out when empty)")
@@ -319,6 +338,7 @@ def main() -> None:
     assert val["cross_dem_peary_land_rank_full_metric"] < val["rank_rule_threshold"], "slide 5: Peary Land wording"
     body, used = fill(SLIDES, numbers)
     team = (f"Team {html.escape(a.team)} · " if a.team else "") + "NASA Space Apps Challenge 2026, Ho Chi Minh City"
+    body = body.replace("__LEAD_PICS__", lead_pictures())
     body = (body.replace("__TEAM_LINE__", team).replace("__SITE_URL__", SITE_URL)
             .replace("__REPO_URL__", REPO_URL))
     n_slides = body.count('<section class="slide"')
