@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T21:15",
+ "generated": "2026-11-15T21:38",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1560,6 +1560,38 @@
   "camp_haughton_window_days": {
    "value": 40,
    "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
+  },
+  "atlas_n_regions": {
+   "value": 6,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_regions_with_lead": {
+   "value": 1,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_regions_with_lead_window": {
+   "value": 1,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_leads_all_tests": {
+   "value": 2,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_leads_slope_two_dems": {
+   "value": 123,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_shackleton_slope_two_dems": {
+   "value": 117,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_shackleton_routes_two_dems": {
+   "value": 0,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+  },
+  "atlas_regions_no_lead": {
+   "value": 1,
+   "source": "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
   }
  }
 }

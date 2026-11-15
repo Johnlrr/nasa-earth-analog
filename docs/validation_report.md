@@ -772,6 +772,28 @@ inside its winter window. Rocks and craters under 60 m stay unobserved (site sur
 Haughton's route match is "at least half of its 9 footprints"; Haughton and Argentina were not
 checked at 5 m, which counts as not covered.
 
+### Artemis atlas: the route test and the low-Sun calendar for every region (exploratory, Deviations 36)
+
+The V1 rule applied per PGDA 78 region (reference: the published footprint or the medoid of
+`scripts/l1_regions.py`; τ from that region's own lunar neighbours) to every open-country lead of
+the access screen. Connecting Ridge is read from the registered run. Script
+`scripts/artemis_atlas.py`; table `data/derived/artemis_atlas.parquet`. "All tests" = slope on two
+DEMs, routes on two DEMs, open country, outside known analog areas, snow/ice ≤ 20 %.
+
+| Region | Open-country leads | Slope, two DEMs | Routes, two DEMs | All tests | … with a low-Sun window | Countries |
+|---|---|---|---|---|---|---|
+| Connecting Ridge | 8 | 6 | 3 | 2 | 1 | Argentina, Canada |
+| Shackleton inner wall | 127 | 117 | 0 | 0 | 0 | — |
+| Nobile Rim 1 | 0 | 0 | 0 | 0 | 0 | — |
+| Peak near Shackleton | 3 | 0 | 1 | 0 | 0 | — |
+| de Gerlache rim | 2 | 0 | 0 | 0 | 0 | — |
+| Malapert massif | 1 | 0 | 0 | 0 | 0 | — |
+
+Only Connecting Ridge has a field site that passes every terrain test. For the Shackleton inner
+wall, the slope rule passes many steep mountains (9 of 1,000 random cells) but none of them
+reproduces the wall's routes: the route test is selective where the slope rule is not. Regions
+without a lead are facility-only for terrain rehearsal in this sample.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -814,6 +836,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 33 | V1 implementation details fixed before the Earth run (commit `6ab5bd5`): the lunar population footprint centred on the reference (`connecting_ridge_pop_004`) is the reference and is left out of the neighbours; a zero MAD would fall back to the standard deviation (did not occur) | 15/11 evening | Not stated in the registration | τ and scales |
 | 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
 | 35 | Campaign coverage matrix (union of published per-site results; Haughton as the best classic site for routes) | 15/11 evening | Turn per-site results into the engineer's question | Exploratory; no verdict changed |
+| 36 | Artemis atlas: V1 rule applied to the leads of the other five regions (reference and τ per region) | 15/11 evening | One registered region does not answer "which Moon Base region can be rehearsed on Earth" | Exploratory; leads only |
 
 ## 9. Limitations and not done
 

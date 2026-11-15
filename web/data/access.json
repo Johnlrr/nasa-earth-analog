@@ -281,7 +281,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 0.95,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_726_-686",
@@ -298,7 +304,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 0.988,
+     "window_days": 36,
+     "window_from": null,
+     "window_to": null
     }
    ]
   },
@@ -326,7 +338,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.967,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     }
    ]
   },
@@ -364,7 +382,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.775,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_726_-686",
@@ -381,7 +405,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 13.691,
+     "window_days": 36,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_660_-632",
@@ -398,7 +428,13 @@
      "water_frac": 0.047,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": true,
+     "route_reproduces_second_dem": true,
+     "route_D": 1.401,
+     "window_days": 71,
+     "window_from": null,
+     "window_to": null
     }
    ]
   },
@@ -435,7 +471,13 @@
        "8to20": 0.46510560146923785,
        "gt20": 0.5012626262626263
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 2.227,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-293_-644",
@@ -461,7 +503,13 @@
        "8to20": 0.5453397612488522,
        "gt20": 0.3808539944903581
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 2.994,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-314_-649",
@@ -487,7 +535,13 @@
        "8to20": 0.7137855831037649,
        "gt20": 0.19863406795224978
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.593,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-306_-675",
@@ -513,7 +567,13 @@
        "8to20": 0.5414944903581267,
        "gt20": 0.35640495867768596
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.168,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-333_-657",
@@ -539,7 +599,13 @@
        "8to20": 0.6063475665748393,
        "gt20": 0.29097796143250687
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.275,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-311_-678",
@@ -565,7 +631,13 @@
        "8to20": 0.6448576675849403,
        "gt20": 0.23714416896235077
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.321,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-265_-662",
@@ -591,7 +663,13 @@
        "8to20": 0.75,
        "gt20": 0.12207300275482094
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.341,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-318_-653",
@@ -617,7 +695,13 @@
        "8to20": 0.6212121212121212,
        "gt20": 0.24839302112029385
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.459,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-336_-664",
@@ -643,7 +727,13 @@
        "8to20": 0.6418158861340679,
        "gt20": 0.2251492194674013
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.324,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-275_-644",
@@ -669,7 +759,13 @@
        "8to20": 0.5848829201101928,
        "gt20": 0.2772038567493113
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.151,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-315_-677",
@@ -695,7 +791,13 @@
        "8to20": 0.6651170798898072,
        "gt20": 0.19467401285583102
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.148,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-355_-671",
@@ -721,7 +823,13 @@
        "8to20": 0.7474173553719008,
        "gt20": 0.1127754820936639
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.113,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-275_-651",
@@ -747,7 +855,13 @@
        "8to20": 0.672979797979798,
        "gt20": 0.1807277318640955
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.596,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-326_-658",
@@ -773,7 +887,13 @@
        "8to20": 0.6138085399449036,
        "gt20": 0.22377180899908172
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.017,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-340_-656",
@@ -799,7 +919,13 @@
        "8to20": 0.5469467401285583,
        "gt20": 0.2901170798898072
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.639,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-442_-677",
@@ -825,7 +951,13 @@
        "8to20": 0.5098714416896235,
        "gt20": 0.32547061524334253
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.285,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-322_-642",
@@ -851,7 +983,13 @@
        "8to20": 0.5266873278236914,
        "gt20": 0.3079086317722681
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.706,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-270_-655",
@@ -877,7 +1015,13 @@
        "8to20": 0.7417355371900827,
        "gt20": 0.09119605142332415
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.83,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-324_-666",
@@ -903,7 +1047,13 @@
        "8to20": 0.500975665748393,
        "gt20": 0.3333333333333333
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.821,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-277_-648",
@@ -929,7 +1079,13 @@
        "8to20": 0.6115702479338843,
        "gt20": 0.21941000918273645
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.684,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-329_-641",
@@ -955,7 +1111,13 @@
        "8to20": 0.5217516069788797,
        "gt20": 0.30515381083562904
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.272,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-282_-647",
@@ -981,7 +1143,13 @@
        "8to20": 0.5809802571166207,
        "gt20": 0.2450068870523416
       }
-     }
+     },
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.403,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-281_-655",
@@ -998,7 +1166,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 2.931,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-307_-640",
@@ -1015,7 +1189,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.508,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-304_-654",
@@ -1032,7 +1212,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.915,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-302_-653",
@@ -1049,7 +1235,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.699,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-207_-687",
@@ -1066,7 +1258,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.919,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-429_-676",
@@ -1083,7 +1281,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.941,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-202_-692",
@@ -1100,7 +1304,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.647,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-345_-657",
@@ -1117,7 +1327,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.801,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-300_-679",
@@ -1134,7 +1350,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.784,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_708_-195",
@@ -1151,7 +1373,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.807,
+     "window_days": 41,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-436_-672",
@@ -1168,7 +1396,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.905,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-199_-701",
@@ -1185,7 +1419,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.681,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_344_647",
@@ -1202,7 +1442,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.07,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-206_-687",
@@ -1219,7 +1465,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.74,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-554_-695",
@@ -1236,7 +1488,13 @@
      "water_frac": 0.001,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.88,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-317_-650",
@@ -1253,7 +1511,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.966,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-325_-654",
@@ -1270,7 +1534,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.034,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-340_-660",
@@ -1287,7 +1557,13 @@
      "water_frac": 0.002,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.425,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-302_-647",
@@ -1304,7 +1580,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.154,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-331_-646",
@@ -1321,7 +1603,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.621,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_357_646",
@@ -1338,7 +1626,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.16,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-326_-657",
@@ -1355,7 +1649,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.728,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-301_-652",
@@ -1372,7 +1672,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.241,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-280_-643",
@@ -1389,7 +1695,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.817,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-208_-684",
@@ -1406,7 +1718,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.758,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-278_-655",
@@ -1423,7 +1741,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.039,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-237_-664",
@@ -1440,7 +1764,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.889,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-286_-642",
@@ -1457,7 +1787,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.556,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-309_-641",
@@ -1474,7 +1810,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.515,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-328_-664",
@@ -1491,7 +1833,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.609,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_368_340",
@@ -1508,7 +1856,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.643,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-303_-642",
@@ -1525,7 +1879,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.587,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-342_-660",
@@ -1542,7 +1902,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.213,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_660_-631",
@@ -1559,7 +1925,13 @@
      "water_frac": 0.025,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.591,
+     "window_days": 71,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_526_909",
@@ -1576,7 +1948,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.14,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-321_-646",
@@ -1593,7 +1971,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.342,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-329_-654",
@@ -1610,7 +1994,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.993,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-353_-668",
@@ -1627,7 +2017,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.183,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-321_-652",
@@ -1644,7 +2040,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.899,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-346_-664",
@@ -1661,7 +2063,13 @@
      "water_frac": 0.001,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.299,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-278_-653",
@@ -1678,7 +2086,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.879,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_367_657",
@@ -1695,7 +2109,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.122,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-224_-673",
@@ -1712,7 +2132,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.706,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-555_-695",
@@ -1729,7 +2155,13 @@
      "water_frac": 0.003,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.495,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_322_68",
@@ -1746,7 +2178,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 2.652,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-388_-672",
@@ -1763,7 +2201,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.207,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-301_-655",
@@ -1780,7 +2224,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.822,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-150_-743",
@@ -1797,7 +2247,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.876,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-271_-653",
@@ -1814,7 +2270,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.749,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-245_-665",
@@ -1831,7 +2293,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.903,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-228_-669",
@@ -1848,7 +2316,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.435,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-339_-667",
@@ -1865,7 +2339,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.26,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-437_-675",
@@ -1882,7 +2362,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.092,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-249_-664",
@@ -1899,7 +2385,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.449,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-305_-634",
@@ -1916,7 +2408,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.675,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-237_-663",
@@ -1933,7 +2431,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.748,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_681_-645",
@@ -1950,7 +2454,13 @@
      "water_frac": 0.012,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.087,
+     "window_days": 63,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_707_-235",
@@ -1967,7 +2477,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.213,
+     "window_days": 42,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-329_-660",
@@ -1984,7 +2500,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.063,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-316_-659",
@@ -2001,7 +2523,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.896,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-325_-663",
@@ -2018,7 +2546,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.596,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-327_-645",
@@ -2035,7 +2569,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.733,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-305_-645",
@@ -2052,7 +2592,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.13,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-536_-693",
@@ -2069,7 +2615,13 @@
      "water_frac": 0.015,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 2.744,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-339_-661",
@@ -2086,7 +2638,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.51,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_681_-646",
@@ -2103,7 +2661,13 @@
      "water_frac": 0.057,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.102,
+     "window_days": 63,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-316_-661",
@@ -2120,7 +2684,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.682,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-325_-642",
@@ -2137,7 +2707,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.0,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-284_-646",
@@ -2154,7 +2730,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.692,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-334_-650",
@@ -2171,7 +2753,13 @@
      "water_frac": 0.012,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.266,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-324_-648",
@@ -2188,7 +2776,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.228,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_291_53",
@@ -2205,7 +2799,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.444,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-341_-657",
@@ -2222,7 +2822,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.574,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-350_-665",
@@ -2239,7 +2845,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.989,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-352_-668",
@@ -2256,7 +2868,13 @@
      "water_frac": 0.062,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.1,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-319_-653",
@@ -2273,7 +2891,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.112,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-301_-664",
@@ -2290,7 +2914,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.945,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-348_-661",
@@ -2307,7 +2937,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.763,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-314_-654",
@@ -2324,7 +2960,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.474,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-254_-662",
@@ -2341,7 +2983,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.189,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-319_-643",
@@ -2358,7 +3006,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.945,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_689_-678",
@@ -2375,7 +3029,13 @@
      "water_frac": 0.018,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.798,
+     "window_days": 52,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-559_-699",
@@ -2392,7 +3052,13 @@
      "water_frac": 0.002,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.951,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-331_-664",
@@ -2409,7 +3075,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.413,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-305_-641",
@@ -2426,7 +3098,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.402,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-287_-645",
@@ -2443,7 +3121,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.119,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-311_-662",
@@ -2460,7 +3144,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.037,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-335_-649",
@@ -2477,7 +3167,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.976,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-214_-681",
@@ -2494,7 +3190,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.254,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-305_-656",
@@ -2511,7 +3213,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.319,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-276_-648",
@@ -2528,7 +3236,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": true
+     "usable": true,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.663,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_726_-686",
@@ -2545,7 +3259,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.567,
+     "window_days": 36,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_699_-750",
@@ -2562,7 +3282,13 @@
      "water_frac": 0.018,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.014,
+     "window_days": 45,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-428_-681",
@@ -2579,7 +3305,13 @@
      "water_frac": 0.012,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 3.873,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-323_-668",
@@ -2596,7 +3328,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.037,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-289_-651",
@@ -2613,7 +3351,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.61,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-265_-663",
@@ -2630,7 +3374,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 7.203,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_722_-798",
@@ -2647,7 +3397,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": true,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 4.115,
+     "window_days": 37,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_421_65",
@@ -2664,7 +3420,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.194,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-324_-654",
@@ -2681,7 +3443,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.538,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-434_-670",
@@ -2698,7 +3466,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 6.35,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-338_-656",
@@ -2715,7 +3489,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.297,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-355_-670",
@@ -2732,7 +3512,13 @@
      "water_frac": 0.0,
      "known_analog_area": false,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.922,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     },
     {
      "cell_id": "E10K_-331_-676",
@@ -2749,7 +3535,13 @@
      "water_frac": 0.0,
      "known_analog_area": true,
      "ice_excluded": false,
-     "usable": false
+     "usable": false,
+     "route_reproduces": false,
+     "route_reproduces_second_dem": false,
+     "route_D": 5.162,
+     "window_days": 0,
+     "window_from": null,
+     "window_to": null
     }
    ]
   }

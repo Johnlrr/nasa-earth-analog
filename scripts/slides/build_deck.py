@@ -243,7 +243,8 @@ SLIDES = r"""
           Terrain shadow {{i1_argentina_shadow_e2:pct0}} (ridge neighbourhood {{i1_ridge_native_shadow_e2_min:pct0}}–{{i1_ridge_native_shadow_e2_max:pct0}}). Low Sun only ~{{i1_argentina_lowsun_min_per_day:int}} min a day.</li>
         <li><b>Baffin Island, Canada</b> ({{i1_baffin_lat:f2}}, {{i1_baffin_lon:f2}}): from {{i1_baffin_window_from}} to {{i1_baffin_window_to}} ({{i1_baffin_window_days}} days) every daylight minute has the Sun below 7°,
           ~{{i1_baffin_window_lowsun_h:int}} h a day. Slopes still match at 5 m (ArcticDEM 2 m: {{ms_baffin_frac_gt8_5m:pct0}} vs {{ms_ridge_frac_gt8_5m:pct0}} above 8°). Caveats: snow season; more shadow and climb than the ridge.</li>
-        <li><b>Dropped by the traverse test:</b> the Chile lead (inside the Atacama analog area) and Da Qaidam (China).</li>
+        <li><b>Dropped by the traverse test:</b> the Chile lead (Atacama analog area) and Da Qaidam (China). Across all {{atlas_n_regions}} Artemis regions only the ridge
+          has such a site: all {{atlas_shackleton_slope_two_dems}} slope leads for the Shackleton wall fail the route test ({{atlas_shackleton_routes_two_dems}} pass).</li>
       </ul>
       <p class="small" style="margin-top:16px">Leads, not verdicts: found after the published results, not yet visited; the low-Sun calendar is exploratory. Planning screen, not legal advice:
         China (Wolf Amendment), Russia, comprehensively sanctioned states left out.</p>

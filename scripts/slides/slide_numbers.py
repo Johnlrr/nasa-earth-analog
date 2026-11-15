@@ -420,6 +420,24 @@ def main() -> None:
         put("camp_haughton_window_days",
             next(x["window_days"] for x in cp["sites"] if x["kind"] == "classic"), src)
 
+    # Artemis atlas: V1 rule and low-Sun calendar per region (exploratory, Deviations 36)
+    at_path = D / "artemis_atlas.json"
+    if at_path.exists():
+        at = json.loads(at_path.read_text(encoding="utf-8"))
+        src = "data/derived/artemis_atlas.json (scripts/artemis_atlas.py)"
+        put("atlas_n_regions", at["n_regions"], src)
+        put("atlas_regions_with_lead", at["regions_with_lead_all_tests"], src)
+        put("atlas_regions_with_lead_window",
+            sum(r["n_all_tests_window"] > 0 for r in at["regions"]), src)
+        put("atlas_leads_all_tests", sum(r["n_all_tests"] for r in at["regions"]), src)
+        put("atlas_leads_slope_two_dems", sum(r.get("n_slope_two_dems", 0)
+                                              for r in at["regions"]), src)
+        sh = next(r for r in at["regions"] if r["target_id"] == "shackleton_rim")
+        put("atlas_shackleton_slope_two_dems", sh["n_slope_two_dems"], src)
+        put("atlas_shackleton_routes_two_dems", sh["n_routes_two_dems"], src)
+        put("atlas_regions_no_lead",
+            sum(r["n_leads"] == 0 for r in at["regions"]), src)
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

@@ -125,6 +125,7 @@ the Deviations table of the validation report.</p>
 <tr><td>Baffin slope match holds at rover scale</td><td>Exploratory, rule committed before the run</td><td>within the ridge neighbourhood at 5, 10 and 30 m (ArcticDEM 2 m vs LOLA 5 m)</td></tr>
 <tr><td>Baffin low-Sun window</td><td>Exploratory, geometric sun model</td><td>{n(num, 'i1_baffin_window_days')} days, {n(num, 'i1_baffin_window_from')}–{n(num, 'i1_baffin_window_to')}</td></tr>
 <tr><td>Two leads cover all field rows orbit can judge</td><td>Exploratory composition</td><td>{n(num, 'camp_two_leads')} of {n(num, 'camp_n_field')} (best classic site {n(num, 'camp_best_classic_alone')})</td></tr>
+<tr><td>Which Artemis regions can be rehearsed in the field</td><td>Exploratory, V1 rule per region</td><td>{n(num, 'atlas_regions_with_lead')} of {n(num, 'atlas_n_regions')} (Shackleton wall: {n(num, 'atlas_shackleton_slope_two_dems')} slope leads, {n(num, 'atlas_shackleton_routes_two_dems')} route matches)</td></tr>
 <tr><td>Hardware performance at any site</td><td>Field test</td><td>none done; a card assigns no TRL</td></tr>
 </table>
 
