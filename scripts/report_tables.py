@@ -555,8 +555,8 @@ def t_cross_dem() -> str:
             + "\n\nSecond DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and "
             "60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same "
             "code, baselines and rule. \"Wall match\" = the cells kept for the Shackleton "
-            "inner wall that are not also ridge cells. Three of the five ridge cells are ice-excluded (§7) "
-            "and are listed only for the DEM comparison.")
+            "inner wall that are not also ridge cells. Three of the five ridge cells are "
+            "ice-excluded (§7) and are listed only for the DEM comparison.")
 
 
 def t_site_stability() -> str:
