@@ -1,0 +1,51 @@
+{
+  "purpose": "Presentation assets only; scientific descriptors and verdicts are unchanged.",
+  "moon": {
+    "file": "connecting-ridge-4km.png",
+    "type": "DEM-derived hillshade, not a photograph",
+    "source": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif",
+    "source_sha256": "3ba7b97cb00a2bcf21189c3aeb535f65afc21207154ab9f0d43c5bdc1f7e747e",
+    "source_size_px": [
+      3200,
+      3200
+    ],
+    "native_pixel_size_m": 5,
+    "crop_pixels": [
+      1200,
+      1200,
+      2000,
+      2000
+    ],
+    "projected_bounds_m": [
+      -13000,
+      -14000,
+      -9000,
+      -10000
+    ],
+    "footprint_m": [
+      4000,
+      4000
+    ],
+    "rendering": "Central finite differences; illustrative light azimuth 315 deg, elevation 45 deg; no vertical exaggeration. Not actual lunar illumination."
+  },
+  "earth": [
+    {
+      "file": "qaidam-4km.png",
+      "source_file": "data/raw/review/B17_E10K_453_921_4km.png",
+      "cell_id": "E10K_453_921"
+    },
+    {
+      "file": "peary-4km.png",
+      "source_file": "data/raw/review/B17_E10K_729_-319_4km.png",
+      "cell_id": "E10K_729_-319"
+    },
+    {
+      "file": "hawaii-4km.png",
+      "source_file": "data/raw/review/B17_E10K_244_-1498_4km.png",
+      "cell_id": "E10K_244_-1498"
+    }
+  ],
+  "earth_source": "Existing project B17 Sentinel-2 true-colour review thumbnails. Copernicus Sentinel data; original image pixels retained.",
+  "scale_note": "Hero displays nominal 4 km study windows at equal width. Earth review thumbnails are fitted to square study windows; their original georeferencing is not embedded. Scale is nominal, not independently georegistered. Candidate cards are context crops and carry no scale bar.",
+  "credits": "Moon: NASA/GSFC/LRO/LOLA, PGDA Product 78. Earth: Copernicus Sentinel-2 via the project review dataset."
+}
