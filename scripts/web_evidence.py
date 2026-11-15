@@ -106,10 +106,25 @@ def build() -> str:
 <main class="ev">
 <p class="eyebrow">Famous is not faithful, per test</p>
 <h1>Can you trust the terrain verdicts, and what are they worth to a test team?</h1>
-<p class="lead">Every number on this page is generated from the pipeline tables. None of these
-checks changed a threshold or a verdict; all were run after the results were known and are
-listed in the Deviations table of the validation report (rows 25 to 30).</p>
+<p class="lead">Every number on this page is generated from the pipeline tables. Each claim
+below carries its level of evidence. The traverse test was registered before it was run and it
+failed for the group; we publish it as it came out. Every rule changed after seeing data is in
+the Deviations table of the validation report.</p>
 <div class="ev-tiles">{tile_html}</div>
+
+<h2>Evidence ladder: how far each claim goes</h2>
+<table>
+<tr><th>Claim</th><th>Level</th><th>Result</th></tr>
+<tr><td>Our slope code equals NASA's slope product</td><td>Computation checked against NASA</td><td>max difference {n(num, 'nasa_slope_max_abs_diff_deg', '{:.4f}')}°</td></tr>
+<tr><td>Terrain verdicts do not hang on one Earth DEM</td><td>Data robustness</td><td>{n(num, 'cross_dem_same_verdict')} of {n(num, 'cross_dem_n')} unchanged</td></tr>
+<tr><td>The ridge test is selective</td><td>Random null sample</td><td>{n(num, 'prevalence_connecting_ridge_pass')} of {n(num, 'prevalence_connecting_ridge_n', '{:,}')} random cells pass</td></tr>
+<tr><td>Mineral analog exists</td><td>Pre-registered stop rule</td><td><b>{n(num, 'm1_stop_rule_verdict')}</b>: nothing published</td></tr>
+<tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>{n(num, 'v1_h1_verdict')}</b> for the group: {n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} vs {n(num, 'v1_null_share', '{:.0f} %', 100)} of random land</td></tr>
+<tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>{n(num, 'v1_h2_verdict')}</b>: Spearman {n(num, 'v1_h2_rho', '{:.2f}')}</td></tr>
+<tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
+<tr><td>Baffin low-Sun window</td><td>Exploratory, geometric sun model</td><td>{n(num, 'i1_baffin_window_days')} days, {n(num, 'i1_baffin_window_from')}–{n(num, 'i1_baffin_window_to')}</td></tr>
+<tr><td>Hardware performance at any site</td><td>Field test</td><td>none done; a card assigns no TRL</td></tr>
+</table>
 
 <h2>1. Read beside NASA's Artemis III requirements</h2>
 <blockquote>"{e(req['artemis3_landing_slope']['quote'])}" · "{e(req['artemis3_eva_slope']['quote'])}"
@@ -173,7 +188,28 @@ semi-quantitative.</p>
 environment". A site card is an input to that definition; it assigns no TRL, and no hardware
 was tested here.</p>
 
-<h2>4. Known truth</h2>
+<h2>4. Our own method, tested before we ran it</h2>
+<p>Registered in <a href="https://github.com/Johnlrr/nasa-earth-analog/blob/main/config/prereg_route_v1.yaml">config/prereg_route_v1.yaml</a>
+before any Earth footprint went through the planner. A slope-limited planner (grade limits 6°, 8°, 10°, 30 m cells,
+same seed on both worlds) measures how often points 1–2.5 km apart connect, how far routes detour and how much
+they climb. A footprint reproduces the ridge if it is as close as half of the ridge's own lunar neighbours.</p>
+<table>
+<tr><th>Group</th><th>Reproduce the ridge's routes</th></tr>
+<tr><td>Slope matches for the ridge</td><td>{n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} (the same three on the second DEM)</td></tr>
+<tr><td>Random bare land</td><td>{n(num, 'v1_null_reproduce')} of {n(num, 'v1_null_n', '{:,}')}</td></tr>
+<tr><td>Classic analog footprints</td><td>{n(num, 'v1_classic_reproduce')} of {n(num, 'v1_classic_n')}</td></tr>
+</table>
+<p>The primary hypothesis fails (p = {n(num, 'v1_h1_p', '{:.2f}')}). Slope matches climb more than the
+ridge ({n(num, 'v1_passer_climb_10_median', '{:.0f}')} vs {n(num, 'v1_ridge_climb_10', '{:.0f}')} m per km);
+classic sites are flatter but half of their footprints fall inside the spread of the ridge's own
+neighbourhood. So a card now reports slope match and route match separately, and classic sites
+keep their value for route-planning rehearsal. Two open-country footprints outside known analog
+areas pass both on two DEMs: Argentina ({n(num, 'i1_argentina_lat', '{:.2f}')}, {n(num, 'i1_argentina_lon', '{:.2f}')}),
+the one random cell of 1,000 that passed, and Baffin Island ({n(num, 'i1_baffin_lat', '{:.2f}')}, {n(num, 'i1_baffin_lon', '{:.2f}')}),
+where from {n(num, 'i1_baffin_window_from')} to {n(num, 'i1_baffin_window_to')} every daylight minute
+has the Sun below 7° (snow season; more terrain shadow than the ridge). This is a planner on 30 m cells, not a rover.</p>
+
+<h2>5. Known truth</h2>
 <ul>
 <li>On the Moon, footprints of the Shackleton inner wall pass their own region
 {n(num, 'lunar_control_wall_same_pass')} of {n(num, 'lunar_control_wall_same_n')}; footprints
