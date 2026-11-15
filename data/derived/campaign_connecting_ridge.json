@@ -50,8 +50,8 @@
       "lat": 75.38,
       "lon": -89.68,
       "slope": false,
-      "routes": true,
-      "routes_footprints": "9/9",
+      "routes": false,
+      "routes_footprints": "4/9",
       "low_sun": true,
       "window_days": 40,
       "window": null,
@@ -63,11 +63,11 @@
   "per_site_joint": {
     "Argentina lead": 3,
     "Baffin Island lead": 4,
-    "Haughton (classic site)": 2
+    "Haughton (classic site)": 1
   },
   "campaign_two_leads": 5,
   "campaign_with_haughton": 5,
-  "best_classic_alone": 2,
+  "best_classic_alone": 1,
   "n_field": 5,
   "unobserved": [
     "rocks and craters under 60 m (site survey)"

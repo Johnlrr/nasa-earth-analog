@@ -25,17 +25,21 @@ Then we tested our own method. In a test we registered before running it, a slop
 traverse planner ran on the ridge and on every Earth footprint. Only 3 of 9 slope matches
 reproduce the ridge's simulated routes, against
 15 % of random land: the test fails for the group, and we publish
-that. Slope matches climb more than the ridge; half of the classic footprints reproduce its routes. So every card now reports slope and traverse separately. Two
+that. We then registered a tighter threshold from 124 lunar neighbours instead of 8 (V2): random
+land drops to 10 % and the test passes narrowly (p = 0.049), but classic footprints still do as well. So
+every card reports slope and traverse separately. Two
 footprints in countries open to NASA and outside known analog areas pass both tests on two
 elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
 Baffin Island, Canada, where from 13 Nov to 22 Jan every daylight minute has the Sun below 7°
 (71 days), the polar low Sun no Earth site has over a year.
+The same code reads Mars: for Perseverance's Jezero delta front (CTX DTM), classic Mars analog
+footprints match in 38 % of cases against 16 % of random land (pre-registered, p = 0.0005).
 Our mineral test did not pass its own pre-registered rule, so we publish no mineral analog.
 
 ## Detailed Project Description
-What it does. For four mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
-shadows, Mars aqueous minerals, Mars ice under dry soil — SIMILITUDE computes the same
-descriptors on the target (NASA LOLA / PGDA 78, MRO CRISM, SWIM) and on Earth (Copernicus DEM,
+What it does. For five mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
+shadows, Mars rover terrain, Mars aqueous minerals, Mars ice under dry soil — SIMILITUDE computes the same
+descriptors on the target (NASA LOLA / PGDA 78, MRO CTX DTM, MRO CRISM, SWIM) and on Earth (Copernicus DEM,
 NASA EMIT, MODIS, ERA5-Land), measures the distance to the target, and tests it against a random
 null sample of Earth cells. Each test variable gets one of three verdicts: TRANSFERS (test it in
 the field), NO-ANALOG (no Earth site reproduces it; the card names the facility) or UNOBSERVED
@@ -60,6 +64,14 @@ How we know it is not noise.
   footprints 27 of 54; H1 fails (p = 0.15). Slope distance does
   predict route distance in random land (Spearman 0.38). The same three
   matches reproduce the routes on the second DEM.
+- V2, registered before the rerun (`config/prereg_v2_mars.yaml`, commit 67920dd): the same test
+  with scale and threshold from 124 non-overlapping lunar windows instead of 8. Slope matches 3 of 9, random land 95 of 994, classic
+  footprints 17 of 54; H1 passes (p = 0.049), H1b fails
+  (p = 0.59).
+- Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
+  distances with thresholds from 185 Mars windows. Classic Mars
+  analog footprints 17 of 45, random land 159 of 994; HI-SEAS 9/9, Atacama 4/9, MDRS 1/9, Wright Valley 0/9. The test
+  passes (p = 0.0005), but the delta front is gentle terrain, so one random cell in six matches.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
 
 Site finder for test engineers. Pick an Artemis south-pole region (six PGDA 78 regions) and
@@ -79,7 +91,7 @@ sanctions; it is an assumption for planning, not a legal opinion.
 What a mission team gets. A campaign, not a site. For Connecting Ridge, the two leads together
 cover 5 of 5 field rows that orbit can judge (slope, simulated routes, all-day low Sun, terrain
 shadow, slope at 5 m); Baffin covers 4 of them at once,
-in its winter window; the best classic site alone covers 2.
+in its winter window; the best classic site alone covers 1.
 Rocks under 60 m need a site survey and 8 rows go to named facilities.
 The rows map to NASA's Civil Space Shortfalls "Autonomous Surface Mobility and Navigation"
 (ESDMD #0805) and "Lunar Precision Landing and Hazard Avoidance" (ESDMD #1101).
@@ -101,6 +113,8 @@ Limits we state ourselves.
   lead (inside the Atacama analog area) fail the traverse test.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
+- The route test beats random land only narrowly (V2, p = 0.049) and does not beat classic sites;
+  the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 %
   of daylight, the lunar target for 100 %. The Baffin window is seasonal, from a geometric sun
   model (no refraction, no horizon), and exploratory.
@@ -131,7 +145,7 @@ Core idea (judging analog sites by which test results transfer, per mission test
 ## NASA Data
 NASA PGDA Product 78 (LRO LOLA south-pole DEMs and slope rasters) · NASA EMIT L2A surface
 reflectance · MRO CRISM MICA type spectra (PDS Geosciences) · SWIM subsurface water ice mapping
-(Morgan et al. 2021) · MODIS land surface temperature and vegetation · ASTER GED · NASADEM ·
+(Morgan et al. 2021) · USGS Mars 2020 TRN CTX DTM of Jezero (MRO CTX) · MODIS land surface temperature and vegetation · ASTER GED · NASADEM ·
 NASA GIBS Blue Marble (web basemap) · NASA NTRS 20250009323 and 20240009596 (Artemis III
 landing requirements) · Mars Life Explorer mission concept study · NASA TRL definitions · NASA
 SVS 14583 (JETT5) · NASA planetary fact sheets.

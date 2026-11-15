@@ -6,7 +6,8 @@ Nothing is recomputed here; every cell of the matrix comes from a table.
 
 Field variables (terrain and lighting, measurable from orbit):
   slope      L1 robust set on both DEMs                         (l1_robust_set / access_leads)
-  routes     V1 planner outcomes within the ridge neighbourhood (route_validity, both DEMs)
+  routes     planner outcomes within the ridge neighbourhood, V2 threshold (route_v2, both DEMs;
+             the registered rule switches cards to V2 because V2 H1 passed)
   low_sun    days with all daylight Sun <= 7 deg                (low_sun_windows, L2 geometry)
   shadow     terrain shadow at 2 deg within the ridge neighbourhood range (L2 descriptor)
   slope_5m   slope match at 5 m (multiscale.json; only where checked)
@@ -47,6 +48,11 @@ def sites() -> list[dict]:
     nat = t2[t2.target_id.eq("connecting_ridge")]
     lo, hi = float(nat.shadow_e2.min()), float(nat.shadow_e2.max())
     ms = json.loads((D / "multiscale.json").read_text(encoding="utf-8"))["leads"]
+    v2 = pd.read_parquet(D / "route_v2.parquet")
+
+    def rep(cid, grp):
+        return bool(v2[(v2.cell_id == cid) & v2.group.eq(grp)].reproduces_v2.iloc[0])
+
     out = []
     for cid, name in (("E10K_-355_-671", "Argentina lead"),
                       ("E10K_660_-632", "Baffin Island lead")):
@@ -55,7 +61,7 @@ def sites() -> list[dict]:
         out.append({
             "id": cid, "name": name, "lat": float(r.lat), "lon": float(r.lon), "kind": "lead",
             "slope": bool(r.l1_robust_second_dem),
-            "routes": bool(r.route_reproduces and r.route_reproduces_second_dem),
+            "routes": rep(cid, "passer") and rep(cid, "passer_alt"),
             "low_sun": int(r.window_days) > 0, "window_days": int(r.window_days),
             "window": (f"{r.window_from}–{r.window_to}" if int(r.window_days) else None),
             "shadow": bool(lo <= float(r.shadow_e2) <= hi), "shadow_e2": float(r.shadow_e2),
@@ -64,8 +70,7 @@ def sites() -> list[dict]:
     # best classic site for the ridge's routes: Haughton (all footprints of its 12 km block)
     st = pd.read_parquet(D / "site_stability.parquet")
     cl = st[st.group.eq("Classic analog") & st.dem.eq("GLO-30") & st.site.eq(HAUGHTON)]
-    rv = pd.read_parquet(D / "route_validity.parquet")
-    rr = rv[rv.group.eq("classic") & rv.cell_id.isin(cl.cell_id)]
+    rr = v2[v2.group.eq("classic") & v2.cell_id.isin(cl.cell_id)]
     e = pd.read_parquet(D / "earth_L1.parquet").set_index("cell_id")
     sh = float(e.loc["CTRL_haughton_devon", "shadow_e2"])
     w = low_sun_windows(float(cl.lat.mean()))
@@ -73,8 +78,8 @@ def sites() -> list[dict]:
         "id": "CTRL_haughton_devon", "name": "Haughton (classic site)", "kind": "classic",
         "lat": float(cl.lat.mean()), "lon": float(cl.lon.mean()),
         "slope": bool(cl.robust.any()),
-        "routes": bool(rr.reproduces.mean() >= 0.5), "routes_footprints":
-            f"{int(rr.reproduces.sum())}/{len(rr)}",
+        "routes": bool(rr.reproduces_v2.mean() >= 0.5), "routes_footprints":
+            f"{int(rr.reproduces_v2.sum())}/{len(rr)}",
         "low_sun": w["window_days"] > 0, "window_days": int(w["window_days"]), "window": None,
         "shadow": bool(lo <= sh <= hi), "shadow_e2": sh, "slope_5m": None,
     })

@@ -355,6 +355,47 @@ def main() -> None:
         put("v1_classic_climb_10_median", float(rvt[rvt.group.eq("classic")].climb_10.median()),
             src)
 
+    # V2 (pre-registered threshold) and M1 Mars lens: config/prereg_v2_mars.yaml
+    v2_path = D / "route_v2.json"
+    if v2_path.exists():
+        v2 = json.loads(v2_path.read_text(encoding="utf-8"))
+        src = "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+        put("v2_n_moon_native", v2["n_moon_native"], src)
+        put("v2_tau", v2["tau"], src)
+        put("v2_passer_reproduce", v2["passer"][0], src)
+        put("v2_passer_n", v2["passer"][1], src)
+        put("v2_null_reproduce", v2["null"][0], src)
+        put("v2_null_n", v2["null"][1], src)
+        put("v2_null_share", v2["null"][0] / v2["null"][1], src)
+        put("v2_classic_reproduce", v2["classic"][0], src)
+        put("v2_classic_n", v2["classic"][1], src)
+        put("v2_classic_share", v2["classic"][0] / v2["classic"][1], src)
+        put("v2_h1_p", v2["H1_p"], src)
+        put("v2_h1_verdict", "PASS" if v2["H1_pass"] else "FAIL", src)
+        put("v2_h1b_p", v2["H1b_p"], src)
+        put("v2_h1b_verdict", "PASS" if v2["H1b_pass"] else "FAIL", src)
+        put("v2_h2_rho", v2["H2_rho"], src)
+    m1_path = D / "mars_m1.json"
+    if m1_path.exists():
+        m1 = json.loads(m1_path.read_text(encoding="utf-8"))
+        src = "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+        put("mars_n_neighbours", m1["n_mars_neighbours"], src)
+        put("mars_target_frac_gt8", m1["target"]["frac_gt8"], src)
+        put("mars_classic_match", m1["classic_mars"][0], src)
+        put("mars_classic_n", m1["classic_mars"][1], src)
+        put("mars_classic_share", m1["classic_mars"][0] / m1["classic_mars"][1], src)
+        put("mars_null_match", m1["null"][0], src)
+        put("mars_null_n", m1["null"][1], src)
+        put("mars_null_share", m1["null"][0] / m1["null"][1], src)
+        put("mars_moon_passer_match", m1["moon_passers"][0], src)
+        put("mars_p", m1["HM1_p"], src)
+        put("mars_verdict", "PASS" if m1["HM1_pass"] else "FAIL", src)
+        put("mars_open_matches", m1["n_open_matches"], src)
+        put("mars_open_countries", len({x["country"] for x in m1["open_matches"]}), src)
+        for site, (k, nn) in m1["per_site"].items():
+            slug = site.split()[0].strip(",").lower().replace("-", "")
+            put(f"mars_site_{slug}", f"{k}/{nn}", src)
+
     # I1: low-Sun windows of the ridge matches (exploratory, Deviations 32)
     lw_path = D / "lighting_windows.parquet"
     if lw_path.exists():

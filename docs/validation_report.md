@@ -763,13 +763,14 @@ joint test environment. Figure: `docs/figures/fig_campaign_coverage.png`.
 |---|---|---|---|---|---|---|
 | Argentina lead | yes | yes | no | yes | not checked | 3 |
 | Baffin Island lead | yes | yes | yes | no | yes | 4 |
-| Haughton (classic site) | no | yes | yes | no | not checked | 2 |
+| Haughton (classic site) | no | no (4/9) | yes | no | not checked | 1 |
 
 Two leads together: 5 of 5 field rows; the best classic site
-alone: 2. Baffin covers 4 together, but only
+alone: 1 (2 under the V1 threshold, where Haughton reproduced routes in 9/9 footprints; the
+routes column uses the V2 threshold, as `config/prereg_v2_mars.yaml` requires once V2 H1 passes). Baffin covers 4 together, but only
 inside its winter window. Rocks and craters under 60 m stay unobserved (site survey); the
 8 Transfer Ledger rows (gravity, vacuum, thermal, dust, radiation…) go to the named facilities.
-Haughton's route match is "at least half of its 9 footprints"; Haughton and Argentina were not
+Haughton's route match is "at least half of its 9 footprints" (4/9 under V2); Haughton and Argentina were not
 checked at 5 m, which counts as not covered.
 
 ### Artemis atlas: the route test and the low-Sun calendar for every region (exploratory, Deviations 36)
@@ -793,6 +794,68 @@ Only Connecting Ridge has a field site that passes every terrain test. For the S
 wall, the slope rule passes many steep mountains (9 of 1,000 random cells) but none of them
 reproduces the wall's routes: the route test is selective where the slope rule is not. Regions
 without a lead are facility-only for terrain rehearsal in this sample.
+
+## 7e. A tighter route threshold (V2) and the same lens on Mars (pre-registered, `config/prereg_v2_mars.yaml`, commit `67920dd`)
+
+Both rules were committed and pushed before any Earth footprint was compared with them. While
+writing them we looked only at the lunar Site01 DEM and at the Mars CTX DTM. Earth planner outcomes
+were not recomputed; they come from the V1 run (`route_validity.parquet`). Script
+`scripts/v2_mars.py`.
+
+### V2: the V1 test with 124 lunar neighbours instead of 8
+
+V1 took the scale and threshold from the 8 lunar population footprints of the ridge. V2 uses every
+4 km window of the Site01 DEM on a 1 km grid whose centre is at least 4 km from the reference, so no
+window shares a pixel with the reference (124 windows). Everything else is unchanged.
+
+| | V1 (8 neighbours) | V2 (124 neighbours) |
+|---|---|---|
+| τ (D units) | 0.797 | 1.1608 |
+| Slope matches that reproduce routes | 3/9 | 3/9 |
+| Random bare land | 151/994 (15.2%) | 95/994 (9.6%) |
+| Classic-site footprints | 27/54 | 17/54 |
+| H1 (matches > random), one-sided Fisher p | 0.14766 (fail) | 0.04916 (pass) |
+| H1b (matches > classic) p | 0.90225 (fail) | 0.59495 (fail) |
+| H2 Spearman ρ (L1 distance vs route distance, random land) | 0.377 (pass) | 0.359 (pass) |
+
+Per-outcome acceptance half-widths under V2 (scale × τ): reach_6 0.341, reach_8 0.0489, detour_8 0.2917, detour_10 0.0686, climb_10 9.4363.
+The same three leads reproduce routes on both DEMs under V1 and V2 (E10K_729_-319, E10K_-355_-671, E10K_660_-632).
+With the larger neighbourhood the threshold is tighter for four of the five outcomes (looser for
+climb), random land drops from 15 % to 10 %, and H1 passes, narrowly. Classic sites are still not
+beaten: 17 of 54 classic footprints reproduce the ridge's routes, and
+so do 3 of the 9 slope matches. Under the registered rule the cards keep both fields (slope match,
+route match) and the routes field now uses V2. Reading: an L1 slope match is a better-than-random
+pointer to traverse-like terrain, not a better pointer than the classic sites. V1 stays published
+as the first registered result.
+
+### Mars terrain lens: Perseverance's Jezero delta front
+
+Target: a 4 km footprint centred 18.4532 N, 77.4022 E on the USGS Mars 2020 TRN CTX DTM (20 m,
+aggregated to 30 m). frac_gt8 = 0.1243, slope p50 = 3.3041°,
+reach at 6° = 0.987, climb at 10° = 22.7481 m/km. Scales and the
+two thresholds come from 185 windows of the same DTM (2 km grid, centre ≥ 4 km
+from the target). A footprint matches if both its slope distance (5 slope descriptors) and its
+route distance (5 planner outcomes) are at most the median of the Mars neighbours
+(τ_slope = 1.1475, τ_route = 4.7897).
+
+| Group | Match | Share |
+|---|---|---|
+| Classic Mars analog sites (5 × 9 footprints) | 17/45 | 38% |
+| Random bare land | 159/994 | 16% |
+| Moon ridge slope matches (reported only) | 0/9 | 0 % |
+
+Per site: Atacama, Yungay 4/9, HI-SEAS, Mauna Loa 9/9, Haughton impact structure, Devon Island 3/9, MDRS Hanksville, Utah 1/9, McMurdo Wright Valley 0/9. HM1 (classic Mars sites > random
+land), one-sided Fisher p = 0.00051: **pass**. Random-land
+matches: 159, of which 132 are in open countries (25 countries;
+China 27 left out); the full list is in `data/derived/mars_m1.json`.
+
+Reading. The Jezero delta front is gentle terrain (12 % of cells above 8°), so it is common on
+Earth: one random bare-land cell in six matches it at 30 m, mostly hyper-arid plains and low
+escarpments of the Sahara and Arabia. The test therefore says the lens ranks known Mars analogs
+above random land, not that matches are rare. HI-SEAS matches in all 9 footprints, Atacama in 4,
+the MDRS badlands in 1 (too rough at 30 m), the Wright Valley in none (too steep). None of the
+Moon-ridge slope matches is a Jezero match: the two targets pick different terrain. Not claimed:
+rocks, soil, mineralogy, dust; 30 m terrain and a planner simulation only.
 
 ## 8. Deviations from pre-registration
 
@@ -837,6 +900,8 @@ evidence of order; where git cannot prove the order, the row says so.
 | 34 | Multi-scale check of the Baffin lead with ArcticDEM 2 m (rule committed before the run, `c4f7be5`) | 15/11 evening | The 30 m baseline misses rover-scale slopes | Exploratory; no verdict changed |
 | 35 | Campaign coverage matrix (union of published per-site results; Haughton as the best classic site for routes) | 15/11 evening | Turn per-site results into the engineer's question | Exploratory; no verdict changed |
 | 36 | Artemis atlas: V1 rule applied to the leads of the other five regions (reference and τ per region) | 15/11 evening | One registered region does not answer "which Moon Base region can be rehearsed on Earth" | Exploratory; leads only |
+| 37 | V2 route threshold from 124 non-overlapping Site01 windows (registered `67920dd` before the rerun); campaign routes column switched to V2 under that registration | 15/11 night | 8 neighbours gave an unstable scale and τ | V2 H1 passes (p = 0.049); H1b still fails; V1 kept beside it |
+| 38 | Mars terrain lens on the Jezero delta front (CTX DTM), classic Mars sites vs random land (registered `67920dd`) | 15/11 night | The challenge asks for Mars as well as the Moon; the Mars lenses so far covered minerals and ice only | HM1 passes (p = 0.0005); matches are common (16 % of random land) |
 
 ## 9. Limitations and not done
 

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T21:38",
+ "generated": "2026-11-15T22:03",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -1405,6 +1405,138 @@
    "value": 17.4971,
    "source": "data/derived/route_validity.json (scripts/route_validity.py, pre-registered V1)"
   },
+  "v2_n_moon_native": {
+   "value": 124,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_tau": {
+   "value": 1.1608,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_passer_reproduce": {
+   "value": 3,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_passer_n": {
+   "value": 9,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_null_reproduce": {
+   "value": 95,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_null_n": {
+   "value": 994,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_null_share": {
+   "value": 0.0956,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_classic_reproduce": {
+   "value": 17,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_classic_n": {
+   "value": 54,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_classic_share": {
+   "value": 0.3148,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h1_p": {
+   "value": 0.0492,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h1_verdict": {
+   "value": "PASS",
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h1b_p": {
+   "value": 0.5949,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h1b_verdict": {
+   "value": "FAIL",
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "v2_h2_rho": {
+   "value": 0.359,
+   "source": "data/derived/route_v2.json (scripts/v2_mars.py, pre-registered V2)"
+  },
+  "mars_n_neighbours": {
+   "value": 185,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_target_frac_gt8": {
+   "value": 0.1243,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_classic_match": {
+   "value": 17,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_classic_n": {
+   "value": 45,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_classic_share": {
+   "value": 0.3778,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_null_match": {
+   "value": 159,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_null_n": {
+   "value": 994,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_null_share": {
+   "value": 0.16,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_moon_passer_match": {
+   "value": 0,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_p": {
+   "value": 0.0005,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_verdict": {
+   "value": "PASS",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_open_matches": {
+   "value": 132,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_open_countries": {
+   "value": 25,
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_site_atacama": {
+   "value": "4/9",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_site_hiseas": {
+   "value": "9/9",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_site_haughton": {
+   "value": "3/9",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_site_mdrs": {
+   "value": "1/9",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
+  "mars_site_mcmurdo": {
+   "value": "0/9",
+   "source": "data/derived/mars_m1.json (scripts/v2_mars.py, pre-registered M1)"
+  },
   "i1_three_tests_n": {
    "value": 3,
    "source": "data/derived/lighting_windows.parquet (scripts/build_lighting_windows.py)"
@@ -1546,7 +1678,7 @@
    "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
   },
   "camp_best_classic_alone": {
-   "value": 2,
+   "value": 1,
    "source": "data/derived/campaign_connecting_ridge.json (scripts/build_campaign.py)"
   },
   "camp_baffin_joint": {
