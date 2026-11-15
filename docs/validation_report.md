@@ -49,7 +49,7 @@ matching, and a single verdict source. **Every table below is written by
 
 <!-- BEGIN:checks_headline -->
 - **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our formula at 5 m differs from NASA's slope rasters by at most 0.0009° on the median slope and 0.004 points on the 8° and 20° shares.
-- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 102 of 109 verdicts are unchanged (ridge cells, classic controls, wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). The 7 cells whose verdict changes are marginal; each is listed in §7c and counted on the protocol of its site (Atacama – Puna altiplano (Chile: 3; Peary Land: 1; Chechar District: 1; Sorkheh County: 1; — (ice-excluded: 1).
+- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 102 of 109 verdicts are unchanged (ridge cells, classic controls, wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). The 7 cells whose verdict changes are marginal and are all listed in §7c; 4 of them belong to showcase sites and are also counted on the protocol of their site, the other 3 belong to no showcase site (largest shortfall 7.5 ranks below the threshold).
 - **Six PGDA 78 south-pole sites, not two (exploratory).** Da Qaidam is in the robust set of 3 of the 6 sites (Connecting Ridge, de Gerlache rim, peak near Shackleton); Peary Land is in the robust set of 1 of the 6 sites (Connecting Ridge).
 - **A match is a 4 km footprint, not a region.** In the 12 km blocks around the 6 classic sites, 0 of 54 footprints are in the robust set for Connecting Ridge. In the block around each engine match, 1 of the 9 footprints at Da Qaidam and 1 of the 9 footprints at Peary Land is robust with both DEMs (at Da Qaidam the cell itself; at Peary Land the footprint 4 km south, not the cell): the coordinates matter, the region name does not.
 - **Known truth on the Moon.** Scored like Earth cells, footprints of the Shackleton inner wall pass their own reference in 4 of 4 cases and footprints of the other sites in 13 of 45: the test separates the steep wall. It does not separate the ridge, rim and massif sites from one another: same site 12 of 28, other sites 81 of 225, against 110 of 302 for any lunar footprint (each configuration passes about half of the lunar population by construction). For the Connecting Ridge reference, its own footprints pass in 2 of 4 cases, fewer than those of de Gerlache rim (6 of 9) and peak near Shackleton (5 of 9). The test recognises a terrain class, not a named place.
@@ -474,24 +474,24 @@ Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 
 ### Mars ice access, read on both worlds (semi-quantitative)
 
 <!-- BEGIN:x1_mission -->
-| body | site / cell | depth to ice-bearing ground, m | within 1 m | within the 2 m drill reach | basis |
-|---|---|---|---|---|---|
-| Mars | arcadia_planitia | 0.50 | yes | yes | Subsurface Water Ice Mapping (SWIM) project; Morgan et al. 2021 Nature Astronomy doi:10.1038/s41550-020-01290-z |
-| Mars | phoenix_site | 0.05 | yes | yes | Ice table 5-18 cm under dry soil (Phoenix lander); https://doi.org/10.1126/science.1172339 |
-| Mars | ice_exposing_craters_55n | 0.50 | yes | yes | New impact craters exposing ice within ~1 m at 43-56 N; https://doi.org/10.1126/science.1175307 |
-| Mars | deuteronilus_lda | > 3.00 | no | no | Debris-covered glacial ice, overburden >~1 m (SHARAD); https://doi.org/10.1029/2008GL036379 |
-| Mars | meridiani_equatorial | > 3.00 | no | no | No near-surface ice at the equator (ice unstable); https://swim.psi.edu/ |
-| Mars | hellas_lda | > 3.00 | no | no | Lobate debris aprons: ice under metres of debris; https://doi.org/10.1029/2008GL036379 |
-| Earth | seed_peary_land | 0.00 | yes | yes | lat 82.50, lon -32.00; qa ok; ice check flag: some ice |
-| Earth | seed_devon_island | 0.59 | yes | yes | lat 75.40, lon -89.70; qa ok; ice check ok |
-| Earth | rank_0038 | 0.48 | yes | yes | lat 77.94, lon -111.77; qa ok; ice check ok |
-| Earth | rank_0040 | 0.53 | yes | yes | lat 76.82, lon -118.92; qa ok; ice check ok |
-| Earth | rank_0056 | 1.02 | no | yes | lat 66.87, lon 136.47; qa vegetated; ice check ok |
-| Earth | rank_0058 | 0.74 | yes | yes | lat 68.59, lon -85.73; qa ok; ice check ok |
-| Earth | rank_0087 | 0.60 | yes | yes | lat 80.67, lon -91.86; qa ok; ice check ok |
-| Earth | rank_0123 | 0.00 | yes | yes | lat 83.05, lon -37.92; qa ok; ice check not assessed (outside ESA WorldCover) |
+| body | site / cell | role | Earth: modelled permafrost table; Mars: depth the lens encodes, m | within 1 m | within the 2 m drill reach | basis |
+|---|---|---|---|---|---|---|
+| Mars | arcadia_planitia | reference | 0.50 | yes | yes | Subsurface Water Ice Mapping (SWIM) project; Morgan et al. 2021 Nature Astronomy doi:10.1038/s41550-020-01290-z |
+| Mars | phoenix_site | reference | 0.05 | yes | yes | Ice table 5-18 cm under dry soil (Phoenix lander); https://doi.org/10.1126/science.1172339 |
+| Mars | ice_exposing_craters_55n | reference | 0.50 | yes | yes | New impact craters exposing ice within ~1 m at 43-56 N; https://doi.org/10.1126/science.1175307 |
+| Mars | deuteronilus_lda | reference | > 3.00 | no | no | Debris-covered glacial ice, overburden >~1 m (SHARAD); https://doi.org/10.1029/2008GL036379 |
+| Mars | meridiani_equatorial | reference | > 3.00 | no | no | No near-surface ice at the equator (ice unstable); https://swim.psi.edu/ |
+| Mars | hellas_lda | reference | > 3.00 | no | no | Lobate debris aprons: ice under metres of debris; https://doi.org/10.1029/2008GL036379 |
+| Earth | seed_peary_land | seed | no modelled thaw | — | — | lat 82.50, lon -32.00; qa ok; ice check flag: some ice |
+| Earth | seed_devon_island | seed | 0.59 | yes | yes | lat 75.40, lon -89.70; qa ok; ice check ok |
+| Earth | rank_0038 | rank | 0.48 | yes | yes | lat 77.94, lon -111.77; qa ok; ice check ok |
+| Earth | rank_0040 | rank | 0.53 | yes | yes | lat 76.82, lon -118.92; qa ok; ice check ok |
+| Earth | rank_0056 | rank | 1.02 | no | yes | lat 66.87, lon 136.47; qa vegetated; ice check ok |
+| Earth | rank_0058 | rank | 0.74 | yes | yes | lat 68.59, lon -85.73; qa ok; ice check ok |
+| Earth | rank_0087 | rank | 0.60 | yes | yes | lat 80.67, lon -91.86; qa ok; ice check ok |
+| Earth | rank_0123 | rank | no modelled thaw | — | — | lat 83.05, lon -37.92; qa ok; ice check not assessed (outside ESA WorldCover) |
 
-Mars Life Explorer concept study: "land within a vertical meter of Martian mid-latitude ice, drill for samples to a 2-meter depth" (https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf). Of the 8 Earth cells the ice lens keeps, 7 have modelled ice-bearing ground within 1 m and 8 within 2 m (deepest 1.02 m). Earth depths are Stefan thaw depths from ERA5-Land thawing degree-days, taken as the depth to ice-bearing permafrost; Mars depths come from the sources listed. A reading of descriptors the lens already uses (a consistency check), not a measurement: no ice table was observed in situ, and a mission concept study is not a requirement.
+Mars Life Explorer concept study: "land within a vertical meter of Martian mid-latitude ice, drill for samples to a 2-meter depth" (https://science.nasa.gov/wp-content/uploads/2023/10/mars-life-explorer.pdf). The ice lens keeps 8 Earth cells (6 screened, 2 hand-picked seeds). 2 have no modelled thaw (0 thawing degree-days) and give no depth to read. Of the other 6, the modelled permafrost table lies within 1 m at 5 and within 2 m at 6 (deepest 1.02 m). Earth depths are Stefan thaw depths from ERA5-Land thawing degree-days: the top of permafrost, not of ice; polar-desert permafrost can be dry and no ice content was observed. Mars values are the point values the lens encodes from the sources listed (for example 0.5 for "within about 1 m"). A reading of descriptors the lens already uses (a consistency check), not a measurement; a mission concept study is not a requirement.
 <!-- END:x1_mission -->
 
 ### Test-transfer matrix
@@ -582,7 +582,7 @@ Central 4 km footprint of each PGDA 78 site; NASA raster = `SiteNN_final_adj_5mp
 | ridge match | nan | E10K_726_-686 | ArcticDEM | 85.2 % | 85.0 % | 49/34/44 of 49 | yes | yes |
 | ridge match | nan | E10K_699_-750 | ArcticDEM | 79.5 % | 79.2 % | 44/29/44 of 49 | yes | yes |
 
-All 7 cells whose verdict changes with the second DEM (marginal: each misses the threshold by a few ranks in one configuration); the protocol of every showcase site states how many of its cells are marginal (`docs/test_protocols.md`):
+All 7 cells whose verdict changes with the second DEM (marginal: the lowest rank falls short of the threshold by 0.5 to 7.5 ranks). The protocol of each showcase site counts its marginal cells among the cells that have a published terrain verdict (`docs/test_protocols.md`); cells of other sites appear only here:
 
 | target | site | cell | second DEM | native rank (i)/(ii)/(iii), second DEM | showcase site | cells in that site |
 |---|---|---|---|---|---|---|
@@ -708,7 +708,7 @@ evidence of order; where git cannot prove the order, the row says so.
 | 27 | Test protocols and the TRL reading of a card (`docs/test_protocols.md`) | PLAN 2d, 15/11 midday | State what a field campaign may claim | A card is an input to a project's own definition of its relevant environment; no hardware was tested and no TRL is assigned or certified |
 | 28 | Six-region reading of L1, leave-one-out on the Moon, 800 more random bare-land cells (`scripts/l1_regions.py`, `scripts/null_expand.py`) | PLAN 2e, 15/11 afternoon | L1 had no known-truth check; the null sample of 200 gave a prevalence CI of 0.01–2.8 % | Post hoc. The four regions without a published reference use their medoid footprint and are exploratory (never in `verdicts.parquet`). The extra cells were drawn by the pre-registered rule with a new seed before any was scored; the first 200 are unchanged. The published robust sets are reproduced exactly by the generalised code before it is used |
 | 29 | Cross-DEM check with NASADEM / ArcticDEM (`scripts/cross_dem.py`) | PLAN 2e, 15/11 afternoon | The Earth side rests on one DEM whose effective resolution differs from the lunar one | Post hoc robustness check on the ridge cells, the controls and the wall cells, plus the 3 × 3 footprint blocks around the two ridge matches and the six classic sites (`scripts/site_stability.py`, exploratory). Verdicts are not changed by it; a cell whose verdict flips is flagged as marginal in §1, on its card and on the slides |
-| 30 | Mars ice-access reading (modelled depth to ice-bearing ground of the X1 cells beside the Mars Life Explorer numbers), rank-threshold sensitivity table, `web/evidence.html` | PLAN 2e, 15/11 afternoon | Read the Mars lens beside a published NASA document as the Moon lens is; show what the n/2 rule does at n/3 and 2n/3 | Post hoc readings of descriptors and ranks that already exist (consistency checks). A mission concept study is not a requirement. No threshold or verdict changed |
+| 30 | Mars ice-access reading (modelled permafrost table of the X1 cells beside the Mars Life Explorer numbers; ice content not observed), rank-threshold sensitivity table, `web/evidence.html` | PLAN 2e, 15/11 afternoon | Read the Mars lens beside a published NASA document as the Moon lens is; show what the n/2 rule does at n/3 and 2n/3 | Post hoc readings of descriptors and ranks that already exist (consistency checks). A mission concept study is not a requirement. No threshold or verdict changed |
 
 ## 9. Limitations and not done
 

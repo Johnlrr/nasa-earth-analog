@@ -114,22 +114,30 @@ def test_protocols_cover_every_published_lens_of_the_showcase_sites():
     assert "does not assign or certify a TRL" in text
 
 
-def test_every_slide_key_exists_in_slide_numbers():
+KEYED_DOCS = ["slides_draft.md", "submission_kit.md"]
+
+
+def _numbers():
+    return json.loads((io.REPO_ROOT / "docs" / "slide_numbers.json").read_text(
+        encoding="utf-8"))["numbers"]
+
+
+@pytest.mark.parametrize("doc", KEYED_DOCS)
+def test_every_key_in_a_keyed_document_exists_in_slide_numbers(doc):
     import re
 
-    text = (io.REPO_ROOT / "docs" / "slides_draft.md").read_text(encoding="utf-8")
-    numbers = json.loads((io.REPO_ROOT / "docs" / "slide_numbers.json").read_text(
-        encoding="utf-8"))["numbers"]
+    text = (io.REPO_ROOT / "docs" / doc).read_text(encoding="utf-8")
+    numbers = _numbers()
     keys = set(re.findall(r"`([A-Za-z0-9_]+)`", " ".join(re.findall(r"\[([^\]]*)\]", text))))
     assert keys and not sorted(k for k in keys if k not in numbers)
 
 
-def test_values_typed_beside_a_slide_key_match_slide_numbers():
+@pytest.mark.parametrize("doc", KEYED_DOCS)
+def test_values_typed_beside_a_key_match_slide_numbers(doc):
     import re
 
-    text = (io.REPO_ROOT / "docs" / "slides_draft.md").read_text(encoding="utf-8")
-    numbers = json.loads((io.REPO_ROOT / "docs" / "slide_numbers.json").read_text(
-        encoding="utf-8"))["numbers"]
+    text = (io.REPO_ROOT / "docs" / doc).read_text(encoding="utf-8")
+    numbers = _numbers()
     pairs = re.findall(r"`([A-Za-z0-9_]+)`\s*=\s*([0-9.]+)", text)
     assert pairs
     for key, typed in pairs:

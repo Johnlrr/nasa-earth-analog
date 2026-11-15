@@ -247,6 +247,14 @@ def main() -> None:
                  | (cd.group.ne("wall match") & cd.target_id.eq("connecting_ridge"))]
         src = "data/derived/cross_dem.parquet"
         put("cross_dem_same_verdict", int((pub.robust == pub.robust_glo30).sum()), src)
+        kept = cd[cd.robust_glo30.astype(bool) & cd.target_id.isin(["connecting_ridge",
+                                                                     "shackleton_rim"])]
+        for _, sr in show.iterrows():
+            slug = next((v for k, v in slugs.items() if k in str(sr["name"])), None)
+            d = kept[kept.cell_id.isin(str(sr["cells"]).split(","))]
+            if slug and len(d):
+                put(f"cross_dem_{slug}_site_unchanged", int(d.robust.sum()), src)
+                put(f"cross_dem_{slug}_site_n", int(len(d)), src)
         put("cross_dem_n", int(len(pub)), src)
         base = pd.read_parquet(D / "l1_robust_set.parquet")
         base = base[base.target_id.eq("connecting_ridge")].set_index("cell_id")

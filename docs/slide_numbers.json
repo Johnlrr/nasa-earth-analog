@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T15:38",
+ "generated": "2026-11-15T15:40",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -549,12 +549,24 @@
    "value": 8,
    "source": "data/derived/mission_value.json"
   },
+  "x1_mission_seeds": {
+   "value": 2,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_no_thaw": {
+   "value": 2,
+   "source": "data/derived/mission_value.json"
+  },
+  "x1_mission_with_thaw": {
+   "value": 6,
+   "source": "data/derived/mission_value.json"
+  },
   "x1_mission_within_1m": {
-   "value": 7,
+   "value": 5,
    "source": "data/derived/mission_value.json"
   },
   "x1_mission_within_2m": {
-   "value": 8,
+   "value": 6,
    "source": "data/derived/mission_value.json"
   },
   "x1_mission_depth_max_m": {
@@ -1019,6 +1031,38 @@
   },
   "cross_dem_same_verdict": {
    "value": 102,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_atacama_puna_site_unchanged": {
+   "value": 50,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_atacama_puna_site_n": {
+   "value": 53,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_zanda_gar_site_unchanged": {
+   "value": 5,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_zanda_gar_site_n": {
+   "value": 5,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_da_qaidam_site_unchanged": {
+   "value": 2,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_da_qaidam_site_n": {
+   "value": 2,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_peary_land_site_unchanged": {
+   "value": 0,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_peary_land_site_n": {
+   "value": 1,
    "source": "data/derived/cross_dem.parquet"
   },
   "cross_dem_n": {

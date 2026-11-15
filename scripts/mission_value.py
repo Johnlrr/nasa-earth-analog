@@ -170,25 +170,30 @@ def x1_controls(x1: pd.DataFrame) -> dict:
 
 
 def x1_mission(x1: pd.DataFrame, verdicts: pd.DataFrame, targets: pd.DataFrame) -> pd.DataFrame:
-    """Modelled depth to ice-bearing ground of the X1 TRANSFERS cells and of the Mars references,
-    beside the Mars Life Explorer numbers (land within 1 m of ice, drill to 2 m).
+    """Modelled permafrost table of the X1 TRANSFERS cells and the depths the lens uses for the
+    Mars references, beside the Mars Life Explorer numbers (land within 1 m of ice, drill to 2 m).
 
-    Earth: Stefan thaw depth from ERA5-Land thawing degree-days (active_layer_m), taken as the
-    depth to ice-bearing permafrost. Mars: ice_depth_ratio x 1 m (the descriptor's drill reach),
-    from the sources in targets_X1. A reading of existing descriptors, not a measurement.
+    Earth: Stefan thaw depth from ERA5-Land thawing degree-days (active_layer_m) = depth of the
+    modelled permafrost table. It says nothing about ice content (polar-desert permafrost can
+    be dry), and a cell with no modelled thaw (0 thawing degree-days) has no thaw depth to read:
+    it is reported as such and never counted as "within 1 m". Mars: ice_depth_ratio x 1 m, the
+    value the lens encodes from each source. A reading of descriptors, not a measurement.
     """
     kept = set(verdicts[verdicts["lens_id"].eq("X1") & verdicts["state"].eq("TRANSFERS")
                         & verdicts["cell_id"].fillna("").ne("")]["cell_id"])
     e = x1[x1["cell_id"].isin(kept)]
-    rows = [{"body": "Mars", "id": r.footprint_id, "depth_to_ice_m": float(r.ice_depth_ratio),
-             "capped": bool(r.ice_depth_ratio >= 3.0), "source": r.source}
-            for r in targets.itertuples()]
-    rows += [{"body": "Earth", "id": r.cell_id, "depth_to_ice_m": float(r.active_layer_m),
-              "capped": False, "source": f"lat {r.lat:.2f}, lon {r.lon:.2f}; qa {r.qa_flag}; "
-                                         f"ice check {r.ice_check}"} for r in e.itertuples()]
+    rows = [{"body": "Mars", "id": r.footprint_id, "role": "reference",
+             "depth_m": float(r.ice_depth_ratio), "capped": bool(r.ice_depth_ratio >= 3.0),
+             "no_thaw": False, "source": r.source} for r in targets.itertuples()]
+    rows += [{"body": "Earth", "id": r.cell_id, "role": r.sample_role,
+              "depth_m": float(r.active_layer_m), "capped": False,
+              "no_thaw": bool(r.tdd == 0),
+              "source": f"lat {r.lat:.2f}, lon {r.lon:.2f}; qa {r.qa_flag}; "
+                        f"ice check {r.ice_check}"} for r in e.itertuples()]
     out = pd.DataFrame(rows)
-    out["within_1m"] = out["depth_to_ice_m"] <= 1.0
-    out["within_2m"] = out["depth_to_ice_m"] <= 2.0
+    read = ~out["no_thaw"] & ~out["capped"]
+    out["within_1m"] = read & (out["depth_m"] <= 1.0)
+    out["within_2m"] = read & (out["depth_m"] <= 2.0)
     return out
 
 
@@ -332,10 +337,13 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                     + (f"; {p['coverage_note']}" if p.get("coverage_note") else "") + ")")]
         if lens == "X1" and x1m is not None:
             e = x1m[x1m["body"].eq("Earth")]
+            w = e[~e["no_thaw"]]
             out.append(f"- **Mars Life Explorer reading:** of the {len(e)} cells kept, "
-                       f"{int(e['within_1m'].sum())} have modelled ice-bearing ground within "
-                       f"1 m and {int(e['within_2m'].sum())} within the 2 m drill reach "
-                       "(Stefan thaw depth from reanalysis; not observed in situ).")
+                       f"{int(e['no_thaw'].sum())} have no modelled thaw; of the other "
+                       f"{len(w)}, the modelled permafrost table is within 1 m at "
+                       f"{int(w['within_1m'].sum())} and within the 2 m drill reach at "
+                       f"{int(w['within_2m'].sum())} (Stefan thaw depth from reanalysis; ice "
+                       "content not observed).")
         out.append("")
     out += ["## Protocol per showcase site", ""]
     kept = crit[crit["group"].eq("Engine match")].set_index("id")
@@ -412,9 +420,12 @@ def build(attention_enabled: bool = False) -> dict:
         "l1_under_sampling": float(ref["frac_gt8"] / classic["frac_gt8"].median()),
         "rediscovery": rediscovery(tier1, earth, robust, site_cells),
         "x1_controls": x1_controls(pd.read_parquet(DERIVED / "x1_checklist.parquet")),
-        "x1_mission": {"cells": len(x1e), "within_1m": int(x1e["within_1m"].sum()),
+        "x1_mission": {"cells": len(x1e), "seeds": int(x1e["role"].eq("seed").sum()),
+                       "no_thaw": int(x1e["no_thaw"].sum()),
+                       "with_thaw": int((~x1e["no_thaw"]).sum()),
+                       "within_1m": int(x1e["within_1m"].sum()),
                        "within_2m": int(x1e["within_2m"].sum()),
-                       "depth_max_m": float(x1e["depth_to_ice_m"].max())},
+                       "depth_max_m": float(x1e["depth_m"].max())},
         "m1_checks": {"passed": int(sum(bool(x) for x in m1["checks"].values())),
                       "n": len(m1["checks"]), "verdict": m1["verdict"]},
         "coverage": {lens: {s: int((g["state"] == s).sum()) for s in STATE_ORDER}

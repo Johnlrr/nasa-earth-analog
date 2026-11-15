@@ -153,8 +153,11 @@ the ridge [`scarcity_L1_shackleton_rim_n_usable`,
 and the L2 low-Sun hypothesis of our design was **not** confirmed there; the ice-lens seed list
 is not provably pre-registered (Deviations 23); Peary Land (52 papers) and Da Qaidam are not
 "hidden"; low literature count outside known regions: **Zanda/Gar**, **1** paper
-[`site_zanda_gar_attention`], and **Gêrzê**, **0** [`site_gerze_attention`], both for
-Shackleton-wall terrain; the JETT5 site and our SP Crater footprint are in the same volcanic
+[`site_zanda_gar_attention`], whose **5 of 5** terrain verdicts are unchanged with the second DEM
+[`cross_dem_zanda_gar_site_unchanged` = 5, `cross_dem_zanda_gar_site_n` = 5], and **Gêrzê**,
+**0** [`site_gerze_attention`], both for Shackleton-wall terrain; in the Atacama–Puna,
+**50 of 53** are unchanged [`cross_dem_atacama_puna_site_unchanged` = 50,
+`cross_dem_atacama_puna_site_n` = 53]; the JETT5 site and our SP Crater footprint are in the same volcanic
 field, not necessarily the same ground.
 Visual: `docs/figures/fig_region_matrix.png` (six PGDA 78 south-pole sites × Earth footprints) beside
 `docs/figures/fig_sites_map.png`, Da Qaidam highlighted.
@@ -171,10 +174,12 @@ Visual: `docs/figures/fig_region_matrix.png` (six PGDA 78 south-pole sites × Ea
   midnight Sun: **1 of 9** at the sites that pass.
   Low Sun: **1 of 9** [`coverage_L2_transfers` / `coverage_L2_total`].
 - **Mars ice, read beside NASA's Mars Life Explorer study** ("land within a vertical meter of
-  Martian mid-latitude ice, drill for samples to a 2-meter depth"): all **8** Earth cells the ice
-  lens keeps have modelled ice-bearing ground within the 2 m drill reach, **7** within 1 m
-  [`x1_mission_cells` = 8, `x1_mission_within_2m` = 8, `x1_mission_within_1m` = 7] (modelled
-  thaw depth, not observed; semi-quantitative).
+  Martian mid-latitude ice, drill for samples to a 2-meter depth"): of the **8** Earth cells the
+  ice lens keeps, **2** have no modelled thaw; at the other **6** the modelled permafrost table
+  is within the 2 m drill reach, at **5** within 1 m [`x1_mission_cells` = 8,
+  `x1_mission_no_thaw` = 2, `x1_mission_with_thaw` = 6, `x1_mission_within_2m` = 6,
+  `x1_mission_within_1m` = 5] (top of permafrost from a thaw model; ice content not observed;
+  semi-quantitative).
 - The honest limit, as a number: the best Earth site has the Sun below 7° for **28 %** of
   daylight; the lunar target, **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,
   `l2_moon_lowsun_frac_daylight` = 1.0]. No Earth site can test polar Sun geometry.

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15 15:38",
+ "generated": "2026-11-15 15:40",
  "l1_null": [
   {
    "target_id": "connecting_ridge",
@@ -110,8 +110,11 @@
  },
  "x1_mission": {
   "cells": 8,
-  "within_1m": 7,
-  "within_2m": 8,
+  "seeds": 2,
+  "no_thaw": 2,
+  "with_thaw": 6,
+  "within_1m": 5,
+  "within_2m": 6,
   "depth_max_m": 1.017948487904002
  },
  "m1_checks": {

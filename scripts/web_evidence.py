@@ -156,10 +156,12 @@ for {n(num, 'l2_moon_lowsun_frac_daylight', '{:.0f} %', 100)}.</p>
 {fig('fig_transfer_matrix.png', 'Lens by test variable matrix with three states',
      'The mineral lens failed its pre-registered stop rule: no site is published and no verdict is shown.')}
 <p>Mars ice, read beside NASA's Mars Life Explorer concept study
-("{e(req['mars_ice_access']['quote'])}"): all {n(num, 'x1_mission_cells')} Earth cells the ice
-lens keeps have modelled ice-bearing ground within the 2 m drill reach,
-{n(num, 'x1_mission_within_1m')} within 1 m. These are modelled thaw depths, not observations;
-the ice lens is semi-quantitative.</p>
+("{e(req['mars_ice_access']['quote'])}"): of the {n(num, 'x1_mission_cells')} Earth cells the
+ice lens keeps, {n(num, 'x1_mission_no_thaw')} have no modelled thaw; at the other
+{n(num, 'x1_mission_with_thaw')} the modelled permafrost table is within the 2 m drill reach
+at {n(num, 'x1_mission_within_2m')} and within 1 m at {n(num, 'x1_mission_within_1m')}. This is
+the top of permafrost from a thaw model, not an observed ice table; the ice lens is
+semi-quantitative.</p>
 <table>
 <tr><th>Terrain protocol</th><th></th></tr>
 <tr><td>Systems to test</td><td>{e(p['systems'])}</td></tr>

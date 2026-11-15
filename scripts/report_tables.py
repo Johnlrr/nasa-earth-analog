@@ -357,21 +357,33 @@ def t_mission_criteria() -> str:
 def t_x1_mission() -> str:
     x = pd.read_parquet(DERIVED / "x1_mission.parquet")
     m, req = _mv()["x1_mission"], _mission()["requirements"]["mars_ice_access"]
+
+    def depth(r):
+        if r["no_thaw"]:
+            return "no modelled thaw"
+        return ("> " if r["capped"] else "") + f"{r['depth_m']:.2f}"
+    yn = {True: "yes", False: "no"}
     out = pd.DataFrame({
-        "body": x["body"], "site / cell": x["id"],
-        "depth to ice-bearing ground, m": [("> " if c else "") + f"{d:.2f}" for d, c in
-                                           zip(x["depth_to_ice_m"], x["capped"], strict=True)],
-        "within 1 m": x["within_1m"].map({True: "yes", False: "no"}),
-        "within the 2 m drill reach": x["within_2m"].map({True: "yes", False: "no"}),
+        "body": x["body"], "site / cell": x["id"], "role": x["role"],
+        "Earth: modelled permafrost table; Mars: depth the lens encodes, m": [
+            depth(r) for _, r in x.iterrows()],
+        "within 1 m": [("—" if r["no_thaw"] else yn[bool(r["within_1m"])])
+                       for _, r in x.iterrows()],
+        "within the 2 m drill reach": [("—" if r["no_thaw"] else yn[bool(r["within_2m"])])
+                                       for _, r in x.iterrows()],
         "basis": x["source"]})
     return (md_table(out) + f"\n\nMars Life Explorer concept study: \"{req['quote']}\" "
-            f"({req['source']}). Of the {m['cells']} Earth cells the ice lens keeps, "
-            f"{m['within_1m']} have modelled ice-bearing ground within 1 m and "
-            f"{m['within_2m']} within 2 m (deepest {m['depth_max_m']:.2f} m). Earth depths are "
-            "Stefan thaw depths from ERA5-Land thawing degree-days, taken as the depth to "
-            "ice-bearing permafrost; Mars depths come from the sources listed. A reading of "
-            "descriptors the lens already uses (a consistency check), not a measurement: no "
-            "ice table was observed in situ, and a mission concept study is not a requirement.")
+            f"({req['source']}). The ice lens keeps {m['cells']} Earth cells "
+            f"({m['cells'] - m['seeds']} screened, {m['seeds']} hand-picked seeds). "
+            f"{m['no_thaw']} have no modelled thaw (0 thawing degree-days) and give no depth to "
+            f"read. Of the other {m['with_thaw']}, the modelled permafrost table lies within "
+            f"1 m at {m['within_1m']} and within 2 m at {m['within_2m']} (deepest "
+            f"{m['depth_max_m']:.2f} m). Earth depths are Stefan thaw depths from ERA5-Land "
+            "thawing degree-days: the top of permafrost, not of ice; polar-desert permafrost "
+            "can be dry and no ice content was observed. Mars values are the point values the "
+            "lens encodes from the sources listed (for example 0.5 for \"within about 1 m\"). "
+            "A reading of descriptors the lens already uses (a consistency check), not a "
+            "measurement; a mission concept study is not a requirement.")
 
 
 def t_coverage() -> str:
@@ -505,9 +517,12 @@ def t_checks_headline() -> str:
         f"- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, "
         f"{same} of {len(pub)} verdicts are unchanged (ridge cells, classic controls, wall "
         "cells). " + "; ".join(dem_line(i) for i in usable) + f". The {len(flips)} cells "
-        "whose verdict changes are marginal; each is listed in §7c and counted on the protocol "
-        "of its site (" + "; ".join(f"{k.split(',')[0]}: {v}" for k, v in
-                                    flips["site"].value_counts().items()) + ").",
+        f"whose verdict changes are marginal and are all listed in §7c; "
+        f"{int(flips['showcase'].ne('').sum())} of them belong to showcase sites and are also "
+        f"counted on the protocol of their site, the other "
+        f"{int(flips['showcase'].eq('').sum())} belong to no showcase site (largest shortfall "
+        f"{float((flips['n_i'] / 2 - flips[['nr_i', 'nr_ii', 'nr_iii']].min(axis=1)).max()):g} "
+        f"ranks below the threshold).",
         "- **Six PGDA 78 south-pole sites, not two (exploratory).** " + "; ".join(
             f"{names.get(i, i)} is in the robust set of {len(v)} of the 6 sites "
             f"({', '.join(_label(x) for x in v)})" for i, v in n_reg.items()) + ".",
@@ -618,9 +633,12 @@ def t_cross_dem() -> str:
         "cells in that site": f["site_cells"].map(lambda x: "—" if pd.isna(x) else int(x))})
     return (md_table(g) + "\n\n" + md_table(cells.sort_values(["cells", "site"]))
             + f"\n\nAll {len(f)} cells whose verdict changes with the second DEM (marginal: "
-            "each misses the threshold by a few ranks in one configuration); the protocol of "
-            "every showcase site states how many of its cells are marginal "
-            "(`docs/test_protocols.md`):\n\n" + md_table(flips)
+            f"the lowest rank falls short of the threshold by "
+            f"{float((f['n_i'] / 2 - f[['nr_i', 'nr_ii', 'nr_iii']].min(axis=1)).min()):g} to "
+            f"{float((f['n_i'] / 2 - f[['nr_i', 'nr_ii', 'nr_iii']].min(axis=1)).max()):g} "
+            "ranks). The protocol of each showcase site counts its marginal cells among the "
+            "cells that have a published terrain verdict (`docs/test_protocols.md`); cells of "
+            "other sites appear only here:\n\n" + md_table(flips)
             + "\n\nSecond DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and "
             "60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same "
             "code, baselines and rule. \"Wall match\" = the cells kept for the Shackleton "
