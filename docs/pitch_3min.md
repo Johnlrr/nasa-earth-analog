@@ -20,7 +20,7 @@ a field site, it needs a named facility, or orbit cannot tell."
 failed its own stop rule, so we publish no mineral site. Our traverse test failed with 8 lunar
 neighbours; with 124 it passes against random land, narrowly, and it does not beat classic
 sites. We say that on every card. On Mars, classic Mars analogs match Perseverance's Jezero
-delta front 38 % of the time, random land 16 %."
+delta front 42 % of the time, random land 19 %."
 
 *(after the deadline, optional)* "Since then we checked our slope against the rover itself: at 708
 places where Perseverance stopped, our 30 m slope from orbit tracks the tilt the rover measured,
