@@ -1,0 +1,115 @@
+{
+ "generated": "2026-11-15 11:35",
+ "l1_null": [
+  {
+   "target_id": "connecting_ridge",
+   "n_null": 200,
+   "robust_null": 1,
+   "null_rate": 0.005,
+   "null_ci_lo": 0.00012658102786701839,
+   "null_ci_hi": 0.02754189845720563,
+   "n_rank": 300,
+   "robust_rank": 5,
+   "n_control": 5,
+   "robust_control": 0
+  },
+  {
+   "target_id": "shackleton_rim",
+   "n_null": 200,
+   "robust_null": 4,
+   "null_rate": 0.02,
+   "null_ci_lo": 0.005475565879556451,
+   "null_ci_hi": 0.05041360908989628,
+   "n_rank": 300,
+   "robust_rank": 99,
+   "n_control": 5,
+   "robust_control": 0
+  }
+ ],
+ "l1_classic_controls": {
+  "n": 6,
+  "robust": 0,
+  "in_range_frac_gt8": 0,
+  "frac_gt8_max": 0.36949035812672176,
+  "frac_gt8_median": 0.08861340679522497
+ },
+ "l1_reference": {
+  "slope_p50": 12.384205548805703,
+  "frac_gt8": 0.7584366391184573,
+  "frac_gt20": 0.05779384756657484
+ },
+ "l1_under_sampling": 8.558937823834198,
+ "rediscovery": {
+  "base_in_zone": 2777,
+  "base_n": 196008,
+  "base_rate": 0.014167789069833884,
+  "rank_in_zone": 68,
+  "rank_n": 300,
+  "rank_rate": 0.22666666666666666,
+  "rank_enrichment": 15.998732445084624,
+  "rank_p_binomial": 2.2120249544941934e-59,
+  "targets": [
+   {
+    "target_id": "connecting_ridge",
+    "robust_in_zone": 0,
+    "robust_n": 5,
+    "other_in_zone": 68,
+    "other_n": 295,
+    "p_fisher": 0.5916003768352762
+   },
+   {
+    "target_id": "shackleton_rim",
+    "robust_in_zone": 39,
+    "robust_n": 99,
+    "other_in_zone": 29,
+    "other_n": 201,
+    "p_fisher": 3.4545096927159547e-06
+   }
+  ]
+ },
+ "x1_controls": {
+  "positive_pass": [
+   "ctl_axel_heiberg_eureka",
+   "ctl_beacon_valley"
+  ],
+  "positive_n": 2,
+  "decoy_rejected": [
+   "ctl_west_siberia_lowland",
+   "ctl_yakutsk_lowland"
+  ],
+  "decoy_n": 2
+ },
+ "m1_checks": {
+  "passed": 3,
+  "n": 4,
+  "verdict": "FAIL"
+ },
+ "coverage": {
+  "L1": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 5,
+   "UNOBSERVED": 1
+  },
+  "L2": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 7,
+   "UNOBSERVED": 1
+  },
+  "M1": {
+   "TRANSFERS": 1,
+   "NO-ANALOG": 6,
+   "UNOBSERVED": 2
+  },
+  "X1": {
+   "TRANSFERS": 2,
+   "NO-ANALOG": 6,
+   "UNOBSERVED": 1
+  }
+ },
+ "funnel": {
+  "bare_land_cells": 196008,
+  "screened": 300,
+  "robust_rank_seed": 5,
+  "usable": 2
+ }
+}

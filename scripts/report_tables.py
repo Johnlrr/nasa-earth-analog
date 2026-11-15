@@ -209,10 +209,171 @@ def t_sites() -> str:
                        "hidden_status", "showcase"]])
 
 
+# ============================================================================================
+# PLAN 2d: validity summary and mission value (scripts/mission_value.py outputs)
+# ============================================================================================
+def _mv() -> dict:
+    return json.loads((DERIVED / "mission_value.json").read_text(encoding="utf-8"))
+
+
+def _mission() -> dict:
+    return io.load_yaml(io.CONFIG_DIR / "mission.yaml")
+
+
+def _pct(x: float, nd: int = 0) -> str:
+    return f"{100 * x:.{nd}f} %"
+
+
+def t_mission_headline() -> str:
+    """Headline sentences of PLAN 2d, every number read from mission_value.json."""
+    m, req = _mv(), _mission()["requirements"]
+    crit = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    kept = crit[crit["group"].eq("Engine match")]
+    cl, ref, red = m["l1_classic_controls"], m["l1_reference"], m["rediscovery"]
+    null = {r["target_id"]: r for r in m["l1_null"]}
+    sh = next(r for r in red["targets"] if r["target_id"] == "shackleton_rim")
+    cr = next(r for r in red["targets"] if r["target_id"] == "connecting_ridge")
+    x1, cov = m["x1_controls"], m["coverage"]
+    q_land, q_eva = req["artemis3_landing_slope"]["quote"], req["artemis3_eva_slope"]["quote"]
+    return "\n".join([
+        f"- **Read against NASA's own Artemis III requirements** (\"{q_land}\"; "
+        f"\"{q_eva}\"): {_pct(ref['frac_gt8'])} of "
+        f"the Connecting Ridge reference footprint is steeper than the 8° contour of NASA's "
+        f"landing-slope map and {_pct(ref['frac_gt20'], 1)} is no-EVA terrain (> 20°). "
+        f"{int((kept['in_range_frac_gt8'] & kept['in_range_frac_gt20']).sum())} of the "
+        f"{len(kept)} usable Earth cells the engine keeps for it lie "
+        f"inside the range of the {int(crit['n_target_footprints'].iloc[0])} Connecting Ridge "
+        f"footprints on both readings; {cl['in_range_frac_gt8']} of {cl['n']} classic "
+        f"lunar-analog controls do on the 8° reading (their median is "
+        f"{_pct(cl['frac_gt8_median'], 1)}, a factor {m['l1_under_sampling']:.1f} below the "
+        f"target; maximum {_pct(cl['frac_gt8_max'])}). Same formula and 30 m baseline on both "
+        f"worlds; not a landing-site certification.",
+        f"- **The L1 test is specific.** Random bare land (null sample) enters the robust set "
+        f"for Connecting Ridge in {null['connecting_ridge']['robust_null']} of "
+        f"{null['connecting_ridge']['n_null']} cells and for the Shackleton inner wall in "
+        f"{null['shackleton_rim']['robust_null']} of {null['shackleton_rim']['n_null']}; "
+        f"{cl['robust']} of {cl['n']} classic controls enter it.",
+        f"- **Blind rediscovery.** The terrain screen saw only DEM slope and relief, yet "
+        f"{red['rank_in_zone']} of its {red['rank_n']} picks fall inside known-analog zones "
+        f"against a base rate of {_pct(red['base_rate'], 1)} of bare land "
+        f"({red['rank_enrichment']:.0f}-fold, binomial p = {red['rank_p_binomial']:.0e}); the "
+        f"fine engine concentrates further for the Shackleton inner wall "
+        f"({sh['robust_in_zone']} of {sh['robust_n']} kept against {sh['other_in_zone']} of "
+        f"{sh['other_n']} not kept, Fisher p = {sh['p_fisher']:.0e}). For Connecting Ridge, "
+        f"{cr['robust_in_zone'] or 'none'} of the {cr['robust_n']} kept cells lies in a "
+        f"known-analog zone.",
+        f"- **X1 controls on the current checklist:** {len(x1['positive_pass'])} of "
+        f"{x1['positive_n']} positive controls pass (Beacon Valley is the calibration site, "
+        f"Axel Heiberg is independent) and {len(x1['decoy_rejected'])} of {x1['decoy_n']} wet "
+        f"lowland decoys are rejected. M1: {m['m1_checks']['passed']} of {m['m1_checks']['n']} "
+        f"pre-registered checks pass, so the stop rule is {m['m1_checks']['verdict']}.",
+        f"- **Test-matrix coverage:** a field campaign can be credited with "
+        f"{cov['L1']['TRANSFERS']} of {sum(cov['L1'].values())} L1 test variables, "
+        f"{cov['L2']['TRANSFERS']} of {sum(cov['L2'].values())} for L2 and "
+        f"{cov['X1']['TRANSFERS']} of {sum(cov['X1'].values())} for X1; every other row names "
+        f"the facility that replaces the field site, or is marked unobserved "
+        f"(`docs/test_protocols.md`).",
+    ])
+
+
+def t_validity() -> str:
+    m = _mv()
+    null = {r["target_id"]: r for r in m["l1_null"]}
+    cl, x1, m1 = m["l1_classic_controls"], m["x1_controls"], m["m1_checks"]
+
+    def nul(t):
+        r = null[t]
+        return (f"{r['robust_null']}/{r['n_null']} = {_pct(r['null_rate'], 1)} "
+                f"(95 % CI {_pct(r['null_ci_lo'], 2)}–{_pct(r['null_ci_hi'], 1)})")
+    rows = [
+        {"lens": "L1", "check": "random bare land (null) in the robust set, Connecting Ridge",
+         "result": nul("connecting_ridge"), "reading": "false-positive rate of the test"},
+        {"lens": "L1", "check": "random bare land (null) in the robust set, Shackleton wall",
+         "result": nul("shackleton_rim"), "reading": "false-positive rate of the test"},
+        {"lens": "L1", "check": "screened cells (rank) in the robust set",
+         "result": "; ".join(f"{t}: {null[t]['robust_rank']}/{null[t]['n_rank']}" for t in null),
+         "reading": "the coarse screen was aimed at Connecting Ridge"},
+        {"lens": "L1", "check": "classic lunar-analog controls in the robust set",
+         "result": f"{cl['robust']}/{cl['n']}",
+         "reading": "pre-registered 'high' for Haughton is a miss (§3); no accepted "
+                    "Connecting Ridge analog exists to serve as a positive control"},
+        {"lens": "L2", "check": "Sun geometry of the lunar south pole",
+         "result": "NO-ANALOG at every Earth site", "reading": "as pre-registered (A7)"},
+        {"lens": "M1", "check": "pre-registered pixel checks (B14a)",
+         "result": f"{m1['passed']}/{m1['n']} → stop rule {m1['verdict']}",
+         "reading": "nothing published for M1"},
+        {"lens": "X1", "check": "positive controls passing all 3 conditions",
+         "result": f"{len(x1['positive_pass'])}/{x1['positive_n']} "
+                   f"({', '.join(x1['positive_pass'])})",
+         "reading": "Beacon Valley is calibration; Axel Heiberg is independent"},
+        {"lens": "X1", "check": "wet-lowland decoys rejected",
+         "result": f"{len(x1['decoy_rejected'])}/{x1['decoy_n']}",
+         "reading": "semi-quantitative, floors set after seeing data (Deviations 3)"},
+    ]
+    return md_table(pd.DataFrame(rows))
+
+
+def t_mission_criteria() -> str:
+    c = pd.read_parquet(DERIVED / "mission_criteria.parquet")
+    req, cav = _mission()["requirements"], _mission()["criteria_caveat"]
+    out = pd.DataFrame({
+        "group": c["group"], "site": c["name"].fillna(c["id"]), "cell": c["id"],
+        "median slope °": c["slope_p50"].round(1),
+        "steeper than 8° (landing-map contour)": [_pct(x) for x in c["frac_gt8"]],
+        "steeper than 20° (no-EVA)": [_pct(x, 1) for x in c["frac_gt20"]],
+        "8° share inside target range": c["in_range_frac_gt8"].map({True: "yes", False: "no"}),
+        "20° share inside target range": c["in_range_frac_gt20"].map({True: "yes",
+                                                                       False: "no"})})
+    r = c.iloc[0]
+    return (md_table(out) + f"\n\nTarget range = minimum to maximum over the "
+            f"{int(r['n_target_footprints'])} Connecting Ridge footprints (PGDA 78 Site01): "
+            f"8° share {_pct(r['range_lo_frac_gt8'])}–{_pct(r['range_hi_frac_gt8'])}, 20° share "
+            f"{_pct(r['range_lo_frac_gt20'], 1)}–{_pct(r['range_hi_frac_gt20'], 1)}. "
+            f"Requirements: \"{req['artemis3_landing_slope']['quote']}\" and "
+            f"\"{req['artemis3_eva_slope']['quote']}\" — "
+            f"{req['artemis3_landing_slope']['document']} "
+            f"({req['artemis3_landing_slope']['source']}). Caveat: {cav}")
+
+
+def t_coverage() -> str:
+    import sys
+
+    sys.path.insert(0, str(io.REPO_ROOT / "scripts"))
+    import mission_value as mv
+
+    cov = mv.coverage(pd.read_parquet(DERIVED / "verdicts.parquet"))
+    g = cov.groupby(["lens_id", "state"])["variable"].agg("; ".join).unstack(fill_value="—")
+    g = g.reindex(columns=mv.STATE_ORDER, fill_value="—").reset_index()
+    g.columns = ["lens", "TRANSFERS (field)", "NO-ANALOG (facility)", "UNOBSERVED"]
+    return md_table(g)
+
+
+def t_task_attention() -> str:
+    t = pd.read_parquet(DERIVED / "task_attention.parquet")
+    s = pd.read_parquet(DERIVED / "sites.parquet")
+    p = t.pivot(index="key", columns="context", values="n_pubs")
+    s = s[s["query"].notna()].copy()
+    s["anchor"] = [next(k for k in p.index if k in cells.split(",")) for cells in s["cells"]]
+    out = pd.DataFrame({
+        "site": s["name"], "any body (B8 query, site name)": s["attention_site_name"],
+        "Moon context": s["anchor"].map(p["moon"]), "Mars context": s["anchor"].map(p["mars"]),
+        "site Attention used for hidden_status": s["attention_n"],
+        "hidden_status": s["hidden_status"]}).sort_values("site")
+    q = t.iloc[0]
+    return (md_table(out) + "\n\nContexts: Moon = `(analog OR analogue) AND (Moon OR lunar)`, "
+            "Mars = `(analog OR analogue) AND (Mars OR Martian)`, on the same site-name query "
+            f"(OpenAlex title/abstract search, {q['date']}). Supplementary: `hidden_status` is "
+            "not recomputed from these counts.")
+
+
+
 TABLES = {"verdicts": t_verdicts, "ledger": t_ledger, "terrain_controls": t_terrain_controls,
           "l1_robust": t_l1_robust, "relocations": t_relocations, "m1": t_m1, "x1": t_x1,
           "bridge": t_bridge, "scarcity": t_scarcity, "site_sensitivity": t_site_sensitivity,
-          "multilens": t_multilens, "sites": t_sites}
+          "multilens": t_multilens, "sites": t_sites,
+          "mission_headline": t_mission_headline, "validity": t_validity,
+          "mission_criteria": t_mission_criteria, "coverage": t_coverage,
+          "task_attention": t_task_attention}
 
 
 def fill(text: str, tables: dict) -> str:

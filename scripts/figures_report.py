@@ -3,6 +3,8 @@
 fig_target_scarcity.png : usable engine-kept cells per lens x target (A18, target_scarcity)
 fig_sites_map.png       : engine-kept cells by lens + X1 TRANSFERS cells, showcase sites named
 fig_m1_stop_rule.png    : M1 largest matched patch per site vs the pre-registered 0.1 km² rule
+fig_mission_slopes.png  : 8° / 20° slope shares vs the Artemis III requirements (PLAN 2d)
+fig_transfer_matrix.png : lens x test variable, three states (PLAN 2d)
 
 Palette: dataviz reference categorical slots 1-4 in fixed order (L1 blue, L2 orange, L1+L2 aqua,
 X1 yellow), validated light mode; slots 3-4 are below 3:1 contrast, so every series also has its
@@ -170,11 +172,97 @@ def fig_m1():
     plt.close(fig)
 
 
+def fig_mission_slopes():
+    """Artemis III slope readings: Moon target, engine matches, classic lunar-analog controls."""
+    c = pd.read_parquet(DERIVED / "mission_criteria.parquet").iloc[::-1].reset_index(drop=True)
+    color = {"Moon target": INK, "Engine match": SERIES["L1"], "Classic analog": SERIES["L2"]}
+    label = [str(n if isinstance(n, str) and n else i).split(",")[0][:34]
+             for n, i in zip(c["name"], c["id"], strict=True)]
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), facecolor=SURFACE, sharey=True)
+    panels = [("frac_gt8", "share of footprint steeper than 8° (NASA landing-map contour)", 0),
+              ("frac_gt20", "share steeper than 20° (Artemis III: no EVA)", 1)]
+    for ax, (col, title, nd) in zip(axes, panels, strict=True):
+        style(ax)
+        lo, hi = c[f"range_lo_{col}"].iloc[0], c[f"range_hi_{col}"].iloc[0]
+        ax.axvspan(100 * lo, 100 * hi, color=GRID, zorder=0)
+        y = range(len(c))
+        ax.barh(y, 100 * c[col], height=0.6, color=[color[g] for g in c["group"]], zorder=2)
+        for yi, v in zip(y, c[col], strict=True):
+            ax.text(100 * v + 1, yi, f"{100 * v:.{nd}f} %", va="center", fontsize=8.5,
+                    color=INK, zorder=3)
+        ax.set_yticks(list(y), label)
+        ax.set_xlim(0, 100)
+        ax.set_xlabel(title)
+        ax.grid(axis="x", color=GRID, lw=0.6)
+        ax.set_axisbelow(True)
+    handles = [plt.Rectangle((0, 0), 1, 1, color=v) for v in color.values()]
+    handles.append(plt.Rectangle((0, 0), 1, 1, color=GRID))
+    n_fp = int(c["n_target_footprints"].iloc[0])
+    axes[1].legend(handles, [*color.keys(), f"range of the {n_fp} Connecting Ridge footprints"],
+                   loc="lower right", fontsize=8.5, frameon=False, labelcolor=INK)
+    fig.suptitle("Classic lunar analogs are too flat for Connecting Ridge; the two engine "
+                 "matches sit inside the lunar range", x=0.01, ha="left", fontsize=11, color=INK)
+    fig.tight_layout()
+    fig.savefig(FIG / "fig_mission_slopes.png", dpi=150, facecolor=SURFACE)
+    plt.close(fig)
+
+
+def fig_transfer_matrix():
+    """The test-transfer matrix: one cell per lens x test variable, three states, text in cell."""
+    import sys
+
+    sys.path.insert(0, str(io.REPO_ROOT / "scripts"))
+    import mission_value as mv
+
+    cov = mv.coverage(pd.read_parquet(DERIVED / "verdicts.parquet"))
+    lenses = ["L1", "L2", "M1", "X1"]
+    order = cov.assign(r=cov["state"].map({s: i for i, s in enumerate(mv.STATE_ORDER)}))
+    variables = list(order.sort_values(["r", "variable"])["variable"].drop_duplicates())
+    state = {(r.lens_id, r.variable): (r.state, bool(r.facility)) for r in cov.itertuples()}
+    look = {"TRANSFERS": (SERIES["L1"], "field", SURFACE),
+            "NO-ANALOG": (SERIES["L2"], "facility", INK), "UNOBSERVED": ("#c9c8c2", "?", INK)}
+    fig, ax = plt.subplots(figsize=(8.2, 0.34 * len(variables) + 1.6), facecolor=SURFACE)
+    ax.set_facecolor(SURFACE)
+    for yi, var in enumerate(variables):
+        for xi, lens in enumerate(lenses):
+            if (lens, var) not in state:
+                continue
+            s, has_facility = state[(lens, var)]
+            col, txt, ink = look[s]
+            if s == "NO-ANALOG" and not has_facility:
+                txt = "no analog"
+            ax.add_patch(plt.Rectangle((xi + 0.04, yi + 0.08), 0.92, 0.84, color=col))
+            ax.text(xi + 0.5, yi + 0.5, txt, ha="center", va="center", fontsize=8, color=ink)
+    ax.set_xlim(0, len(lenses))
+    ax.set_ylim(len(variables), 0)
+    ax.set_xticks([i + 0.5 for i in range(len(lenses))],
+                  ["L1 terrain\n(Moon)", "L2 low Sun\n(Moon)", "M1 minerals\n(Mars)",
+                   "X1 ice\n(Mars)"])
+    ax.xaxis.tick_top()
+    ax.set_yticks([i + 0.5 for i in range(len(variables))],
+                  [v.replace("_", " ")[:44] for v in variables])
+    ax.tick_params(length=0, colors=INK2, labelsize=8.5)
+    for s in ax.spines.values():
+        s.set_visible(False)
+    handles = [plt.Rectangle((0, 0), 1, 1, color=look[s][0]) for s in mv.STATE_ORDER]
+    ax.legend(handles, ["TRANSFERS: test it in the field",
+                        "NO-ANALOG: not reproduced on Earth; the card names the facility",
+                        "UNOBSERVED: this engine cannot say"], loc="upper center",
+              bbox_to_anchor=(0.5, -0.02), ncol=1, fontsize=8.5, frameon=False, labelcolor=INK)
+    fig.suptitle("Test-transfer matrix: which rows of a field test come home valid",
+                 x=0.01, ha="left", fontsize=11, color=INK)
+    fig.tight_layout()
+    fig.savefig(FIG / "fig_transfer_matrix.png", dpi=150, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def main() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     fig_scarcity()
     fig_map()
     fig_m1()
+    fig_mission_slopes()
+    fig_transfer_matrix()
     print(f"figures -> {FIG}")
 
 

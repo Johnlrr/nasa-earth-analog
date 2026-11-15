@@ -151,6 +151,50 @@ def main() -> None:
     put("l1_chips", int(pd.read_parquet(D / "earth_L1.parquet").shape[0]),
         "data/derived/earth_L1.parquet")
 
+    # ---- PLAN 2d: mission criteria, validity, coverage (scripts/mission_value.py) ----
+    mvp = D / "mission_value.json"
+    if mvp.exists():
+        mv = json.loads(mvp.read_text(encoding="utf-8"))
+        src = "data/derived/mission_value.json"
+        for k, val in mv["l1_reference"].items():
+            put(f"cr_{k}", val, src)
+        for k, val in mv["l1_classic_controls"].items():
+            put(f"classic_{k}", val, src)
+        put("classic_under_sampling_factor", mv["l1_under_sampling"], src)
+        for r in mv["l1_null"]:
+            put(f"null_{r['target_id']}_robust", r["robust_null"], src)
+            put(f"null_{r['target_id']}_n", r["n_null"], src)
+        red = mv["rediscovery"]
+        for k in ("rank_in_zone", "rank_n", "base_rate", "rank_enrichment"):
+            put(f"rediscovery_{k}", red[k], src)
+        for r in red["targets"]:
+            put(f"rediscovery_{r['target_id']}_robust_in_zone", r["robust_in_zone"], src)
+            put(f"rediscovery_{r['target_id']}_robust_n", r["robust_n"], src)
+        put("x1_positive_pass", len(mv["x1_controls"]["positive_pass"]), src)
+        put("x1_positive_n", mv["x1_controls"]["positive_n"], src)
+        put("x1_decoy_rejected", len(mv["x1_controls"]["decoy_rejected"]), src)
+        put("x1_decoy_n", mv["x1_controls"]["decoy_n"], src)
+        put("m1_checks_passed", mv["m1_checks"]["passed"], src)
+        put("m1_checks_n", mv["m1_checks"]["n"], src)
+        for lens, c in mv["coverage"].items():
+            put(f"coverage_{lens}_transfers", c["TRANSFERS"], src)
+            put(f"coverage_{lens}_facility", c["NO-ANALOG"], src)
+            put(f"coverage_{lens}_total", sum(c.values()), src)
+        for k, val in mv["funnel"].items():
+            put(f"funnel_{k}", val, src)
+        crit = pd.read_parquet(D / "mission_criteria.parquet")
+        src = "data/derived/mission_criteria.parquet"
+        for r in crit[crit.group.eq("Engine match")].itertuples():
+            slug = next((v for k, v in slugs.items() if k in str(r.name)), r.id)
+            put(f"match_{slug}_frac_gt8", r.frac_gt8, src)
+            put(f"match_{slug}_frac_gt20", r.frac_gt20, src)
+        ta = pd.read_parquet(D / "task_attention.parquet")
+        for r in ta.itertuples():
+            slug = next((v for k, v in slugs.items() if k in str(r.name)), None)
+            if slug:
+                put(f"task_attention_{slug}_{r.context}", int(r.n_pubs),
+                    "data/derived/task_attention.parquet (OpenAlex)")
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

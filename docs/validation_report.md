@@ -35,6 +35,18 @@ matching, and a single verdict source. **Every table below is written by
 
 ## 1. Headline results
 
+### In mission terms (PLAN 2d; post hoc readings of the same tables, Deviations 25–27)
+
+<!-- BEGIN:mission_headline -->
+- **Read against NASA's own Artemis III requirements** ("Surface slope for landing (100m): <10 deg"; "Surface slope limit for EVA (2km): <20 deg"): 76 % of the Connecting Ridge reference footprint is steeper than the 8° contour of NASA's landing-slope map and 5.8 % is no-EVA terrain (> 20°). 2 of the 2 usable Earth cells the engine keeps for it lie inside the range of the 10 Connecting Ridge footprints on both readings; 0 of 6 classic lunar-analog controls do on the 8° reading (their median is 8.9 %, a factor 8.6 below the target; maximum 37 %). Same formula and 30 m baseline on both worlds; not a landing-site certification.
+- **The L1 test is specific.** Random bare land (null sample) enters the robust set for Connecting Ridge in 1 of 200 cells and for the Shackleton inner wall in 4 of 200; 0 of 6 classic controls enter it.
+- **Blind rediscovery.** The terrain screen saw only DEM slope and relief, yet 68 of its 300 picks fall inside known-analog zones against a base rate of 1.4 % of bare land (16-fold, binomial p = 2e-59); the fine engine concentrates further for the Shackleton inner wall (39 of 99 kept against 29 of 201 not kept, Fisher p = 3e-06). For Connecting Ridge, none of the 5 kept cells lies in a known-analog zone.
+- **X1 controls on the current checklist:** 2 of 2 positive controls pass (Beacon Valley is the calibration site, Axel Heiberg is independent) and 2 of 2 wet lowland decoys are rejected. M1: 3 of 4 pre-registered checks pass, so the stop rule is FAIL.
+- **Test-matrix coverage:** a field campaign can be credited with 1 of 7 L1 test variables, 1 of 9 for L2 and 2 of 9 for X1; every other row names the facility that replaces the field site, or is marked unobserved (`docs/test_protocols.md`).
+<!-- END:mission_headline -->
+
+### By lens
+
 1. **L1 terrain transfers; within the scored sample, steep crater-wall terrain is common and
    Connecting Ridge terrain is rare.** Of 307 scored cells (300 rank cells = top 300 of 196,008
    bare-land cells by a coarse 90 m slope/relief sigma *against Connecting Ridge*, plus seeds), 99 enter the robust
@@ -390,6 +402,97 @@ Figures are drawn from the same tables by `scripts/figures_report.py`.
 | Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | 52 | no: attention above threshold | a,b |
 <!-- END:sites -->
 
+## 7b. Validity summary and mission value (PLAN 2d, post hoc)
+
+Nothing in this section changes a threshold or a verdict: it reads descriptors and verdicts that
+already exist against published NASA requirements (`config/mission.yaml`, each quoted from the
+primary document) and counts what the controls show for the current engine. Computed by
+`scripts/mission_value.py` after all results were known (Deviations 25–27).
+
+### What the controls show, per lens (current engine)
+
+The count "6 of 20 pre-registered expectations met" in §3 mixes three things: the superseded
+footprint-median M1 engine (replaced by pixel matching, §5), the L2 Sun-geometry rows (NO-ANALOG
+as pre-registered) and the L1 Haughton expectation (a real miss). The table below states what the
+controls show for the engine that produces the published verdicts.
+
+<!-- BEGIN:validity -->
+| lens | check | result | reading |
+|---|---|---|---|
+| L1 | random bare land (null) in the robust set, Connecting Ridge | 1/200 = 0.5 % (95 % CI 0.01 %–2.8 %) | false-positive rate of the test |
+| L1 | random bare land (null) in the robust set, Shackleton wall | 4/200 = 2.0 % (95 % CI 0.55 %–5.0 %) | false-positive rate of the test |
+| L1 | screened cells (rank) in the robust set | connecting_ridge: 5/300; shackleton_rim: 99/300 | the coarse screen was aimed at Connecting Ridge |
+| L1 | classic lunar-analog controls in the robust set | 0/6 | pre-registered 'high' for Haughton is a miss (§3); no accepted Connecting Ridge analog exists to serve as a positive control |
+| L2 | Sun geometry of the lunar south pole | NO-ANALOG at every Earth site | as pre-registered (A7) |
+| M1 | pre-registered pixel checks (B14a) | 3/4 → stop rule FAIL | nothing published for M1 |
+| X1 | positive controls passing all 3 conditions | 2/2 (ctl_axel_heiberg_eureka, ctl_beacon_valley) | Beacon Valley is calibration; Axel Heiberg is independent |
+| X1 | wet-lowland decoys rejected | 2/2 | semi-quantitative, floors set after seeing data (Deviations 3) |
+<!-- END:validity -->
+
+A null cell that enters the robust set is a random bare-land cell that passes the test. Its rate
+is the false-positive rate of the L1 test and also the only unbiased prevalence estimate in this
+project: the counts of §7 (2 and 93 usable cells) come from a sample screened towards Connecting
+Ridge and are not prevalences. No accepted Earth analog of Connecting Ridge terrain exists, so L1
+has no positive control in the strict sense; the supporting evidence is the specificity above, the
+stability across three configurations (§3) and the readings below.
+
+### Artemis III slope requirements, read on both worlds
+
+![Shares of terrain steeper than 8° and 20°: Connecting Ridge, engine matches, classic lunar analogs](figures/fig_mission_slopes.png)
+
+<!-- BEGIN:mission_criteria -->
+| group | site | cell | median slope ° | steeper than 8° (landing-map contour) | steeper than 20° (no-EVA) | 8° share inside target range | 20° share inside target range |
+|---|---|---|---|---|---|---|---|
+| Moon target | Connecting Ridge (Site01) | connecting_ridge | 12.4 | 76 % | 5.8 % | yes | yes |
+| Engine match | Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | 10.5 | 79 % | 4.5 % | yes | yes |
+| Engine match | Peary Land, North Greenland | E10K_729_-319 | 8.9 | 56 % | 8.2 % | yes | yes |
+| Classic analog | Haughton impact structure, Devon Island | CTRL_haughton_devon | 3.2 | 9 % | 0.3 % | no | no |
+| Classic analog | SP Crater / Black Point lava flow, Arizona | CTRL_sp_crater_black_point | 5.1 | 37 % | 11.8 % | no | yes |
+| Classic analog | Kilauea lava fields, Hawaii | CTRL_kilauea_lava | 2.2 | 9 % | 4.6 % | no | yes |
+| Classic analog | Lava Beds National Monument, California | CTRL_lava_beds_california | 3.7 | 12 % | 3.4 % | no | yes |
+| Classic analog | Barringer (Meteor) Crater, Arizona | CTRL_meteor_crater_arizona | 1.2 | 8 % | 3.9 % | no | yes |
+| Classic analog | Mistastin (relocated) | CTRL_Mistastin_reloc | 1 | 4 % | 0.1 % | no | no |
+
+Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). Caveat: 30 m baseline in a 4 km footprint on both worlds; NASA states the landing limit at 100 m and the EVA limit over 2 km. Same formula both sides; not a landing-site certification.
+<!-- END:mission_criteria -->
+
+### Test-transfer matrix
+
+![Lens by test variable, three states](figures/fig_transfer_matrix.png)
+
+<!-- BEGIN:coverage -->
+| lens | TRANSFERS (field) | NO-ANALOG (facility) | UNOBSERVED |
+|---|---|---|---|
+| L1 | slope_roughness | angle_of_repose; atmospheric_pressure; gravity; radiation_dose; regolith_dust | Metre-scale boulders and craters < 60 m |
+| L2 | shadow_casting | atmospheric_pressure; day_night_cycle; diffuse_skylight; gravity; radiation_dose; sun_geometry; temperature | Horizon occlusion beyond 10 km |
+| M1 | day_night_cycle | aqueous_mineral; atmospheric_pressure; gravity; perchlorate; radiation_dose; temperature | Hydration bands at 1.4 and 1.9 um; Serpentine vs Mg-carbonate |
+| X1 | day_night_cycle; ice_configuration | angle_of_repose; atmospheric_pressure; gravity; perchlorate; radiation_dose; temperature | Overburden dielectric properties (radar / GPR response) |
+<!-- END:coverage -->
+
+Each showcase site has a test protocol built from this matrix (systems under test, the published
+requirement it rehearses, what a field campaign may be credited with towards TRL 5–6 in NASA's
+definition and what must be closed in a facility): [`docs/test_protocols.md`](test_protocols.md).
+
+### Attention by task (supplementary)
+
+Fidelity is judged per mission task, so literature attention can be read per task as well. The
+counts below use the same site-name queries with a Moon-only and a Mars-only context.
+`hidden_status` is not recomputed from them.
+
+<!-- BEGIN:task_attention -->
+| site | any body (B8 query, site name) | Moon context | Mars context | site Attention used for hidden_status | hidden_status |
+|---|---|---|---|---|---|
+| Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 239 | 32 | 229 | 239 | no: inside known-analog buffer |
+| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 73 | 1 | 76 | 73 | no: attention above threshold |
+| Gêrzê, central Changtang plateau (Tibet) | 0 | 0 | 0 | 0 | yes |
+| Jebel Akhdar, Hajar Mountains (Oman) | 26 | 8 | 23 | 26 | no: attention above threshold |
+| Mauna Loa – Mauna Kea, Hawaiʻi | 252 | 101 | 199 | 252 | no: inside known-analog buffer |
+| Peary Land, North Greenland | 2 | 1 | 2 | 52 | no: attention above threshold |
+| Zanda (Tsamda) and Gar, Ngari, western Tibet | 1 | 0 | 1 | 1 | yes |
+
+Contexts: Moon = `(analog OR analogue) AND (Moon OR lunar)`, Mars = `(analog OR analogue) AND (Mars OR Martian)`, on the same site-name query (OpenAlex title/abstract search, 2026-11-15). Supplementary: `hidden_status` is not recomputed from these counts.
+<!-- END:task_attention -->
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -421,6 +524,9 @@ evidence of order; where git cannot prove the order, the row says so.
 | 22 | B10 visual-review downgrades cap a site's lens at `hypothesis` | 2c gate round 2 | Hard rule: no `hypothesis` on slides | Gêrzê L2, other downgraded L2 cells; Gêrzê leaves the showcase |
 | 23 | X1 seed list (incl. Peary Land) committed with the first X1 scores | 16:02, `b76b21f` | Contract and results pushed together | X1 seeds are not provably pre-registered |
 | 24 | M1 noise floor (B14b) computed on all 69 null footprints (490,734 pixels), not on the floor-setting half of the null that PLAN B14a/B14b specified | B13 null run, 14/11 | Implementation used the whole pool | Floors are fitted on the same null pixels later used to judge false matches, so the false-match check is not independent; M1 failed its stop rule regardless |
+| 25 | Mission-criterion reading (shares of terrain steeper than 8° and 20° set beside the Artemis III requirements), per-lens validity summary, null false-positive rate and blind-rediscovery test | PLAN 2d, 15/11 midday | Tie the results to published NASA requirements; L1 lacked any positive check | Post hoc: computed after every result was known. `frac_gt8` and `frac_gt20` were L1 descriptors from the start and `config/exclusion_zones.yaml` was drawn before scoring, but none of these comparisons was pre-registered. No threshold or verdict changed |
+| 26 | Task-specific Attention (Moon-only and Mars-only context on the site-name queries) | PLAN 2d, 15/11 midday | Fidelity is per task; the B8 context mixes both bodies | Supplementary table only; `hidden_status` unchanged |
+| 27 | Test protocols and the TRL reading of a card (`docs/test_protocols.md`) | PLAN 2d, 15/11 midday | State what a field campaign may claim | Statements of evidence a campaign could claim; no hardware was tested and no TRL is certified |
 
 ## 9. Limitations and not done
 
