@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15T14:50",
+ "generated": "2026-11-15T15:14",
  "numbers": {
   "attention_atacama_yungay": {
    "value": 223,
@@ -704,6 +704,310 @@
   "task_attention_mauna_loa_mars": {
    "value": 183,
    "source": "data/derived/task_attention.parquet (OpenAlex)"
+  },
+  "nasa_slope_max_abs_diff_deg": {
+   "value": 0.0009,
+   "source": "data/derived/l1_regions.json"
+  },
+  "nasa_share_max_abs_diff_points": {
+   "value": 0.0037,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_same_pass": {
+   "value": 16,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_same_n": {
+   "value": 32,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_other_pass": {
+   "value": 94,
+   "source": "data/derived/l1_regions.json"
+  },
+  "lunar_control_other_n": {
+   "value": 270,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_ridge_vs_wall_p": {
+   "value": 0.3719,
+   "source": "data/derived/l1_regions.json"
+  },
+  "prevalence_connecting_ridge_pass": {
+   "value": 1,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_rate": {
+   "value": 0.005,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_ci_lo": {
+   "value": 0.0001,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_ci_hi": {
+   "value": 0.0275,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_cells": {
+   "value": 980,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_cells_lo": {
+   "value": 25,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_connecting_ridge_cells_hi": {
+   "value": 5398,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_pass": {
+   "value": 1,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_rate": {
+   "value": 0.005,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_ci_lo": {
+   "value": 0.0001,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_ci_hi": {
+   "value": 0.0275,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_cells": {
+   "value": 980,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_cells_lo": {
+   "value": 25,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_de_gerlache_rim_cells_hi": {
+   "value": 5398,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_pass": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_rate": {
+   "value": 0.0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_ci_lo": {
+   "value": 0.0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_ci_hi": {
+   "value": 0.0183,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_cells": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_cells_lo": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_malapert_massif_cells_hi": {
+   "value": 3582,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_pass": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_rate": {
+   "value": 0.0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_ci_lo": {
+   "value": 0.0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_ci_hi": {
+   "value": 0.0183,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_cells": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_cells_lo": {
+   "value": 0,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_nobile_rim_1_cells_hi": {
+   "value": 3582,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_pass": {
+   "value": 1,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_rate": {
+   "value": 0.005,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_ci_lo": {
+   "value": 0.0001,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_ci_hi": {
+   "value": 0.0275,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_cells": {
+   "value": 980,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_cells_lo": {
+   "value": 25,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_peak_near_shackleton_cells_hi": {
+   "value": 5398,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_pass": {
+   "value": 4,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_n": {
+   "value": 200,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_rate": {
+   "value": 0.02,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_ci_lo": {
+   "value": 0.0055,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_ci_hi": {
+   "value": 0.0504,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_cells": {
+   "value": 3920,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_cells_lo": {
+   "value": 1073,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "prevalence_shackleton_rim_cells_hi": {
+   "value": 9881,
+   "source": "data/derived/l1_prevalence.parquet"
+  },
+  "lunar_control_wall_same_pass": {
+   "value": 4,
+   "source": "data/derived/l1_lunar_control.parquet"
+  },
+  "lunar_control_wall_same_n": {
+   "value": 4,
+   "source": "data/derived/l1_lunar_control.parquet"
+  },
+  "lunar_control_wall_other_pass": {
+   "value": 13,
+   "source": "data/derived/l1_lunar_control.parquet"
+  },
+  "lunar_control_wall_other_n": {
+   "value": 45,
+   "source": "data/derived/l1_lunar_control.parquet"
+  },
+  "cross_dem_same_verdict": {
+   "value": 40,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_n": {
+   "value": 42,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_da_qaidam_robust": {
+   "value": true,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_da_qaidam_rank_full_metric": {
+   "value": 34,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "glo30_da_qaidam_rank_full_metric": {
+   "value": 36,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "regions_matched_da_qaidam": {
+   "value": 3,
+   "source": "data/derived/l1_regions.parquet"
+  },
+  "traverse_km_da_qaidam": {
+   "value": 9.6123,
+   "source": "data/derived/mission_criteria.parquet"
+  },
+  "cross_dem_peary_land_robust": {
+   "value": false,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "cross_dem_peary_land_rank_full_metric": {
+   "value": 19,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "glo30_peary_land_rank_full_metric": {
+   "value": 26,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "regions_matched_peary_land": {
+   "value": 1,
+   "source": "data/derived/l1_regions.parquet"
+  },
+  "traverse_km_peary_land": {
+   "value": 13.5538,
+   "source": "data/derived/mission_criteria.parquet"
+  },
+  "rank_rule_threshold": {
+   "value": 24.5,
+   "source": "data/derived/cross_dem.parquet"
+  },
+  "traverse_km_classic_median": {
+   "value": 85.5894,
+   "source": "data/derived/mission_criteria.parquet"
+  },
+  "sp_crater_frac_gt8": {
+   "value": 0.3695,
+   "source": "data/derived/mission_criteria.parquet"
+  },
+  "sp_crater_pass_config_i": {
+   "value": true,
+   "source": "data/derived/l1_robust_set.parquet"
+  },
+  "classic_pass_any_config": {
+   "value": 1,
+   "source": "data/derived/l1_robust_set.parquet"
   }
  }
 }

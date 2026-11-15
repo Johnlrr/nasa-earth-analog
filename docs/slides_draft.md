@@ -57,65 +57,90 @@ Visual: `docs/figures/fig_mission_slopes.png`.
   say). **310** verdict rows [`verdict_rows_total`].
 Visual: data-flow diagram, NASA data on both sides → same functions → verdict table.
 
-## Slide 4 — Can you trust it? Controls, decoys and a failed test we report
-- **Terrain test is selective:** random bare land passes it for Connecting Ridge in **1 of 200**
-  cells [`null_connecting_ridge_robust` / `null_connecting_ridge_n`]; **0 of 6** classic sites
-  pass [`classic_robust`]. A cell must pass three test configurations: of the 307 scored cells,
-  **119**, **5** and **75** pass each one and **5** pass all three [`l1_cr_pass_config_i`,
-  `l1_cr_pass_config_ii`, `l1_cr_pass_config_iii`, `funnel_robust_rank_seed`].
+## Slide 4 — Can you trust it? Five checks, and a failed test we report
+- **Our code reproduces NASA's own product:** on the six PGDA 78 sites our slope formula differs
+  from NASA's slope rasters by at most **0.0009°** [`nasa_slope_max_abs_diff_deg`].
+- **The terrain test is selective and stable:** random bare land passes for Connecting Ridge in
+  **1 of 200** cells [`prevalence_connecting_ridge_pass` / `prevalence_connecting_ridge_n`];
+  **0 of 6** classic sites pass [`classic_robust`]; recomputed from a second, independent DEM
+  (NASADEM / ArcticDEM), **40 of 42** verdicts are unchanged [`cross_dem_same_verdict` /
+  `cross_dem_n`].
+- **Known truth on the Moon:** scored like Earth cells, footprints of the Shackleton inner wall
+  pass their own region **4 of 4**; footprints of the other regions, **13 of 45**
+  [`lunar_control_wall_same_pass` / `lunar_control_wall_same_n`,
+  `lunar_control_wall_other_pass` / `lunar_control_wall_other_n`]. The test recognises a terrain
+  class, not a named place: it does not tell ridge and rim regions apart
+  (**16 of 32** against **94 of 270**) [`lunar_control_same_pass`, `lunar_control_same_n`,
+  `lunar_control_other_pass`, `lunar_control_other_n`].
 - **Ice test:** **2 of 2** polar-desert controls pass (one is the calibration site), **2 of 2**
   wet-permafrost decoys are rejected [`x1_positive_pass`, `x1_decoy_rejected`]; our own
   Pamir–Changtang hypothesis is rejected, **0 of 6** [`x1_pamir_changtang_pass` /
   `x1_pamir_changtang_total`]. Semi-quantitative.
-- **Mineral test — the miss we report:** "Hollywood's Mars" Wadi Rum matches **0 km²**
+- **Mineral test — the miss we report:** Wadi Rum matches **0 km²**
   [`wadi_rum_largest_patch_km2`]; **3 of 4** pre-registered checks pass [`m1_checks_passed` /
   `m1_checks_n`], but NASA's Lake Salda pair reaches only **0.052 km²** < 0.1 km²
   [`salda_relocated_largest_patch_km2`]. Our rule says FAIL [`m1_stop_rule_verdict`], so **we
   publish no mineral analog**.
-- **Sanity check, not proof:** for the steep Shackleton wall (not the ridge), the largest site
-  the terrain engine finds is the Atacama–Puna, one of the most studied analog regions —
-  **1 of 27** sites [`rediscovery_shackleton_rim_sites_with_zone_cell` /
-  `rediscovery_shackleton_rim_sites`]; against land of the same coarse terrain the excess is
-  only **1.4-fold** [`rediscovery_matched_enrichment`].
-- Every rule changed after seeing data is listed in the report (Deviations table).
-Visual: `docs/figures/fig_m1_stop_rule.png` beside a four-row control table.
+- Every rule changed after seeing data is in the report (Deviations table).
+Speaker notes: a cell must pass three configurations; of the 307 scored cells **119**, **5** and
+**75** pass each one and **5** pass all three [`l1_cr_pass_config_i`, `l1_cr_pass_config_ii`,
+`l1_cr_pass_config_iii`, `funnel_robust_rank_seed`]. Sanity check only: for the Shackleton wall
+the largest site found is the Atacama–Puna, one of the most studied analog regions, **1 of 27**
+sites [`rediscovery_shackleton_rim_sites_with_zone_cell` / `rediscovery_shackleton_rim_sites`];
+against land of the same coarse terrain the excess is **1.4-fold**
+[`rediscovery_matched_enrichment`].
+Visual: four-row control table beside `docs/figures/fig_m1_stop_rule.png`.
 
-## Slide 5 — What the data found: two Earth sites, in our sample, for the Moon Base ridge
+## Slide 5 — What the data found: Da Qaidam, a Mars analog that fits the Moon Base ridge
 - **196,008** bare-land cells → **300** screened towards Connecting Ridge → **5** pass all three
   test configurations → **2** usable after the ice filter and a visual review
   [`funnel_bare_land_cells`, `funnel_screened`, `funnel_robust_rank_seed`, `funnel_usable`]:
-  **Da Qaidam** (Qinghai) and **Peary Land** (North Greenland). Slope shares **79 % / 4.5 %** and
-  **56 % / 8.2 %** against **76 % / 5.8 %** on the Moon [`match_da_qaidam_frac_gt8`,
-  `match_da_qaidam_frac_gt20`, `match_peary_land_frac_gt8`, `match_peary_land_frac_gt20`,
+  **Da Qaidam** (Qinghai) and **Peary Land** (North Greenland). In our sample, not on Earth:
+  the random sample says about **980** bare-land cells (95 % CI 25–5,398) would pass the
+  terrain test, before the ice filter and the visual review
+  [`prevalence_connecting_ridge_cells`, `prevalence_connecting_ridge_cells_lo`,
+  `prevalence_connecting_ridge_cells_hi`].
+- **Da Qaidam holds up:** it stays in the robust set with NASA's NASADEM
+  [`cross_dem_da_qaidam_robust`], and the same cell matches **3 of the 6** Artemis III candidate
+  regions of PGDA 78 — Connecting Ridge, de Gerlache rim, peak near Shackleton
+  [`regions_matched_da_qaidam`] (the last two exploratory). Slope shares **79 % / 4.5 %** against
+  **76 % / 5.8 %** on the ridge [`match_da_qaidam_frac_gt8`, `match_da_qaidam_frac_gt20`,
   `cr_frac_gt8`, `cr_frac_gt20`] (a consistency check: the engine selects on these).
-- **Two in our sample, not on Earth:** the random sample says about **980** bare-land cells
-  (95 % CI 25–5,398) would pass the terrain test, before the ice filter and the visual review
-  [`null_connecting_ridge_extrapolated_cells`,
-  `null_connecting_ridge_extrapolated_lo`, `null_connecting_ridge_extrapolated_hi`].
-  Within the 307 scored cells, **93** usable cells match the steep Shackleton inner wall and
-  **2** the ridge [`scarcity_L1_shackleton_rim_n_usable`,
-  `scarcity_L1_connecting_ridge_n_usable_not_downgraded`].
-- **Known for Mars, 1 paper in a lunar context:** Da Qaidam is a known Mars analog region,
-  **71** analog papers in a Mars context and **1** in a Moon context
-  [`task_attention_da_qaidam_mars`, `task_attention_da_qaidam_moon`] (the query covers the
-  whole Qaidam basin): rarely studied in a lunar context. Neither site is in our known-analog zone list
+- **What it buys a test team:** about **10 km** of traverse at Da Qaidam meets as much terrain
+  steeper than 8° as 10 km on Connecting Ridge; at the median classic site it takes about
+  **86 km** [`traverse_km_da_qaidam`, `traverse_km_classic_median`] (if the share along the path
+  equals the areal share).
+- **Known for Mars, rarely studied in a lunar context:** **71** analog papers in a Mars context,
+  **1** in a Moon context [`task_attention_da_qaidam_mars`, `task_attention_da_qaidam_moon`] (the
+  query covers the whole Qaidam basin). It is not in our known-analog zone list
   [`rediscovery_connecting_ridge_sites_with_zone_cell` = 0].
-- **One camp, two tests:** Peary Land passes the Moon terrain test and the Mars ice test
-  (semi-quantitative) — the only such site in the sample [`multilens_engine_engine_sites` = 1].
+- **Peary Land — one camp, two tests, but marginal:** it passes the Moon terrain test and the
+  Mars ice test (semi-quantitative), the only such site in the sample
+  [`multilens_engine_engine_sites` = 1]; with a second DEM its terrain cell leaves the robust
+  set (rank **19**, the rule needs **24.5**; **26** with the first DEM)
+  [`cross_dem_peary_land_rank_full_metric`, `rank_rule_threshold`,
+  `glo30_peary_land_rank_full_metric`].
+- **The closest classic site is where NASA already trains:** the footprint in the San Francisco
+  Volcanic Field — where NASA ran its JETT5 Artemis III moonwalk rehearsal (NASA SVS 14583) —
+  has **37 %** of terrain steeper than 8° and is the only classic site that passes any
+  configuration [`sp_crater_frac_gt8`, `classic_pass_any_config` = 1]; it is not in the robust
+  set.
 - **Same island or plateau, different footprints, different verdict per test:** on Devon
   Island the Haughton footprint fails the Moon terrain test [`classic_robust` = 0] while another
   Devon footprint passes the Mars ice test [`x1_seed_devon_island_passes`]; on the Changtang
   plateau a northern footprint fails the ice test [`x1_seed_changtang_north_passes`] while Gêrzê
   passes the terrain test for the Shackleton wall [`site_gerze_lenses_engine_confirmed`].
-- Low literature count outside known regions ("hidden"): **Zanda/Gar**, western Tibet, **1**
-  paper [`site_zanda_gar_attention`] and **Gêrzê**, **0** [`site_gerze_attention`] — for
-  Shackleton-wall terrain.
 Must-say caveats (speaker notes, part of the result): the 307 cells were sampled towards
-Connecting Ridge; the pass rule is native rank ≥ n/2 in all three configurations (the full-metric
-configuration cuts 119 → 5); Peary Land carries an ice flag (0.15) and the L2 low-Sun hypothesis
-of our design was **not** confirmed there; the ice-lens seed list is not provably pre-registered
-(Deviations 23); Peary Land (52 papers) and Da Qaidam are not "hidden".
-Visual: `docs/figures/fig_sites_map.png`, Da Qaidam and Peary Land highlighted.
+Connecting Ridge; within them **93** usable cells match the steep Shackleton inner wall and **2**
+the ridge [`scarcity_L1_shackleton_rim_n_usable`,
+`scarcity_L1_connecting_ridge_n_usable_not_downgraded`]; Peary Land carries an ice flag (0.15)
+and the L2 low-Sun hypothesis of our design was **not** confirmed there; the ice-lens seed list
+is not provably pre-registered (Deviations 23); Peary Land (52 papers) and Da Qaidam are not
+"hidden"; low literature count outside known regions: **Zanda/Gar**, **1** paper
+[`site_zanda_gar_attention`], and **Gêrzê**, **0** [`site_gerze_attention`], both for
+Shackleton-wall terrain; the JETT5 site and our SP Crater footprint are in the same volcanic
+field, not necessarily the same ground.
+Visual: `docs/figures/fig_sites_map.png`, Da Qaidam highlighted.
 
 ## Slide 6 — The product: a test protocol per site ("which rows of your test matrix come home valid")
 - NASA's TRL definitions ask each project for a **"documented definition of relevant
@@ -133,7 +158,7 @@ Visual: `docs/figures/fig_sites_map.png`, Da Qaidam and Peary Land highlighted.
   `l2_moon_lowsun_frac_daylight` = 1.0]. No Earth site can test polar Sun geometry.
 - Each showcase site: systems to test, the NASA requirement rehearsed, what to measure, what the
   site does not reproduce (`docs/test_protocols.md`); web app: Sites tab → card. QR → ⟨Pages URL⟩
-Visual: `docs/figures/fig_transfer_matrix.png` beside the Peary Land card screenshot.
+Visual: `docs/figures/fig_transfer_matrix.png` beside the Da Qaidam card screenshot.
 
 ## Slide 7 — Data, licence, AI use, limits
 - NASA: LRO/LOLA + PGDA 78 south-pole DEMs, EMIT L2A, MRO CRISM type spectra (MICA), SWIM, MODIS,
@@ -151,7 +176,7 @@ Visual: `docs/figures/fig_transfer_matrix.png` beside the Peary Land card screen
 ### 30-second video alternative
 0–8 s Six famous analog field sites, one bar chart: 9 % of their terrain is steeper than 8°;
 the Moon Base ridge, 76 %.
-8–20 s Two sites in our sample that match: Da Qaidam and Peary Land; the Peary Land
-card: terrain and ice TRANSFER, gravity NO-ANALOG → offload rig.
+8–20 s One site in our sample that matches and survives a second DEM: Da Qaidam, a known
+Mars analog; its card: terrain TRANSFERS, gravity NO-ANALOG → offload rig.
 20–30 s "The lunar pole's Sun: Earth's best is 28 %, the Moon is 100 %. We say what cannot
 transfer." → URL.

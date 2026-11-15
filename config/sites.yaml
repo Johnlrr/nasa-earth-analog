@@ -48,9 +48,14 @@ sites:
        engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley;
        the X1 seed list was committed together with the first X1 scores, so it is not provably
        pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored
-       sample (X1 has 8 cell-level TRANSFERS, M1 none)."}
+       sample (X1 has 8 cell-level TRANSFERS, M1 none). MARGINAL: recomputed from a second DEM
+       (ArcticDEM) the L1 cell leaves the robust set (native rank 19 of 49 in the full-metric
+       configuration, 26 with Copernicus GLO-30; the rule needs 24.5), so the terrain verdict
+       here depends on the DEM (validation report 7c)."}
   - {anchor: E10K_453_921, name: "Da Qaidam, northern Qaidam Basin margin (Qinghai)",
      query: '"Da Qaidam" OR "northern Qaidam" OR "Qaidam"',
+     # 2e: the L1 cell stays in the robust set with NASADEM and also matches de Gerlache rim and
+     # peak near Shackleton (exploratory); numbers are generated in validation report 7c
      note: "Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its
        match to Connecting Ridge terrain. Not presented as hidden."}
   - {anchor: E10K_394_774, name: "Zanda (Tsamda) and Gar, Ngari, western Tibet",

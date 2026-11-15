@@ -84,6 +84,9 @@ def mission_criteria(targets: pd.DataFrame, earth: pd.DataFrame, kept_cells: lis
         out[f"in_range_{c}"] = out[c].between(lo[c], hi[c])
         out[f"range_lo_{c}"], out[f"range_hi_{c}"] = float(lo[c]), float(hi[c])
     out["n_target_footprints"] = len(t)
+    # traverse length that meets as much > 8 deg terrain as 10 km on the target, assuming the
+    # share along a path equals the areal share of the footprint
+    out["km_for_10km_of_target"] = 10.0 * float(ref["frac_gt8"]) / out["frac_gt8"]
     return out
 
 
@@ -221,6 +224,32 @@ def shortfall_names() -> dict:
     return out
 
 
+def _robustness_lines(cell_id: str) -> list[str]:
+    """PLAN 2e readings for one kept cell, when those tables exist (never a verdict)."""
+    out = []
+    p = DERIVED / "cross_dem.parquet"
+    if p.exists():
+        c = pd.read_parquet(p)
+        c = c[c["cell_id"].eq(cell_id) & c["target_id"].eq(MOON_TARGET) & c["alt_ok"]]
+        if len(c):
+            r = c.iloc[0]
+            out.append(f"- **Second DEM ({r['alt_source']}), cell {cell_id}:** "
+                       + ("stays in" if r["robust"] else "**leaves**")
+                       + f" the robust set (native rank {int(r['nr_i'])}/{int(r['nr_ii'])}/"
+                       f"{int(r['nr_iii'])} of {int(r['n_i'])}; the rule needs "
+                       f"{r['n_i'] / 2:g})" + ("" if r["robust"] else
+                                              ": the terrain verdict here is marginal") + ".")
+    p = DERIVED / "l1_regions.parquet"
+    if p.exists():
+        g = pd.read_parquet(p)
+        g = g[g["cell_id"].eq(cell_id) & g["robust"]]
+        if len(g):
+            out.append(f"- **PGDA 78 regions matched by cell {cell_id} (exploratory beyond "
+                       f"the two published targets):** {len(g)} of 6 — "
+                       + ", ".join(sorted(x.replace("_", " ") for x in g["target_id"])) + ".")
+    return out
+
+
 def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
                      generated: str) -> str:
     req, gaps = CFG["requirements"], shortfall_names()
@@ -282,8 +311,13 @@ def render_protocols(cards: list[dict], crit: pd.DataFrame, cov: pd.DataFrame,
             k = kept.loc[cid]
             out.append(f"- **Artemis III slope reading, cell {cid}:** {k['frac_gt8']:.0%} of the "
                        f"footprint is steeper than 8° (Connecting Ridge reference "
-                       f"{ref['frac_gt8']:.0%}), {k['frac_gt20']:.1%} is steeper than the 20° "
-                       f"EVA limit (reference {ref['frac_gt20']:.1%}). {CFG['criteria_caveat']}")
+                       f"{ref['frac_gt8']:.0%}), {k['frac_gt20']:.1%} is steeper than 20° "
+                       f"(reference {ref['frac_gt20']:.1%}). A traverse of about "
+                       f"{k['km_for_10km_of_target']:.0f} km here meets as much terrain steeper "
+                       f"than 8° as 10 km on the target (if the share along the path equals "
+                       f"the areal share). {CFG['criteria_caveat']}")
+        for cid in [x for x in c["cells"].split(",") if x in kept.index]:
+            out += _robustness_lines(cid)
         n_fac = len(c["facility"])
         out += [f"- **Facility rows to close elsewhere:** {n_fac} (see `docs/field_facility.md`, "
                 "same site).", ""]

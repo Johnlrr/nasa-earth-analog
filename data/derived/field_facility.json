@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-15 09:22",
+ "generated": "2026-11-15 15:14",
  "contract": "config/sites.yaml",
  "cluster_km": 150.0,
  "target_labels": {
@@ -281,7 +281,7 @@
    "lenses_literature_only": "",
    "lenses_hypothesis": "",
    "hidden_status": "no: attention above threshold",
-   "note": "DESIGN 2.5 #6 proposed Peary Land for L2 (low Sun); the engine does NOT confirm L2 there (sun geometry is NO-ANALOG everywhere). It confirms L1 instead, through a rank cell found by the coarse screen (not the seed), 20 km from the X1 seed, and X1, which is only engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley; the X1 seed list was committed together with the first X1 scores, so it is not provably pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored sample (X1 has 8 cell-level TRANSFERS, M1 none).",
+   "note": "DESIGN 2.5 #6 proposed Peary Land for L2 (low Sun); the engine does NOT confirm L2 there (sun geometry is NO-ANALOG everywhere). It confirms L1 instead, through a rank cell found by the coarse screen (not the seed), 20 km from the X1 seed, and X1, which is only engine-semiquant (condition floors set after seeing data, calibrated on Beacon Valley; the X1 seed list was committed together with the first X1 scores, so it is not provably pre-registered). The L1 cell carries an ice flag (0.15). Unique only within the scored sample (X1 has 8 cell-level TRANSFERS, M1 none). MARGINAL: recomputed from a second DEM (ArcticDEM) the L1 cell leaves the robust set (native rank 19 of 49 in the full-metric configuration, 26 with Copernicus GLO-30; the rule needs 24.5), so the terrain verdict here depends on the DEM (validation report 7c).",
    "l2_snow_free_frac": {},
    "field": [
     {

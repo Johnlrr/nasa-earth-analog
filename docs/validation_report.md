@@ -45,6 +45,16 @@ matching, and a single verdict source. **Every table below is written by
 - **Test-matrix coverage (best state over a lens' targets):** by this engine's measure a field site reproduces 1 of 7 L1 test variables, 1 of 9 for L2 and 2 of 9 for X1 (one of them the day length, which the polar X1 sites do not reproduce in the midnight-sun season); every other row names the facility that replaces the field site, or is marked unobserved (`docs/test_protocols.md`). M1 publishes no site.
 <!-- END:mission_headline -->
 
+### Checks against known truth (PLAN 2e; post hoc, Deviations 28–29)
+
+<!-- BEGIN:checks_headline -->
+- **The slope code reproduces NASA's own product.** On the six PGDA 78 sites our formula at 5 m differs from NASA's slope rasters by at most 0.0009° on the median slope and 0.004 points on the 8° and 20° shares.
+- **A second, independent Earth DEM.** Recomputed from NASADEM or ArcticDEM, 40 of 42 verdicts are unchanged (ridge cells, classic controls, a sample of wall cells). Da Qaidam stays in the robust set with NASADEM (native rank 42/34/40 of 49; the rule needs at least 24.5 in each); Peary Land does **not** stay in the robust set with ArcticDEM (native rank 44/19/44 of 49; the rule needs at least 24.5 in each). A verdict that changes with the DEM is marginal and is reported as such.
+- **Six regions, not two (exploratory).** Da Qaidam is in the robust set of 3 of the 6 PGDA 78 regions (Connecting Ridge, de Gerlache rim, peak near Shackleton); Peary Land is in the robust set of 1 of the 6 PGDA 78 regions (Connecting Ridge).
+- **Known truth on the Moon.** Scored like Earth cells, footprints of the same region pass in 16 of 32 cases and footprints of other regions in 94 of 270; for the Shackleton inner wall, 4 of 4 against 13 of 45. The test separates the steep wall from ridge terrain; it does not tell the ridge and rim regions apart: it recognises a terrain class, not a named place.
+- **Unbiased prevalence.** In 200 random bare-land cells, 1 pass for Connecting Ridge (0.50 %, 95 % CI 0.01 %–2.75 %) and 4 for the Shackleton inner wall (2.00 %, 0.55 %–5.04 %); Fisher exact p = 0.37.
+<!-- END:checks_headline -->
+
 ### By lens
 
 1. **L1 terrain transfers; within the scored sample, steep crater-wall terrain is common and
@@ -445,19 +455,19 @@ the cells cluster into few sites.
 ![Shares of terrain steeper than 8° and 20°: Connecting Ridge, engine matches, classic lunar analogs](figures/fig_mission_slopes.png)
 
 <!-- BEGIN:mission_criteria -->
-| group | site | cell | median slope ° | steeper than 8° (30 m baseline) | steeper than 20° (30 m baseline) | 8° share inside target range | 20° share inside target range |
-|---|---|---|---|---|---|---|---|
-| Moon target | Connecting Ridge (Site01) | connecting_ridge | 12.4 | 76 % | 5.8 % | yes | yes |
-| Engine match | Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | 10.5 | 79 % | 4.5 % | yes | yes |
-| Engine match | Peary Land, North Greenland | E10K_729_-319 | 8.9 | 56 % | 8.2 % | yes | yes |
-| Classic analog | Haughton impact structure, Devon Island | CTRL_haughton_devon | 3.2 | 9 % | 0.3 % | no | no |
-| Classic analog | SP Crater / Black Point lava flow, Arizona | CTRL_sp_crater_black_point | 5.1 | 37 % | 11.8 % | no | yes |
-| Classic analog | Kilauea lava fields, Hawaii | CTRL_kilauea_lava | 2.2 | 9 % | 4.6 % | no | yes |
-| Classic analog | Lava Beds National Monument, California | CTRL_lava_beds_california | 3.7 | 12 % | 3.4 % | no | yes |
-| Classic analog | Barringer (Meteor) Crater, Arizona | CTRL_meteor_crater_arizona | 1.2 | 8 % | 3.9 % | no | yes |
-| Classic analog | Mistastin (relocated) | CTRL_Mistastin_reloc | 1 | 4 % | 0.1 % | no | no |
+| group | site | cell | median slope ° | steeper than 8° (30 m baseline) | steeper than 20° (30 m baseline) | km of traverse for the > 8° terrain of 10 km on the target | 8° share inside target range | 20° share inside target range |
+|---|---|---|---|---|---|---|---|---|
+| Moon target | Connecting Ridge (Site01) | connecting_ridge | 12.4 | 76 % | 5.8 % | 10 | yes | yes |
+| Engine match | Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | 10.5 | 79 % | 4.5 % | 10 | yes | yes |
+| Engine match | Peary Land, North Greenland | E10K_729_-319 | 8.9 | 56 % | 8.2 % | 14 | yes | yes |
+| Classic analog | Haughton impact structure, Devon Island | CTRL_haughton_devon | 3.2 | 9 % | 0.3 % | 86 | no | no |
+| Classic analog | SP Crater / Black Point lava flow, Arizona | CTRL_sp_crater_black_point | 5.1 | 37 % | 11.8 % | 21 | no | yes |
+| Classic analog | Kilauea lava fields, Hawaii | CTRL_kilauea_lava | 2.2 | 9 % | 4.6 % | 86 | no | yes |
+| Classic analog | Lava Beds National Monument, California | CTRL_lava_beds_california | 3.7 | 12 % | 3.4 % | 65 | no | yes |
+| Classic analog | Barringer (Meteor) Crater, Arizona | CTRL_meteor_crater_arizona | 1.2 | 8 % | 3.9 % | 97 | no | yes |
+| Classic analog | Mistastin (relocated) | CTRL_Mistastin_reloc | 1 | 4 % | 0.1 % | 205 | no | no |
 
-Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). Caveat: Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
+Target range = minimum to maximum over the 10 Connecting Ridge footprints (PGDA 78 Site01): 8° share 46 %–87 %, 20° share 0.6 %–21.7 %. Requirements: "Surface slope for landing (100m): <10 deg" and "Surface slope limit for EVA (2km): <20 deg" — Artemis Human Landing System Overview, NASA 2025 International Space Apps Challenge (L. Ortiz, NASA, 4 Oct 2025), slides 21 and 23; same text in Artemis Human Landing System Update (A. Dwyer Cianciolo, NASA LaRC, 1 Aug 2024), slides 19 and 21 (https://ntrs.nasa.gov/citations/20250009323). The traverse column assumes that the share of steep terrain along a path equals the areal share of the footprint. Caveat: Our slope is computed on a 30 m baseline inside a 4 km footprint on both worlds. NASA gives the area (100 m, 2 km), not the slope baseline, so these shares compare Earth with Moon only, not with NASA's maps; the limits are operational limits, not similarity targets; the two DEMs (Copernicus GLO-30, PGDA 78 resampled to 30 m) do not have the same effective resolution. The shares describe the 4 km footprint centred on each site's coordinate, not the whole site, and they are among the descriptors the engine selects on: a consistency check, not an independent test.
 <!-- END:mission_criteria -->
 
 ### Test-transfer matrix
@@ -501,6 +511,98 @@ counts below use the same site-name queries with a Moon-only and a Mars-only con
 Contexts (both subsets of the B8 context): Moon = `(analog OR analogue) AND (Moon OR lunar)`, Mars = `(analog OR analogue) AND (Mars)`, on the same site-name query (OpenAlex title/abstract search, 2026-11-15; the B8 counts may be a day older). The last count column is the maximum of the site-name count and the member cells' counts (for Peary Land the cell name is "Greenland"). Supplementary: `hidden_status` is not recomputed from the task counts.
 <!-- END:task_attention -->
 
+## 7c. Checks against known truth (PLAN 2e, post hoc)
+
+Four checks that use data the verdicts did not use. None changes a threshold or a verdict; where
+a check weakens a published result, the weakness is stated in §1 and on the site card.
+
+### Our slope formula against NASA's PGDA 78 slope rasters
+
+<!-- BEGIN:nasa_slope -->
+| region (PGDA 78) | median slope °, NASA raster | ours at 5 m | > 8°, NASA raster | > 8°, ours 5 m | > 8°, ours 30 m | > 20°, NASA raster | > 20°, ours 5 m | > 20°, ours 30 m |
+|---|---|---|---|---|---|---|---|---|
+| Connecting Ridge (Site01) | 12.6 | 12.6 | 76.2 % | 76.2 % | 75.8 % | 9.6 % | 9.6 % | 5.7 % |
+| Shackleton inner wall (Site04) | 31 | 31 | 96.3 % | 96.3 % | 96.1 % | 87.7 % | 87.7 % | 87.9 % |
+| Nobile rim 1 (Site06) | 14.9 | 14.9 | 89.0 % | 89.0 % | 89.6 % | 20.2 % | 20.2 % | 18.8 % |
+| peak near Shackleton (Site07) | 9.42 | 9.42 | 62.0 % | 62.0 % | 60.5 % | 10.7 % | 10.7 % | 10.7 % |
+| de Gerlache rim (Site11) | 14.4 | 14.3 | 87.6 % | 87.6 % | 88.0 % | 18.9 % | 18.9 % | 17.1 % |
+| Malapert massif (Site23) | 10.8 | 10.8 | 69.2 % | 69.2 % | 68.2 % | 6.8 % | 6.8 % | 4.3 % |
+
+Central 4 km footprint of each PGDA 78 site; NASA raster = `SiteNN_final_adj_5mpp_slp.tif`. Largest difference between our formula at 5 m and NASA's slope raster: 0.0009° on the median slope, 0.004 percentage points on the shares. Going from a 5 m to a 30 m baseline moves the 8° share by at most 1.5 points and the 20° share by at most 3.9 points.
+<!-- END:nasa_slope -->
+
+### A second Earth DEM
+
+<!-- BEGIN:cross_dem -->
+| cells | target | n | robust with Copernicus GLO-30 | robust with the second DEM | same verdict |
+|---|---|---|---|---|---|
+| control | connecting_ridge | 7 | 0 | 0 | 7 |
+| control | shackleton_rim | 7 | 0 | 0 | 7 |
+| ridge match | connecting_ridge | 5 | 5 | 4 | 4 |
+| ridge match | shackleton_rim | 5 | 2 | 2 | 5 |
+| wall match | connecting_ridge | 30 | 0 | 0 | 30 |
+| wall match | shackleton_rim | 30 | 30 | 29 | 29 |
+
+| cells | site | cell | second DEM | > 8°, GLO-30 | > 8°, second DEM | native rank (i)/(ii)/(iii), second DEM | robust, GLO-30 | robust, second DEM |
+|---|---|---|---|---|---|---|---|---|
+| control | Barringer (Meteor) Crater, Arizona | CTRL_meteor_crater_arizona | NASADEM | 7.8 % | 7.3 % | 5/0/0 of 49 | no | no |
+| control | Haughton impact structure, Devon Island | CTRL_haughton_devon | ArcticDEM | 8.9 % | 9.5 % | 0/1/0 of 49 | no | no |
+| control | Kilauea lava fields, Hawaii | CTRL_kilauea_lava | NASADEM | 8.9 % | 8.8 % | 5/0/2 of 49 | no | no |
+| control | Lava Beds National Monument, California | CTRL_lava_beds_california | NASADEM | 11.6 % | 11.1 % | 2/1/0 of 49 | no | no |
+| control | Mistastin | CTRL_Mistastin | NASADEM | 8.2 % | 6.4 % | 0/1/0 of 49 | no | no |
+| control | Mistastin (relocated) | CTRL_Mistastin_reloc | NASADEM | 3.7 % | 2.2 % | 0/0/0 of 49 | no | no |
+| control | SP Crater / Black Point lava flow, Arizona | CTRL_sp_crater_black_point | NASADEM | 36.9 % | 37.2 % | 25/0/19 of 49 | no | no |
+| ridge match | Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | NASADEM | 78.9 % | 75.3 % | 42/34/40 of 49 | yes | yes |
+| ridge match | Peary Land, North Greenland | E10K_729_-319 | ArcticDEM | 56.0 % | 56.4 % | 44/19/44 of 49 | yes | no |
+| ridge match | nan | E10K_691_-680 | ArcticDEM | 77.9 % | 77.9 % | 43/46/44 of 49 | yes | yes |
+| ridge match | nan | E10K_726_-686 | ArcticDEM | 85.2 % | 85.0 % | 49/34/44 of 49 | yes | yes |
+| ridge match | nan | E10K_699_-750 | ArcticDEM | 79.5 % | 79.2 % | 44/29/44 of 49 | yes | yes |
+
+Second DEM: NASADEM (NASA, SRTM C-band radar of 2000) between 56° S and 60° N, ArcticDEM mosaic (stereo optical, averaged to 30 m) above 60° N; same code, baselines and rule. "Wall match" = a seeded sample of the cells kept for the Shackleton inner wall. Three of the five ridge cells are ice-excluded (§7) and are listed only for the DEM comparison.
+<!-- END:cross_dem -->
+
+### Leave-one-out on the Moon
+
+<!-- BEGIN:lunar_control -->
+| reference region ↓ / footprints of → | Connecting Ridge | de Gerlache rim | Malapert massif | Nobile rim 1 | peak near Shackleton | Shackleton inner wall |
+|---|---|---|---|---|---|---|
+| Connecting Ridge | 2/4 | 6/9 | 2/9 | 3/9 | 5/9 | 1/9 |
+| de Gerlache rim | 6/9 | 3/6 | 3/9 | 2/9 | 5/9 | 1/9 |
+| Malapert massif | 2/9 | 4/9 | 3/6 | 2/9 | 3/9 | 3/9 |
+| Nobile rim 1 | 4/9 | 6/9 | 3/9 | 1/6 | 5/9 | 1/9 |
+| peak near Shackleton | 6/9 | 4/9 | 1/9 | 3/9 | 3/6 | 0/9 |
+| Shackleton inner wall | 3/9 | 3/9 | 5/9 | 2/9 | 0/9 | 4/4 |
+
+Leave-one-out on the Moon: each population footprint is scored like an Earth cell against each region's reference and must pass all three configurations. Same region: 16 of 32 pass; other regions: 94 of 270. Footprints of one region are 3–4 km apart, so they are not independent.
+<!-- END:lunar_control -->
+
+### All six PGDA 78 regions: prevalence in random bare land and matches in the screened sample
+
+<!-- BEGIN:region_prevalence -->
+| region | pre-registered null | extension (same rule, new seed) | combined | pass rate (95 % CI) | bare-land cells (95 % CI) | screened cells kept (rank + seed) |
+|---|---|---|---|---|---|---|
+| Connecting Ridge | 1/200 | 0/0 | 1/200 | 0.50 % (0.01 %–2.75 %) | 980 (25–5,398) | 5 |
+| de Gerlache rim (medoid reference, exploratory) | 1/200 | 0/0 | 1/200 | 0.50 % (0.01 %–2.75 %) | 980 (25–5,398) | 2 |
+| Malapert massif (medoid reference, exploratory) | 0/200 | 0/0 | 0/200 | 0.00 % (0.00 %–1.83 %) | 0 (0–3,582) | 0 |
+| Nobile rim 1 (medoid reference, exploratory) | 0/200 | 0/0 | 0/200 | 0.00 % (0.00 %–1.83 %) | 0 (0–3,582) | 0 |
+| peak near Shackleton (medoid reference, exploratory) | 1/200 | 0/0 | 1/200 | 0.50 % (0.01 %–2.75 %) | 980 (25–5,398) | 2 |
+| Shackleton inner wall | 4/200 | 0/0 | 4/200 | 2.00 % (0.55 %–5.04 %) | 3,920 (1,073–9,881) | 99 |
+
+Pass = robust set (all three configurations), before the ice filter and the visual review. Connecting Ridge against the Shackleton inner wall on the combined random sample: Fisher exact p = 0.37. The last column comes from the sample screened towards Connecting Ridge and is not a prevalence.
+<!-- END:region_prevalence -->
+
+<!-- BEGIN:region_matches -->
+| site | cell | lat | lon | regions matched (of 6) | regions | ice filter (A13) |
+|---|---|---|---|---|---|---|
+| Qikiqtaaluk Region, Nunavut (Canada) | E10K_726_-686 | 81 | -71.2 | 4 | Connecting Ridge, de Gerlache rim, peak near Shackleton, Shackleton inner wall | excluded: perennial ice |
+| Da Qaidam, northern Qaidam Basin margin (Qinghai) | E10K_453_921 | 38 | 95.7 | 3 | Connecting Ridge, de Gerlache rim, peak near Shackleton | ok |
+| Sirmilik National Park, Nunavut (Canada) | E10K_699_-750 | 72.1 | -77.8 | 2 | Connecting Ridge, Shackleton inner wall | excluded: perennial ice |
+| Qikiqtaaluk Region, Nunavut (Canada) | E10K_691_-680 | 69.9 | -70.6 | 1 | Connecting Ridge | excluded: perennial ice |
+| Peary Land, North Greenland | E10K_729_-319 | 82.6 | -33.1 | 1 | Connecting Ridge | flag: some ice |
+
+Screened cells (rank + seed) in the robust set of at least one ridge, rim or massif region. Only the Connecting Ridge and Shackleton rows are verdicts; the other four regions use a medoid reference and are exploratory.
+<!-- END:region_matches -->
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -535,6 +637,8 @@ evidence of order; where git cannot prove the order, the row says so.
 | 25 | Mission-criterion reading (shares of terrain steeper than 8° and 20° set beside the Artemis III requirements), per-lens validity summary, pass rate of random bare land (a prevalence estimate) and the sanity check against known-analog zones | PLAN 2d, 15/11 midday | Tie the results to published NASA requirements; L1 lacked any positive check | Post hoc: computed after every result was known. `frac_gt8` and `frac_gt20` were L1 descriptors from the start (so the slope reading is a consistency check, not an independent test) and `config/exclusion_zones.yaml` was drawn before scoring, but none of these comparisons was pre-registered. The zone check uses an unstratified and a terrain-matched base rate, ignores spatial clustering (no p-value is reported; sites are counted) and the zone list is incomplete (Qaidam, a known Mars analog region, is not in it). The NASA limits are operational limits read at an unstated slope baseline, not similarity targets. No threshold or verdict changed |
 | 26 | Task-specific Attention (Moon-only and Mars-only context on the site-name queries) | PLAN 2d, 15/11 midday | Fidelity is per task; the B8 context mixes both bodies | Supplementary table only; `hidden_status` unchanged |
 | 27 | Test protocols and the TRL reading of a card (`docs/test_protocols.md`) | PLAN 2d, 15/11 midday | State what a field campaign may claim | A card is an input to a project's own definition of its relevant environment; no hardware was tested and no TRL is assigned or certified |
+| 28 | Six-region reading of L1, leave-one-out on the Moon, 800 more random bare-land cells (`scripts/l1_regions.py`, `scripts/null_expand.py`) | PLAN 2e, 15/11 afternoon | L1 had no known-truth check; the null sample of 200 gave a prevalence CI of 0.01–2.8 % | Post hoc. The four regions without a published reference use their medoid footprint and are exploratory (never in `verdicts.parquet`). The extra cells were drawn by the pre-registered rule with a new seed before any was scored; the first 200 are unchanged. The published robust sets are reproduced exactly by the generalised code before it is used |
+| 29 | Cross-DEM check with NASADEM / ArcticDEM (`scripts/cross_dem.py`) | PLAN 2e, 15/11 afternoon | The Earth side rests on one DEM whose effective resolution differs from the lunar one | Post hoc robustness check on the ridge cells, the controls and a seeded sample of 30 wall cells. Verdicts are not changed by it; a cell whose verdict flips is flagged as marginal in §1, on its card and on the slides |
 
 ## 9. Limitations and not done
 

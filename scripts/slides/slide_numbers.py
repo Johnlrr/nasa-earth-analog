@@ -212,6 +212,64 @@ def main() -> None:
                 put(f"task_attention_{slug}_{r.context}", int(r.n_pubs),
                     "data/derived/task_attention.parquet (OpenAlex)")
 
+    # ---- PLAN 2e: checks against known truth (l1_regions.py, cross_dem.py) ----
+    rgp = D / "l1_regions.json"
+    if rgp.exists():
+        rg = json.loads(rgp.read_text(encoding="utf-8"))
+        src = "data/derived/l1_regions.json"
+        put("nasa_slope_max_abs_diff_deg", rg["nasa_slope_max_abs_diff_deg"], src)
+        put("nasa_share_max_abs_diff_points", 100 * rg["nasa_frac_max_abs_diff"], src)
+        for k, val in rg["lunar_control"].items():
+            put(f"lunar_control_{k}", val, src)
+        put("prevalence_ridge_vs_wall_p", rg["ridge_vs_wall_p_fisher"], src)
+        for r in rg["prevalence"]:
+            for k in ("pass", "n", "rate", "ci_lo", "ci_hi", "cells", "cells_lo", "cells_hi"):
+                put(f"prevalence_{r['target_id']}_{k}", r[k],
+                    "data/derived/l1_prevalence.parquet")
+        lc = pd.read_parquet(D / "l1_lunar_control.parquet")
+        w = lc[lc.reference_region.eq("shackleton_rim")]
+        ws, wo = w[w.candidate_region.eq("shackleton_rim")], w[w.candidate_region.ne(
+            "shackleton_rim")]
+        src = "data/derived/l1_lunar_control.parquet"
+        put("lunar_control_wall_same_pass", int(ws.n_pass.sum()), src)
+        put("lunar_control_wall_same_n", int(ws.n.sum()), src)
+        put("lunar_control_wall_other_pass", int(wo.n_pass.sum()), src)
+        put("lunar_control_wall_other_n", int(wo.n.sum()), src)
+        reg = pd.read_parquet(D / "l1_regions.parquet")
+        reg = reg[reg.robust & reg.sample_role.isin(["rank", "seed"])]
+        cd = pd.read_parquet(D / "cross_dem.parquet")
+        cd = cd[cd.alt_ok]
+        pub = cd[(cd.group.eq("wall match") & cd.target_id.eq("shackleton_rim"))
+                 | (cd.group.ne("wall match") & cd.target_id.eq("connecting_ridge"))]
+        src = "data/derived/cross_dem.parquet"
+        put("cross_dem_same_verdict", int((pub.robust == pub.robust_glo30).sum()), src)
+        put("cross_dem_n", int(len(pub)), src)
+        base = pd.read_parquet(D / "l1_robust_set.parquet")
+        base = base[base.target_id.eq("connecting_ridge")].set_index("cell_id")
+        crit = pd.read_parquet(D / "mission_criteria.parquet")
+        for r in crit[crit.group.eq("Engine match")].itertuples():
+            slug = next((v for k, v in slugs.items() if k in str(r.name)), r.id)
+            x = cd[cd.cell_id.eq(r.id) & cd.target_id.eq("connecting_ridge")].iloc[0]
+            put(f"cross_dem_{slug}_robust", bool(x.robust), src)
+            put(f"cross_dem_{slug}_rank_full_metric", int(x.nr_ii), src)
+            put(f"glo30_{slug}_rank_full_metric", int(base.loc[r.id, "nr_ii"]),
+                "data/derived/l1_robust_set.parquet")
+            put(f"regions_matched_{slug}", int(reg[reg.cell_id.eq(r.id)].shape[0]),
+                "data/derived/l1_regions.parquet")
+            put(f"traverse_km_{slug}", r.km_for_10km_of_target,
+                "data/derived/mission_criteria.parquet")
+        put("rank_rule_threshold", float(x.n_i) / 2, src)
+        cl = crit[crit.group.eq("Classic analog")]
+        put("traverse_km_classic_median", float(cl.km_for_10km_of_target.median()),
+            "data/derived/mission_criteria.parquet")
+        sp = crit[crit.id.eq("CTRL_sp_crater_black_point")].iloc[0]
+        put("sp_crater_frac_gt8", sp.frac_gt8, "data/derived/mission_criteria.parquet")
+        put("sp_crater_pass_config_i", bool(base.loc["CTRL_sp_crater_black_point", "in_i"]),
+            "data/derived/l1_robust_set.parquet")
+        put("classic_pass_any_config", int(
+            (base[base.index.isin(cl.id)][["in_i", "in_ii", "in_iii"]].any(axis=1)).sum()),
+            "data/derived/l1_robust_set.parquet")
+
     doc = {"generated": dt.datetime.now().isoformat(timespec="minutes"), "numbers": n}
     OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
     for k, val in n.items():

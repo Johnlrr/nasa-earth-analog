@@ -35,6 +35,15 @@ requirements:
     document: "NASA Technology Readiness Level Definitions (table reproduced from NPR 7123.1)"
     source: "https://www.nasa.gov/wp-content/uploads/2017/12/458490main_trl_definitions.pdf"
 
+# NASA analog campaigns that the classic control footprints stand for.
+analog_missions:
+  jett5:
+    quote: "astronauts performed a series of simulated moonwalks in the San Francisco Volcanic Field near Flagstaff, Arizona"
+    detail: "JETT5, conducted May 13-17 (2024); 'designed to prepare crew members for the historic Artemis III mission that will land near the Moon's south pole'"
+    document: "Artemis & JETT5 Interview with Kelsey Young, NASA Scientific Visualization Studio, item 14583"
+    source: "https://svs.gsfc.nasa.gov/14583"
+    control: CTRL_sp_crater_black_point
+
 # Caveat printed with every mission-criterion table. The NASA slides give "(100m)" and "(2km)"
 # next to the limits; they do not state the baseline on which slope is computed, so our shares
 # cannot be compared with NASA's maps. They compare Earth with Moon only. The limits are
