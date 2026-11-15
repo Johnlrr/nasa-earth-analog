@@ -1,6 +1,6 @@
 # Field / Facility split for showcase sites (PLAN 2c, A18–A20)
 
-Generated 2026-11-15 15:24 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
+Generated 2026-11-15 16:05 by `scripts/sites.py` from `verdicts.parquet` (A15) and `cell_profiles.parquet` (A13); contract and showcase rule in `config/sites.yaml`. Post hoc grouping: no threshold or verdict changed. Sites are single-linkage clusters of engine-kept cells at 150 km, without ice-excluded cells. Showcase: (a) a Connecting Ridge TRANSFERS cell not downgraded by B10, (b) a multi-lens partner, (c) the largest site outside exclusion buffers.
 
 ## Target scarcity (A18)
 
@@ -19,7 +19,7 @@ Both columns of a comparison must use the same filter (e.g. *usable* vs *usable*
 
 Engine-confirmed: **L1** · not yet visually reviewed (B10): E10K_465_927
 
-> Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain. Not presented as hidden.
+> Qaidam is a well-known Mars analog region (Dalangtan playa); new here is only its match to Connecting Ridge terrain, a lunar use that the literature query rarely finds. Its literature count is above the threshold, so it is a known site, not a low-attention one. The terrain cell stays in the robust set with a second DEM (NASADEM) and also matches de Gerlache rim and the peak near Shackleton (exploratory; validation report 7c).
 
 **Field — test here (transfers)**
 

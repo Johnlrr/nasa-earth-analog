@@ -22,14 +22,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Assemble _site
-        run: |
-          mkdir -p _site
-          cp -r web/. _site/
-          if [ -f docs/validation_report.md ]; then cp docs/validation_report.md _site/; fi
-          if [ -f docs/test_protocols.md ]; then cp docs/test_protocols.md _site/; fi
-          if [ -f docs/field_facility.md ]; then cp docs/field_facility.md _site/; fi
-          if [ -d docs/figures ]; then cp -r docs/figures _site/figures; fi
+      - name: Assemble _site (same script as the local preview)
+        run: python3 scripts/build_site.py _site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

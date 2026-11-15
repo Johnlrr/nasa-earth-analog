@@ -154,7 +154,7 @@
       '<span class="item"><span class="swatch ring"></span><b>control</b> (ring: known good site)</span>' +
       '<span class="item"><span class="swatch diamond"></span><b>decoy</b> (diamond: looks similar, should fail)</span>';
     var ev = '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:solid;border-color:#0d1210"></span>engine-confirmed (solid)</span>' +
-      '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:dashed;border-color:#0d1210"></span>engine-semiquant (dashed)</span>' +
+      '<span class="item"><span class="swatch" style="background:#e3e2da;border-style:dashed;border-color:#0d1210"></span>semi-quantitative (dashed)</span>' +
       '<span class="item"><span class="swatch" style="background:#8e948d;border-color:#8e948d"></span>literature-only / hypothesis (grey)</span>';
     $('legend').innerHTML = '<div class="lg-row"><span class="lg-h">Score</span>' + items + '<span class="item">small σ = closer to the target; "&gt; X σ" = capped</span></div>' +
       '<div class="lg-row"><span class="lg-h">Marker</span>' + roles + '<span class="item"><span class="swatch sq"></span><b>site</b> (square)</span></div>' +
@@ -175,7 +175,7 @@
       if (sites.length) {
         var two = sites.filter(function (f) { var p = f.properties; return (p.lenses_engine_confirmed.length + p.lenses_engine_semiquant.length) >= 2; }).length;
         var low = sites.filter(function (f) { return f.properties.hidden_status === 'yes'; }).length;
-        h = stat('Showcase sites', sites.length) + stat('Two or more engine lenses', two) + stat('Low attention', low);
+        h = stat('Showcase sites', sites.length) + stat('Two or more lenses', two) + stat('Low attention', low);
       }
     } else if (lm && !lm.status) {
       var ranked = state.features.filter(function (f) { return !isSite(f) && f.properties.lens_scores && f.properties.lens_scores[id] && roleOf(f.properties) === 'hidden'; }).length;
@@ -375,7 +375,7 @@
     if (typeof s.largest_patch_km2 === 'number') {
       parts.push('Matched area <strong>' + esc(num(s.matched_area_km2, 3)) + ' km²</strong>, largest patch ' +
         esc(num(s.largest_patch_km2, 3)) + ' km² <span class="note">(per-pixel match; pass ≥ 0.1 km²' +
-        (s.pixel_footprint === 'relocated' ? '; footprint relocated by rule A14, original: ' +
+        (s.pixel_footprint === 'relocated' ? '; footprint relocated by a pre-set rule, original: ' +
           esc(num(s.largest_patch_km2_original, 3)) + ' km²' : '') + ')</span>');
     }
     return parts.length ? '<p class="scale">' + parts.join('<br>') + '</p>' : '';
@@ -402,14 +402,14 @@
       esc(num(p.max_span_km, 0)) + ' km' + (p.max_span_km > 300 ? ' <span class="flag">a region, not one camp</span>' : '') +
       ' · <span class="note">' + esc(p.id) + '</span></p>';
     h += '<p class="chips">' + chip(p.lenses_engine_confirmed, 'c-ok', 'engine-confirmed') + ' ' +
-      chip(p.lenses_engine_semiquant, 'c-semi', 'engine-semiquant') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (B10 downgraded)') + ' ' +
+      chip(p.lenses_engine_semiquant, 'c-semi', 'semi-quantitative') + ' ' + chip(p.lenses_hypothesis, 'c-hyp', 'hypothesis (downgraded at visual review)') + ' ' +
       chip(p.lenses_literature_only, 'c-lit', 'literature-only context') + '</p>';
     // the word "hidden" appears only on a site whose hidden_status is exactly "yes" (PR #5 request)
     if (p.hidden_status === 'yes') {
-      h += '<p><strong>Hidden (low Attention under the B8 query):</strong> yes</p>';
+      h += '<p><strong>Hidden (low literature count):</strong> yes</p>';
     } else {
       var why = String(p.hidden_status || '').replace(/^no:\s*/, '').replace(/^unknown:\s*/, '');
-      h += '<p><strong>Little-studied test (B8 query):</strong> not passed — ' + esc(why) + '</p>';
+      h += '<p><strong>Low literature count:</strong> no — ' + esc(why) + '</p>';
     }
     h += '<p><strong>Attention:</strong> ' + (typeof p.attention_n === 'number' ? esc(p.attention_n) + ' OpenAlex works' : 'not known') + '</p>';
     if (p.hidden_status === 'yes') h += '<p class="note">Low count of works naming this site in a Mars/Moon analog context; not proof that the site is unknown (validation report, Deviations 21).</p>';
@@ -427,7 +427,7 @@
       }).join('') + '</ul>';
     }
     if (p.b10_unreviewed_cells && p.b10_unreviewed_cells.length) {
-      h += '<p class="note">Cells not yet visually reviewed (B10): ' + esc(p.b10_unreviewed_cells.join(', ')) + '</p>';
+      h += '<p class="note">Cells not yet visually reviewed: ' + esc(p.b10_unreviewed_cells.join(', ')) + '</p>';
     }
     h += '<p class="note">Member cells: ' + esc(p.member_cells.join(', ')) + '</p>';
     return h;
@@ -536,6 +536,7 @@
 
   // ---------- intro (hero card, lens cards, fact line): every number read from the data ----------
   function words(v) { return String(v || '').replace(/_/g, ' '); }
+  var HERO_SITE = 'site:E10K_453_921';
   function renderIntro() {
     var lm = state.meta.lenses || {};
     var total = 0;
@@ -545,24 +546,23 @@
       $('hero-fact').textContent = total.toLocaleString('en-US') + ' Earth cells scored · ' + LENSES.length + ' mission lenses' +
         (sites.length ? ' · ' + sites.length + ' showcase field sites' : '') + ' · a random null sample for every lens';
     }
-    // hero: the showcase site with the most engine lenses (ties: the one with cross-lens evidence)
-    var best = sites.slice().sort(function (a, b) {
-      var pa = a.properties, pb = b.properties;
-      var na = pa.lenses_engine_confirmed.length + pa.lenses_engine_semiquant.length;
-      var nb = pb.lenses_engine_confirmed.length + pb.lenses_engine_semiquant.length;
-      return (nb - na) || ((pb.multilens || []).length - (pa.multilens || []).length);
-    })[0];
+    // hero: Da Qaidam, the match that holds with a second DEM (validation report 7c, slide 5);
+    // fallback: the first showcase site
+    var best = sites.filter(function (f) { return f.properties.id === HERO_SITE; })[0] || sites[0];
     if (best) {
       var p = best.properties;
       var lensTxt = p.lenses_engine_confirmed.map(function (x) { return x + ' engine'; })
         .concat(p.lenses_engine_semiquant.map(function (x) { return x + ' semi-quantitative'; })).join(' · ');
       var field = (p.field || []).filter(function (r) { return r.target_label; }).slice(0, 2);
-      var fac = (p.facility || [])[0], un = (p.unobserved || [])[0];
-      var h = '<p class="af-site">' + esc(p.name) + '</p><p class="af-sub">Field site · ' + esc(lensTxt) + '</p><ul class="af-rows">';
+      var facs = (p.facility || []).filter(function (r) { return r.facility; }), un = (p.unobserved || [])[0];
+      var known = String(p.hidden_status || '').indexOf('no:') === 0 ? ' · known analog region, not a hidden site' : '';
+      var h = '<p class="af-site">' + esc(p.name) + '</p><p class="af-sub">Field site · ' + esc(lensTxt) + esc(known) + '</p><ul class="af-rows">';
       field.forEach(function (r) {
         h += '<li><span class="v-ok-t">TRANSFERS</span><span>' + esc(r.lens) + ' · ' + esc(words(r.variable)) + ' vs ' + esc(r.target_label) + '</span></li>';
       });
-      if (fac) h += '<li><span class="v-no-t">NO-ANALOG</span><span>' + esc(fac.lens) + ' · ' + esc(words(fac.variable)) + ' → ' + esc(fac.facility) + '</span></li>';
+      facs.filter(function (r) { return r.variable === 'gravity' || r.variable === 'atmospheric_pressure'; }).concat(facs).slice(0, 2).forEach(function (fac) {
+        h += '<li><span class="v-no-t">NO-ANALOG</span><span>' + esc(fac.lens) + ' · ' + esc(words(fac.variable)) + ' → ' + esc(fac.facility) + '</span></li>';
+      });
       if (un) h += '<li><span class="v-unk-t">UNOBSERVED</span><span>' + esc(un.lens) + ' · ' + esc(un.variable) + '</span></li>';
       h += '</ul><button type="button" class="btn btn-primary af-open" data-open-site="' + esc(p.id) + '">Open this card <span aria-hidden="true">&rarr;</span></button>';
       $('hero-card').innerHTML = h;
