@@ -123,6 +123,8 @@ the Deviations table of the validation report.</p>
 <tr><td>A slope match also reproduces the ridge's routes</td><td>Pre-registered simulation (30 m planner)</td><td><b>{n(num, 'v1_h1_verdict')}</b> for the group: {n(num, 'v1_passer_reproduce')} of {n(num, 'v1_passer_n')} vs {n(num, 'v1_null_share', '{:.0f} %', 100)} of random land</td></tr>
 <tr><td>… with the threshold from 124 lunar neighbours (V2)</td><td>Pre-registered before the rerun</td><td><b>{n(num, 'v2_h1_verdict')}</b> (nominal; {n(num, 'v2_h1_p_bonferroni', '{:.3f}')} over two looks): {n(num, 'v2_passer_reproduce')} of {n(num, 'v2_passer_n')} vs {n(num, 'v2_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'v2_h1_p', '{:.3f}')}); classic sites {n(num, 'v2_classic_share', '{:.0f} %', 100)}, not beaten</td></tr>
 <tr><td>Classic Mars analogs reproduce Jezero delta-front terrain</td><td>Pre-registered (CTX DTM, same code)</td><td><b>{n(num, 'mars_verdict')}</b>: {n(num, 'mars_classic_share', '{:.0f} %', 100)} vs {n(num, 'mars_null_share', '{:.0f} %', 100)} of random land (p = {n(num, 'mars_p', '{:.4f}')})</td></tr>
+<tr><td>Our 30 m slope from orbit matches the tilt Perseverance measured</td><td>Pre-registered (R1b, rover waypoints)</td><td><b>{n(num, 'r1b_verdict')}</b>: Spearman {n(num, 'r1b_rho', '{:.2f}')} at {n(num, 'r1b_n')} waypoints ({n(num, 'r1b_rho_site', '{:.2f}')} over {n(num, 'r1b_n_site')} sites)</td></tr>
+<tr><td>The 30 m planner predicts how the rover detoured</td><td>Pre-registered (R1, rover traverse)</td><td><b>{n(num, 'r1_verdict')}</b>: Spearman {n(num, 'r1_rho', '{:.2f}')}; routes stay a planner simulation</td></tr>
 <tr><td>Slope distance carries route information</td><td>Pre-registered simulation</td><td><b>{n(num, 'v1_h2_verdict')}</b>: Spearman {n(num, 'v1_h2_rho', '{:.2f}')}</td></tr>
 <tr><td>Open-country leads (Argentina, Baffin Island)</td><td>Exploratory, after the results</td><td>pass slope and routes on two DEMs; not visited</td></tr>
 <tr><td>Baffin slope match holds at rover scale</td><td>Exploratory, rule committed before the run</td><td>within the ridge neighbourhood at 5, 10 and 30 m (ArcticDEM 2 m vs LOLA 5 m)</td></tr>
@@ -228,9 +230,18 @@ thresholds come from {n(num, 'mars_n_neighbours')} windows of the same Mars DEM.
 {n(num, 'mars_classic_match')} of {n(num, 'mars_classic_n')} cases (HI-SEAS {n(num, 'mars_site_hiseas')}, Atacama
 {n(num, 'mars_site_atacama')}, Haughton {n(num, 'mars_site_haughton')}, MDRS {n(num, 'mars_site_mdrs')}, Wright Valley
 {n(num, 'mars_site_mcmurdo')}), random bare land in {n(num, 'mars_null_match')} of {n(num, 'mars_null_n', '{:,}')}:
-{n(num, 'mars_verdict')} (p = {n(num, 'mars_p', '{:.4f}')}). The delta front is gentle terrain, so matches are common
+{n(num, 'mars_verdict')} (p = {n(num, 'mars_p', '{:.4f}')}; square 20 m ground cells, Deviations 40). The delta front is gentle terrain, so matches are common
 (mostly hyper-arid plains in the Sahara and Arabia; {n(num, 'mars_open_matches')} in open countries). None of the Moon-ridge
 slope matches matches Jezero: the two targets pick different terrain.</p>
+
+<h2>4c. Checked on the ground of Mars: Perseverance's own tilt</h2>
+<p>Pre-registered (R1b, <code>config/prereg_rover_r1.yaml</code>). At each of the {n(num, 'r1b_n')} waypoints of
+Perseverance's traverse (NASA/JPL MMGIS, to sol 2022), our 30 m slope from the CTX DTM, computed with the same
+formula as every L1 verdict, ranks the terrain the way the rover's own tilt sensor did: Spearman
+{n(num, 'r1b_rho', '{:.2f}')} ({n(num, 'r1b_rho_site', '{:.2f}')} with one value per rover site, n = {n(num, 'r1b_n_site')}).
+<b>{n(num, 'r1b_verdict')}</b>. The route side did not hold: the planner's detour does not predict the rover's real
+detour (R1 {n(num, 'r1_verdict')}, Spearman {n(num, 'r1_rho', '{:.2f}')}) and terrain roughness does not predict drive
+rate (R2 {n(num, 'r2_verdict')}), so route outcomes stay labelled a planner simulation.</p>
 
 <h2>5. A campaign, not a site</h2>
 <p>Two leads together cover {n(num, 'camp_two_leads')} of {n(num, 'camp_n_field')} field rows that orbit can judge;

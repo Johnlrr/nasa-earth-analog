@@ -1,5 +1,5 @@
 {
-  "prereg": "config/prereg_rover_r1.yaml (commit 8798764)",
+  "prereg": "config/prereg_rover_r1.yaml (commit 62ce675)",
   "track_last_sol": 2022,
   "track_vertices": 35010,
   "R1": {
@@ -65,5 +65,5 @@
       }
     }
   },
-  "prereg_R1b": "config/prereg_rover_r1.yaml addendum (commit dabc895)"
+  "prereg_R1b": "config/prereg_rover_r1.yaml addendum (commit 59ff157)"
 }

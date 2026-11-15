@@ -14,27 +14,32 @@ https://johnlrr.github.io/nasa-earth-analog/ (web app) · test-site finder for A
 tables and validation report: https://github.com/Johnlrr/nasa-earth-analog
 
 ## High-Level Project Summary
-Space agencies test Moon and Mars hardware at Earth "analog" sites, usually chosen because they
-are famous or look right. SIMILITUDE asks the engineer's question instead: which test results
-transfer? One formula is run on NASA data from both worlds, per mission test, and every site
-gets a card that says what a field test there reproduces, what no Earth site reproduces (and
-which facility replaces it) and what cannot be judged. For the Moon Base ridge (Connecting
-Ridge), 76 % of the terrain is steeper than 8°; in the footprints of
-six classic analog field sites the median is 9 %.
-Then we tested our own method. In a test we registered before running it, a slope-limited
-traverse planner ran on the ridge and on every Earth footprint. Only 3 of 9 slope matches
-reproduce the ridge's simulated routes, against
-15 % of random land: the test fails for the group, and we publish
-that. We then registered a tighter threshold from 124 lunar neighbours instead of 8 (V2): random
-land drops to 10 % and the test passes narrowly (p = 0.049; 0.098 after correcting for the two looks), but classic footprints still do as well. So
-every card reports slope and traverse separately. Two
-footprints in countries open to NASA and outside known analog areas pass both tests on two
-elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
-Baffin Island, Canada, where from 13 Nov to 22 Jan every daylight minute has the Sun below 7°
-(71 days), the polar low Sun no Earth site has over a year.
-The same code reads Mars: for Perseverance's Jezero delta front (CTX DTM), classic Mars analog
-footprints match in 38 % of cases against 16 % of random land (pre-registered, p = 0.0005).
-Our mineral test did not pass its own pre-registered rule, so we publish no mineral analog.
+Before a rover or an EVA crew goes to the Moon Base, NASA rehearses on Earth, at analog sites
+usually picked because they are famous. SIMILITUDE checks whether they really match, and the
+famous ones do not: on the Moon Base ridge (Connecting Ridge) 76 % of the terrain is steeper
+than 8°; in the footprints of six classic analog field sites the median
+is 9 %, and 0 of 54 footprints around them pass our
+ridge test.
+What a test engineer gets. Pick an Artemis south-pole region and get the Earth sites that do
+match, each with a card: which test results transfer, which need a named facility instead, and
+which orbit cannot judge. For the ridge, SIMILITUDE found two new sites, in countries open to NASA
+and outside known analog areas, that pass both the slope and the traverse test on two elevation
+models: one in Argentina, the only one of 1,000 random cells to pass, and one on Baffin Island, Canada, where from 13 Nov to
+22 Jan every daylight minute has the Sun below 7° (71 days),
+the closest Earth comes to the polar low Sun.
+Checked against NASA and against a real rover. Our slope code matches NASA's PGDA 78 slope
+rasters to 0.0009°. On Mars, our 30 m slope from
+orbit ranks the terrain the way Perseverance's own tilt sensor did at 708 waypoints
+(Spearman 0.80, pre-registered).
+Built to be trusted. Every test is registered before it runs, and failures are published.
+A slope match is not automatically a traverse match: our first registered route test failed and
+the second passes at nominal α only (p = 0.049; 0.098 over the two looks),
+with classic footprints doing as well, so every card reports slope
+and traverse separately. Our mineral test failed its own stop rule, so the tool publishes no
+mineral analog: it refuses to claim what the data cannot carry.
+Same code, Mars too. On Perseverance's Jezero delta front, classic Mars analog footprints
+match in 42 % of cases against 19 % of random land (pre-registered, p = 0.0004): delta-front test
+terrain is common on Earth and easy to reach. Open source (Apache-2.0), NASA data end to end.
 
 ## Detailed Project Description
 What it does. For five mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
@@ -71,8 +76,14 @@ How we know it is not noise.
   H1b fails (p = 0.59).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from 185 Mars windows. Classic Mars
-  analog footprints 17 of 45, random land 159 of 994; HI-SEAS 9/9, Atacama 4/9, MDRS 1/9, Wright Valley 0/9. The test
-  passes (p = 0.0005), but the delta front is gentle terrain, so one random cell in six matches.
+  analog footprints 19 of 45, random land 187 of 994; HI-SEAS 9/9, Atacama 5/9, Haughton 3/9, MDRS 2/9, Wright Valley 0/9
+  (square 20 m ground cells; the first run used cells 5 % too wide, Deviations 40). The test
+  passes (p = 0.0004), but the delta front is gentle terrain, so about one random cell in five matches.
+- Ground truth from Perseverance (registered before any slope was read at a waypoint): our 30 m
+  slope vs the rover's measured tilt at 708 waypoints, Spearman 0.80,
+  0.91 with one value per rover site: pass. The
+  planner's detour vs the rover's real detour (Spearman −0.35) and roughness vs
+  drive rate both fail, so route outcomes stay labelled a planner simulation.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
 
 Site finder for test engineers. Pick an Artemis south-pole region (six PGDA 78 regions) and
@@ -115,7 +126,10 @@ Limits we state ourselves.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
 - The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
-  the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
+  the Mars delta-front match is common (19 % of random land), so Mars matches are terrain leads.
+- Every Connecting Ridge lead has more terrain above the 20° EVA slope limit than the ridge itself
+  (0.08–0.26 of the footprint vs 0.058, 30 m), so EVA routes there
+  are harder than on the target.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for 28 %
   of daylight, the lunar target for 100 %. The Baffin window is seasonal, from a geometric sun
   model (no refraction, no horizon), and exploratory.

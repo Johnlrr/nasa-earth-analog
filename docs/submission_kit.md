@@ -29,29 +29,34 @@ https://johnlrr.github.io/nasa-earth-analog/ (web app) · test-site finder for A
 tables and validation report: https://github.com/Johnlrr/nasa-earth-analog
 
 ## High-Level Project Summary
-Space agencies test Moon and Mars hardware at Earth "analog" sites, usually chosen because they
-are famous or look right. SIMILITUDE asks the engineer's question instead: which test results
-transfer? One formula is run on NASA data from both worlds, per mission test, and every site
-gets a card that says what a field test there reproduces, what no Earth site reproduces (and
-which facility replaces it) and what cannot be judged. For the Moon Base ridge (Connecting
-Ridge), **76 %** of the terrain is steeper than 8° [`cr_frac_gt8` = 0.758]; in the footprints of
-six classic analog field sites the median is **9 %** [`classic_frac_gt8_median` = 0.089].
-Then we tested our own method. In a test we registered before running it, a slope-limited
-traverse planner ran on the ridge and on every Earth footprint. Only **3 of 9** slope matches
-reproduce the ridge's simulated routes [`v1_passer_reproduce` = 3, `v1_passer_n` = 9], against
-**15 %** of random land [`v1_null_share` = 0.152]: the test fails for the group, and we publish
-that. We then registered a tighter threshold from 124 lunar neighbours instead of 8 (V2): random
-land drops to **10 %** [`v2_null_share` = 0.0956] and the test passes narrowly (p = 0.049
-[`v2_h1_p` = 0.0492]; 0.098 after correcting for the two looks), but classic footprints still do as well [`v2_classic_share` = 0.3148]. So
-every card reports slope and traverse separately. Two
-footprints in countries open to NASA and outside known analog areas pass both tests on two
-elevation models: one in Argentina, the only one of 1,000 random cells to pass, and one on
-Baffin Island, Canada, where from 13 Nov to 22 Jan every daylight minute has the Sun below 7°
-(**71** days [`i1_baffin_window_days` = 71]), the polar low Sun no Earth site has over a year.
-The same code reads Mars: for Perseverance's Jezero delta front (CTX DTM), classic Mars analog
-footprints match in **38 %** of cases against **16 %** of random land [`mars_classic_share` =
-0.3778, `mars_null_share` = 0.16] (pre-registered, p = 0.0005 [`mars_p` = 0.0005]).
-Our mineral test did not pass its own pre-registered rule, so we publish no mineral analog.
+Before a rover or an EVA crew goes to the Moon Base, NASA rehearses on Earth, at analog sites
+usually picked because they are famous. SIMILITUDE checks whether they really match, and the
+famous ones do not: on the Moon Base ridge (Connecting Ridge) **76 %** of the terrain is steeper
+than 8° [`cr_frac_gt8` = 0.758]; in the footprints of six classic analog field sites the median
+is **9 %** [`classic_frac_gt8_median` = 0.089], and **0 of 54** footprints around them pass our
+ridge test [`stability_classic_robust` = 0, `stability_classic_n` = 54].
+**What a test engineer gets.** Pick an Artemis south-pole region and get the Earth sites that do
+match, each with a card: which test results transfer, which need a named facility instead, and
+which orbit cannot judge. For the ridge, SIMILITUDE found two new sites, in countries open to NASA
+and outside known analog areas, that pass both the slope and the traverse test on two elevation
+models: one in Argentina, the only one of **1,000** random cells to pass
+[`prevalence_connecting_ridge_n` = 1000], and one on Baffin Island, Canada, where from 13 Nov to
+22 Jan every daylight minute has the Sun below 7° (**71** days [`i1_baffin_window_days` = 71]),
+the closest Earth comes to the polar low Sun.
+**Checked against NASA and against a real rover.** Our slope code matches NASA's PGDA 78 slope
+rasters to **0.0009°** [`nasa_slope_max_abs_diff_deg` = 0.0009]. On Mars, our 30 m slope from
+orbit ranks the terrain the way Perseverance's own tilt sensor did at **708** waypoints
+(Spearman **0.80** [`r1b_rho` = 0.802, `r1b_n` = 708], pre-registered).
+**Built to be trusted.** Every test is registered before it runs, and failures are published.
+A slope match is not automatically a traverse match: our first registered route test failed and
+the second passes at nominal α only (p = 0.049 [`v2_h1_p` = 0.0492]; 0.098 over the two looks),
+with classic footprints doing as well [`v2_classic_share` = 0.3148], so every card reports slope
+and traverse separately. Our mineral test failed its own stop rule, so the tool publishes no
+mineral analog: it refuses to claim what the data cannot carry.
+**Same code, Mars too.** On Perseverance's Jezero delta front, classic Mars analog footprints
+match in **42 %** of cases against **19 %** of random land [`mars_classic_share` = 0.4222,
+`mars_null_share` = 0.1881] (pre-registered, p = 0.0004 [`mars_p` = 0.0004]): delta-front test
+terrain is common on Earth and easy to reach. Open source (Apache-2.0), NASA data end to end.
 
 ## Detailed Project Description
 **What it does.** For five mission tests — Moon terrain for touchdown and traverse, Moon low-Sun
@@ -91,13 +96,19 @@ the field), NO-ANALOG (no Earth site reproduces it; the card names the facility)
   [`v2_n_moon_native` = 124]. Slope matches **3 of 9**, random land **95 of 994**, classic
   footprints **17 of 54** [`v2_passer_reproduce` = 3, `v2_null_reproduce` = 95,
   `v2_classic_reproduce` = 17]; H1 passes at nominal α (p = 0.049 [`v2_h1_p` = 0.0492]; counting
-  both registered looks, Bonferroni p = 0.098 [`v2_h1_p_bonferroni` = 0.0984], so not confirmed),
+  both registered looks, Bonferroni p = 0.098 [`v2_h1_p_bonferroni` = 0.0983], so not confirmed),
   H1b fails (p = 0.59 [`v2_h1b_p` = 0.5949]).
 - Mars terrain, same registration: Jezero delta front on the USGS CTX DTM, slope and route
   distances with thresholds from **185** Mars windows [`mars_n_neighbours` = 185]. Classic Mars
-  analog footprints **17 of 45**, random land **159 of 994** [`mars_classic_match` = 17,
-  `mars_null_match` = 159]; HI-SEAS 9/9, Atacama 4/9, MDRS 1/9, Wright Valley 0/9. The test
-  passes (p = 0.0005), but the delta front is gentle terrain, so one random cell in six matches.
+  analog footprints **19 of 45**, random land **187 of 994** [`mars_classic_match` = 19,
+  `mars_null_match` = 187]; HI-SEAS 9/9, Atacama 5/9, Haughton 3/9, MDRS 2/9, Wright Valley 0/9
+  (square 20 m ground cells; the first run used cells 5 % too wide, Deviations 40). The test
+  passes (p = 0.0004), but the delta front is gentle terrain, so about one random cell in five matches.
+- Ground truth from Perseverance (registered before any slope was read at a waypoint): our 30 m
+  slope vs the rover's measured tilt at **708** waypoints, Spearman **0.80** [`r1b_rho` = 0.802],
+  **0.91** with one value per rover site [`r1b_rho_site` = 0.909, `r1b_n_site` = 91]: pass. The
+  planner's detour vs the rover's real detour (Spearman −0.35 [`r1_rho` = -0.353]) and roughness vs
+  drive rate both fail, so route outcomes stay labelled a planner simulation.
 - Every rule changed after seeing data is listed in the validation report (Deviations table).
 
 **Site finder for test engineers.** Pick an Artemis south-pole region (six PGDA 78 regions) and
@@ -143,7 +154,10 @@ environment"; it assigns no TRL.
 - The traverse test is a planner simulation on 30 m cells, not a rover; rocks, small craters and
   soil strength are not in it.
 - The route test beats random land only narrowly (V2, p = 0.049; 0.098 over two looks) and does not beat classic sites;
-  the Mars delta-front match is common (16 % of random land), so Mars matches are terrain leads.
+  the Mars delta-front match is common (19 % of random land), so Mars matches are terrain leads.
+- Every Connecting Ridge lead has more terrain above the 20° EVA slope limit than the ridge itself
+  (0.08–0.26 of the footprint vs **0.058** [`cr_frac_gt20` = 0.0578], 30 m), so EVA routes there
+  are harder than on the target.
 - Over a year no Earth site reproduces the polar Sun: the best has the Sun below 7° for **28 %**
   of daylight, the lunar target for **100 %** [`l2_earth_best_lowsun_frac_daylight` = 0.277,
   `l2_moon_lowsun_frac_daylight` = 1.0]. The Baffin window is seasonal, from a geometric sun

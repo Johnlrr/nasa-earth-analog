@@ -41,6 +41,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; }
 .tile .num { font-size: 58px; }
+#s4 .tiles { gap: 16px; } #s4 .tile { padding: 18px 22px; } #s4 .tile .num { font-size: 46px; }
 .tile h3 { margin: 12px 0 6px; font-size: 25px; line-height: 1.25; font-weight: 600; }
 .tile p { margin: 0; font-size: 21px; line-height: 1.38; color: var(--muted); }
 .tile.fail { border: 2px solid var(--n); background: #fff6f1; }
@@ -129,7 +130,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
     <div class="lens"><b>L2</b><h4>Low-Sun navigation</h4><p>Moon · long shadows</p></div>
     <div class="lens off"><b>M1</b><h4>Aqueous minerals</h4><p>Mars · failed its own stop rule: no site published</p></div>
     <div class="lens"><b>X1</b><h4>Ice under dry soil</h4><p>Mars · semi-quantitative</p></div>
-    <div class="lens" style="border:2px solid var(--accent)"><b>T-Mars</b><h4>Rover terrain</h4><p>Jezero delta front · classic Mars sites 38 % vs random 16 % (p = 0.0005)</p></div>
+    <div class="lens" style="border:2px solid var(--accent)"><b>T-Mars</b><h4>Rover terrain</h4><p>Jezero delta front · classic Mars sites 42 % vs random 19 % (p = 0.0004)</p></div>
   </div>
   <div class="tile" style="margin-top:auto;display:flex;gap:30px;align-items:center;background:var(--soft);border:0">
     <span class="mono" style="font-size:22px;color:var(--accent);white-space:nowrap">A CELL COUNTS ONLY IF</span>
@@ -140,8 +141,8 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
 
 <section class="slide" id="s4">
   <p class="eyebrow">3 · Evidence</p>
-  <h1>Six checks against known truth, and our own tests, pass or fail</h1>
-  <div class="tiles">
+  <h1>Seven checks against known truth, pass or fail</h1>
+  <div class="tiles" style="grid-template-columns:repeat(4,1fr)">
     <div class="tile"><span class="num">0.0009°</span><h3>Matches NASA's own product</h3>
       <p>largest difference between our slope code and NASA's PGDA 78 slope rasters, six south-pole sites</p></div>
     <div class="tile"><span class="num">1 vs 9</span><h3>Selective</h3>
@@ -154,6 +155,8 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
       <p>Shackleton-wall footprints match their own reference (13 / 45 for other sites): it finds a terrain class, not a named place</p></div>
     <div class="tile"><span class="num">2 / 2 · 2 / 2</span><h3>Ice test (semi-quantitative)</h3>
       <p>polar-desert controls pass, wet-permafrost decoys rejected; our own Pamir–Changtang guess: 0 / 6</p></div>
+    <div class="tile" style="border:2px solid var(--accent)"><span class="num">ρ = 0.802</span><h3>Checked on Mars by a rover</h3>
+      <p>our 30 m orbital slope vs the tilt Perseverance measured at 708 stops (pre-registered). Its detours: our planner fails (published)</p></div>
   </div>
   <div class="row" style="margin-top:22px;gap:22px">
   <div class="tile" style="flex:1;display:flex;gap:26px;align-items:center;border:2px solid var(--accent)">
@@ -208,7 +211,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
         <li><b>A footprint, not a region:</b> 30 m slope baseline; boulders and craters under 60 m are unobserved. The traverse test is a planner simulation, not a rover.</li>
         <li><b>Gravity, vacuum, radiation, dust:</b> no Earth site reproduces them; each card names the facility instead.</li>
         <li><b>Ice lens is semi-quantitative</b> (reanalysis soil temperature, thresholds set after seeing data). <b>Mineral lens publishes nothing.</b></li>
-        <li><b>Slope match ≠ route match:</b> only 3 of 9 slope matches also reproduce routes, so each card reports both. The route test passes against random land only narrowly (p = 0.0492) and does not beat classic sites (31 % of their footprints reproduce routes).</li>
+        <li><b>Slope match ≠ route match:</b> only 3 of 9 slope matches also reproduce routes, so each card reports both. The route test passes against random land only narrowly (p = 0.0492; 0.0983 over two looks) and does not beat classic sites (31 % of their footprints reproduce routes).</li>
         <li>Every rule changed after seeing data is listed in the validation report.</li>
       </ul>
     </div>
@@ -235,7 +238,7 @@ ul.pts li::before { content: ""; position: absolute; left: 0; top: 14px; width: 
         <li><b>Two leads cover 5 of 5</b> field rows (slope, routes, low Sun, shadow, 5 m slope); Baffin alone 4 together,
           in its winter window. The best classic site alone covers 1. 8 rows go to named facilities (offload rig for 0.165 g, thermal-vacuum…); rocks need a survey.</li>
         <li>Rows map to NASA Civil Space Shortfalls <b>#0805</b> (surface mobility) and <b>#1101</b> (precision landing).</li>
-        <li><b>Mars rover terrain, same code:</b> Jezero delta front (CTX DTM): classic Mars-analog footprints 38 % vs random land 16 % (p = 0.0005, pre-registered).</li>
+        <li><b>Mars rover terrain, same code:</b> Jezero delta front (CTX DTM): classic Mars-analog footprints 42 % vs random land 19 % (p = 0.0004, pre-registered).</li>
         <li><b>Mars ice, beside Mars Life Explorer</b> (2 m drill): permafrost within 2 m at 6 of 8 ice-lens cells (semi-quantitative).</li>
       </ul>
       <div class="row" style="margin-top:auto;gap:28px;align-items:center">

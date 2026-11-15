@@ -61,3 +61,16 @@ def test_distance_and_scale():
     assert np.all(s > 0)
     d = route_distance(nat, nat[1], s)
     assert d[1] == 0.0 and d[0] > 0 and d[2] > 0
+
+
+def test_ridge_frac_gt8_reproduced_by_route_run():
+    """PLAN_FINAL_SPRINT 2(c): the V1 run read Site01 (30 m) at the published frac_gt8."""
+    import json
+    from pathlib import Path
+
+    import pytest
+
+    p = Path(__file__).resolve().parents[1] / "data" / "derived" / "route_validity.json"
+    if not p.exists():
+        pytest.skip("route_validity.json not built")
+    assert abs(json.loads(p.read_text(encoding="utf-8"))["ridge_frac_gt8_30m"] - 0.758) < 0.005
