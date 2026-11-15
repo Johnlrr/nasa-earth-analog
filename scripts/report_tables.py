@@ -83,7 +83,14 @@ def t_terrain_controls() -> str:
              "percentile"]].sort_values(["lens_id", "target_id", "cell_id"])
     out.columns = ["lens", "target", "control / seed", "expected", "native rank",
                    "rank basis", "null percentile"]
-    return md_table(out)
+    vc = pd.read_parquet(DERIVED / "validation_controls.parquet")
+    if "expectation_met" not in vc:
+        raise KeyError("validation_controls.parquet has no expectation_met column")
+    met = vc.dropna(subset=["expectation_met"])
+    return (md_table(out) + f"\n\nPre-registered control expectations "
+            f"(`config/controls.yaml`, all lenses, `validation_controls.parquet`): "
+            f"{int(met['expectation_met'].astype(bool).sum())} of {len(met)} "
+            f"control/lens/target checks met.")
 
 
 def t_l1_robust() -> str:
@@ -112,15 +119,20 @@ def t_m1() -> str:
             j["largest_patch_km2"].items()]
     checks = ", ".join(f"{k} = {v}" for k, v in j["checks"].items())
     floor = ", ".join(f"{k} {v}" for k, v in j["noise_floor"].items())
+    q = json.loads((DERIVED / "m1_null_quantiles.json").read_text(encoding="utf-8"))
     return (md_table(pd.DataFrame(rows)) + f"\n\nRule: {j['rule']}. Noise floor (q95 of null "
-            f"pixels, B14b): {floor}. Checks: {checks}. **Verdict: {j['verdict']}** "
+            f"pixels, B14b; {q['D2300']['n_pixels']:,} null pixels in {q['n_footprints']} "
+            f"footprints): {floor}. Lake Salda (relocated) total matched area "
+            f"{j['matched_area_km2_lake_salda_relocated']:.2f} km², in fragments; largest "
+            f"patch above. Checks: {checks}. **Verdict: {j['verdict']}** "
             f"(evaluated {j['evaluated']}). {j['consequence']}")
 
 
 def t_x1() -> str:
     x = pd.read_parquet(DERIVED / "x1_checklist.parquet")
     named = x[x["sample_role"].isin(["control", "decoy", "seed"])]
-    out = named[["cell_id", "sample_role", "n_met", "failed", "ice_check", "passes_all"]]
+    out = named[["cell_id", "sample_role", "n_met", "failed", "ice_check", "passes_all",
+                 "ft_yr"]].rename(columns={"ft_yr": "freeze–thaw days/yr"})
     pool = x[x["sample_role"].isin(["rank", "null"])]
     ok = pool[pool["candidate"].astype(bool) & pool["qa_flag"].eq("ok")]
     v = pd.read_parquet(DERIVED / "verdicts.parquet")

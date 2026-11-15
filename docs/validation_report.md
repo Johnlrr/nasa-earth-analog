@@ -206,6 +206,8 @@ matching, and a single verdict source. **Every table below is written by
 | L2 | shackleton_rim | SEED_Roter_Kamm | seed | 0/49 | d_shadow | 83.5 |
 | L2 | shackleton_rim | SEED_Tenoumer | seed | 0/49 | d_shadow | 76 |
 | L2 | shackleton_rim | SEED_Wolfe_Creek | seed | 0/49 | d_shadow | 62.5 |
+
+Pre-registered control expectations (`config/controls.yaml`, all lenses, `validation_controls.parquet`): 6 of 20 control/lens/target checks met.
 <!-- END:terrain_controls -->
 
 - **Coordinate corrections (A14).** One rule for all points: if less than 50 % of the footprint
@@ -256,7 +258,7 @@ before any pixel was scored.
 | seed_harrat_khaybar | 0 |
 | seed_harrat_rahat | 0.00335 |
 
-Rule: B13 stop rule (PLAN 2b, pre-registered in B14a): Lake Salda (A14 coordinates) and Semail pass, Wadi Rum and Simpson rejected; pass = largest_patch_km2 >= 0.1 (target jezero_margin). Noise floor (q95 of null pixels, B14b): D2300 0.11, MIN2295_2480 0.0396, OLINDEX 0.2734. Checks: lake_salda_relocated_passes = False, semail_wadi_tayin_a_passes = True, wadi_rum_rejected = True, simpson_desert_rejected = True. **Verdict: FAIL** (evaluated 2026-11-14T20:23). M1 is presented only as a method illustration on 4 sites plus the negative result at footprint scale; no M1 hidden analog is published (seeds/rank results are recorded, not published).
+Rule: B13 stop rule (PLAN 2b, pre-registered in B14a): Lake Salda (A14 coordinates) and Semail pass, Wadi Rum and Simpson rejected; pass = largest_patch_km2 >= 0.1 (target jezero_margin). Noise floor (q95 of null pixels, B14b; 490,734 null pixels in 69 footprints): D2300 0.11, MIN2295_2480 0.0396, OLINDEX 0.2734. Lake Salda (relocated) total matched area 0.19 km², in fragments; largest patch above. Checks: lake_salda_relocated_passes = False, semail_wadi_tayin_a_passes = True, wadi_rum_rejected = True, simpson_desert_rejected = True. **Verdict: FAIL** (evaluated 2026-11-14T20:23). M1 is presented only as a method illustration on 4 sites plus the negative result at footprint scale; no M1 hidden analog is published (seeds/rank results are recorded, not published).
 <!-- END:m1 -->
 
 **Why the footprint-median engine misled (bridge bias, A16).** Median z of Earth cells against
@@ -299,24 +301,24 @@ Beacon Valley, so Beacon Valley passing is a calibration, not a validation. Soil
 ERA5-Land reanalysis (~9 km grid), not an observation. Maximum status: `engine-semiquant`.
 
 <!-- BEGIN:x1 -->
-| cell_id | sample_role | n_met | failed | ice_check | passes_all |
-|---|---|---|---|---|---|
-| ctl_axel_heiberg_eureka | control | 3 | - | ok | True |
-| ctl_beacon_valley | control | 3 | - | not assessed (outside ESA WorldCover) | True |
-| ctl_yakutsk_lowland | decoy | 1 | permafrost, no_thaw_to_ice | ok | False |
-| ctl_west_siberia_lowland | decoy | 0 | permafrost, no_thaw_to_ice, dry_overburden | ok | False |
-| seed_east_pamir_murghab | seed | 2 | no_thaw_to_ice | ok | False |
-| seed_karakul_structure | seed | 1 | permafrost, no_thaw_to_ice | ok | False |
-| seed_west_kunlun_aksai_chin | seed | 2 | no_thaw_to_ice | ok | False |
-| seed_changtang_north | seed | 2 | no_thaw_to_ice | ok | False |
-| seed_qiangtang_east | seed | 1 | no_thaw_to_ice, dry_overburden | excluded: glacier ice | False |
-| seed_kunlun_pass | seed | 1 | no_thaw_to_ice, dry_overburden | ok | False |
-| seed_mongolian_altai_south | seed | 1 | permafrost, no_thaw_to_ice | ok | False |
-| seed_peary_land | seed | 3 | - | flag: some ice | True |
-| seed_devon_island | seed | 3 | - | ok | True |
-| seed_svalbard_adventdalen | seed | 1 | no_thaw_to_ice, dry_overburden | ok | False |
-| seed_puna_high | seed | 1 | permafrost, no_thaw_to_ice | ok | False |
-| seed_tianshan_central | seed | 1 | no_thaw_to_ice, dry_overburden | excluded: glacier ice | False |
+| cell_id | sample_role | n_met | failed | ice_check | passes_all | freeze–thaw days/yr |
+|---|---|---|---|---|---|---|
+| ctl_axel_heiberg_eureka | control | 3 | - | ok | True | 11.4 |
+| ctl_beacon_valley | control | 3 | - | not assessed (outside ESA WorldCover) | True | 0 |
+| ctl_yakutsk_lowland | decoy | 1 | permafrost, no_thaw_to_ice | ok | False | 37.4 |
+| ctl_west_siberia_lowland | decoy | 0 | permafrost, no_thaw_to_ice, dry_overburden | ok | False | 33.2 |
+| seed_east_pamir_murghab | seed | 2 | no_thaw_to_ice | ok | False | 160 |
+| seed_karakul_structure | seed | 1 | permafrost, no_thaw_to_ice | ok | False | 130 |
+| seed_west_kunlun_aksai_chin | seed | 2 | no_thaw_to_ice | ok | False | 234 |
+| seed_changtang_north | seed | 2 | no_thaw_to_ice | ok | False | 205 |
+| seed_qiangtang_east | seed | 1 | no_thaw_to_ice, dry_overburden | excluded: glacier ice | False | 167 |
+| seed_kunlun_pass | seed | 1 | no_thaw_to_ice, dry_overburden | ok | False | 218 |
+| seed_mongolian_altai_south | seed | 1 | permafrost, no_thaw_to_ice | ok | False | 68.5 |
+| seed_peary_land | seed | 3 | - | flag: some ice | True | 8.39 |
+| seed_devon_island | seed | 3 | - | ok | True | 12.9 |
+| seed_svalbard_adventdalen | seed | 1 | no_thaw_to_ice, dry_overburden | ok | False | 28.4 |
+| seed_puna_high | seed | 1 | permafrost, no_thaw_to_ice | ok | False | 78.7 |
+| seed_tianshan_central | seed | 1 | no_thaw_to_ice, dry_overburden | excluded: glacier ice | False | 76.2 |
 
 Rank + null cells: 400; meeting all three conditions, not glacier ice, qa ok: 7 (rank_0038, rank_0040, rank_0058, rank_0087, rank_0123, null5_0011, null5_0042). Cell-level X1 TRANSFERS in verdicts.parquet (rank + seed; the A15 rule does not use qa_flag): 8; with a qa flag other than ok: rank_0056 (qa vegetated).
 <!-- END:x1 -->
@@ -329,9 +331,11 @@ lens counts only when a member cell (or an X1 partner cell within 150 km) has a 
 TRANSFERS verdict; X1 is always reported as engine-semiquant, never engine-confirmed. A lens whose
 cells were all downgraded by the B10 visual review
 is shown as `hypothesis`, never as a finding. A site with a cell inside a known-analog exclusion
-buffer is never called hidden; unknown Attention is never hidden either. Until site Attention is
-queried (after 07:00 15/11), every `hidden_status` is `unknown` and the word "hidden" must not be
-used on slides or the web. B10-downgraded cells do not trigger the showcase rule (a).
+buffer is never called hidden; unknown Attention is never hidden either. Site Attention was
+queried on 15/11 after the OpenAlex budget reset (A17; site attention = max of the site-name
+count and member-cell counts); `hidden_status` in the sites table below is the result. A site's
+"hidden" means only: low literature count for its names in the B8 query, outside known-analog
+buffers. B10-downgraded cells do not trigger the showcase rule (a).
 
 ![Engine-kept cells by lens on a world map, X1 cells as triangles, showcase sites labelled](figures/fig_sites_map.png)
 
@@ -378,12 +382,12 @@ Figures are drawn from the same tables by `scripts/figures_report.py`.
 <!-- BEGIN:sites -->
 | name | n_cells | max_span_km | lenses_engine_confirmed | lenses_engine_semiquant | lenses_hypothesis | n_b10_unreviewed | lenses_literature_only | n_ice_flag | n_in_exclusion | attention_n | hidden_status | showcase |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 54 | 1108 | L1,L2 |  |  | 53 | M1 | 1 | 40 | — | no: inside known-analog buffer | b |
-| Zanda (Tsamda) and Gar, Ngari, western Tibet | 5 | 206 | L1 |  |  | 5 |  | 0 | 0 | — | unknown: attention not known | c |
-| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 1 |  | 0 | 0 | — | unknown: attention not known | a |
-| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 0 |  | 0 | 1 | — | no: inside known-analog buffer | a |
-| Jebel Akhdar, Hajar Mountains (Oman) | 1 | 0 | L2 |  |  | 0 | M1 | 0 | 0 | — | unknown: attention not known | b |
-| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | — | unknown: attention not known | a,b |
+| Atacama – Puna altiplano (Chile, Argentina, Bolivia) | 54 | 1108 | L1,L2 |  |  | 53 | M1 | 1 | 40 | 239 | no: inside known-analog buffer | b |
+| Zanda (Tsamda) and Gar, Ngari, western Tibet | 5 | 206 | L1 |  |  | 5 |  | 0 | 0 | 1 | yes | c |
+| Da Qaidam, northern Qaidam Basin margin (Qinghai) | 2 | 143 | L1 |  |  | 1 |  | 0 | 0 | 73 | no: attention above threshold | a |
+| Mauna Loa – Mauna Kea, Hawaiʻi | 1 | 0 | L2 |  |  | 0 |  | 0 | 1 | 252 | no: inside known-analog buffer | a |
+| Jebel Akhdar, Hajar Mountains (Oman) | 1 | 0 | L2 |  |  | 0 | M1 | 0 | 0 | 26 | no: attention above threshold | b |
+| Peary Land, North Greenland | 1 | 0 | L1 | X1 |  | 0 |  | 1 | 0 | 52 | no: attention above threshold | a,b |
 <!-- END:sites -->
 
 ## 8. Deviations from pre-registration
@@ -413,9 +417,10 @@ evidence of order; where git cannot prove the order, the row says so.
 | 18 | Site names set by hand; site Attention = max(site-name query, member cells) | 2c | Cell-level names are county names (Attention 0 for 93/99 cells) | Hidden status |
 | 19 | Ice-flagged cells kept as site members, ice-excluded cells dropped | 2c (A13 thresholds were committed before results) | Same thresholds as A13/X1 | Site membership |
 | 20 | 2c implemented before its gate-1 review | 2c log | Time; gate 1 round 1 returned REVISE, fixed | §7 |
-| 21 | Site Attention queried after Data Freeze (OpenAlex daily budget) | after 07:00 15/11 | Free budget exhausted on 14/11 | Hidden status of sites (shown as unknown until then) |
+| 21 | Site Attention and the last 9 cell Attention counts queried after Data Freeze, by hand at about 09:00 15/11 (the scheduled 07:05 run did not start) | 15/11 ≈ 09:00 | Free OpenAlex budget exhausted on 14/11 | Hidden status of sites. Only the 7 named sites (`config/sites.yaml`) have a site query; the 24 unnamed sites stay `unknown` (a district-name cell count says nothing). Zanda/Gar is the only `yes`: query `("Zanda" OR "Tsamda" OR "Ngari") AND (analog OR analogue) AND (Mars OR Moon OR lunar OR planetary)` → 1 work (OpenAlex, 15/11); read as "low Attention under the B8 query", not as proof that the site is unknown |
 | 22 | B10 visual-review downgrades cap a site's lens at `hypothesis` | 2c gate round 2 | Hard rule: no `hypothesis` on slides | Gêrzê L2, other downgraded L2 cells; Gêrzê leaves the showcase |
 | 23 | X1 seed list (incl. Peary Land) committed with the first X1 scores | 16:02, `b76b21f` | Contract and results pushed together | X1 seeds are not provably pre-registered |
+| 24 | M1 noise floor (B14b) computed on all 69 null footprints (490,734 pixels), not on the floor-setting half of the null that PLAN B14a/B14b specified | B13 null run, 14/11 | Implementation used the whole pool | Floors are fitted on the same null pixels later used to judge false matches, so the false-match check is not independent; M1 failed its stop rule regardless |
 
 ## 9. Limitations and not done
 
