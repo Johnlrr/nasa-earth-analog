@@ -859,6 +859,55 @@ the MDRS badlands in 1 (too rough at 30 m), the Wright Valley in none (too steep
 Moon-ridge slope matches is a Jezero match: the two targets pick different terrain. Not claimed:
 rocks, soil, mineralogy, dust; 30 m terrain and a planner simulation only.
 
+## 7f. Ground truth from a real rover (after the submission; `config/prereg_rover_r1.yaml`)
+
+Work done after the hackathon submission was frozen (branch `post-submission`); the submitted
+pages are unchanged. Rover data: NASA/JPL MMGIS Perseverance traverse and waypoints (public,
+copied to `data/external/m20/`, last drive sol 2022). Before anything was computed
+along the track we checked only the alignment: all 708 waypoints fall inside the Jezero CTX DTM
+and the DTM elevation differs from the rover's by a median 1.1 m. Script `scripts/rover_r1.py`.
+
+### R1 and R2: does the planner's detour (or terrain roughness) predict how the rover drove? No.
+
+| Test (registered, commit `8798764`) | n | Spearman ρ | one-sided p | Verdict |
+|---|---|---|---|---|
+| R1: planner detour (10°, 30 m) vs Perseverance's detour, 1 km legs | 20 legs | -0.353 | 0.936797 | **fail** |
+| R2: share of terrain > 8° (1 km square) vs drive rate | 383 drives | -0.033 | 0.262161 | **fail** |
+
+Sensitivity (reported, not tested): leg1000_limit8 ρ = -0.194 (n = 20); leg1000_limit6 ρ = -0.089 (n = 20); leg500_limit10 ρ = -0.223 (n = 53); leg2000_limit10 ρ = -0.536 (n = 7).
+Median actual detour 1.702, median planner detour 1.07.
+The legs that span hundreds of sols (science campaigns that go back and forth) have detours of 4–5,
+while on the crater-rim climb, where the planner predicts the largest detours, the rover drove
+fairly directly. Rover paths are set by science and by metre-scale hazards that 30 m cells do not
+see, as stated in the registration. Under the decision rule, route outcomes stay described as "a
+planner simulation on 30 m cells"; no card claims they predict how a rover will drive.
+
+### R1b: does our 30 m slope from orbit match the tilt the rover measured? Yes.
+
+Registered as an addendum (commit `dabc895`) after R1 and R2 had failed and before any slope was
+read at a waypoint. It asks a narrower question, whether the measurement behind every L1 verdict is
+right on the ground, and does not rescue R1.
+
+| | n | Spearman ρ | Verdict |
+|---|---|---|---|
+| 30 m slope (formula of `slope_stats`) vs rover tilt at each waypoint | 708 | 0.802 (p < 1e-8) | **pass** |
+| … at 20 m, no aggregation (sensitivity) | 708 | 0.794 | reported |
+| … one value per rover site (sensitivity, removes clustering) | 91 | 0.909 | reported |
+
+Median rover tilt 7.03°, median 30 m slope 5.7°:
+the orbital slope ranks the terrain the way the rover felt it, and reads it about 1° gentler
+(30 m smooths metre-scale tilt). This is the first check of SIMILITUDE's slope against a
+measurement made on the ground of another world.
+
+### Mars lens with square ground cells (correction, Deviations 40)
+
+The CTX DTM is equirectangular with standard parallel 0, so at 18.4° N its cells are about 5 %
+too wide in ground metres; the submitted Mars lens used them as square. Rerun with x resampled
+by cos(latitude): target frac_gt8 0.1309 (submitted 0.124); classic Mars
+footprints 19/45, random land 187/994,
+HM1 p = 0.00037 (**pass**, as submitted). Per site:
+Atacama, Yungay 5/9, HI-SEAS, Mauna Loa 9/9, Haughton impact structure, Devon Island 3/9, MDRS Hanksville, Utah 2/9, McMurdo Wright Valley 0/9. Output `data/derived/mars_m1_square.json`.
+
 ## 8. Deviations from pre-registration
 
 Rules decided or changed after some results were seen. Git commit times (UTC+7) are the
@@ -904,6 +953,9 @@ evidence of order; where git cannot prove the order, the row says so.
 | 36 | Artemis atlas: V1 rule applied to the leads of the other five regions (reference and τ per region) | 15/11 evening | One registered region does not answer "which Moon Base region can be rehearsed on Earth" | Exploratory; leads only |
 | 37 | V2 route threshold from 124 non-overlapping Site01 windows (registered `67920dd` before the rerun); campaign routes column switched to V2 under that registration | 15/11 night | 8 neighbours gave an unstable scale and τ | V2 H1 passes at nominal α (p = 0.049; 0.098 Bonferroni over the two looks); H1b still fails; V1 kept beside it |
 | 38 | Mars terrain lens on the Jezero delta front (CTX DTM), classic Mars sites vs random land (registered `67920dd`) | 15/11 night | The challenge asks for Mars as well as the Moon; the Mars lenses so far covered minerals and ice only | HM1 passes (p = 0.0005); matches are common (16 % of random land) |
+| 39 | R1/R2: planner detour and terrain roughness vs Perseverance's actual detour and drive rate (registered `8798764`, after submission) | 15/11 night | Ground truth for the route outcomes | Both fail; route outcomes stay "planner simulation", no rover claim |
+| 40 | Mars lens rerun with square ground cells (the equirectangular CTX grid is ~5 % wide in x at 18.4° N) | 15/11 night | Geometry error found while building R1 | HM1 still passes (p = 0.0004); submitted numbers kept beside it |
+| 41 | R1b addendum: 30 m orbital slope vs the rover's measured tilt at 708 waypoints (registered `dabc895` after R1/R2 failed) | 15/11 night | Check the measurement behind L1 on the ground | Passes, ρ = 0.80 (0.91 per site) |
 
 ## 9. Limitations and not done
 

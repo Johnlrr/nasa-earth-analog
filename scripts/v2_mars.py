@@ -43,6 +43,8 @@ MARS_SITES = {"MDRS Hanksville, Utah": (38.4063, -110.7918),
               "HI-SEAS, Mauna Loa": (19.6022, -155.4858)}
 HAUGHTON = "Haughton impact structure, Devon Island"
 CLOSED = ("China", "Aksai Chin", "Russia")
+SQUARE = False   # True: square ground cells (Deviations 40); outputs get the suffix _square
+SUFFIX = ""
 
 
 # ------------------------------------------------------------------------------------------ V2
@@ -118,6 +120,15 @@ def mars_windows() -> tuple[np.ndarray, list[np.ndarray]]:
         tr = ds.transform
     z[z < -1e30] = np.nan
     x0, y0 = np.radians(TARGET[1]) * R_MARS, np.radians(TARGET[0]) * R_MARS
+    if SQUARE:
+        # Deviations 40: the equirectangular grid (standard parallel 0) is 1/cos(lat) too wide in
+        # ground metres; resample x by cos(target latitude) so cells are 20 m square on the ground.
+        from rasterio.transform import Affine
+        from scipy import ndimage
+        cphi = float(np.cos(np.radians(TARGET[0])))
+        z = ndimage.zoom(z, (1.0, cphi), order=1)
+        tr = Affine(tr.a, 0.0, tr.c * cphi, 0.0, tr.e, tr.f)  # x in ground metres
+        x0 = x0 * cphi
     h = int(round(2000 / abs(tr.a)))
     col, row = int(round((x0 - tr.c) / tr.a)), int(round((y0 - tr.f) / tr.e))
     target = aggregate_to_baseline(z[row - h:row + h, col - h:col + h], abs(tr.a), rv.RES)
@@ -205,7 +216,7 @@ def m1() -> None:
     else:
         hits["country"] = []
     earth = earth.merge(hits[["cell_id", "country"]], on="cell_id", how="left")
-    earth.to_parquet(D / "mars_m1.parquet", index=False)
+    earth.to_parquet(D / f"mars_m1{SUFFIX}.parquet", index=False)
     per_site = {s: [int(x.match.sum()), len(x)] for s, x in ev[ev.group.eq("classic_mars")]
                 .groupby("site")}
     openm = hits[~hits.country.isin(CLOSED)].sort_values("D_route")
@@ -223,7 +234,9 @@ def m1() -> None:
                              "lat": round(r.lat, 4), "lon": round(r.lon, 4),
                              "D_slope": round(r.D_slope, 3), "D_route": round(r.D_route, 3),
                              "frac_gt8": round(r.frac_gt8, 3)} for r in openm.itertuples()]}
-    (D / "mars_m1.json").write_text(json.dumps(res, indent=2, default=float))
+    if SQUARE:
+        res["deviation"] = "Deviations 40: square 20 m ground cells (x resampled by cos lat)"
+    (D / f"mars_m1{SUFFIX}.json").write_text(json.dumps(res, indent=2, default=float))
     print(json.dumps(res, indent=1, default=float))
 
 
@@ -232,4 +245,7 @@ if __name__ == "__main__":
     if which in ("all", "v2"):
         v2()
     if which in ("all", "m1"):
+        m1()
+    if which == "m1_square":
+        SQUARE, SUFFIX = True, "_square"
         m1()
