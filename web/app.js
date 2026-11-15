@@ -315,7 +315,7 @@
       h += ok.length ? ok.map(rowHtml).join('') : '<li class="empty">None in this lens list. See the test-site finder.</li>';
       if (no.length) h += '<li class="group-h">Engine match, not usable</li>' + no.map(rowHtml).join('');
     } else {
-      h += '<li class="group-h">Engine matches (4 km cells)</li><li class="empty">' + (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data') + '</li>';
+      h += '<li class="group-h">Engine matches (4 km cells)</li><li class="empty">' + (state.lens === 'M1' ? 'No mineral site is published. The test failed its own pre-registered stop rule (the Lake Salda control did not reach the required matched area), so we report the failure instead of a site. The controls and decoys below show how the test behaved.' : (lm && lm.no_hidden_found ? 'No engine match for this lens' : 'No engine matches in the current data')) + '</li>';
     }
     if (lm && lm.n_attention_unknown) {
       h += '<li class="empty">' + esc(lm.n_attention_unknown) + ' more candidate(s) pass the fidelity test but their literature attention is not yet known — an unknown count is never treated as "little studied".</li>';

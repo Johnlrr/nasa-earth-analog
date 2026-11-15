@@ -14,6 +14,7 @@
   const targetImages={
     connecting_ridge:{src:'media/connecting-ridge-4km.png',name:names.connecting_ridge,credit:'NASA / GSFC / LRO / LOLA / PGDA 78',note:'4 km hillshade from the 5 m DEM (not a photograph).'},
     shackleton_rim:{src:'media/expedition/shackleton-wall-4km.png',name:names.shackleton_rim,credit:'NASA / GSFC / LRO / LOLA / PGDA 78',note:'4 km hillshade from the 5 m DEM, Site04 centre (not a photograph).'},
+    arcadia_planitia:{src:'media/expedition/arcadia-planitia-ctx.png',name:names.arcadia_planitia,credit:'NASA MRO CTX / Caltech mosaic / Mars Trek–OnMars',note:'4 km CTX image at the target centre (44°N, 167°W). Ice depth is not visible in an image; SWIM maps it.'},
     jezero_margin:{src:'media/expedition/jezero-margin-ctx.png',name:names.jezero_margin,credit:'NASA MRO CTX / Caltech mosaic / Mars Trek–OnMars',note:'5 km CTX image chip, approximately 10.16 m/pixel. Black regions are missing mosaic coverage; imagery is not mineral evidence.'}
   };
   function contexts(feature,features,lens){
