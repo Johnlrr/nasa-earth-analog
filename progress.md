@@ -1,22 +1,26 @@
 # PROGRESS — Linh (B)
 
 Nhật ký tiến độ phần việc của Linh (B). Theo yêu cầu của Linh: **không sửa `PLAN.md` / `DESIGN.md`**. Mọi tiến độ, sai khác so với PLAN và việc cần quyết đều ghi ở đây.
-Nhánh: `linh/spectral-story` (từ 16:28 đồng bộ với `main` @ `541f0fe` sau khi Bảo hợp nhất A5–A9 + B0–B11). Môi trường: conda `similitude` (Python 3.12).
+Nhánh: `linh/spectral-story`; từ 15/11 09:35 trùng `main` @ `d4ba320` (sau PR #5/#6 của Bảo). Môi trường: conda `similitude` (Python 3.12).
 
-## Cần Linh / đội quyết (chưa chặn việc)
-- [x] ~~Commit / push~~: đã commit + push 8 commit B0–B12 lúc 14:00; Bảo đã hợp nhất vào `main`.
-- [ ] **0.1 / G0 (quy định SI):** cần người đọc Submission Guide và quyết. Bản nháp `docs/compliance.md` sẽ có sẵn checklist.
-- [ ] File `.dodsrc` ở gốc repo do `earthaccess` tạo (chỉ chứa đường dẫn netrc/cookie). Chưa xoá, không commit. Nên thêm vào `.gitignore` (file của Bảo).
-- [ ] **G1 — mục tiêu `shackleton_rim`:** Bảo đề xuất không dùng chip này làm mục tiêu (dốc trung vị 31°, có lẽ là thành trong hố). Hiện **4/5 ứng viên L2** khớp tốt nhất với `shackleton_rim`. Nếu G1 chấp nhận đề xuất, cần lọc mục tiêu này trong `fidelity.parquet` (A8) hoặc trong discovery rồi chạy lại.
-- [ ] **OpenAlex hết ngân sách miễn phí trong ngày** cho IP này (không có API key; reset 00:00 UTC = 07:00 giờ VN). Ô L1/L2 mới chưa có Attention (hiển thị "unknown", vẫn được giữ theo thiết kế). Sáng mai chạy lại `python scripts/discovery/run_discovery.py`; hoặc đặt biến môi trường `OPENALEX_API_KEY` (khoá cá nhân, không commit) để chạy ngay.
-- [ ] **Báo Bảo:** mặt nạ đất trơ tầng 1 để lọt băng/tuyết (sông băng Nunavut, South Patagonian Ice Field) → nên loại WorldCover lớp 70 (snow/ice) trong A2/A6.
+## TÌNH TRẠNG 15/11 09:40 — còn lại trước hạn nộp 21:00
+Phần kỹ thuật của B **đã xong** (B0–B17, B13–B16, việc Bảo nhờ sau PR #5/#6). Ô `[ ]` trong `PLAN.md` không phản ánh tiến độ B (Linh yêu cầu không sửa PLAN); tiến độ thật ở bảng "Giai đoạn 2b" và "Nhật ký" bên dưới.
 
-## Việc còn lại của B (phụ thuộc người / Bảo)
-- **G1 (16:00):** quyết M1 đường chính hay lùi (xem B3), giữ hay cắt X1, và mục tiêu `shackleton_rim` (trên).
-- **B10:** Bảo duyệt chéo `config/review_b10.yaml` + `data/raw/review/contact_sheet.png`, `contact_sheet_L1L2.png`.
-- **B12:** chốt số theo `docs/validation_report.md` (A9); dựng slide thật từ `docs/slides_draft.md`.
-- **0.1 / 5.x:** đọc nguyên văn, quyết G0, ký `docs/compliance.md`, điền trang Project, nộp.
-- Workflow Pages (`.github/workflows/pages.yml`) cần bật Settings → Pages → "GitHub Actions" và merge vào `main` để deploy.
+| # | Việc | Ai | Trạng thái / ghi chú |
+| :--- | :--- | :--- | :--- |
+| 1 | **Bật GitHub Pages** | chủ repo (Johnlrr) | Workflow `pages.yml` **thất bại 3 lần gần nhất** (da4390e, 7f5c283, d4ba320) vì repo chưa bật Pages (`GET /pages` = 404). Cần Settings → Pages → Source = **GitHub Actions**, rồi chạy lại workflow. Cần URL này cho slide 6 (QR) và trang Project |
+| 2 | **Dựng 7 slide thật** (B12 / 5.1) | Linh | Mới có nháp `docs/slides_draft.md` + số trong `docs/slide_numbers.json` (chạy lại `scripts/slides/slide_numbers.py` nếu dữ liệu đổi) |
+| 3 | **0.1 / G0 quy định SI** | Linh + Bảo | Đọc nguyên văn Submission Guide + FAQ SI; quyết và ký `docs/compliance.md`; câu khai báo SI cho trang Project |
+| 4 | **Trang Project** (5.1), **kiểm link ẩn danh** (5.2), **nộp + chụp xác nhận** (5.3) | Linh + Bảo | Cần URL web (việc 1) và URL slide (việc 2). Nộp trước 21:00 |
+| 5 | Đổi câu "Not presented as hidden" trong ghi chú Da Qaidam (`config/sites.yaml`) | Bảo | Để chữ "hidden" chỉ còn ở site `hidden_status = yes` |
+| 6 | Thêm `.dodsrc` vào `.gitignore` | Bảo (file của Bảo) | File do `earthaccess` tạo ở gốc repo, không commit |
+
+## Đã giải quyết (giữ để tra cứu)
+- [x] Commit / push / merge `main`: theo yêu cầu Linh (lần cuối 09:35, `d4ba320`).
+- [x] G1 (`docs/review_g1.md`): M1 giữ đường chính → tiêu chí dừng FAIL, không công bố M1; X1 thành danh sách 3 điều kiện; `shackleton_rim` giữ trong bảng với nhãn "Shackleton inner wall (Site04 centre)" (`config/sites.yaml`).
+- [x] OpenAlex: Attention ô 108/108 và Attention site cho 7 site có tên (Bảo chạy lại 09:00 sau reset).
+- [x] Mặt nạ băng: đã báo; A13/A17 loại ô `ice_check = excluded`, giữ ô gắn cờ.
+- [x] B10: Linh duyệt mọi ô Connecting Ridge (L1 + L2) và 2 ô A13 Bảo nhờ.
 
 ## Sai khác so với PLAN (ghi lại, không sửa PLAN)
 - `lens_id` dùng dạng ngắn `L1, L2, M1, X1` (khớp `targets_L1.parquet` của Bảo), không dùng `M1_aqueous` như ví dụ DESIGN 2.4.
